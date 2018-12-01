@@ -8,7 +8,7 @@ using SimpleSocial.Models;
 
 namespace SimpleSocial.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {

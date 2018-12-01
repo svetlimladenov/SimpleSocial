@@ -21,7 +21,11 @@ namespace SimpleSocial.Models
 
         public bool IsDeleted { get; set; } = false;
 
-        public int Likes { get; set; }
+        public int Likes { get; set; } = 0;
+
+        public string UserId { get; set; }
+
+        public User User { get; set; }
 
         [ForeignKey("Wall")]
         public string WallId { get; set; }

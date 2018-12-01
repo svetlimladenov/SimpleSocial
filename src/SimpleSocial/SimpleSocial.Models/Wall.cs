@@ -15,7 +15,7 @@ namespace SimpleSocial.Models
 
         public string UserId { get; set; }
 
-        public string User { get; set; }
+        public User User { get; set; }
 
         public ICollection<Post> Posts { get; set; }
     }

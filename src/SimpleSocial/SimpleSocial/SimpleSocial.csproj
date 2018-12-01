@@ -12,7 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SimpleSocial.Common\SimpleSocial.Common.csproj" />
     <ProjectReference Include="..\SimpleSocial.Data\SimpleSocial.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Services\" />
   </ItemGroup>
 
 </Project>

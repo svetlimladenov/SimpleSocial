@@ -14,6 +14,8 @@ namespace SimpleSocial.Data
         {
         }
 
+        public DbSet<User> Users { get; set; }
+
         public DbSet<UserFriend> UserFriends { get; set; }
 
         public DbSet<Wall> Walls { get; set; }
@@ -33,8 +35,23 @@ namespace SimpleSocial.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<User>()
+                .HasOne(u => u.Wall)
+                .WithOne(w => w.User)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<User>()
+                .HasMany(u => u.Comments)
+                .WithOne(c => c.Author)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Entity<UserFriend>()
-                .HasKey(x => new {x.UserId, x.FriendId});
+                .HasKey(ur => new { ur.UserId, ur.FriendId });
+
+            builder.Entity<User>()
+                .HasMany(u => u.UserFriends)
+                .WithOne(u => u.Friend)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

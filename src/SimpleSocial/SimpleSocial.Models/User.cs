@@ -37,6 +37,6 @@ namespace SimpleSocial.Models
 
         public ICollection<Comment> Comments { get; set; }
 
-        public ICollection<Page> UserPages { get; set; }
+        public ICollection<Page> UserPages { get; set; }    
     }
 }
