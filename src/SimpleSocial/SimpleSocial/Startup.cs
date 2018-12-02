@@ -69,6 +69,8 @@ namespace SimpleSocial
                     });
             });
 
+            services.AddResponseCompression(options => { options.EnableForHttps = true; });
+
             services.AddSingleton<IEmailSender, EmailSender>();
             services.AddScoped<IMyProfileServices, MyProfileServices>();
             services.AddScoped<ICreatePostServices, CreatePostServices>();
@@ -89,6 +91,7 @@ namespace SimpleSocial
             }
 
             app.UseHttpsRedirection();
+            app.UseResponseCompression();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
