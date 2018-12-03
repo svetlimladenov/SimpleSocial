@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2050
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial", "SimpleSocial\SimpleSocial.csproj", "{3CBF88C3-9318-450F-8FCE-4DA4C80AEFE7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{B3524A55-80B7-4039-A8CA-4C525CB49D65}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Models", "SimpleSocial.Models\SimpleSocial.Models.csproj", "{BBEB5837-25B7-4461-9468-7F2FF98B2BA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Web", "Web\SimpleSocial.Web\SimpleSocial.Web.csproj", "{19AA4D0C-3EA5-4305-B0A3-7465AE2B9C81}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Data", "SimpleSocial.Data\SimpleSocial.Data.csproj", "{17A24EB4-140D-404D-8342-AE95CFB7342D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{6D0A8205-CAFE-40CC-A03B-1FEDF3DEF332}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSocial.Common", "SimpleSocial.Common\SimpleSocial.Common.csproj", "{C2457472-25C3-4E5A-A475-323CD0D15B36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSocial.Data", "Data\SimpleSocial.Data\SimpleSocial.Data.csproj", "{D2B684FA-8A6F-46FA-BA69-E06EC549DBE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSocial.Data.Models", "Data\SimpleSocial.Data.Models\SimpleSocial.Data.Models.csproj", "{EAE20C2B-A770-412B-9306-240252AFEF62}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,27 +19,28 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3CBF88C3-9318-450F-8FCE-4DA4C80AEFE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CBF88C3-9318-450F-8FCE-4DA4C80AEFE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CBF88C3-9318-450F-8FCE-4DA4C80AEFE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CBF88C3-9318-450F-8FCE-4DA4C80AEFE7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBEB5837-25B7-4461-9468-7F2FF98B2BA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBEB5837-25B7-4461-9468-7F2FF98B2BA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBEB5837-25B7-4461-9468-7F2FF98B2BA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBEB5837-25B7-4461-9468-7F2FF98B2BA3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{17A24EB4-140D-404D-8342-AE95CFB7342D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{17A24EB4-140D-404D-8342-AE95CFB7342D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{17A24EB4-140D-404D-8342-AE95CFB7342D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{17A24EB4-140D-404D-8342-AE95CFB7342D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C2457472-25C3-4E5A-A475-323CD0D15B36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2457472-25C3-4E5A-A475-323CD0D15B36}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2457472-25C3-4E5A-A475-323CD0D15B36}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2457472-25C3-4E5A-A475-323CD0D15B36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19AA4D0C-3EA5-4305-B0A3-7465AE2B9C81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19AA4D0C-3EA5-4305-B0A3-7465AE2B9C81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19AA4D0C-3EA5-4305-B0A3-7465AE2B9C81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19AA4D0C-3EA5-4305-B0A3-7465AE2B9C81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2B684FA-8A6F-46FA-BA69-E06EC549DBE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2B684FA-8A6F-46FA-BA69-E06EC549DBE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2B684FA-8A6F-46FA-BA69-E06EC549DBE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2B684FA-8A6F-46FA-BA69-E06EC549DBE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAE20C2B-A770-412B-9306-240252AFEF62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAE20C2B-A770-412B-9306-240252AFEF62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAE20C2B-A770-412B-9306-240252AFEF62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAE20C2B-A770-412B-9306-240252AFEF62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{19AA4D0C-3EA5-4305-B0A3-7465AE2B9C81} = {B3524A55-80B7-4039-A8CA-4C525CB49D65}
+		{D2B684FA-8A6F-46FA-BA69-E06EC549DBE1} = {6D0A8205-CAFE-40CC-A03B-1FEDF3DEF332}
+		{EAE20C2B-A770-412B-9306-240252AFEF62} = {6D0A8205-CAFE-40CC-A03B-1FEDF3DEF332}
+	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {27019EF0-9251-4200-ADCE-0DD26D3144A4}
+		SolutionGuid = {2584DF72-F5A3-4A64-9BCA-9E713E4699FB}
 	EndGlobalSection
 EndGlobal
