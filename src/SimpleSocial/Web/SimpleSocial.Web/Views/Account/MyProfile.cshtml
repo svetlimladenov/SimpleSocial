@@ -1,0 +1,42 @@
+﻿@model SimpleSocia.Services.Models.Account.MyProfileViewModel
+
+@{
+    ViewData["Title"] = "MyProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+
+<form asp-controller="Posts" asp-action="Create" class="form-group">
+    <input asp-for="CreatePost.Title" class="form-control" />
+    <textarea asp-for="CreatePost.Content" class="form-control" rows="4"></textarea>
+    <input asp-for="CreatePost.WallId" value="@Model.WallId" hidden />
+    <input asp-for="CreatePost.UserId" value="@Model.UserId" hidden="" />
+    <input type="submit" value="Post" class="form-control btn btn-primary" />
+</form>
+
+
+
+@foreach (var post in Model.Posts)
+{
+    <div>
+        <div class="row">
+            <a>@post.CreatedOn.ToString("d")</a>
+            <h1 class="text-center">@post.Title</h1>
+        </div>
+        <div class="row">
+            <p>@post.Content</p>
+        </div>
+        <div class="row">
+            Comments:
+            @foreach (var comment in post.Comments)
+            {
+                <div class="row">
+                    <a>@comment.Author</a>
+                    <p>@comment.CommentText</p>
+                </div>
+            }
+        </div>
+    </div>
+}
