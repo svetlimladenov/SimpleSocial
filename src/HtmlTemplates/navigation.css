@@ -1,0 +1,42 @@
+.container-body{
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.nav-link{
+	text-decoration: none;
+	color: grey;
+}
+
+i a{
+	color: grey;
+	text-decoration: none;
+	margin-left: 3px;
+	font-size: 0.7em;
+	font-family: 'Noto Sans SC', sans-serif;
+}
+}
+
+i a:hover{
+ 	color: grey;
+ 	text-decoration: none;
+}
+
+li{
+	border-bottom:3px solid blue;
+}
+
+.fa-cog {
+  color: blue;
+}
+
+.nav-item{
+	margin-left: 10px;
+}
+
+#nav{
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+
