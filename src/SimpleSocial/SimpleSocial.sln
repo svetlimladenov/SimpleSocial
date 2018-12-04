@@ -9,9 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Web", "Web\Sim
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{6D0A8205-CAFE-40CC-A03B-1FEDF3DEF332}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSocial.Data", "Data\SimpleSocial.Data\SimpleSocial.Data.csproj", "{D2B684FA-8A6F-46FA-BA69-E06EC549DBE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Data", "Data\SimpleSocial.Data\SimpleSocial.Data.csproj", "{D2B684FA-8A6F-46FA-BA69-E06EC549DBE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSocial.Data.Models", "Data\SimpleSocial.Data.Models\SimpleSocial.Data.Models.csproj", "{EAE20C2B-A770-412B-9306-240252AFEF62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Data.Models", "Data\SimpleSocial.Data.Models\SimpleSocial.Data.Models.csproj", "{EAE20C2B-A770-412B-9306-240252AFEF62}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{BC838223-68BB-41AB-B01C-2317C626295C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SandBox", "Tests\SandBox\SandBox.csproj", "{68626B82-3D90-4054-BCD2-632F0EC0F422}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +35,10 @@ Global
 		{EAE20C2B-A770-412B-9306-240252AFEF62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAE20C2B-A770-412B-9306-240252AFEF62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAE20C2B-A770-412B-9306-240252AFEF62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68626B82-3D90-4054-BCD2-632F0EC0F422}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68626B82-3D90-4054-BCD2-632F0EC0F422}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68626B82-3D90-4054-BCD2-632F0EC0F422}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68626B82-3D90-4054-BCD2-632F0EC0F422}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +47,7 @@ Global
 		{19AA4D0C-3EA5-4305-B0A3-7465AE2B9C81} = {B3524A55-80B7-4039-A8CA-4C525CB49D65}
 		{D2B684FA-8A6F-46FA-BA69-E06EC549DBE1} = {6D0A8205-CAFE-40CC-A03B-1FEDF3DEF332}
 		{EAE20C2B-A770-412B-9306-240252AFEF62} = {6D0A8205-CAFE-40CC-A03B-1FEDF3DEF332}
+		{68626B82-3D90-4054-BCD2-632F0EC0F422} = {BC838223-68BB-41AB-B01C-2317C626295C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2584DF72-F5A3-4A64-9BCA-9E713E4699FB}
