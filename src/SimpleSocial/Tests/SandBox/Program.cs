@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleSocial.Data;
+using SimpleSocial.Data.Common;
 
 namespace SandBox
 {
@@ -43,6 +44,7 @@ namespace SandBox
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
         }
 
     }

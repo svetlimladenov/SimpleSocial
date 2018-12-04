@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SimpleSocial.Data.Common\SimpleSocial.Data.Common.csproj" />
     <ProjectReference Include="..\SimpleSocial.Data.Models\SimpleSocial.Data.Models.csproj" />
   </ItemGroup>
 
