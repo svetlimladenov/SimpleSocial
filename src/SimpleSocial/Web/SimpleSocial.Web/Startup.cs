@@ -12,8 +12,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleSocial.Data;
+using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Web.Models;
+using SimpleSocial.Web.Services;
 
 namespace SimpleSocial.Web
 {
@@ -53,6 +55,12 @@ namespace SimpleSocial.Web
                 .AddEntityFrameworkStores<SimpleSocialContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //Application services
+
+            services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+            services.AddScoped<IMyProfileServices, MyProfileServices>();
+            services.AddScoped<IPostServices, PostServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
