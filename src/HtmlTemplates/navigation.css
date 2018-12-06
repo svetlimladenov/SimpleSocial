@@ -22,10 +22,6 @@ i a:hover{
  	text-decoration: none;
 }
 
-li{
-	border-bottom:3px solid blue;
-}
-
 .fa-cog {
   color: blue;
 }

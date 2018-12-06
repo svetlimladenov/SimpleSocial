@@ -18,4 +18,8 @@
     <ProjectReference Include="..\..\Services\SimpleSocial.Services.DataServices\SimpleSocial.Services.DataServices.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>
