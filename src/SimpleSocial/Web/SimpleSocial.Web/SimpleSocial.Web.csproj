@@ -16,6 +16,7 @@
     <ProjectReference Include="..\..\Data\SimpleSocial.Data.Models\SimpleSocial.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\SimpleSocial.Data\SimpleSocial.Data.csproj" />
     <ProjectReference Include="..\..\Services\SimpleSocial.Services.DataServices\SimpleSocial.Services.DataServices.csproj" />
+    <ProjectReference Include="..\..\Services\SimpleSocial.Services.Mapping\SimpleSocial.Services.Mapping.csproj" />
   </ItemGroup>
 
   <ItemGroup>

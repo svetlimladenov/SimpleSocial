@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using SimpleSocia.Services.Models.Account;
 
-namespace SimpleSocial.Services.DataServices
+namespace SimpleSocial.Services.DataServices.PostServices
 {
     public interface IPostServices
     {

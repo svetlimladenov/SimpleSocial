@@ -2,10 +2,13 @@
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
+using SimpleSocial.Services.Mapping;
 
-namespace SimpleSocial.Services.DataServices
+
+namespace SimpleSocial.Services.DataServices.Account
 {
     public class MyProfileServices : IMyProfileServices
     {
@@ -24,10 +27,10 @@ namespace SimpleSocial.Services.DataServices
             this.userManager = userManager;
         }
 
-        public ICollection<Post> GetUserPosts(ClaimsPrincipal user)
+        public IEnumerable<PostViewModel> GetUserPosts(ClaimsPrincipal user)
         {
             var userId = userManager.GetUserId(user);
-            var posts = this.postRepository.All().Where(x => x.UserId == userId).ToArray();
+            var posts = this.postRepository.All().Where(x => x.UserId == userId).To<PostViewModel>().ToList();
 
             return posts;
         }

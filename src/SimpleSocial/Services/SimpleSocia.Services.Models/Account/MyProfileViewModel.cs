@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Models;
 
 namespace SimpleSocia.Services.Models.Account
 {
     public class MyProfileViewModel
     {
-        public ICollection<Post> Posts { get; set; }
+        public IEnumerable<PostViewModel> Posts { get; set; }
 
         public CreatePostInputModel CreatePost { get; set; }
 

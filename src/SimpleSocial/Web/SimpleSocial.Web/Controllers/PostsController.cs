@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
-using SimpleSocial.Services.DataServices;
-using SimpleSocial.Web.Models;
+using SimpleSocial.Services.DataServices.PostServices;
 
 namespace SimpleSocial.Web.Controllers
 {

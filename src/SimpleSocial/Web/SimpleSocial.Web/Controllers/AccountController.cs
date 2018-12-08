@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices;
+using SimpleSocial.Services.DataServices.Account;
 
 namespace SimpleSocial.Web.Controllers
 {

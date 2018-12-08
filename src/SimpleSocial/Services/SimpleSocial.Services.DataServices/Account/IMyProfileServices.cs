@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
-using SimpleSocial.Data.Models;
+using SimpleSocia.Services.Models.Posts;
 
-namespace SimpleSocial.Services.DataServices
+namespace SimpleSocial.Services.DataServices.Account
 {
     public interface IMyProfileServices
     {
-        ICollection<Post> GetUserPosts(ClaimsPrincipal user);
+        IEnumerable<PostViewModel> GetUserPosts(ClaimsPrincipal user);
 
         string GetWallId(ClaimsPrincipal user);
     }

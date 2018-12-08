@@ -37,6 +37,7 @@
     </div>
     <div class="col-md-6">
         <form asp-controller="Posts" asp-action="Create" class="form-group">
+            <input asp-for="CreatePost.Title" class="form-control"/>
             <textarea asp-for="CreatePost.Content" class="form-control" rows="4"></textarea>
             <input asp-for="CreatePost.WallId" value="@Model.WallId" hidden />
             <input asp-for="CreatePost.UserId" value="@Model.UserId" hidden />
@@ -48,6 +49,7 @@
                 <div class="row">
                     <a>@post.CreatedOn.ToString("d")</a>
                     <h1 class="text-center">@post.Title</h1>
+                    <p>@post.CharactersCount symbols</p>
                 </div>
                 <div class="row">
                     <p>@post.Content</p>

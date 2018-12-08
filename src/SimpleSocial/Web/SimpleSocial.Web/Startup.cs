@@ -11,10 +11,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleSocia.Services.Models.Account;
 using SimpleSocial.Data;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices;
+using SimpleSocial.Services.DataServices.Account;
+using SimpleSocial.Services.DataServices.PostServices;
+using SimpleSocial.Services.Mapping;
 using SimpleSocial.Web.Models;
 
 
@@ -32,6 +36,11 @@ namespace SimpleSocial.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            AutoMapperConfig.RegisterMappings(
+                typeof(CreatePostInputModel).Assembly,
+                typeof(MyProfileViewModel).Assembly
+                );
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
