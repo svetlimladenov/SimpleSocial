@@ -28,5 +28,10 @@ namespace SimpleSocial.Web.Controllers
             viewModel.UserId = userManager.GetUserId(User);
             return View(viewModel);
         }
+
+        public IActionResult MyFriends()
+        {
+            return this.View();
+        }
     }
 }
