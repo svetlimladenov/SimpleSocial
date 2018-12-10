@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace SimpleSocial.Data.Models
 {
@@ -20,7 +22,10 @@ namespace SimpleSocial.Data.Models
 
         public string LastName { get; set; }
 
-        public string ProfilePictureUrl { get; set; }
+        [ForeignKey("ProfilePicture")]
+        public string ProfilePictureId { get; set; }
+
+        public ProfilePicture ProfilePicture { get; set; }
 
         public DateTime BirthDay { get; set; }
 

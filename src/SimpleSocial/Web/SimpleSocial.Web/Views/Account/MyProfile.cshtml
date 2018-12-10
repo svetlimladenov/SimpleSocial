@@ -8,21 +8,29 @@
 <h2 class="text-center">@ViewData["Title"]</h2>
 
 <div class="row">
-    <div class="col-md-3" id="profile-picture">
+    <div class="col-md-3">      
         @*TODO: Check if user has profile picture else display default profile picture*@
-        @if (1 == 1)
+        @if (@Model.ProfilePicture == null)
         {
-            <img src="https://pbs.twimg.com/profile_images/1070678762398908416/3yP-3XiR_400x400.jpg" class="profilePicture" />
+            <img src="/profile-pictures/default.jpg" class="profilePicture"/>           
         }
         else
         {
             @*TODO: On hover give option to upload profile pic*@
-            <img src="https://winkeyecare.com/wp-content/uploads/2013/03/Empty-Profile-Picture-450x450.jpg" class="profilePicture" />
+            <img src="/profile-pictures/@Model.ProfilePicture.FileName" class="profilePicture"/>
         }
     </div>
+
     <div class="col-md-6">
         <a class="nav-item nav-link" href="#">Posts<span class="sr-only">(current)</span></a>
         <a class="nav-item nav-link" asp-action="MyFriends">Friends</a>
+    
+        <form asp-action="UploadProfilePicture" enctype="multipart/form-data">
+            <label class="form-control">Upload Picture</label>
+            <input type="file" name="UploadImage"/>
+            <input type="submit" class="btn btn-primary" value="Upload"/>
+        </form>
+       
     </div>
     <div class="col-md-3">
         <div class="navbar-nav">

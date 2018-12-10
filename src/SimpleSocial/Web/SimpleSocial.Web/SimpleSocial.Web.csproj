@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="wwwroot\profile-pictures\" />
   </ItemGroup>
 
 </Project>

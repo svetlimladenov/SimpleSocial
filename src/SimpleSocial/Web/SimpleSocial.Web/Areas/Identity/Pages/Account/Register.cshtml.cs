@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using SimpleSocial.Data;
+using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 
 namespace SimpleSocial.Web.Areas.Identity.Pages.Account
@@ -23,19 +24,22 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly SimpleSocialContext dbContext;
+        private readonly IRepository<ProfilePicture> profilePicturesRepository;
 
         public RegisterModel(
             UserManager<SimpleSocialUser> userManager,
             SignInManager<SimpleSocialUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            SimpleSocialContext dbContext)
+            SimpleSocialContext dbContext,
+            IRepository<ProfilePicture> profilePicturesRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             this.dbContext = dbContext;
+            this.profilePicturesRepository = profilePicturesRepository;
         }
 
         [BindProperty]
@@ -85,7 +89,8 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var user = new SimpleSocialUser() { UserName = Input.Username, FirstName = Input.FirstName, LastName = Input.LastName, Email = Input.Email };
+                var user = new SimpleSocialUser() { UserName = Input.Username, FirstName = Input.FirstName, LastName = Input.LastName, Email = Input.Email};
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 var wall = new Wall()
                 {

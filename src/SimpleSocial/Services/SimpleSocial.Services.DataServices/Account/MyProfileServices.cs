@@ -14,16 +14,19 @@ namespace SimpleSocial.Services.DataServices.Account
     {
         private readonly IRepository<Post> postRepository;
         private readonly IRepository<Wall> wallRepository;
+        private readonly IRepository<ProfilePicture> profilePicturesRepository;
         private readonly UserManager<SimpleSocialUser> userManager;
 
 
         public MyProfileServices(
             IRepository<Post> postRepository,
             IRepository<Wall> wallRepository,
+            IRepository<ProfilePicture> profilePicturesRepository,
             UserManager<SimpleSocialUser> userManager)
         {
             this.postRepository = postRepository;
             this.wallRepository = wallRepository;
+            this.profilePicturesRepository = profilePicturesRepository;
             this.userManager = userManager;
         }
 
@@ -41,6 +44,13 @@ namespace SimpleSocial.Services.DataServices.Account
             var posts = wallRepository.All().FirstOrDefault(w => w.UserId == userId)?.Id;
 
             return posts;
+        }
+
+        public ProfilePicture GetProfilePicture(ClaimsPrincipal user)
+        {
+            var userId = userManager.GetUserId(user);
+            var profilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
+            return profilePicture;
         }
     }
 }

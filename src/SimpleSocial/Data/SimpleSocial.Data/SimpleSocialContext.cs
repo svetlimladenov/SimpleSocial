@@ -21,6 +21,8 @@ namespace SimpleSocial.Data
 
         public DbSet<Post> Posts { get; set; }
 
+        public DbSet<ProfilePicture> ProfilePictures { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -45,6 +47,10 @@ namespace SimpleSocial.Data
                 .HasMany(u => u.UserFriends)
                 .WithOne(u => u.Friend)
                 .OnDelete(DeleteBehavior.Restrict);
+
+           
+                
+                
         }
     }
 }
