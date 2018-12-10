@@ -17,7 +17,7 @@ using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices;
 using SimpleSocial.Services.DataServices.Account;
-using SimpleSocial.Services.DataServices.PostServices;
+using SimpleSocial.Services.DataServices.PostsServices;
 using SimpleSocial.Services.Mapping;
 using SimpleSocial.Web.Models;
 

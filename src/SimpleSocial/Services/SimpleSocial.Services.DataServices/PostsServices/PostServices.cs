@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
-using AutoMapper;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using SimpleSocia.Services.Models.Account;
-using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 
-namespace SimpleSocial.Services.DataServices.PostServices
+namespace SimpleSocial.Services.DataServices.PostsServices
 {
     public class PostServices : IPostServices
     {
@@ -29,6 +28,11 @@ namespace SimpleSocial.Services.DataServices.PostServices
             
             await postRepository.AddAsync(post);
             await postRepository.SaveChangesAsync();
+        }
+
+        public int GetTotalPostsCount()
+        {
+            return this.postRepository.All().Count();
         }
     }
 }

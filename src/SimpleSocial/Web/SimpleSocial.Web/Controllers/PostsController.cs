@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
-using SimpleSocial.Services.DataServices.PostServices;
+using SimpleSocial.Services.DataServices.PostsServices;
 
 namespace SimpleSocial.Web.Controllers
 {
