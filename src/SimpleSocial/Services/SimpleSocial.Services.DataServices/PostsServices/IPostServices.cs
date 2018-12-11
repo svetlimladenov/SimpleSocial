@@ -5,6 +5,6 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 {
     public interface IPostServices
     {
-        Task CreatePost(MyProfileViewModel viewModel);
+        Task CreatePostAsync(MyProfileViewModel viewModel);
     }
 }

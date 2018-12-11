@@ -15,7 +15,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             this.postRepository = postRepository;
         }
 
-        public async Task CreatePost(MyProfileViewModel viewModel)
+        public async Task CreatePostAsync(MyProfileViewModel viewModel)
         {
             var post = new Post
             {
