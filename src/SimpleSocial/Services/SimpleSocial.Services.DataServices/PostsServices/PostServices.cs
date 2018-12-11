@@ -15,7 +15,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             this.postRepository = postRepository;
         }
 
-        public async Task CreatePostAsync(MyProfileViewModel viewModel)
+        public void CreatePost(MyProfileViewModel viewModel)
         {
             var post = new Post
             {
@@ -26,7 +26,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             };
 
             
-            await postRepository.AddAsync(post);
+            postRepository.AddAsync(post).GetAwaiter().GetResult();
             postRepository.SaveChangesAsync().GetAwaiter().GetResult();
         }
 

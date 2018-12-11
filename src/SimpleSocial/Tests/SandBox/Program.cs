@@ -30,15 +30,10 @@ namespace SandBox
 
         private static void SandboxCode(IServiceProvider serviceProvider)
         {
-            var db = serviceProvider.GetService<SimpleSocialContext>();
+            var exits = File.Exists(
+                "D:/SoftUni/SimpleSocial/src/SimpleSocial/Web/SimpleSocial.Web/wwwroot/profile-pictures/37f1edb4-069e-4363-8202-b18a2dcc8b8f.jpg");
 
-            db.ProfilePictures.Add(new ProfilePicture()
-            {
-                FileName = "Kur",
-                UserId = "a7a86be6-2fb2-4e2c-bb43-eeb36adc0f21"
-            });
-
-            db.SaveChanges();
+            Console.WriteLine(exits);
         }
 
         private static void ConfigureServices(ServiceCollection services)

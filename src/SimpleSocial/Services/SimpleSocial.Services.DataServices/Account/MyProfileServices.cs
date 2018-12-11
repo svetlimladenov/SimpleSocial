@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
@@ -50,7 +51,17 @@ namespace SimpleSocial.Services.DataServices.Account
         {
             var userId = userManager.GetUserId(user);
             var profilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
-            return profilePicture;
+            if (File.Exists(
+                $"D:/SoftUni/SimpleSocial/src/SimpleSocial/Web/SimpleSocial.Web/wwwroot/profile-pictures/{profilePicture?.FileName}"))
+            {
+                return profilePicture;
+            }
+            
+            return new ProfilePicture
+            {
+                FileName = "default.jpg",
+                UserId = userId,
+            };
         }
     }
 }

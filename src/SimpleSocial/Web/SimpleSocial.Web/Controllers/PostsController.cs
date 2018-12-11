@@ -18,7 +18,7 @@ namespace SimpleSocial.Web.Controllers
         {
             var inputModel = viewModel.CreatePost;
 
-            createPostServices.CreatePostAsync(viewModel);
+            createPostServices.CreatePost(viewModel);
 
             return RedirectToAction("MyProfile", "Account");
         }

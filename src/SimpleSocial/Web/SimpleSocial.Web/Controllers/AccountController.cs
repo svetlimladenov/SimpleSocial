@@ -70,7 +70,6 @@ namespace SimpleSocial.Web.Controllers
             }
 
             return RedirectToAction("MyProfile");
-
         }
     }
 }

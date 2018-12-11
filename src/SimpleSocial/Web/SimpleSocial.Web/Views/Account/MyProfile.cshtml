@@ -10,16 +10,8 @@
 
 <div class="row">
     <div class="col-md-3">
-        @*TODO: Check if user has profile picture else display default profile picture*@
-        @if (!File.Exists("D:/SoftUni/SimpleSocial/src/SimpleSocial/Web/SimpleSocial.Web/wwwroot/profile-pictures/" + Model.ProfilePicture.UserId))
-        {
-            <img src="/profile-pictures/default.jpg" class="profilePicture" />
-        }
-        else
-        {
-            @*TODO: On hover give option to upload profile pic*@
-            <img src="/profile-pictures/@Model.ProfilePicture.FileName" class="profilePicture" />
-        }
+        @*TODO: Check if user has profile picture else display default profile picture*@       
+            <img src="/profile-pictures/@Model.ProfilePicture.FileName" class="profilePicture" />    
     </div>
 
     <div class="col-md-6">
@@ -49,7 +41,7 @@
             <div data-emojiarea data-type="unicode" data-global-picker="false">
                 <div class="emoji-button">&#x1f604;</div>
                 <form asp-controller="Posts" asp-action="Create" class="form-group">
-                    <textarea asp-for="CreatePost.Content" id="input1" rows="5" class="form-control">You can insert unicode emojis here &#x1f604;</textarea>
+                    <textarea asp-for="CreatePost.Content" id="input1" rows="5" placeholder="What's up today ?" class="form-control">You can insert unicode emojis here &#x1f604;</textarea>
                     <input asp-for="CreatePost.WallId" value="@Model.WallId" hidden />
                     <input asp-for="CreatePost.UserId" value="@Model.UserId" hidden />
                     <input type="submit" value="Post" class="form-control btn btn-primary" />

@@ -62,7 +62,7 @@ namespace SimpleSocial.Services.DataServices.Tests
             var repository = new DbRepository<Post>(dbContext);
             var postService = new PostServices(repository);
 
-            await postService.CreatePostAsync(new MyProfileViewModel
+            await postService.CreatePost(new MyProfileViewModel
             {
                 CreatePost = new CreatePostInputModel
                 {
@@ -72,7 +72,7 @@ namespace SimpleSocial.Services.DataServices.Tests
                     WallId = "sdaf",
                 }
             });
-            await postService.CreatePostAsync(new MyProfileViewModel
+            await postService.CreatePost(new MyProfileViewModel
             {
                 CreatePost = new CreatePostInputModel
                 {
