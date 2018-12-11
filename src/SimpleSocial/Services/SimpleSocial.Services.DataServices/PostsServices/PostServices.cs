@@ -27,7 +27,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
             
             await postRepository.AddAsync(post);
-            await postRepository.SaveChangesAsync();
+            postRepository.SaveChangesAsync().GetAwaiter().GetResult();
         }
 
         public int GetTotalPostsCount()

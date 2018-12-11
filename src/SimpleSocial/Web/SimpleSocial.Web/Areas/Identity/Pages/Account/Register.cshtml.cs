@@ -101,6 +101,15 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
                 dbContext.SaveChanges();
                 user.WallId = wall.Id;
                 dbContext.SaveChanges();
+
+                dbContext.ProfilePictures.Add(new ProfilePicture
+                {
+                    UserId = user.Id,
+                    FileName = user.Id,
+                });
+
+                dbContext.SaveChanges();
+
                 if (result.Succeeded)
                 {
                     

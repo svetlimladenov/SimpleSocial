@@ -1,4 +1,5 @@
-﻿@model SimpleSocia.Services.Models.Account.MyProfileViewModel
+﻿@using System.IO
+@model SimpleSocia.Services.Models.Account.MyProfileViewModel
 
 @{
     ViewData["Title"] = "MyProfile";
@@ -8,33 +9,33 @@
 <h2 class="text-center">@ViewData["Title"]</h2>
 
 <div class="row">
-    <div class="col-md-3">      
+    <div class="col-md-3">
         @*TODO: Check if user has profile picture else display default profile picture*@
-        @if (@Model.ProfilePicture == null)
+        @if (!File.Exists("D:/SoftUni/SimpleSocial/src/SimpleSocial/Web/SimpleSocial.Web/wwwroot/profile-pictures/" + Model.ProfilePicture.UserId))
         {
-            <img src="/profile-pictures/default.jpg" class="profilePicture"/>           
+            <img src="/profile-pictures/default.jpg" class="profilePicture" />
         }
         else
         {
             @*TODO: On hover give option to upload profile pic*@
-            <img src="/profile-pictures/@Model.ProfilePicture.FileName" class="profilePicture"/>
+            <img src="/profile-pictures/@Model.ProfilePicture.FileName" class="profilePicture" />
         }
     </div>
 
     <div class="col-md-6">
         <a class="nav-item nav-link" href="#">Posts<span class="sr-only">(current)</span></a>
         <a class="nav-item nav-link" asp-action="MyFriends">Friends</a>
-    
+
         <form asp-action="UploadProfilePicture" enctype="multipart/form-data">
             <label class="form-control">Upload Picture</label>
-            <input type="file" name="UploadImage"/>
-            <input type="submit" class="btn btn-primary" value="Upload"/>
+            <input type="file" name="UploadImage" />
+            <input type="submit" class="btn btn-primary" value="Upload" />
         </form>
-       
+
     </div>
     <div class="col-md-3">
         <div class="navbar-nav">
-          
+
         </div>
     </div>
 </div>
@@ -44,19 +45,23 @@
         <p>Hello, @User.Identity.Name</p>
     </div>
     <div class="col-md-6">
-        <form asp-controller="Posts" asp-action="Create" class="form-group">
-            <input asp-for="CreatePost.Title" class="form-control"/>
-            <textarea asp-for="CreatePost.Content" class="form-control" rows="4"></textarea>
-            <input asp-for="CreatePost.WallId" value="@Model.WallId" hidden />
-            <input asp-for="CreatePost.UserId" value="@Model.UserId" hidden />
-            <input type="submit" value="Post" class="form-control btn btn-primary" />
-        </form>
+        <div class="example">
+            <div data-emojiarea data-type="unicode" data-global-picker="false">
+                <div class="emoji-button">&#x1f604;</div>
+                <form asp-controller="Posts" asp-action="Create" class="form-group">
+                    <textarea asp-for="CreatePost.Content" id="input1" rows="5" class="form-control">You can insert unicode emojis here &#x1f604;</textarea>
+                    <input asp-for="CreatePost.WallId" value="@Model.WallId" hidden />
+                    <input asp-for="CreatePost.UserId" value="@Model.UserId" hidden />
+                    <input type="submit" value="Post" class="form-control btn btn-primary" />
+                </form>
+            </div>         
+        </div>
         @foreach (var post in Model.Posts)
         {
             <div>
                 <div class="row">
                     <a>@post.CreatedOn.ToString("d")</a>
-                    <h1 class="text-center">@post.Title</h1>
+                    <h1 class="text-center">@post.Title</h1>    
                     <p>@post.CharactersCount symbols</p>
                 </div>
                 <div class="row">

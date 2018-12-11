@@ -33,7 +33,7 @@ namespace SimpleSocial.Services.DataServices.Account
         public IEnumerable<PostViewModel> GetUserPosts(ClaimsPrincipal user)
         {
             var userId = userManager.GetUserId(user);
-            var posts = this.postRepository.All().Where(x => x.UserId == userId).To<PostViewModel>().ToList();
+            var posts = this.postRepository.All().Where(x => x.UserId == userId).To<PostViewModel>().ToList().OrderByDescending(x => x.CreatedOn);
 
             return posts;
         }

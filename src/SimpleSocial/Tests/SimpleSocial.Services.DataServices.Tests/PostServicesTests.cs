@@ -67,7 +67,6 @@ namespace SimpleSocial.Services.DataServices.Tests
                 CreatePost = new CreatePostInputModel
                 {
                     Content = "Content",
-                    Title = "Title",
                     Likes = 0,
                     UserId = "asdf",
                     WallId = "sdaf",
@@ -78,7 +77,6 @@ namespace SimpleSocial.Services.DataServices.Tests
                 CreatePost = new CreatePostInputModel
                 {
                     Content = "Content",
-                    Title = "Title",
                     Likes = 0,
                     UserId = "asdf",
                     WallId = "sdaf",
