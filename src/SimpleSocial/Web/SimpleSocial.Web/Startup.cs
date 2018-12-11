@@ -64,7 +64,7 @@ namespace SimpleSocial.Web
                     })
                 .AddEntityFrameworkStores<SimpleSocialContext>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //Application services
 

@@ -1,15 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+	<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <UserSecretsId>aspnet-SimpleSocial.Web-1EAA991B-CA1E-4431-9E4C-D1DF46143328</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="2.1.2" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>
