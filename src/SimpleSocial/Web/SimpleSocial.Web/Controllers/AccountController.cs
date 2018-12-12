@@ -53,6 +53,7 @@ namespace SimpleSocial.Web.Controllers
             {
                 return RedirectToAction("MyProfile");
             }
+
             if (inputModel.UploadImage != null)
             {
                 var userId = this.userManager.GetUserId(User);
