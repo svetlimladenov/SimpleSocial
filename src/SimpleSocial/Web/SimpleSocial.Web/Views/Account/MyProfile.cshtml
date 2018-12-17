@@ -20,7 +20,7 @@
 
         <form asp-action="UploadProfilePicture" enctype="multipart/form-data">
             <label class="form-control">Upload Picture</label>
-            <input type="file" name="UploadImage" />
+            <input type="file" name="UploadImage" accept="image/*"/>
             <input type="submit" class="btn btn-primary" value="Upload" />
         </form>
 
@@ -31,7 +31,7 @@
         </div>
     </div>
 </div>
-<sdiv class="row">
+<div class="row">
     <div class="col-md-3">
         <h2>My Profile</h2>
         <p>Hello, @User.Identity.Name</p>
@@ -72,7 +72,21 @@
             </div>
         }
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" id="test">
         <h2>Who to follow</h2>
     </div>
-</sdiv>
+</div>
+
+
+@section Scripts
+{
+    @if (ViewData["ProfilePictureError"] == "true")
+    {
+        <script>
+            function myFunction() {
+                alert("Please upload an image !");
+            }
+
+        </script>
+    }
+}

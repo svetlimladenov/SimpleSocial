@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Common;
@@ -17,18 +18,21 @@ namespace SimpleSocial.Services.DataServices.Account
         private readonly IRepository<Wall> wallRepository;
         private readonly IRepository<ProfilePicture> profilePicturesRepository;
         private readonly UserManager<SimpleSocialUser> userManager;
-
+        private readonly IHostingEnvironment hostingEnvironment;
 
         public MyProfileServices(
             IRepository<Post> postRepository,
             IRepository<Wall> wallRepository,
             IRepository<ProfilePicture> profilePicturesRepository,
-            UserManager<SimpleSocialUser> userManager)
+            UserManager<SimpleSocialUser> userManager,
+            IHostingEnvironment hostingEnvironment
+            )
         {
             this.postRepository = postRepository;
             this.wallRepository = wallRepository;
             this.profilePicturesRepository = profilePicturesRepository;
             this.userManager = userManager;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         public IEnumerable<PostViewModel> GetUserPosts(ClaimsPrincipal user)
@@ -51,8 +55,8 @@ namespace SimpleSocial.Services.DataServices.Account
         {
             var userId = userManager.GetUserId(user);
             var profilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
-            if (File.Exists(
-                $"D:/SoftUni/SimpleSocial/src/SimpleSocial/Web/SimpleSocial.Web/wwwroot/profile-pictures/{profilePicture?.FileName}"))
+            var wwwRootPath = hostingEnvironment.WebRootPath;
+            if (File.Exists(wwwRootPath + $"/profile-pictures/{profilePicture?.FileName}"))
             {
                 return profilePicture;
             }
