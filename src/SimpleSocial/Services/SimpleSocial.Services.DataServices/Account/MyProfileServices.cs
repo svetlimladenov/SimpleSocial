@@ -2,8 +2,10 @@
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SimpleSocia.Services.Models.Account;
 using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Common;
@@ -39,7 +41,12 @@ namespace SimpleSocial.Services.DataServices.Account
         public IEnumerable<PostViewModel> GetUserPosts(ClaimsPrincipal user)
         {
             var userId = userManager.GetUserId(user);
-            var posts = this.postRepository.All().Where(x => x.UserId == userId).To<PostViewModel>().ToList().OrderByDescending(x => x.CreatedOn);
+
+            
+            //var posts = this.postRepository.All().Include(p => p.Comments).ThenInclude(p => p.Author).Where(x => x.UserId == userId).To<PostViewModel>().ToList().OrderByDescending(x => x.CreatedOn);
+
+            var posts = this.postRepository.All().Include(p => p.Comments).ThenInclude(p => p.Author).Select(x => Mapper.Map<PostViewModel>(x)).Where(x => x.UserId == userId).ToList();
+
             return posts;
         }
 

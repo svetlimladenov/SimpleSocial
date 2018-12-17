@@ -31,6 +31,8 @@ namespace SimpleSocia.Services.Models.Posts
         {
             configuration.CreateMap<Post, PostViewModel>().ForMember(x => x.CharactersCount,
                 x => x.MapFrom(p => p.Content.Length));
+
+            configuration.CreateMap<Post, PostViewModel>().ForMember(x => x.Comments, x => x.MapFrom(p => p.Comments));
         }
     }
 }

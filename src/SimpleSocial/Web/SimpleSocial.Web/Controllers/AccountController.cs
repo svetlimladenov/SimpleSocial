@@ -33,14 +33,14 @@ namespace SimpleSocial.Web.Controllers
 
         public IActionResult MyProfile(MyProfileViewModel inputModel)
         {
-            var viewModel = new MyProfileViewModel();
-
-            viewModel.ProfilePicture = myProfileServices.GetProfilePicture(User);
-            viewModel.Posts = myProfileServices.GetUserPosts(User);
-            viewModel.WallId = myProfileServices.GetWallId(User);
-            viewModel.UserId = userManager.GetUserId(User);
-            viewModel.IsValidProfilePicture = inputModel.IsValidProfilePicture;
-
+            var viewModel = new MyProfileViewModel
+            {
+                ProfilePicture = myProfileServices.GetProfilePicture(User),
+                Posts = myProfileServices.GetUserPosts(User),
+                WallId = myProfileServices.GetWallId(User),
+                UserId = userManager.GetUserId(User),
+                IsValidProfilePicture = inputModel.IsValidProfilePicture
+            };
 
             return View(viewModel);
         }

@@ -12,11 +12,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleSocia.Services.Models.Account;
+using SimpleSocia.Services.Models.Comments;
 using SimpleSocial.Data;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices;
 using SimpleSocial.Services.DataServices.Account;
+using SimpleSocial.Services.DataServices.CommentsServices;
 using SimpleSocial.Services.DataServices.PostsServices;
 using SimpleSocial.Services.Mapping;
 using SimpleSocial.Web.Models;
@@ -38,7 +40,8 @@ namespace SimpleSocial.Web
         {
             AutoMapperConfig.RegisterMappings(
                 typeof(CreatePostInputModel).Assembly,
-                typeof(MyProfileViewModel).Assembly
+                typeof(MyProfileViewModel).Assembly,
+                typeof(CommentInputModel).Assembly
                 );
 
             services.Configure<CookiePolicyOptions>(options =>
@@ -71,6 +74,7 @@ namespace SimpleSocial.Web
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             services.AddScoped<IMyProfileServices, MyProfileServices>();
             services.AddScoped<IPostServices, PostServices>();
+            services.AddScoped<ICommentsServices, CommentsServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
