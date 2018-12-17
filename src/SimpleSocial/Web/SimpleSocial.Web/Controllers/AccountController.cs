@@ -30,7 +30,8 @@ namespace SimpleSocial.Web.Controllers
             this.profilePicturesRepository = profilePicturesRepository;
         }
 
-        public IActionResult MyProfile(MyProfileViewModel inputModel, bool profilePicError)
+
+        public IActionResult MyProfile(MyProfileViewModel inputModel)
         {
             var viewModel = new MyProfileViewModel();
 
@@ -38,10 +39,9 @@ namespace SimpleSocial.Web.Controllers
             viewModel.Posts = myProfileServices.GetUserPosts(User);
             viewModel.WallId = myProfileServices.GetWallId(User);
             viewModel.UserId = userManager.GetUserId(User);
-            if (profilePicError)
-            {
-                ViewData["ProfilePictureError"] = "true";
-            }
+            viewModel.IsValidProfilePicture = inputModel.IsValidProfilePicture;
+
+
             return View(viewModel);
         }
 
@@ -70,35 +70,11 @@ namespace SimpleSocial.Web.Controllers
 
                 if (!allowedExtensions.Contains(imgExtension))
                 {
-                    return RedirectToAction("MyProfile", true);
-                }
-               
-                var currentProfilePictureFile = myProfileServices.GetProfilePicture(this.User);
-
-                if (currentProfilePictureFile != null && currentProfilePictureFile.FileName != "default.jpg")
-                {
-                    System.IO.File.Delete(this.environment.WebRootPath + "/profile-pictures/" + currentProfilePictureFile.FileName);
+                    return RedirectToAction("MyProfile", new MyProfileViewModel{IsValidProfilePicture = false});
                 }
 
-                var imageName = this.environment.WebRootPath + "/profile-pictures/" + userId + imgExtension;
+                myProfileServices.UploadProfilePicture(this.User,inputModel, imgExtension);
 
-                using (var fileStream = new FileStream(imageName, FileMode.Create))
-                {
-                    inputModel.UploadImage.CopyToAsync(fileStream).GetAwaiter().GetResult();
-                    var currentProfilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
-                    while (currentProfilePicture != null)
-                    {
-                        profilePicturesRepository.Delete(currentProfilePicture);
-                        profilePicturesRepository.SaveChangesAsync().GetAwaiter().GetResult();
-                        currentProfilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
-                    }                   
-                    profilePicturesRepository.AddAsync(new ProfilePicture
-                    {
-                        FileName = userId + imgExtension,
-                        UserId = userId
-                    }).GetAwaiter().GetResult();
-                    profilePicturesRepository.SaveChangesAsync().GetAwaiter().GetResult();
-                }
             }
 
             return RedirectToAction("MyProfile");

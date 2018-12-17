@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using SimpleSocia.Services.Models.Account;
 using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
@@ -39,7 +40,6 @@ namespace SimpleSocial.Services.DataServices.Account
         {
             var userId = userManager.GetUserId(user);
             var posts = this.postRepository.All().Where(x => x.UserId == userId).To<PostViewModel>().ToList().OrderByDescending(x => x.CreatedOn);
-
             return posts;
         }
 
@@ -66,6 +66,38 @@ namespace SimpleSocial.Services.DataServices.Account
                 FileName = "default.jpg",
                 UserId = userId,
             };
+        }
+
+        public void UploadProfilePicture(ClaimsPrincipal user, UploadProfilePictureInputModel inputModel, string imgExtension)
+        {
+            var currentProfilePictureFile = this.GetProfilePicture(user);
+            var userId = this.userManager.GetUserId(user);
+
+
+            if (currentProfilePictureFile != null && currentProfilePictureFile.FileName != "default.jpg")
+            {
+                System.IO.File.Delete(this.hostingEnvironment.WebRootPath + "/profile-pictures/" + currentProfilePictureFile.FileName);
+            }
+
+            var imageName = this.hostingEnvironment.WebRootPath + "/profile-pictures/" + userId + imgExtension;
+
+            using (var fileStream = new FileStream(imageName, FileMode.Create))
+            {
+                inputModel.UploadImage.CopyToAsync(fileStream).GetAwaiter().GetResult();
+                var currentProfilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
+                while (currentProfilePicture != null)
+                {
+                    profilePicturesRepository.Delete(currentProfilePicture);
+                    profilePicturesRepository.SaveChangesAsync().GetAwaiter().GetResult();
+                    currentProfilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
+                }
+                profilePicturesRepository.AddAsync(new ProfilePicture
+                {
+                    FileName = userId + imgExtension,
+                    UserId = userId
+                }).GetAwaiter().GetResult();
+                profilePicturesRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            }
         }
     }
 }

@@ -10,8 +10,10 @@
 
 <div class="row">
     <div class="col-md-3">
-        @*TODO: Check if user has profile picture else display default profile picture*@       
-            <img src="/profile-pictures/@Model.ProfilePicture.FileName" class="profilePicture" />    
+        @*TODO: Check if user has profile picture else display default profile picture*@
+        <cache expires-after="@TimeSpan.FromSeconds(2)">
+            <img src="/profile-pictures/@Model.ProfilePicture.FileName" class="profilePicture" />
+        </cache>
     </div>
 
     <div class="col-md-6">
@@ -20,7 +22,7 @@
 
         <form asp-action="UploadProfilePicture" enctype="multipart/form-data">
             <label class="form-control">Upload Picture</label>
-            <input type="file" name="UploadImage" accept="image/*"/>
+            <input type="file" name="UploadImage" accept="image/*" />
             <input type="submit" class="btn btn-primary" value="Upload" />
         </form>
 
@@ -31,6 +33,7 @@
         </div>
     </div>
 </div>
+
 <div class="row">
     <div class="col-md-3">
         <h2>My Profile</h2>
@@ -46,20 +49,30 @@
                     <input asp-for="CreatePost.UserId" value="@Model.UserId" hidden />
                     <input type="submit" value="Post" class="form-control btn btn-primary" />
                 </form>
-            </div>         
+            </div>
         </div>
         @foreach (var post in Model.Posts)
         {
-            <div>
+            <div class="row post">
                 <div class="row">
                     <a>@post.CreatedOn.ToString("d")</a>
-                    <h1 class="text-center">@post.Title</h1>    
+                    <h1 class="text-center">@post.Title</h1>
                     <p>@post.CharactersCount symbols</p>
                 </div>
                 <div class="row">
                     <p>@post.Content</p>
                 </div>
                 <div class="row">
+
+                    <form asp-controller="Comments" asp-action="PostComment">
+                        <div class="form-group">
+                            <input asp-for="CommentInputModel.CommentText" placeholder="Write a comment..." class="form-control" />
+                            <input asp-for="CommentInputModel.AuthorId" value="@Model.UserId" hidden="hidden" aria-hidden="True" />
+                            <input asp-for="CommentInputModel.PostId" value="@post.Id" hidden="hidden" aria-hidden="True" />
+                            <input type="submit" value="Comment" class="btn btn-primary pull-right" />
+                        </div>
+                    </form>
+
                     Comments:
                     @foreach (var comment in post.Comments)
                     {
@@ -79,14 +92,13 @@
 
 
 @section Scripts
-{
-    @if (ViewData["ProfilePictureError"] == "true")
+    {
+    @if (!Model.IsValidProfilePicture)
     {
         <script>
-            function myFunction() {
-                alert("Please upload an image !");
-            }
-
+            $( document ).ready(function() {
+                alert("Please provide us a image");
+            });
         </script>
     }
 }

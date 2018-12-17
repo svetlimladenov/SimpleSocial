@@ -11,6 +11,8 @@ namespace SimpleSocia.Services.Models.Posts
 {
     public class PostViewModel : IMapFrom<Post>, IHaveCustomMappings
     {
+        public string Id { get; set; }
+
         public string UserId { get; set; }
 
         public string WallId { get; set; }
