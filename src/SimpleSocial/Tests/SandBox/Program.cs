@@ -1,13 +1,11 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleSocial.Data;
 using SimpleSocial.Data.Common;
-using SimpleSocial.Data.Models;
 
 namespace SandBox
 {

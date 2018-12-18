@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SimpleSocial.Data.Models
+﻿namespace SimpleSocial.Data.Models
 {
     public class ProfilePicture
     {

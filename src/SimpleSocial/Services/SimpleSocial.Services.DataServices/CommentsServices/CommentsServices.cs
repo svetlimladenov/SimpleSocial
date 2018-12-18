@@ -1,5 +1,4 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using SimpleSocia.Services.Models.Comments;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;

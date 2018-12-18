@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using SimpleSocia.Services.Models.Account;
+﻿using SimpleSocia.Services.Models.Account;
 
 namespace SimpleSocial.Services.DataServices.PostsServices
 {

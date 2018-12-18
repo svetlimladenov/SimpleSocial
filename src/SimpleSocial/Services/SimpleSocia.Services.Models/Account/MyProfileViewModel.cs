@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http;
 using SimpleSocia.Services.Models.Comments;
 using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Models;

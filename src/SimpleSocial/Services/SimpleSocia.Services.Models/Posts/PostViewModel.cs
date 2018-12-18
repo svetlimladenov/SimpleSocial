@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using AutoMapper;
-using SimpleSocia.Services.Models.Account;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
 

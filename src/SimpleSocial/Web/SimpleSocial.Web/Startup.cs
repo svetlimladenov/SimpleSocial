@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,12 +10,10 @@ using SimpleSocia.Services.Models.Comments;
 using SimpleSocial.Data;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
-using SimpleSocial.Services.DataServices;
 using SimpleSocial.Services.DataServices.Account;
 using SimpleSocial.Services.DataServices.CommentsServices;
 using SimpleSocial.Services.DataServices.PostsServices;
 using SimpleSocial.Services.Mapping;
-using SimpleSocial.Web.Models;
 
 
 namespace SimpleSocial.Web

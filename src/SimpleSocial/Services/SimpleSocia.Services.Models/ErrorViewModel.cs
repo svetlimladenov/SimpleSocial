@@ -1,5 +1,3 @@
-using System;
-
 namespace SimpleSocial.Web.Models
 {
     public class ErrorViewModel

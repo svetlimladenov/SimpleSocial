@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Moq;
@@ -52,7 +50,7 @@ namespace SimpleSocial.Services.DataServices.Tests
         }
 
         [Fact]
-        public async Task AddingTwoPostsShouldReturnCurrectCount()
+        public void AddingTwoPostsShouldReturnCurrectCount()
         {
             var options = new DbContextOptionsBuilder<SimpleSocialContext>()
                 .UseInMemoryDatabase(databaseName: "In_Memory_Db") // Give a Unique name to the DB
@@ -62,7 +60,7 @@ namespace SimpleSocial.Services.DataServices.Tests
             var repository = new DbRepository<Post>(dbContext);
             var postService = new PostServices(repository);
 
-            await postService.CreatePost(new MyProfileViewModel
+            postService.CreatePost(new MyProfileViewModel
             {
                 CreatePost = new CreatePostInputModel
                 {
@@ -72,7 +70,7 @@ namespace SimpleSocial.Services.DataServices.Tests
                     WallId = "sdaf",
                 }
             });
-            await postService.CreatePost(new MyProfileViewModel
+            postService.CreatePost(new MyProfileViewModel
             {
                 CreatePost = new CreatePostInputModel
                 {

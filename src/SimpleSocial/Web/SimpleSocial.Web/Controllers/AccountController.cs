@@ -1,12 +1,10 @@
-﻿using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
-using SimpleSocial.Services.DataServices;
 using SimpleSocial.Services.DataServices.Account;
 
 namespace SimpleSocial.Web.Controllers

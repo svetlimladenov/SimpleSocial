@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System.Threading.Tasks;
 using SimpleSocia.Services.Models.Account;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;

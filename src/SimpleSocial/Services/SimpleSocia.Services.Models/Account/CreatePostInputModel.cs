@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using AutoMapper;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
 
