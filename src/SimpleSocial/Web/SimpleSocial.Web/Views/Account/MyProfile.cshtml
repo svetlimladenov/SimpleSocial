@@ -1,4 +1,5 @@
-﻿@model SimpleSocia.Services.Models.Account.MyProfileViewModel
+﻿@using System.IO
+@model SimpleSocia.Services.Models.Account.MyProfileViewModel
 
 @{
     ViewData["Title"] = "MyProfile";
@@ -8,23 +9,17 @@
 <h2 class="text-center">@ViewData["Title"]</h2>
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-3 profile-picture-holder">
         @*TODO: Check if user has profile picture else display default profile picture*@
         <cache expires-after="@TimeSpan.FromSeconds(2)">
             <img src="/profile-pictures/@Model.ProfilePicture.FileName" class="profilePicture" />
+            <div class="show-link">
+                <a asp-action="ChangeProfilePicture" class="btn btn-default">Upload Profile Picture</a>
+            </div>
         </cache>
     </div>
 
     <div class="col-md-6">
-        <a class="nav-item nav-link" href="#">Posts<span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link" asp-action="MyFriends">Friends</a>
-
-        <form asp-action="UploadProfilePicture" enctype="multipart/form-data">
-            <label class="form-control">Upload Picture</label>
-            <input type="file" name="UploadImage" accept="image/*" />
-            <input type="submit" class="btn btn-primary" value="Upload" />
-        </form>
-
     </div>
     <div class="col-md-3">
         <div class="navbar-nav">
@@ -43,16 +38,16 @@
             <div data-emojiarea data-type="unicode" data-global-picker="false">
                 <div class="emoji-button">&#x1f604;</div>
                 <form asp-controller="Posts" asp-action="Create" class="form-group">
-                    <textarea asp-for="CreatePost.Content" id="input1" rows="5" placeholder="What's up today ?" class="form-control">You can insert unicode emojis here &#x1f604;</textarea>
+                    <textarea asp-for="CreatePost.Content" id="input1" rows="1" placeholder="What's up today ?" class="form-control post-input"  onkeyup="disableButton()">You can insert unicode emojis here &#x1f604;</textarea>
                     <input asp-for="CreatePost.WallId" value="@Model.WallId" hidden />
                     <input asp-for="CreatePost.UserId" value="@Model.UserId" hidden />
-                    <input type="submit" value="Post" class="form-control btn btn-primary" />
+                    <input type="submit" value="Post" id="post-button" class="btn btn-primary pull-right" disabled/>
                 </form>
             </div>
         </div>
         @foreach (var post in Model.Posts)
         {
-            <div class="row post">
+            <div class="row">
                 <div class="row">
                     <a>@post.CreatedOn.ToString("d")</a>
                     <h1 class="text-center">@post.Title</h1>
@@ -62,24 +57,25 @@
                     <p>@post.Content</p>
                 </div>
                 <div class="row">
-
-                    <form asp-controller="Comments" asp-action="PostComment">
-                        <div class="form-group">
-                            <input asp-for="CommentInputModel.CommentText" placeholder="Write a comment..." class="form-control" />
-                            <input asp-for="CommentInputModel.AuthorId" value="@Model.UserId" hidden="hidden" aria-hidden="True" />
-                            <input asp-for="CommentInputModel.PostId" value="@post.Id" hidden="hidden" aria-hidden="True" />
-                            <input type="submit" value="Comment" class="btn btn-primary pull-right" />
+                    <div class="example">
+                        <div data-emojiarea data-type="unicode" data-global-picker="false">
+                            <div class="emoji-button">&#x1f604;</div>
+                            <form asp-controller="Comments" asp-action="PostComment" class="form-group">
+                                <textarea asp-for="CommentInputModel.CommentText" id="comment-text" rows="1" placeholder="Write a comment..." class="form-control" onkeyup="disableCommentButton()"></textarea>
+                                <input asp-for="CommentInputModel.AuthorId" value="@Model.UserId" hidden="hidden" aria-hidden="True" />
+                                <input asp-for="CommentInputModel.PostId" value="@post.Id" hidden="hidden" aria-hidden="True" />
+                                <input type="submit" value="Comment" id="comment-button" class="btn btn-primary pull-right" disabled/>
+                            </form>
                         </div>
-                    </form>
-
-                    Comments:
-                    @foreach (var comment in post.Comments)
-                    {
-                        <div class="row">
-                            <a>@comment.Author</a>
-                            <p>@comment.CommentText</p>
-                        </div>
-                    }
+                        Comments:
+                        @foreach (var comment in post.Comments)
+                        {
+                            <div class="row">
+                                <a>@comment.Author</a>
+                                <p>@comment.CommentText</p>
+                            </div>
+                        }
+                    </div>                
                 </div>
             </div>
         }
@@ -91,13 +87,32 @@
 
 
 @section Scripts
-    {
+    {>
     @if (!Model.IsValidProfilePicture)
     {
         <script>
-            $( document ).ready(function() {
+            $(document).ready(function () {
                 alert("Please provide us a image");
             });
+
         </script>
     }
+
+    <script>
+        function disableButton() {
+            if (document.getElementById("input1").value.trim() === "") { 
+                document.getElementById('post-button').disabled = true; 
+            } else { 
+                document.getElementById('post-button').disabled = false;
+            }
+        }
+
+        function disableCommentButton() {
+            if (document.getElementById("comment-text").value.trim() === "") {
+                document.getElementById('comment-button').disabled = true;
+            } else {
+                document.getElementById('comment-button').disabled = false;
+            }
+        }
+    </script>
 }

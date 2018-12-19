@@ -16,6 +16,8 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
         public void CreatePost(MyProfileViewModel viewModel)
         {
+            
+
             var post = new Post
             {
                 UserId = viewModel.CreatePost.UserId,

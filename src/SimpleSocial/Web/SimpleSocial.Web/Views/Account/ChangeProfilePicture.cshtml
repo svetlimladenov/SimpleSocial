@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "ChangeProfilePicture";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+
+<div class="row">
+    <div class="col-md-6 form-group">
+        <form asp-action="UploadProfilePicture" enctype="multipart/form-data">
+            <label for="file-upload" class="custom-file-upload">
+                <i class="fa fa-cloud-upload"></i> Upload Image
+            </label>
+            <input type="file" name="UploadImage" id="file-upload" accept="image/*" />
+            <span id="file-selected"></span>
+            <input type="submit" class="btn btn-primary" value="Upload" />
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $('#file-upload').bind('change', function () {
+            var fileName = ''; fileName = $(this).val();
+            $('#file-selected').html(fileName);
+        }) 
+    </script>
+}

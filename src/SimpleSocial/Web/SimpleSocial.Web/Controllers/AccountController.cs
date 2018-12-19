@@ -48,11 +48,16 @@ namespace SimpleSocial.Web.Controllers
             return this.View();
         }
 
+        public IActionResult ChangeProfilePicture()
+        {
+            return this.View();
+        }
+
         public IActionResult UploadProfilePicture(UploadProfilePictureInputModel inputModel)
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("MyProfile");
+                return RedirectToAction("ChangeProfilePicture");
             }
 
             if (inputModel.UploadImage != null)
@@ -68,7 +73,7 @@ namespace SimpleSocial.Web.Controllers
 
                 if (!allowedExtensions.Contains(imgExtension))
                 {
-                    return RedirectToAction("MyProfile", new MyProfileViewModel{IsValidProfilePicture = false});
+                    return RedirectToAction("ChangeProfilePicture", new MyProfileViewModel{IsValidProfilePicture = false});
                 }
 
                 myProfileServices.UploadProfilePicture(this.User,inputModel, imgExtension);

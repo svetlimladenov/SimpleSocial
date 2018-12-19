@@ -8,19 +8,17 @@ namespace SimpleSocial.Web.Controllers
     {
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("MyProfile","Account");
+            }
+
             return View();
         }
 
         public IActionResult About()
         {
             ViewData["Message"] = $"My app has users.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
 
             return View();
         }

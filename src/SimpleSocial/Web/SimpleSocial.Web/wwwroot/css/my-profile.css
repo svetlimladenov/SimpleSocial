@@ -7,14 +7,34 @@
     border: 0;
 }
 
+.show-link {
+    opacity: 0;
+    margin-top: 10px;
+    padding-left: 15px;
+}
+
+.profile-picture-holder:hover .show-link {
+    opacity: 1;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
 
 .image-preview-input {
     position: relative;
     overflow: hidden;
-    margin: 0px;    
+    margin: 0px;
     color: #333;
     background-color: #fff;
-    border-color: #ccc;    
+    border-color: #ccc;
 }
 .image-preview-input input[type=file] {
     position: absolute;
@@ -102,3 +122,6 @@
     padding: 3px;
 }
 
+.post-input:focus {
+    height: 100px;
+}
