@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +16,8 @@ using SimpleSocial.Services.DataServices.Account;
 using SimpleSocial.Services.DataServices.CommentsServices;
 using SimpleSocial.Services.DataServices.PostsServices;
 using SimpleSocial.Services.Mapping;
+using SimpleSocial.Web.Middlewares;
+using SimpleSocial.Web.Utilities;
 
 
 namespace SimpleSocial.Web
@@ -48,7 +52,7 @@ namespace SimpleSocial.Web
                 options.UseSqlServer(
                     this.Configuration.GetConnectionString("DefaultConnection")));
      
-            services.AddDefaultIdentity<SimpleSocialUser>(
+            services.AddIdentity<SimpleSocialUser,IdentityRole>(
                     options =>
                     {
                         options.Password.RequiredLength = 6;
@@ -57,13 +61,31 @@ namespace SimpleSocial.Web
                         options.Password.RequireUppercase = false;
                         options.Password.RequireDigit = false;
                     })
+                .AddDefaultUI()
+                .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<SimpleSocialContext>();
+
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+            });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Administrator",
+                    authBuilder =>
+                    {
+                        authBuilder.RequireRole("Administrator");
+                    });
+            });
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             //Application services
 
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
+            services.AddSingleton<IEmailSender, EmailSender>();
             services.AddScoped<IMyProfileServices, MyProfileServices>();
             services.AddScoped<IPostServices, PostServices>();
             services.AddScoped<ICommentsServices, CommentsServices>();
@@ -83,11 +105,15 @@ namespace SimpleSocial.Web
                 app.UseHsts();
             }
 
+
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
             app.UseAuthentication();
+
+            app.UseMiddleware<SeedRolesMiddleware>();
             
             app.UseMvc(routes =>
             {

@@ -87,6 +87,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
+               
                 var user = new SimpleSocialUser() { UserName = Input.Username, FirstName = Input.FirstName, LastName = Input.LastName, Email = Input.Email};
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -110,7 +111,16 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-                    
+
+                    if (this.dbContext.Users.Count() == 1)
+                    {
+                        await this._userManager.AddToRoleAsync(user, "Admin");
+                    }
+                    else
+                    {
+                        await this._userManager.AddToRoleAsync(user, "User");
+
+                    }
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
