@@ -9,6 +9,7 @@ namespace SimpleSocial.Data.Models
         public Post()
         {
             Comments = new HashSet<Comment>();
+            PostReports = new HashSet<PostReport>();
         }
 
         public string Id { get; set; }
@@ -33,5 +34,7 @@ namespace SimpleSocial.Data.Models
         public Wall Wall { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
+
+        public ICollection<PostReport> PostReports { get; set; }
     }
 }

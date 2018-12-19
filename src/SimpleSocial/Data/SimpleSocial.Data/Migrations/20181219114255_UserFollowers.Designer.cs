@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleSocial.Data;
 
 namespace SimpleSocial.Data.Migrations
 {
     [DbContext(typeof(SimpleSocialContext))]
-    partial class SimpleSocialContextModelSnapshot : ModelSnapshot
+    [Migration("20181219114255_UserFollowers")]
+    partial class UserFollowers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,24 +198,6 @@ namespace SimpleSocial.Data.Migrations
                     b.HasIndex("WallId");
 
                     b.ToTable("Posts");
-                });
-
-            modelBuilder.Entity("SimpleSocial.Data.Models.PostReport", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AuthorId");
-
-                    b.Property<string>("PostId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("PostId");
-
-                    b.ToTable("PostReports");
                 });
 
             modelBuilder.Entity("SimpleSocial.Data.Models.ProfilePicture", b =>
@@ -407,17 +391,6 @@ namespace SimpleSocial.Data.Migrations
                     b.HasOne("SimpleSocial.Data.Models.Wall", "Wall")
                         .WithMany("Posts")
                         .HasForeignKey("WallId");
-                });
-
-            modelBuilder.Entity("SimpleSocial.Data.Models.PostReport", b =>
-                {
-                    b.HasOne("SimpleSocial.Data.Models.SimpleSocialUser", "Author")
-                        .WithMany()
-                        .HasForeignKey("AuthorId");
-
-                    b.HasOne("SimpleSocial.Data.Models.Post", "Post")
-                        .WithMany("PostReports")
-                        .HasForeignKey("PostId");
                 });
 
             modelBuilder.Entity("SimpleSocial.Data.Models.SimpleSocialUser", b =>

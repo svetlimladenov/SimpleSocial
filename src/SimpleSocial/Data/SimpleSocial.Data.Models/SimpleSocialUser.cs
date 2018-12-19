@@ -10,7 +10,7 @@ namespace SimpleSocial.Data.Models
     {
         public SimpleSocialUser()
         {
-            UserFriends = new HashSet<UserFriend>();
+            UserFollowers = new HashSet<UserFollower>();
             Posts = new HashSet<Post>();
             Comments = new HashSet<Comment>();
             UserPages = new HashSet<Page>();
@@ -36,7 +36,7 @@ namespace SimpleSocial.Data.Models
 
         public ICollection<Post> Posts { get; set; }
 
-        public ICollection<UserFriend> UserFriends { get; set; }
+        public ICollection<UserFollower> UserFollowers { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
 

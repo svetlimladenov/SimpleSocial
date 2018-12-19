@@ -11,7 +11,9 @@ namespace SimpleSocial.Data
         {
         }
 
-        public DbSet<UserFriend> UserFriends { get; set; }
+        public DbSet<UserFollower> UserFollowers { get; set; }
+
+        public DbSet<PostReport> PostReports { get; set; }
 
         public DbSet<Wall> Walls { get; set; }
 
@@ -23,6 +25,7 @@ namespace SimpleSocial.Data
 
         public DbSet<ProfilePicture> ProfilePictures { get; set; }
 
+       
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -40,17 +43,18 @@ namespace SimpleSocial.Data
                 .WithOne(c => c.Author)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<UserFriend>()
-                .HasKey(ur => new { ur.UserId, ur.FriendId });
+            builder.Entity<UserFollower>()
+                .HasKey(ur => new { ur.UserId, ur.FollowerId });
 
             builder.Entity<SimpleSocialUser>()
-                .HasMany(u => u.UserFriends)
-                .WithOne(u => u.Friend)
+                .HasMany(u => u.UserFollowers)
+                .WithOne(u => u.Follower)
                 .OnDelete(DeleteBehavior.Restrict);
 
-           
-                
-                
+            builder.Entity<PostReport>()
+                .HasOne(pr => pr.Post)
+                .WithMany(p => p.PostReports)
+                .HasForeignKey(pr => pr.PostId);
         }
     }
 }
