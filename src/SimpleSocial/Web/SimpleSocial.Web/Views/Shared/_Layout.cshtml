@@ -9,8 +9,9 @@
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
         <link rel="stylesheet" href="~/css/my-profile.css">
+        <link rel="stylesheet" href="/css/navigation.css" />
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -21,28 +22,39 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav>
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span> l
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">SimpleSocia.Web</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    @if (User.IsInRole("Admin"))
+            <ul>
+                <div class="left-functions">
+                    @if (User.Identity.IsAuthenticated)
                     {
-                        <li><a asp-area="Administration" asp-controller="Admin" asp-action="Index">Administration</a></li>
+                        <li><a asp-controller="Home" asp-action="Index">SimpleSocial</a></li>
+                        <li><a href="#">Notifications</a></li>
+                        <li><a href="#">Chat</a></li>
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li><a asp-area="Administration" asp-controller="Admin" asp-action="Index">Administration</a></li>
+                        }
                     }
-                </ul>
-                <partial name="_LoginPartial" />
-            </div>
+                    else
+                    {
+                        <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+                        <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+                    }
+
+                </div>
+                <div class="right-functions">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a asp-controller="Account" asp-action="MyProfile">My Profile</a></li>
+                        <li>
+                            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})" method="post" id="logoutForm">
+                                <button type="submit" class="logout-btn">Logout</button>
+                            </form>
+                        </li>
+                    }
+                </div>
+            </ul>
         </div>
     </nav>
 

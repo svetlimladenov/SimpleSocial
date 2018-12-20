@@ -1,0 +1,154 @@
+﻿@import url("https://fonts.googleapis.com/css?family=Roboto");
+
+* {
+    box-sizing: border-box;
+    font-family: Roboto;
+}
+
+nav {
+    box-shadow: 0 2px 4px 1px rgba(102, 102, 102, 0.2);
+    padding: 15px 0;
+}
+
+button {
+    border: none;
+    background: #005b96;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+}
+
+@media all and (max-width: 800px) {
+    ul {
+        flex-flow: column wrap;
+    }
+}
+
+.right-functions, .left-functions {
+    display: flex;
+}
+
+    .right-functions li, .left-functions li {
+        padding: 0 13px;
+        transition: 100ms all ease-in-out;
+    }
+
+@media all and (max-width: 800px) {
+    .right-functions li, .left-functions li {
+        padding-top: 10px;
+    }
+}
+
+.right-functions li:hover, .left-functions li:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 0 -2px #3b5998;
+}
+
+@media all and (max-width: 800px) {
+    .right-functions, .left-functions {
+        padding-top: 10px;
+        flex-flow: column wrap;
+    }
+}
+
+.foo {
+    margin: 10px auto;
+    background: #dfe3ee;
+    padding: 20px;
+    max-width: 500px;
+}
+
+    .foo textarea {
+        resize: none;
+        border: none;
+        box-shadow: 0 0 1px 1px #b3b3b3;
+        border-radius: 2px;
+        transition: 350ms all ease-in-out;
+    }
+
+        .foo textarea:focus {
+            outline: none;
+            -webkit-transform: translateY(-2%);
+            transform: translateY(-2%);
+        }
+
+.post-functions {
+    padding-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .post-functions .icons i {
+        padding: 0 5px;
+    }
+
+.single-post {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+    .single-post .user {
+        display: flex;
+        align-items: center;
+        position: relative;
+    }
+
+        .single-post .user:after {
+            content: attr(data-kire);
+            margin: 10px;
+            font-size: .75rem;
+            color: grey;
+        }
+
+        .single-post .user .profile-picture {
+            width: 35px;
+            height: 35px;
+            background: url("https://placecage.com/50/50");
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+.comments {
+    border-top: 4px solid grey;
+    margin: 10px 0;
+}
+
+    .comments p:after {
+        content: attr(data-likes);
+        display: block;
+        padding-left: 10px;
+    }
+
+.single-comment {
+    background: #d0e0ec;
+    padding: 15px;
+    margin: 5px 0;
+    border-radius: 25px;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.logout-btn {
+    background: none !important;
+    color: red;
+    border: none;
+    padding: 0 !important;
+    font: inherit;
+    cursor: pointer;
+}

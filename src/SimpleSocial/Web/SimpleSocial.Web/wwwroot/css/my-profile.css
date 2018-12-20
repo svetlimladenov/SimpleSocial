@@ -9,11 +9,13 @@
 
 .show-link {
     opacity: 0;
+    transition: 300ms all ease-in-out;
     margin-top: 10px;
     padding-left: 15px;
 }
 
 .profile-picture-holder:hover .show-link {
+    transition: 300ms all ease-in-out;
     opacity: 1;
 }
 
