@@ -1,4 +1,5 @@
 ﻿@page
+@using Data.Models
 @model IndexModel
 @{
     ViewData["Title"] = "Profile";
@@ -13,6 +14,43 @@
             <div class="form-group">
                 <label asp-for="Username"></label>
                 <input asp-for="Username" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.FirstName"></label>
+                <input asp-for="Input.FirstName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.LastName"></label>
+                <input asp-for="Input.LastName" class="form-control" />
+            </div>
+            <div>
+                <label asp-for="Input.BirthDay"></label>
+                <div class="input-group date" id="datetimepicker1">
+                    <input asp-for="Input.BirthDay" type="datetime" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Description">Bio</label>
+                <textarea asp-for="Input.Description" style="resize: vertical; width: 100%;"></textarea>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Gender"></label>
+                @Html.DropDownList("Input.Gender",
+                    Html.GetEnumSelectList<Gender>(),
+                    "Select Gender",new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Country"></label>
+                <div class="form-group">
+                    @Html.DropDownList("Input.Country", new SelectList(Model.Countries), new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.City"></label>
+                <input asp-for="Input.City" class="form-control" />
             </div>
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
@@ -42,4 +80,16 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+        });
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
 }

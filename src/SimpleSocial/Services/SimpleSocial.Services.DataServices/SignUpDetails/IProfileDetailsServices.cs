@@ -13,5 +13,7 @@ namespace SimpleSocial.Services.DataServices.SignUpDetails
         void SetBirthDay(ProfileDetailsInputModel inputModel, ClaimsPrincipal user);
 
         void SetLivingPlace(ProfileDetailsInputModel inputModel, ClaimsPrincipal user);
+
+        List<string> GetCounties();
     }
 }

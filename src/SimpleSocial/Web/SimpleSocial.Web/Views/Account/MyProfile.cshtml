@@ -45,41 +45,7 @@
                 </form>
             </div>
         </div>
-        @await Component.InvokeAsync("ListOfPosts", new { posts = Model.Posts})
-        @*@foreach (var post in Model.Posts)
-        {
-            <div class="row">
-                <div class="row">
-                    <a>@post.CreatedOn.ToString("d")</a>
-                    <h1 class="text-center">@post.Title</h1>
-                    <p>@post.CharactersCount symbols</p>
-                </div>
-                <div class="row">
-                    <p>@post.Content</p>
-                </div>
-                <div class="row">
-                    <div class="example">
-                        <div data-emojiarea data-type="unicode" data-global-picker="false">
-                            <div class="emoji-button">&#x1f604;</div>
-                            <form asp-controller="Comments" asp-action="PostComment" class="form-group">
-                                <textarea asp-for="CommentInputModel.CommentText" id="comment-text" rows="1" placeholder="Write a comment..." class="form-control" onkeyup="disableCommentButton()"></textarea>
-                                <input asp-for="CommentInputModel.AuthorId" value="@Model.UserId" hidden="hidden" aria-hidden="True" />
-                                <input asp-for="CommentInputModel.PostId" value="@post.Id" hidden="hidden" aria-hidden="True" />
-                                <input type="submit" value="Comment" id="comment-button" class="btn btn-primary pull-right" disabled/>
-                            </form>
-                        </div>
-                        Comments:
-                        @foreach (var comment in post.Comments)
-                        {
-                            <div class="row">
-                                <a>@comment.Author</a>
-                                <p>@comment.CommentText</p>
-                            </div>
-                        }
-                    </div>                
-                </div>
-            </div>
-        }*@
+        @await Component.InvokeAsync("ListOfPosts", new { posts = Model.Posts})       
     </div>
     <div class="col-md-3" id="test">
         <h2>Who to follow</h2>
@@ -88,7 +54,7 @@
 
 
 @section Scripts
-    {>
+    {
     @if (!Model.IsValidProfilePicture)
     {
         <script>
@@ -116,4 +82,9 @@
             }
         }
     </script>
+    
+    
+    <script src="/Emoji-Picker-For-Textarea-jQuery-Emojiarea/src/js/EmojiArea.js"></script>
+    <script src="/Emoji-Picker-For-Textarea-jQuery-Emojiarea/main.js"></script>
+    <script src="/Emoji-Picker-For-Textarea-jQuery-Emojiarea/jquery.emojiarea.js"></script>
 }

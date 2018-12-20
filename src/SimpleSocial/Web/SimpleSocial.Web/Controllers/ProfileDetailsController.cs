@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -27,6 +28,7 @@ namespace SimpleSocial.Web.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.CountryList = profileDetailsServices.GetCounties();
             var currentUser = this.userServices.GetUser(User);
             var viewModel = Mapper.Map<ProfileDetailsInputModel>(currentUser);
             return this.View(viewModel);
@@ -46,6 +48,7 @@ namespace SimpleSocial.Web.Controllers
         [HttpPost]
         public IActionResult LivingPlace(ProfileDetailsInputModel inputModel)
         {
+            profileDetailsServices.SetLivingPlace(inputModel,User);
             return RedirectToAction("SuccessfullInput");
         }
 
