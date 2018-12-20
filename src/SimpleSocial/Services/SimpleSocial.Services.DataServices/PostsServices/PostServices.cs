@@ -1,23 +1,33 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SimpleSocia.Services.Models.Account;
+using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
+using SimpleSocial.Services.Mapping;
 
 namespace SimpleSocial.Services.DataServices.PostsServices
 {
     public class PostServices : IPostServices
     {
         private readonly IRepository<Post> postRepository;
+        private readonly UserManager<SimpleSocialUser> userManager;
 
-        public PostServices(IRepository<Post> postRepository)
+        public PostServices(
+            IRepository<Post> postRepository,
+            UserManager<SimpleSocialUser> userManager
+        )
         {
             this.postRepository = postRepository;
+            this.userManager = userManager;
         }
 
         public void CreatePost(MyProfileViewModel viewModel)
-        {
-            
-
+        {       
             var post = new Post
             {
                 UserId = viewModel.CreatePost.UserId,
@@ -34,6 +44,24 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         public int GetTotalPostsCount()
         {
             return this.postRepository.All().Count();
+        }
+
+        public ICollection<PostViewModel> GetUserPosts(ClaimsPrincipal user)
+        {
+            var userId = userManager.GetUserId(user);
+
+            //var posts = this.postRepository.All().Include(p => p.Comments).ThenInclude(p => p.Author).Where(x => x.UserId == userId).To<PostViewModel>().ToList().OrderByDescending(x => x.CreatedOn);
+
+            var posts = this.postRepository.All().Include(p => p.Comments).ThenInclude(p => p.Author).Select(x => Mapper.Map<PostViewModel>(x)).Where(x => x.UserId == userId).ToList();
+
+            return posts;
+        }
+
+
+        public PostViewModel GetPostById(string id)
+        {
+            var post = this.postRepository.All().To<PostViewModel>().FirstOrDefault(x => x.Id == id);
+            return post;
         }
     }
 }

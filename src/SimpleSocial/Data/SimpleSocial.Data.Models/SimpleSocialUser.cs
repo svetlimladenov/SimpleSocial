@@ -27,6 +27,14 @@ namespace SimpleSocial.Data.Models
 
         public DateTime BirthDay { get; set; }
 
+        public Gender Gender { get; set; }
+
+        public string Description { get; set; }
+
+        public string City { get; set; }
+
+        public string Country { get; set; }
+
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
         [ForeignKey("Wall")]

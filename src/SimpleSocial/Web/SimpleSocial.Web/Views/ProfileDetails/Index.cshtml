@@ -1,0 +1,55 @@
+﻿@model SimpleSocia.Services.Models.SignUp.ProfileDetailsInputModel
+@{
+    ViewData["Title"] = "ProfileDetails";
+}
+
+<h1 class="text-center">Profile Details</h1>
+
+<div class="container">
+    <div class="row">
+        <form asp-action="NamesInput">
+            <div class="form-group col-md-6 col-md-offset-3 text-center">
+                <h3 class="text-center">Your names</h3>
+                <label asp-for="FirstName" class="text-center"></label>
+                <input asp-for="FirstName" placeholder="FirstName..." class="form-control" />
+                <label asp-for="LastName" class="text-center"></label>
+                <input asp-for="LastName" placeholder="LastName..." class="form-control" />
+                <div class="text-center" style="margin-top: 10px">
+                    <input type="submit" value="Save" class="btn btn-primary text-center" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="row">
+        <form asp-action="BirthDay">
+            <div class="form-group col-md-6 col-md-offset-3 text-center">
+                    <h3 class="text-center">Your birthday</h3>
+                    <div class="form-group">
+                        <label asp-for="BirthDay" class="control-label"></label>
+                        <div class="input-group date" id="datetimepicker1">
+                            <input asp-for="BirthDay" type="datetime" class="form-control"/>
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                <input type="submit" class="btn btn-primary" value="Save">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts
+    {
+    <script>
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+        });
+    </script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+}

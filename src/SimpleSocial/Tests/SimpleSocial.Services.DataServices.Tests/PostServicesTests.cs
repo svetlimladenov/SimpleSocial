@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using SimpleSocial.Data.Common;
@@ -25,7 +26,7 @@ namespace SimpleSocial.Services.DataServices.Tests
                 new Post(),
                 new Post()
             }.AsQueryable());
-            var service = new PostServices(jokesRepository.Object);
+            var service = new PostServices(jokesRepository.Object, null);
             Assert.Equal(3,service.GetTotalPostsCount());       
         }
 
@@ -44,7 +45,7 @@ namespace SimpleSocial.Services.DataServices.Tests
             await dbContext.SaveChangesAsync();
 
             var repository = new DbRepository<Post>(dbContext);
-            var postService = new PostServices(repository);
+            var postService = new PostServices(repository, null);
             var count = postService.GetTotalPostsCount();
             Assert.Equal(3,count);
         }
@@ -58,7 +59,7 @@ namespace SimpleSocial.Services.DataServices.Tests
             var dbContext = new SimpleSocialContext(options);
 
             var repository = new DbRepository<Post>(dbContext);
-            var postService = new PostServices(repository);
+            var postService = new PostServices(repository, null);
 
             postService.CreatePost(new MyProfileViewModel
             {

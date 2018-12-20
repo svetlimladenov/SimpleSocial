@@ -6,23 +6,27 @@ using SimpleSocia.Services.Models.Account;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.Account;
+using SimpleSocial.Services.DataServices.PostsServices;
 
 namespace SimpleSocial.Web.Controllers
 {
     public class AccountController : BaseController
     {
         private readonly IMyProfileServices myProfileServices;
+        private readonly IPostServices postServices;
         private readonly UserManager<SimpleSocialUser> userManager;
         private readonly IHostingEnvironment environment;
         private readonly IRepository<ProfilePicture> profilePicturesRepository;
 
         public AccountController(
             IMyProfileServices myProfileServices,
+            IPostServices postServices,
             UserManager<SimpleSocialUser> userManager,
             IHostingEnvironment environment,
             IRepository<ProfilePicture> profilePicturesRepository)
         {
             this.myProfileServices = myProfileServices;
+            this.postServices = postServices;
             this.userManager = userManager;
             this.environment = environment;
             this.profilePicturesRepository = profilePicturesRepository;
@@ -34,7 +38,7 @@ namespace SimpleSocial.Web.Controllers
             var viewModel = new MyProfileViewModel
             {
                 ProfilePicture = myProfileServices.GetProfilePicture(User),
-                Posts = myProfileServices.GetUserPosts(User),
+                Posts = postServices.GetUserPosts(User),
                 WallId = myProfileServices.GetWallId(User),
                 UserId = userManager.GetUserId(User),
                 IsValidProfilePicture = inputModel.IsValidProfilePicture

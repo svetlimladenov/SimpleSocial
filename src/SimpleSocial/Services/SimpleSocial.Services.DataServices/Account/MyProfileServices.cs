@@ -37,18 +37,6 @@ namespace SimpleSocial.Services.DataServices.Account
             this.hostingEnvironment = hostingEnvironment;
         }
 
-        public IEnumerable<PostViewModel> GetUserPosts(ClaimsPrincipal user)
-        {
-            var userId = userManager.GetUserId(user);
-
-            
-            //var posts = this.postRepository.All().Include(p => p.Comments).ThenInclude(p => p.Author).Where(x => x.UserId == userId).To<PostViewModel>().ToList().OrderByDescending(x => x.CreatedOn);
-
-            var posts = this.postRepository.All().Include(p => p.Comments).ThenInclude(p => p.Author).Select(x => Mapper.Map<PostViewModel>(x)).Where(x => x.UserId == userId).ToList();
-
-            return posts;
-        }
-
         public string GetWallId(ClaimsPrincipal user)
         {
             var userId = userManager.GetUserId(user);

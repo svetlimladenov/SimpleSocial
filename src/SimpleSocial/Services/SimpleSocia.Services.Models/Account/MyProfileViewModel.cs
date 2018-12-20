@@ -7,7 +7,7 @@ namespace SimpleSocia.Services.Models.Account
 {
     public class MyProfileViewModel
     {
-        public IEnumerable<PostViewModel> Posts { get; set; }
+        public ICollection<PostViewModel> Posts { get; set; }
 
         public CreatePostInputModel CreatePost { get; set; }
 

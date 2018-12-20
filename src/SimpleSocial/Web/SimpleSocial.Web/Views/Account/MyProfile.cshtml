@@ -45,7 +45,8 @@
                 </form>
             </div>
         </div>
-        @foreach (var post in Model.Posts)
+        @await Component.InvokeAsync("ListOfPosts", new { posts = Model.Posts})
+        @*@foreach (var post in Model.Posts)
         {
             <div class="row">
                 <div class="row">
@@ -78,7 +79,7 @@
                     </div>                
                 </div>
             </div>
-        }
+        }*@
     </div>
     <div class="col-md-3" id="test">
         <h2>Who to follow</h2>

@@ -15,6 +15,7 @@ using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.Account;
 using SimpleSocial.Services.DataServices.CommentsServices;
 using SimpleSocial.Services.DataServices.PostsServices;
+using SimpleSocial.Services.DataServices.SignUpDetails;
 using SimpleSocial.Services.Mapping;
 using SimpleSocial.Web.Middlewares;
 using SimpleSocial.Web.Utilities;
@@ -72,10 +73,10 @@ namespace SimpleSocial.Web
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("Administrator",
+                options.AddPolicy("Admin",
                     authBuilder =>
                     {
-                        authBuilder.RequireRole("Administrator");
+                        authBuilder.RequireRole("Admin");
                     });
             });
 
@@ -89,6 +90,8 @@ namespace SimpleSocial.Web
             services.AddScoped<IMyProfileServices, MyProfileServices>();
             services.AddScoped<IPostServices, PostServices>();
             services.AddScoped<ICommentsServices, CommentsServices>();
+            services.AddScoped<IProfileDetailsServices,ProfileDetailsServices>();
+            services.AddScoped<IUserServices, UserServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -120,7 +123,13 @@ namespace SimpleSocial.Web
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "areas",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
             });
+           
         }
     }
 }

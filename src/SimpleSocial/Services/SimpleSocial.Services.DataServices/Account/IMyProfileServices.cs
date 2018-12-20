@@ -8,8 +8,6 @@ namespace SimpleSocial.Services.DataServices.Account
 {
     public interface IMyProfileServices
     {
-        IEnumerable<PostViewModel> GetUserPosts(ClaimsPrincipal user);
-
         string GetWallId(ClaimsPrincipal user);
 
         ProfilePicture GetProfilePicture(ClaimsPrincipal user);

@@ -22,22 +22,19 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         private readonly SimpleSocialContext dbContext;
-        private readonly IRepository<ProfilePicture> profilePicturesRepository;
 
         public RegisterModel(
             UserManager<SimpleSocialUser> userManager,
             SignInManager<SimpleSocialUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender,
-            SimpleSocialContext dbContext,
-            IRepository<ProfilePicture> profilePicturesRepository)
+            SimpleSocialContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
             this.dbContext = dbContext;
-            this.profilePicturesRepository = profilePicturesRepository;
         }
 
         [BindProperty]
@@ -51,14 +48,6 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
             [Required]
             [StringLength(40, ErrorMessage = "The {0} must be max {1} characters long.")]
             public string Username { get; set; }
-
-            [Required]
-            [StringLength(40, ErrorMessage = "The {0} must be max {1} characters long.")]
-            public string FirstName { get; set; }
-
-            [Required]
-            [StringLength(40, ErrorMessage = "The {0} must be max {1} characters long.")]
-            public string LastName { get; set; }
 
             [Required]
             [EmailAddress]
@@ -88,7 +77,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                
-                var user = new SimpleSocialUser() { UserName = Input.Username, FirstName = Input.FirstName, LastName = Input.LastName, Email = Input.Email};
+                var user = new SimpleSocialUser() { UserName = Input.Username, Email = Input.Email};
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 var wall = new Wall()
@@ -134,7 +123,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
+                    return RedirectToAction("Index", "ProfileDetails");
                 }
                 foreach (var error in result.Errors)
                 {
