@@ -22,52 +22,53 @@
 
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <ul>
-                <div class="left-functions">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li><a asp-controller="Home" asp-action="Index">SimpleSocial</a></li>
-                        <li><a href="#">Notifications</a></li>
-                        <li><a href="#">Chat</a></li>
-                        if (User.IsInRole("Admin"))
+    <div class="body-wrapper">
+        <nav>
+            <div class="container">
+                <ul>
+                    <div class="left-functions">
+                        @if (User.Identity.IsAuthenticated)
                         {
-                            <li><a asp-area="Administration" asp-controller="Admin" asp-action="Index">Administration</a></li>
+                            <li><a asp-controller="Home" asp-action="Index">SimpleSocial</a></li>
+                            <li><a href="#">Notifications</a></li>
+                            <li><a href="#">Chat</a></li>
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li><a asp-area="Administration" asp-controller="Admin" asp-action="Index">Administration</a></li>
+                            }
                         }
-                    }
-                    else
-                    {
-                        <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
-                        <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
-                    }
+                        else
+                        {
+                            <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+                            <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+                        }
 
-                </div>
-                <div class="right-functions">
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        <li><a asp-controller="Account" asp-action="MyProfile">My Profile</a></li>
-                        <li>
-                            <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})" method="post" id="logoutForm">
-                                <button type="submit" class="logout-btn">Logout</button>
-                            </form>
-                        </li>
-                    }
-                </div>
-            </ul>
+                    </div>
+                    <div class="right-functions">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a asp-controller="Account" asp-action="MyProfile">My Profile</a></li>
+                            <li>
+                                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})" method="post" id="logoutForm">
+                                    <button type="submit" class="logout-btn">Logout</button>
+                                </form>
+                            </li>
+                        }
+                    </div>
+                </ul>
+            </div>
+        </nav>
+
+        <partial name="_CookieConsentPartial" />
+
+        <div class="container body-content content-wrapper">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; 2018 - WebApplication2</p>
+            </footer>
         </div>
-    </nav>
-
-    <partial name="_CookieConsentPartial" />
-
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2018 - WebApplication2</p>
-        </footer>
     </div>
-
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>

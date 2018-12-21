@@ -127,3 +127,7 @@ input[type="file"] {
 .post-input:focus {
     height: 100px;
 }
+
+.body-wrapper { background-color: #E9EBEE; }
+
+.content-wrapper { margin-top: 10px;}

@@ -15,6 +15,7 @@
                     <a asp-action="ChangeProfilePicture" class="btn btn-default">Upload Profile Picture</a>
                 </div>
             </cache>
+            <h2>@User.Identity.Name</h2>
         </div>
         <div class="col-md-6">
             <form asp-controller="Posts" asp-action="Create">

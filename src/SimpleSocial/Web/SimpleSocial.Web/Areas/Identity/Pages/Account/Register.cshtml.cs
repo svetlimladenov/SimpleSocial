@@ -90,11 +90,17 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
                 user.WallId = wall.Id;
                 dbContext.SaveChanges();
 
-                dbContext.ProfilePictures.Add(new ProfilePicture
+                var profilePicture = new ProfilePicture
                 {
                     UserId = user.Id,
                     FileName = user.Id,
-                });
+                };
+
+                dbContext.ProfilePictures.Add(profilePicture);
+
+                dbContext.SaveChanges();
+
+                user.ProfilePictureId = profilePicture.Id;
 
                 dbContext.SaveChanges();
 

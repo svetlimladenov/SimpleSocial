@@ -21,13 +21,15 @@ namespace SimpleSocial.Services.DataServices.Account
         private readonly IRepository<ProfilePicture> profilePicturesRepository;
         private readonly UserManager<SimpleSocialUser> userManager;
         private readonly IHostingEnvironment hostingEnvironment;
+        private readonly IRepository<SimpleSocialUser> userRepository;
 
         public MyProfileServices(
             IRepository<Post> postRepository,
             IRepository<Wall> wallRepository,
             IRepository<ProfilePicture> profilePicturesRepository,
             UserManager<SimpleSocialUser> userManager,
-            IHostingEnvironment hostingEnvironment
+            IHostingEnvironment hostingEnvironment,
+            IRepository<SimpleSocialUser> userRepository
             )
         {
             this.postRepository = postRepository;
@@ -35,6 +37,7 @@ namespace SimpleSocial.Services.DataServices.Account
             this.profilePicturesRepository = profilePicturesRepository;
             this.userManager = userManager;
             this.hostingEnvironment = hostingEnvironment;
+            this.userRepository = userRepository;
         }
 
         public string GetWallId(ClaimsPrincipal user)
@@ -85,12 +88,21 @@ namespace SimpleSocial.Services.DataServices.Account
                     profilePicturesRepository.SaveChangesAsync().GetAwaiter().GetResult();
                     currentProfilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
                 }
-                profilePicturesRepository.AddAsync(new ProfilePicture
+
+                var newProfilePic = new ProfilePicture
                 {
                     FileName = userId + imgExtension,
                     UserId = userId
-                }).GetAwaiter().GetResult();
+                };
+                profilePicturesRepository.AddAsync(newProfilePic).GetAwaiter().GetResult();
+
+                var userProfilePicToChange = userManager.GetUserAsync(user).GetAwaiter().GetResult();
+
                 profilePicturesRepository.SaveChangesAsync().GetAwaiter().GetResult();
+
+                userProfilePicToChange.ProfilePictureId = newProfilePic.Id;
+
+                userRepository.SaveChangesAsync().GetAwaiter().GetResult();
             }
         }
     }

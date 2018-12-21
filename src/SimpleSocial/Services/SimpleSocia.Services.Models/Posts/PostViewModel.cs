@@ -10,6 +10,8 @@ namespace SimpleSocia.Services.Models.Posts
     {
         public string Id { get; set; }
 
+        public SimpleSocialUser User { get; set; }
+
         public string UserId { get; set; }
 
         public string WallId { get; set; }
@@ -30,6 +32,8 @@ namespace SimpleSocia.Services.Models.Posts
                 x => x.MapFrom(p => p.Content.Length));
 
             configuration.CreateMap<Post, PostViewModel>().ForMember(x => x.Comments, x => x.MapFrom(p => p.Comments));
+
+            configuration.CreateMap<Post, PostViewModel>().ForMember(x => x.User, x => x.MapFrom(p => p.User));
         }
     }
 }

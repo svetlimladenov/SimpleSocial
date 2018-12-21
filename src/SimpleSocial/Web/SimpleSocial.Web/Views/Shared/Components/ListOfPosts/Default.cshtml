@@ -39,8 +39,8 @@
 {
     <div class="single-post">
         <div class="user" data-attr="@post.CreatedOn.ToString("d")">
-            <div class="profile-picture"></div>
-            <div class="user-name"><strong>@post.UserId</strong></div>
+            <div class="profile-picture" style="background-image: url(/profile-pictures/@post.User.ProfilePicture.FileName)"></div>
+            <div class="user-name"><strong>@post.User.UserName</strong></div>
         </div>
         <div class="content">
             <p>@post.Content</p>
@@ -49,16 +49,23 @@
             <button>Like</button>
             <button>Comment</button>
         </div>
-        <div class="comments">
-            <div class="single-comment">
-                <div class="user" data-kire="25/10/31">
-                    <div class="profile-picture"></div>
-                    <div class="user-name"><strong>Emil Mladenov</strong></div>
-                </div>
-                <div class="comment-content">
-                    <p data-likes="20">Lele qko si lud brat</p>
+        <div class="write-comment">
+            <div class="profile-picture"></div>
+            <input placeholder="Write a comment..."/>
+        </div>
+        @foreach (var comment in post.Comments)
+        {
+            <div class="comments">
+                <div class="single-comment">
+                    <div class="user" data-attr="@comment.PostedOn.ToString("d")">
+                        <div class="profile-picture" style="background-image: url(/profile-pictures/@comment.Author.ProfilePicture.FileName)"></div>
+                        <div class="user-name"><strong>@comment.Author.UserName</strong></div>
+                    </div>
+                    <div class="comment-content">
+                        <p data-likes="20">@comment.CommentText</p>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
 }

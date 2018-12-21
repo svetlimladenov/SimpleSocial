@@ -55,6 +55,11 @@ namespace SimpleSocial.Data
                 .HasOne(pr => pr.Post)
                 .WithMany(p => p.PostReports)
                 .HasForeignKey(pr => pr.PostId);
+
+            builder.Entity<SimpleSocialUser>()
+                .HasOne(u => u.ProfilePicture)
+                .WithOne(p => p.User)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

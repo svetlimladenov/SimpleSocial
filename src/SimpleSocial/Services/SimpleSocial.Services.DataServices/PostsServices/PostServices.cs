@@ -52,8 +52,10 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
             //var posts = this.postRepository.All().Include(p => p.Comments).ThenInclude(p => p.Author).Where(x => x.UserId == userId).To<PostViewModel>().ToList().OrderByDescending(x => x.CreatedOn);
 
-            var posts = this.postRepository.All().Include(p => p.Comments).ThenInclude(p => p.Author).Select(x => Mapper.Map<PostViewModel>(x)).Where(x => x.UserId == userId).ToList();
+            var posts = this.postRepository.All().Include(p => p.User).ThenInclude(u => u.ProfilePicture).Include(p => p.Comments).ThenInclude(p => p.Author).ThenInclude(a => a.ProfilePicture).Select(x => Mapper.Map<PostViewModel>(x)).Where(x => x.UserId == userId).OrderByDescending(x => x.CreatedOn).ToList();
 
+
+            var pos = this.postRepository.All().Include(p => p.User).ThenInclude(u => u.ProfilePicture).ToList();
             return posts;
         }
 

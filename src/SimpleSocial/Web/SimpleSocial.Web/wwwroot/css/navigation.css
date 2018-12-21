@@ -7,6 +7,7 @@
 
 nav {
     box-shadow: 0 2px 4px 1px rgba(102, 102, 102, 0.2);
+    background-color: white;
     padding: 15px 0;
 }
 
@@ -61,7 +62,7 @@ ul {
 }
 
 .foo {
-    background: #dfe3ee;
+    background: #81CBF8;
     padding: 20px;
 }
 
@@ -91,7 +92,13 @@ ul {
     }
 
 .single-post {
-    margin: 0 auto;
+    background: white;
+    margin: 15px auto;
+    padding: 10px 0;
+}
+
+.user, .content, .actions, .comments {
+    padding: 0 10px;
 }
 
     .single-post .user {
@@ -103,7 +110,7 @@ ul {
         .single-post .user:after {
             content: attr(data-attr);
             margin: 10px;
-            font-size: .75rem;
+            font-size: 1rem;
             color: grey;
         }
 
@@ -115,8 +122,13 @@ ul {
             margin-right: 10px;
         }
 
+.actions {
+    border-top: 1px solid #E9EBEE;
+    padding-top: 10px;
+}
+
 .comments {
-    border-top: 4px solid grey;
+    border-top: 1px solid #E9EBEE;
     margin: 10px 0;
 }
 
@@ -138,9 +150,9 @@ a {
     text-decoration: none;
 }
 
-a:hover {
-    text-decoration: none;
-}
+    a:hover {
+        text-decoration: none;
+    }
 
 .logout-btn {
     background: none !important;
