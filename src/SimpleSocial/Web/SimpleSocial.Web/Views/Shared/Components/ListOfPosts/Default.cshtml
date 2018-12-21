@@ -1,34 +1,64 @@
 ﻿@model SimpleSocia.Services.Models.Account.MyProfileViewModel
+@*@foreach (var post in Model.Posts)
+    {
+        <div class="row">
+            <div class="row">
+                <a>@post.CreatedOn.ToString("d")</a>
+                <p>@post.CharactersCount symbols</p>
+            </div>
+            <div class="row">
+                <p>@post.Content</p>
+            </div>
+            <div class="row">
+                <div class="example">
+                    <div data-emojiarea data-type="unicode" data-global-picker="false">
+                        <div class="emoji-button">&#x1f604;</div>
+                        <form asp-controller="Comments" asp-action="PostComment" class="form-group">
+                            <textarea asp-for="CommentInputModel.CommentText" id="comment-text" rows="1" placeholder="Write a comment..." class="form-control" onkeyup="disableCommentButton()"></textarea>
+                            <input asp-for="CommentInputModel.AuthorId" value="@Model.UserId" hidden="hidden" aria-hidden="True" />
+                            <input asp-for="CommentInputModel.PostId" value="@post.Id" hidden="hidden" aria-hidden="True" />
+                            <input type="submit" value="Comment" id="comment-button" class="btn btn-primary pull-right" disabled/>
+                        </form>
+                    </div>
+                    Comments:
+                    @foreach (var comment in post.Comments)
+                    {
+                        <div class="row">
+                            <a>@comment.Author</a>
+                            <p>@comment.CommentText</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }*@
+
+
+
 @foreach (var post in Model.Posts)
 {
-    <div class="row">
-        <div class="row">
-            <a>@post.CreatedOn.ToString("d")</a>
-            <p>@post.CharactersCount symbols</p>
+    <div class="single-post">
+        <div class="user" data-attr="@post.CreatedOn.ToString("d")">
+            <div class="profile-picture"></div>
+            <div class="user-name"><strong>@post.UserId</strong></div>
         </div>
-        <div class="row">
+        <div class="content">
             <p>@post.Content</p>
         </div>
-        <div class="row">
-            <div class="example">
-                <div data-emojiarea data-type="unicode" data-global-picker="false">
-                    <div class="emoji-button">&#x1f604;</div>
-                    <form asp-controller="Comments" asp-action="PostComment" class="form-group">
-                        <textarea asp-for="CommentInputModel.CommentText" id="comment-text" rows="1" placeholder="Write a comment..." class="form-control" onkeyup="disableCommentButton()"></textarea>
-                        <input asp-for="CommentInputModel.AuthorId" value="@Model.UserId" hidden="hidden" aria-hidden="True" />
-                        <input asp-for="CommentInputModel.PostId" value="@post.Id" hidden="hidden" aria-hidden="True" />
-                        <input type="submit" value="Comment" id="comment-button" class="btn btn-primary pull-right" disabled/>
-                    </form>
+        <div class="actions">
+            <button>Like</button>
+            <button>Comment</button>
+        </div>
+        <div class="comments">
+            <div class="single-comment">
+                <div class="user" data-kire="25/10/31">
+                    <div class="profile-picture"></div>
+                    <div class="user-name"><strong>Emil Mladenov</strong></div>
                 </div>
-                Comments:
-                @foreach (var comment in post.Comments)
-                {
-                    <div class="row">
-                        <a>@comment.Author</a>
-                        <p>@comment.CommentText</p>
-                    </div>
-                }
-            </div>                
+                <div class="comment-content">
+                    <p data-likes="20">Lele qko si lud brat</p>
+                </div>
+            </div>
         </div>
     </div>
 }

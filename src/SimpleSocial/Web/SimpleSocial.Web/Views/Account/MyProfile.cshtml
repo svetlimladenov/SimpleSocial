@@ -5,53 +5,43 @@
     ViewData["Title"] = "MyProfile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2 class="text-center">@ViewData["Title"]</h2>
-
-<div class="row">
-    <div class="col-md-3 profile-picture-holder">
-        @*TODO: Check if user has profile picture else display default profile picture*@
-        <cache expires-after="@TimeSpan.FromSeconds(2)">
-            <img src="/profile-pictures/@Model.ProfilePicture.FileName" class="profilePicture" />
-            <div class="show-link">
-                <a asp-action="ChangeProfilePicture" class="btn btn-default">Upload Profile Picture</a>
-            </div>
-        </cache>
-    </div>
-
-    <div class="col-md-6">
-    </div>
-    <div class="col-md-3">
-        <div class="navbar-nav">
-
+<div class="container">
+    <div class="row">
+        <div class="col-md-3 profile-picture-holder">
+            @*TODO: Check if user has profile picture else display default profile picture*@
+            <cache expires-after="@TimeSpan.FromSeconds(2)">
+                <img src="/profile-pictures/@Model.ProfilePicture.FileName" class="profilePicture" />
+                <div class="show-link">
+                    <a asp-action="ChangeProfilePicture" class="btn btn-default">Upload Profile Picture</a>
+                </div>
+            </cache>
+        </div>
+        <div class="col-md-6">
+            <form asp-controller="Posts" asp-action="Create">
+                <div class="foo">
+                    <div data-emojiarea data-type="unicode" data-global-picker="false">
+                        <div class="emoji-button">&#x1f604;</div>
+                        <textarea asp-for="CreatePost.Content" placeholder="What's up today ?" id="input1" cols="70" rows="4"></textarea>
+                        <input asp-for="CreatePost.WallId" value="@Model.WallId" hidden />
+                        <input asp-for="CreatePost.UserId" value="@Model.UserId" hidden />
+                        <div class="post-functions">
+                            <div class="icons">
+                                <i class="fas fa-images"></i>
+                            </div>
+                            <div class="functions">
+                                <button type="submit">post</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>           
+            @await Component.InvokeAsync("ListOfPosts", new { posts = Model.Posts })
+        </div>
+        <div class="col-md-3" id="test">
+            <h2>Who to follow</h2>
         </div>
     </div>
 </div>
-
-<div class="row">
-    <div class="col-md-3">
-        <h2>My Profile</h2>
-        <p>Hello, @User.Identity.Name</p>
-    </div>
-    <div class="col-md-6">
-        <div class="example">
-            <div data-emojiarea data-type="unicode" data-global-picker="false">
-                <div class="emoji-button">&#x1f604;</div>
-                <form asp-controller="Posts" asp-action="Create" class="form-group">
-                    <textarea asp-for="CreatePost.Content" id="input1" rows="1" placeholder="What's up today ?" class="form-control post-input"  onkeyup="disableButton()">You can insert unicode emojis here &#x1f604;</textarea>
-                    <input asp-for="CreatePost.WallId" value="@Model.WallId" hidden />
-                    <input asp-for="CreatePost.UserId" value="@Model.UserId" hidden />
-                    <input type="submit" value="Post" id="post-button" class="btn btn-primary pull-right" disabled/>
-                </form>
-            </div>
-        </div>
-        @await Component.InvokeAsync("ListOfPosts", new { posts = Model.Posts})       
-    </div>
-    <div class="col-md-3" id="test">
-        <h2>Who to follow</h2>
-    </div>
-</div>
-
 
 @section Scripts
     {
@@ -67,9 +57,9 @@
 
     <script>
         function disableButton() {
-            if (document.getElementById("input1").value.trim() === "") { 
-                document.getElementById('post-button').disabled = true; 
-            } else { 
+            if (document.getElementById("input1").value.trim() === "") {
+                document.getElementById('post-button').disabled = true;
+            } else {
                 document.getElementById('post-button').disabled = false;
             }
         }
@@ -82,8 +72,8 @@
             }
         }
     </script>
-    
-    
+
+
     <script src="/Emoji-Picker-For-Textarea-jQuery-Emojiarea/src/js/EmojiArea.js"></script>
     <script src="/Emoji-Picker-For-Textarea-jQuery-Emojiarea/main.js"></script>
     <script src="/Emoji-Picker-For-Textarea-jQuery-Emojiarea/jquery.emojiarea.js"></script>

@@ -61,10 +61,8 @@ ul {
 }
 
 .foo {
-    margin: 10px auto;
     background: #dfe3ee;
     padding: 20px;
-    max-width: 500px;
 }
 
     .foo textarea {
@@ -93,7 +91,6 @@ ul {
     }
 
 .single-post {
-    max-width: 500px;
     margin: 0 auto;
 }
 
@@ -104,7 +101,7 @@ ul {
     }
 
         .single-post .user:after {
-            content: attr(data-kire);
+            content: attr(data-attr);
             margin: 10px;
             font-size: .75rem;
             color: grey;
@@ -137,6 +134,7 @@ ul {
 }
 
 a {
+    color: black;
     text-decoration: none;
 }
 
