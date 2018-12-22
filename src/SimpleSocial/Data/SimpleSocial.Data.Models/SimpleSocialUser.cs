@@ -14,6 +14,7 @@ namespace SimpleSocial.Data.Models
             Posts = new HashSet<Post>();
             Comments = new HashSet<Comment>();
             UserPages = new HashSet<Page>();
+            Likes = new HashSet<UserLike>();
         }
 
         public string FirstName { get; set; }
@@ -49,5 +50,7 @@ namespace SimpleSocial.Data.Models
         public ICollection<Comment> Comments { get; set; }
 
         public ICollection<Page> UserPages { get; set; }
+
+        public ICollection<UserLike> Likes { get; set; }
     }
 }

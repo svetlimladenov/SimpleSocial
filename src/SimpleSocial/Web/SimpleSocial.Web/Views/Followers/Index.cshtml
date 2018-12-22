@@ -1,0 +1,18 @@
+﻿@model SimpleSocia.Services.Models.Followers.AddFollowersViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Who To Follow</h2>
+
+<div>
+    @foreach (var user in Model.UsersToFollow)
+    {
+        <div class="user">
+            <div class="profile-picture" style="background-image: url(/profile-pictures/@user.ProfilePicture.FileName)"></div>
+            <div class="user-name"><strong>@user.UserName</strong></div>
+            <button>Follow</button>
+        </div>      
+    }
+</div>
+

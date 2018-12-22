@@ -25,6 +25,7 @@ namespace SimpleSocial.Data
 
         public DbSet<ProfilePicture> ProfilePictures { get; set; }
 
+        public DbSet<UserLike> UserLikes { get; set; }
        
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -60,6 +61,9 @@ namespace SimpleSocial.Data
                 .HasOne(u => u.ProfilePicture)
                 .WithOne(p => p.User)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            builder.Entity<UserLike>()
+                .HasKey(ul => new {ul.UserId, ul.PostId});
         }
     }
 }

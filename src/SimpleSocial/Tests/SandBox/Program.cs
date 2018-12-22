@@ -1,11 +1,14 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleSocial.Data;
 using SimpleSocial.Data.Common;
+using SimpleSocial.Data.Models;
+using SimpleSocial.Services.DataServices.PostsServices;
 
 namespace SandBox
 {
@@ -28,10 +31,11 @@ namespace SandBox
 
         private static void SandboxCode(IServiceProvider serviceProvider)
         {
-            var exits = File.Exists(
-                "D:/SoftUni/SimpleSocial/src/SimpleSocial/Web/SimpleSocial.Web/wwwroot/profile-pictures/37f1edb4-069e-4363-8202-b18a2dcc8b8f.jpg");
+            var postServices = serviceProvider.GetService<IRepository<Post>>();
+            var post = postServices.All().FirstOrDefault();
+            post.Likes.Add(new UserLike(){PostId = "ee7a8a57-87fd-423c-9f8a-7c218c0abf1d" , UserId = "90d7d6cb-199e-4423-98f0-01fba1d0571e" });
 
-            Console.WriteLine(exits);
+            postServices.SaveChangesAsync().GetAwaiter().GetResult();
         }
 
         private static void ConfigureServices(ServiceCollection services)

@@ -36,10 +36,11 @@
                     </div>
                 </div>
             </form>           
-            @await Component.InvokeAsync("ListOfPosts", new { posts = Model.Posts })
+            @await Component.InvokeAsync("ListOfPosts", new { posts = Model })
         </div>
         <div class="col-md-3" id="test">
             <h2>Who to follow</h2>
+            <a asp-controller="Followers" asp-action="Index">Find Followers</a>
         </div>
     </div>
 </div>
@@ -72,6 +73,12 @@
                 document.getElementById('comment-button').disabled = false;
             }
         }
+
+        $(document).ready(function () {
+            $("#comment-button").click(function () {
+                $(".write-comment").css("display","flex");
+            });
+        });
     </script>
 
 

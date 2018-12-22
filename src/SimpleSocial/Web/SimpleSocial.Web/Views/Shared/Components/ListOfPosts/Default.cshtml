@@ -38,6 +38,7 @@
 
 @foreach (var post in Model.Posts)
 {
+    var showCommentSectionDiv = "show-comment-section" + post.Title;
     <div class="single-post">
         <div class="user" data-attr="@post.CreatedOn.ToString("d")">
             <div class="profile-picture" style="background-image: url(/profile-pictures/@post.User.ProfilePicture.FileName)"></div>
@@ -48,14 +49,21 @@
         </div>
         <div class="actions">
             <div class="action-buttons"><i class="far fa-thumbs-up"></i><button>Like</button></div>
-            <div class="action-buttons"><i class="far fa-comments"></i><button>Comment</button></div>
+            <div class="action-buttons"><i class="far fa-comments"></i><button id="comment-button">Comment</button></div>
         </div>  
-        <div class="write-comment">
+        
+        <div class="write-comment" id="@showCommentSectionDiv">
             @*//TODO: Add the form for comments with emojies*@
-            <div class="profile-picture"></div>
-            <input placeholder="Write a comment..."/>
+            <div class="profile-picture" style="background-image: url(/profile-pictures/@Model.ProfilePicture.FileName); background-size: cover"></div>
+            <form asp-controller="Comments" asp-action="PostComment">
+                <input asp-for="CommentInputModel.CommentText" placeholder="Write a comment..." />
+                <input asp-for="CommentInputModel.AuthorId" value="@Model.UserId" hidden="hidden" aria-hidden="True" />
+                <input asp-for="CommentInputModel.PostId" value="@post.Id" hidden="hidden" aria-hidden="True" />
+                <button type="button" hidden>Button 1</button>
+                <input type="submit" name="go" value="Submit" hidden/>
+            </form>
         </div>
-        @foreach (var comment in post.Comments)
+        @foreach (var comment in post.Comments.OrderByDescending(c => c.PostedOn))
         {
             <div class="comments">
                 <div class="single-comment">

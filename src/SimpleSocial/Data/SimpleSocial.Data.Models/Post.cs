@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Policy;
 
 namespace SimpleSocial.Data.Models
 {
@@ -10,6 +11,7 @@ namespace SimpleSocial.Data.Models
         {
             Comments = new HashSet<Comment>();
             PostReports = new HashSet<PostReport>();
+            Likes = new HashSet<UserLike>();
         }
 
         public string Id { get; set; }
@@ -22,7 +24,7 @@ namespace SimpleSocial.Data.Models
 
         public bool IsDeleted { get; set; } = false;
 
-        public int Likes { get; set; } = 0;
+        public ICollection<UserLike> Likes { get; set; }
 
         public string UserId { get; set; }
 
