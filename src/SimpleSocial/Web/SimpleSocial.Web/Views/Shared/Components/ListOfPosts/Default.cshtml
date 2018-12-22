@@ -1,4 +1,5 @@
-﻿@model SimpleSocia.Services.Models.Account.MyProfileViewModel
+﻿@using SimpleSocial.Data.Models
+@model SimpleSocia.Services.Models.Account.MyProfileViewModel
 @*@foreach (var post in Model.Posts)
     {
         <div class="row">
@@ -46,10 +47,11 @@
             <p>@post.Content</p>
         </div>
         <div class="actions">
-            <button>Like</button>
-            <button>Comment</button>
-        </div>
+            <div class="action-buttons"><i class="far fa-thumbs-up"></i><button>Like</button></div>
+            <div class="action-buttons"><i class="far fa-comments"></i><button>Comment</button></div>
+        </div>  
         <div class="write-comment">
+            @*//TODO: Add the form for comments with emojies*@
             <div class="profile-picture"></div>
             <input placeholder="Write a comment..."/>
         </div>

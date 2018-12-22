@@ -70,7 +70,7 @@ ul {
         resize: none;
         border: none;
         box-shadow: 0 0 1px 1px #b3b3b3;
-        border-radius: 2px;
+        border-radius: 5px;
         transition: 350ms all ease-in-out;
     }
 
@@ -101,31 +101,27 @@ ul {
     padding: 0 10px;
 }
 
-    .single-post .user {
-        display: flex;
-        align-items: center;
-        position: relative;
+.single-post .user {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+    .single-post .user:after {
+        content: attr(data-attr);
+        margin: 10px;
+        font-size: 1.2rem;
+        color: grey;
     }
 
-        .single-post .user:after {
-            content: attr(data-attr);
-            margin: 10px;
-            font-size: 1rem;
-            color: grey;
-        }
-
-        .single-post .user .profile-picture {
-            width: 35px;
-            height: 35px;
-            background: url("https://placecage.com/50/50");
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-
-.actions {
-    border-top: 1px solid #E9EBEE;
-    padding-top: 10px;
-}
+    .single-post .user .profile-picture {
+        width: 48px;
+        height: 48px;
+        background: url(/profile-pictures/default.jpg);
+        border-radius: 50%;
+        background-size: cover;
+        margin-right: 10px;
+    }
 
 .comments {
     border-top: 1px solid #E9EBEE;
@@ -161,4 +157,31 @@ a {
     padding: 0 !important;
     font: inherit;
     cursor: pointer;
+}
+
+.actions {
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.content {
+    margin-top: 5px;
+    border-bottom: 1px solid #E9EBEE;
+}
+
+.write-comment {
+    border-top: 1px solid #E9EBEE;
+}
+
+.action-buttons:hover {
+    background: #F6F6F6;
+}
+
+.action-buttons button {
+    background: none !important;
+    color: black;
+    border-radius: 3px;
 }
