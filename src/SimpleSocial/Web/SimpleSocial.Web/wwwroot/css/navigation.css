@@ -214,3 +214,43 @@ a {
     width: 100%;
     margin-bottom: 10px;
 }
+
+.who-to-follow-wrapper {
+    background: #fff;
+    padding: 0;
+}
+
+    .who-to-follow-wrapper h1 {
+        border-bottom: 0.5px solid #E9EBEE;
+        text-align: center;
+    }
+
+.follower {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 15px 15px;
+    border-top: 0.5px solid #E9EBEE;
+    border-bottom: 0.5px solid #E9EBEE;
+}
+.follower .profile-picture {
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.follower button {
+    margin-left: 10px;
+    border: none;
+    background: #005b96;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 10px;
+}
+
+.left-user-section, .right-user-section {
+    display: flex;
+    align-items: center;
+}

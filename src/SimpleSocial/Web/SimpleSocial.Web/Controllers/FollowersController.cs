@@ -21,6 +21,7 @@ namespace SimpleSocial.Web.Controllers
         }
         public IActionResult Index()
         {
+            //TODO: Move it to service, remove the current user from the list;
             var viewModel = new AddFollowersViewModel();
             viewModel.UsersToFollow = usersRepository.All().Include(u => u.ProfilePicture).To<SimpeUserViewModel>().ToList();
 
