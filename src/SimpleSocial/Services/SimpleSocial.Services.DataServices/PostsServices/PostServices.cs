@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SimpleSocia.Services.Models.Account;
+using SimpleSocia.Services.Models.Comments;
 using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
@@ -16,16 +17,19 @@ namespace SimpleSocial.Services.DataServices.PostsServices
     {
         private readonly IRepository<Post> postRepository;
         private readonly IRepository<UserLike> userLikesRepository;
+        private readonly IRepository<SimpleSocialUser> userRepository;
         private readonly UserManager<SimpleSocialUser> userManager;
 
         public PostServices(
             IRepository<Post> postRepository,
             IRepository<UserLike> userLikesRepository,
+            IRepository<SimpleSocialUser> userRepository,
             UserManager<SimpleSocialUser> userManager
         )
         {
             this.postRepository = postRepository;
             this.userLikesRepository = userLikesRepository;
+            this.userRepository = userRepository;
             this.userManager = userManager;
         }
 
@@ -76,6 +80,29 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         {
             var post = this.postRepository.All().To<PostViewModel>().FirstOrDefault(x => x.Id == id);
             return post;
+        }
+
+        public SinglePostViewComponentModel GetSinlSinglePostViewComponentModel(string id, ClaimsPrincipal user)
+        {
+            var userId = this.userManager.GetUserId(user);
+            var userWithProfilePic= this.userRepository.All().Include(u => u.ProfilePicture).FirstOrDefault(x => x.Id == userId);
+            var profilePicture = userWithProfilePic.ProfilePicture;
+            var viewModel = new SinglePostViewComponentModel();
+            var post = this.GetPostById(id);
+            if (post.Likes.FirstOrDefault(x => x.UserId == userId) == null)
+            {
+                post.IsLiked = false;
+            }
+            else
+            {
+                post.IsLiked = true;
+            }
+            viewModel.Post = post;
+            viewModel.LikeClassName = "like-ajax-1";
+            viewModel.ProfilePicture = profilePicture;
+            viewModel.CommentInputModel = new CommentInputModel();
+
+            return viewModel;
         }
     }
 }

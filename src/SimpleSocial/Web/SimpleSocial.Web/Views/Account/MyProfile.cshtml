@@ -35,7 +35,7 @@
                         </div>
                     </div>
                 </div>
-            </form>           
+            </form>
             @await Component.InvokeAsync("ListOfPosts", new { posts = Model })
         </div>
         <div class="col-md-3" id="test">
@@ -46,7 +46,7 @@
 </div>
 
 @section Scripts
-{
+    {
 
     @if (!Model.IsValidProfilePicture)
     {
@@ -62,8 +62,8 @@
             $("#comment-button").click(function () {
                 $(".write-comment").css("display", "flex");
             });
-        });       
-    </script>   
+        });
+    </script>
 
     <script>
         function disableButton() {
@@ -83,18 +83,20 @@
         }
 
         var buttons = $(".like-btn");
-        $.each(buttons,
-            function () {
-                var likebtn = $(this);
-                var isLiked = likebtn.data("like");
-                if (isLiked === 'True') {
-                    likebtn.html("<i class=\"far fa-thumbs-down\"></i>Unlike")
-                } else {
-                    likebtn.html("<i class=\"far fa-thumbs-up\"></i>Like")
-                }
-            });
 
-        
+        $(document).ready(function () {
+            $.each(buttons,
+                function () {
+                    var likebtn = $(this);
+                    var isLiked = likebtn.data("like");
+                    if (isLiked === 'True') {
+                        likebtn.html("<i class=\"far fa-thumbs-down\"></i>Unlike");
+                    } else {
+                        likebtn.html("<i class=\"far fa-thumbs-up\"></i>Like");
+                    }
+                });
+        });
+
     </script>
 
 

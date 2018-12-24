@@ -1,10 +1,34 @@
-﻿@model SimpleSocia.Services.Models.Posts.PostViewModel
+﻿@model SimpleSocia.Services.Models.Posts.SinglePostViewComponentModel
 @{
     ViewData["Title"] = "PostDetails";
+    var likeClassName = "like-ajax-1";
 }
+<script src="~/lib/jquery/dist/jquery.js"></script>
 
 <h2>PostDetails</h2>
 
 <div>
-        
+    @await Component.InvokeAsync("SinglePost", new { post = Model.Post, likeClassName = Model.LikeClassName, profilePicture = Model.ProfilePicture, commentInputModel = Model.CommentInputModel })
 </div>
+
+
+@section Scripts
+{
+    <script>
+        var buttons = $(".like-btn");
+
+        $(document).ready(function () {
+            $.each(buttons,
+                function () {
+                    var likebtn = $(this);
+                    var isLiked = likebtn.data("like");
+                    if (isLiked === 'True') {
+                        likebtn.html("<i class=\"far fa-thumbs-down\"></i>Unlike");
+                    } else {
+                        likebtn.html("<i class=\"far fa-thumbs-up\"></i>Like");
+                    }
+                });
+        });
+    </script>
+}
+

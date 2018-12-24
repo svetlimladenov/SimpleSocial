@@ -1,0 +1,72 @@
+﻿@model SimpleSocia.Services.Models.Posts.SinglePostViewComponentModel
+
+<div class="single-post">
+    <div class="user" data-attr="@Model.Post.CreatedOn.ToString("d")">
+        <div class="profile-picture" style="background-image: url(/profile-pictures/@Model.Post.User.ProfilePicture.FileName)"></div>
+        <div class="user-name"><strong>@Model.Post.User.UserName</strong></div>
+        <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@Model.Post.Id">Details</a>
+    </div>
+    <div class="content">
+        <p>@Model.Post.Content</p>
+    </div>
+    <div class="actions">
+        <div class="action-buttons" id="like">
+            <button class="like-btn @Model.LikeClassName" data-like="@Model.Post.IsLiked"><i class="far fa-thumbs-up"></i>Like</button>
+        </div>
+        <div class="action-buttons"><i class="far fa-comments"></i><button id="comment-button">Comment</button></div>
+    </div>
+
+    <script>
+        $(".@Model.LikeClassName").click(function() {
+            var likebtn = $(this);
+            var isLiked = likebtn.data("like");
+            jQuery.ajax({
+                type: "POST",
+                url: "/Likes/GetAction",
+                data: { isLiked: isLiked, postId: "@Model.Post.Id" },
+                success: function() {
+                    if (isLiked === 'True') {
+                        likebtn.data("like", "False");
+                    } else {
+                        likebtn.data("like", "True");
+                    }
+                },
+                complete: function() {
+                    isLiked = likebtn.data("like");
+                    if (isLiked === 'True') {
+                        likebtn.html("<i class=\"far fa-thumbs-down\"></i>Unlike");
+                    } else {
+                        likebtn.html("<i class=\"far fa-thumbs-up\"></i>Like");
+                    }
+                }
+            });
+        });
+
+    </script>
+
+    <div class="write-comment">
+        @*//TODO: Add the form for comments with emojies*@
+        <div class="profile-picture" style="background-image: url(/profile-pictures/@Model.ProfilePicture.FileName); background-size: cover"></div>
+        <form asp-controller="Comments" asp-action="PostComment">
+            <input asp-for="CommentInputModel.CommentText" placeholder="Write a comment..."/>
+            <input asp-for="CommentInputModel.AuthorId" value="@Model.Post.UserId" hidden="hidden" aria-hidden="True"/>
+            <input asp-for="CommentInputModel.PostId" value="@Model.Post.Id" hidden="hidden" aria-hidden="True"/>
+            <button type="button" hidden>Button 1</button>
+            <input type="submit" name="go" value="Submit" hidden/>
+        </form>
+    </div>
+    @foreach (var comment in Model.Post.Comments.OrderByDescending(c => c.PostedOn))
+    {
+        <div class="comments">
+            <div class="single-comment">
+                <div class="user" data-attr="@comment.PostedOn.ToString("d")">
+                    <div class="profile-picture" style="background-image: url(/profile-pictures/@comment.Author.ProfilePicture.FileName)"></div>
+                    <div class="user-name"><strong>@comment.Author.UserName</strong></div>
+                </div>
+                <div class="comment-content">
+                    <p data-likes="20">@comment.CommentText</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>

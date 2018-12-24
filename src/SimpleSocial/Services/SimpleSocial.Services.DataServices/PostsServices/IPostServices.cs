@@ -12,5 +12,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         ICollection<PostViewModel> GetUserPosts(ClaimsPrincipal user);
 
         PostViewModel GetPostById(string id);
+
+        SinglePostViewComponentModel GetSinlSinglePostViewComponentModel(string id, ClaimsPrincipal user);
     }
 }

@@ -4,70 +4,16 @@
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 @{
-    var counter = 1;
+    var counter = 0;
 }
+
+
 @foreach (var post in Model.Posts)
 {
 
     counter++;
     var likeClassName = "like-ajax-" + counter;
 
-    <div class="single-post">
-        <div class="user" data-attr="@post.CreatedOn.ToString("d")">
-            <div class="profile-picture" style="background-image: url(/profile-pictures/@post.User.ProfilePicture.FileName)"></div>
-            <div class="user-name"><strong>@post.User.UserName</strong></div>
-        </div>
-        <div class="content">
-            <p>@post.Content</p>
-        </div>
-        <div class="actions">
-            <div class="action-buttons" id="like">
-                <button class="like-btn @likeClassName" data-like="@post.IsLiked"><i class="far fa-thumbs-up"></i>Like</button>
-            </div>
-            <div class="action-buttons"><i class="far fa-comments"></i><button id="comment-button">Comment</button></div>
-        </div>
+    @await Component.InvokeAsync("SinglePost", new { post = post, likeClassName = likeClassName, profilePicture = Model.ProfilePicture, commentInputModel = Model.CommentInputModel })
 
-        <script>
-
-                $(".@likeClassName").click(function(){
-                    var likebtn = $(this);
-                    var isLiked = likebtn.data("like");
-                    jQuery.ajax({
-                        type: "POST",
-                        url: "/Likes/GetAction",
-                        data: { action: isLiked, postId : "@post.Id"},
-                        success: function() {
-                            console.log("Finally");
-                        }
-                    });
-                });
-
-        </script>
-
-        <div class="write-comment">
-            @*//TODO: Add the form for comments with emojies*@
-            <div class="profile-picture" style="background-image: url(/profile-pictures/@Model.ProfilePicture.FileName); background-size: cover"></div>
-            <form asp-controller="Comments" asp-action="PostComment">
-                <input asp-for="CommentInputModel.CommentText" placeholder="Write a comment..." />
-                <input asp-for="CommentInputModel.AuthorId" value="@Model.UserId" hidden="hidden" aria-hidden="True" />
-                <input asp-for="CommentInputModel.PostId" value="@post.Id" hidden="hidden" aria-hidden="True" />
-                <button type="button" hidden>Button 1</button>
-                <input type="submit" name="go" value="Submit" hidden />
-            </form>
-        </div>
-        @foreach (var comment in post.Comments.OrderByDescending(c => c.PostedOn))
-        {
-            <div class="comments">
-                <div class="single-comment">
-                    <div class="user" data-attr="@comment.PostedOn.ToString("d")">
-                        <div class="profile-picture" style="background-image: url(/profile-pictures/@comment.Author.ProfilePicture.FileName)"></div>
-                        <div class="user-name"><strong>@comment.Author.UserName</strong></div>
-                    </div>
-                    <div class="comment-content">
-                        <p data-likes="20">@comment.CommentText</p>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
 }

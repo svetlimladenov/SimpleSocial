@@ -26,9 +26,9 @@ namespace SimpleSocial.Web.Controllers
 
         public IActionResult PostDetails(string id)
         {
-            var postViewModel = postServices.GetPostById(id);
-           
-            return View(postViewModel);
+            var viewModel = postServices.GetSinlSinglePostViewComponentModel(id, User);
+ 
+            return View(viewModel);
         }
     }
 }
