@@ -4,7 +4,7 @@ using SimpleSocial.Web.Models;
 
 namespace SimpleSocial.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {

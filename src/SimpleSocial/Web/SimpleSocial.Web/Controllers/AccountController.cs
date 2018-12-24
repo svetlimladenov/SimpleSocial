@@ -47,10 +47,6 @@ namespace SimpleSocial.Web.Controllers
             return View(viewModel);
         }
 
-        public IActionResult MyFriends()
-        {
-            return this.View();
-        }
 
         public IActionResult ChangeProfilePicture()
         {

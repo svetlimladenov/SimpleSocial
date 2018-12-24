@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
@@ -26,6 +27,10 @@ namespace SimpleSocia.Services.Models.Posts
 
         public ICollection<Comment> Comments { get; set; }
 
+        public ICollection<UserLike> Likes { get; set; }
+
+        public bool IsLiked { get; set; }
+
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Post, PostViewModel>().ForMember(x => x.CharactersCount,
@@ -34,6 +39,7 @@ namespace SimpleSocia.Services.Models.Posts
             configuration.CreateMap<Post, PostViewModel>().ForMember(x => x.Comments, x => x.MapFrom(p => p.Comments));
 
             configuration.CreateMap<Post, PostViewModel>().ForMember(x => x.User, x => x.MapFrom(p => p.User));
+            
         }
     }
 }

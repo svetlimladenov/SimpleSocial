@@ -46,7 +46,8 @@
 </div>
 
 @section Scripts
-    {
+{
+
     @if (!Model.IsValidProfilePicture)
     {
         <script>
@@ -56,6 +57,13 @@
 
         </script>
     }
+    <script>
+        $(document).ready(function () {
+            $("#comment-button").click(function () {
+                $(".write-comment").css("display", "flex");
+            });
+        });       
+    </script>   
 
     <script>
         function disableButton() {
@@ -74,11 +82,19 @@
             }
         }
 
-        $(document).ready(function () {
-            $("#comment-button").click(function () {
-                $(".write-comment").css("display","flex");
+        var buttons = $(".like-btn");
+        $.each(buttons,
+            function () {
+                var likebtn = $(this);
+                var isLiked = likebtn.data("like");
+                if (isLiked === 'True') {
+                    likebtn.html("<i class=\"far fa-thumbs-down\"></i>Unlike")
+                } else {
+                    likebtn.html("<i class=\"far fa-thumbs-up\"></i>Like")
+                }
             });
-        });
+
+        
     </script>
 
 

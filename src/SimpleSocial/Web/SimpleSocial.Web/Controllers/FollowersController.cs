@@ -11,7 +11,7 @@ using SimpleSocial.Services.Mapping;
 
 namespace SimpleSocial.Web.Controllers
 {
-    public class FollowersController : Controller
+    public class FollowersController : BaseController
     {
         private readonly IRepository<SimpleSocialUser> usersRepository;
 
