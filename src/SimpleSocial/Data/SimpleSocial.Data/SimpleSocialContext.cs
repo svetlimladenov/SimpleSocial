@@ -45,11 +45,16 @@ namespace SimpleSocial.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<UserFollower>()
-                .HasKey(ur => new { ur.UserId, ur.FollowerId });
+                .HasKey(uf => new {uf.UserId, uf.FollowerId});
 
-            builder.Entity<SimpleSocialUser>()
-                .HasMany(u => u.UserFollowers)
-                .WithOne(u => u.Follower)
+            builder.Entity<UserFollower>()
+                .HasOne(uf => uf.User)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<UserFollower>()
+                .HasOne(uf => uf.Follower)
+                .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<PostReport>()
@@ -64,6 +69,7 @@ namespace SimpleSocial.Data
 
             builder.Entity<UserLike>()
                 .HasKey(ul => new {ul.UserId, ul.PostId});
+          
         }
     }
 }

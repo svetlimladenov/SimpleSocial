@@ -1,31 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleSocia.Services.Models.Followers;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
+using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.Mapping;
 
 namespace SimpleSocial.Web.Controllers
 {
     public class FollowersController : BaseController
     {
-        private readonly IRepository<SimpleSocialUser> usersRepository;
+        private readonly IFollowersServices followersServices;
 
-        public FollowersController(IRepository<SimpleSocialUser> usersRepository)
+        public FollowersController(IFollowersServices followersServices)
         {
-            this.usersRepository = usersRepository;
+            this.followersServices = followersServices;
         }
-        public IActionResult Index()
-        {
-            //TODO: Move it to service, remove the current user from the list;
-            var viewModel = new AddFollowersViewModel();
-            viewModel.UsersToFollow = usersRepository.All().Include(u => u.ProfilePicture).To<SimpeUserViewModel>().ToList();
 
+        public IActionResult WhoToFollow()
+        {
+            var viewModel = new FollowersViewModel();
+            viewModel.Users = followersServices.GetUsersToFollow(User);
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Follow(string userToFollowId)
+        {
+            followersServices.Follow(userToFollowId,this.User);
+            return Ok();
+        }
+
+        public IActionResult Followers()
+        {
+            return View();
+        }
+
+        public IActionResult Following()
+        {
+            return View();
         }
     }
 }

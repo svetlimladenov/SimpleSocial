@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
 using SimpleSocia.Services.Models.SignUp;
@@ -26,6 +27,7 @@ namespace SimpleSocial.Web.Controllers
             this.userServices = userServices;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             ViewBag.CountryList = profileDetailsServices.GetCounties();
@@ -34,6 +36,7 @@ namespace SimpleSocial.Web.Controllers
             return this.View(viewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult NamesInput(ProfileDetailsInputModel inputModel)
         {
@@ -45,6 +48,7 @@ namespace SimpleSocial.Web.Controllers
             return RedirectToAction("SuccessfullInput");
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult LivingPlace(ProfileDetailsInputModel inputModel)
         {
@@ -52,6 +56,7 @@ namespace SimpleSocial.Web.Controllers
             return RedirectToAction("SuccessfullInput");
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult BirthDay(ProfileDetailsInputModel inputModel)
         {
@@ -59,6 +64,7 @@ namespace SimpleSocial.Web.Controllers
             return RedirectToAction("SuccessfullInput");
         }
 
+        [Authorize]
         public IActionResult SuccessfullInput()
         {
             return View();

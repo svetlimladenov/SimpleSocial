@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
 using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Services.DataServices.PostsServices;
@@ -14,6 +15,7 @@ namespace SimpleSocial.Web.Controllers
             this.postServices = postServices;
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Create(MyProfileViewModel viewModel)
         {
@@ -24,8 +26,14 @@ namespace SimpleSocial.Web.Controllers
             return RedirectToAction("MyProfile", "Account");
         }
 
+        [Authorize]
         public IActionResult PostDetails(string id)
         {
+            if (!postServices.UserCanSeePost(id,User))
+            {
+                return BadRequest();
+            }
+            
             var viewModel = postServices.GetSinlSinglePostViewComponentModel(id, User);
  
             return View(viewModel);

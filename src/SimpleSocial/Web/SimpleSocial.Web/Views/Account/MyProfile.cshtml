@@ -7,15 +7,25 @@
 }
 <div class="container">
     <div class="row">
-        <div class="col-md-3 profile-picture-holder">
-            @*TODO: Check if user has profile picture else display default profile picture*@
-            <cache expires-after="@TimeSpan.FromSeconds(2)">
-                <img src="/profile-pictures/@Model.ProfilePicture.FileName" class="profilePicture" />
-                <div class="show-link">
-                    <a asp-action="ChangeProfilePicture" class="btn btn-default">Upload Profile Picture</a>
+        <div class="col-md-3">
+            <div class="row profile-picture-holder user-info text-center">
+                @*TODO: Check if user has profile picture else display default profile picture*@
+                <cache expires-after="@TimeSpan.FromSeconds(2)">
+                    <img src="/profile-pictures/@Model.ProfilePicture.FileName" class="profilePicture" />
+                    <div class="show-link">
+                        <a asp-action="ChangeProfilePicture" class="btn btn-default">Upload Profile Picture</a>
+                    </div>
+                </cache>
+                <h2>@User.Identity.Name</h2>
+            </div>
+            <div class="row" style="margin-top: 10px; background: #fff">
+                <div class="text-center vertical-menu">
+                    <h2>Menu</h2>
+                    <a asp-controller="Followers" asp-action="Followers">Followers</a>
+                    <a asp-controller="Followers" asp-action="Following">Following</a>
+                    <a asp-area="Identity" asp-page="/Account/Manage/Index">Settings</a>          
                 </div>
-            </cache>
-            <h2>@User.Identity.Name</h2>
+            </div>
         </div>
         <div class="col-md-6">
             <form asp-controller="Posts" asp-action="Create">
@@ -38,9 +48,9 @@
             </form>
             @await Component.InvokeAsync("ListOfPosts", new { posts = Model })
         </div>
-        <div class="col-md-3" id="test">
+        <div class="col-md-3 who-to-follow-partial text-center" id="test">
             <h2>Who to follow</h2>
-            <a asp-controller="Followers" asp-action="Index">Find Followers</a>
+            <a asp-controller="Followers" asp-action="WhoToFollow">Find Followers</a>
         </div>
     </div>
 </div>

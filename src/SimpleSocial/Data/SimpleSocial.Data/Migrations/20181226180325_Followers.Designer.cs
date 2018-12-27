@@ -10,8 +10,8 @@ using SimpleSocial.Data;
 namespace SimpleSocial.Data.Migrations
 {
     [DbContext(typeof(SimpleSocialContext))]
-    [Migration("20181222161808_LikesPerPost")]
-    partial class LikesPerPost
+    [Migration("20181226180325_Followers")]
+    partial class Followers
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -315,13 +315,13 @@ namespace SimpleSocial.Data.Migrations
 
                     b.Property<string>("FollowerId");
 
-                    b.Property<string>("UserId1");
+                    b.Property<DateTime?>("FollowedDate");
+
+                    b.Property<DateTime?>("UnfollowedDate");
 
                     b.HasKey("UserId", "FollowerId");
 
                     b.HasIndex("FollowerId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("UserFollowers");
                 });
@@ -459,13 +459,14 @@ namespace SimpleSocial.Data.Migrations
             modelBuilder.Entity("SimpleSocial.Data.Models.UserFollower", b =>
                 {
                     b.HasOne("SimpleSocial.Data.Models.SimpleSocialUser", "Follower")
-                        .WithMany("UserFollowers")
+                        .WithMany()
                         .HasForeignKey("FollowerId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SimpleSocial.Data.Models.SimpleSocialUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("SimpleSocial.Data.Models.UserLike", b =>

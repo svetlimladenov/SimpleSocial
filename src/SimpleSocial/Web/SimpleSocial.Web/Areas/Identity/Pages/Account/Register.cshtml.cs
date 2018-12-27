@@ -93,7 +93,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
                 var profilePicture = new ProfilePicture
                 {
                     UserId = user.Id,
-                    FileName = user.Id,
+                    FileName = "default.jpg",
                 };
 
                 dbContext.ProfilePictures.Add(profilePicture);
@@ -129,7 +129,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
                         $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect("/Identity/Manage/");
+                    return LocalRedirect("/Identity/Account/Manage");
                 }
                 foreach (var error in result.Errors)
                 {

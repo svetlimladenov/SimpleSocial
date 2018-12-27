@@ -10,14 +10,14 @@ using SimpleSocial.Data;
 namespace SimpleSocial.Data.Migrations
 {
     [DbContext(typeof(SimpleSocialContext))]
-    [Migration("20181204024226_BasicEntitiesAdd")]
-    partial class BasicEntitiesAdd
+    [Migration("20181226170752_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -179,8 +179,6 @@ namespace SimpleSocial.Data.Migrations
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<int>("Likes");
-
                     b.Property<int?>("PageId");
 
                     b.Property<string>("Title");
@@ -200,6 +198,38 @@ namespace SimpleSocial.Data.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("SimpleSocial.Data.Models.PostReport", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AuthorId");
+
+                    b.Property<string>("PostId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuthorId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostReports");
+                });
+
+            modelBuilder.Entity("SimpleSocial.Data.Models.ProfilePicture", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("FileName");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProfilePictures");
+                });
+
             modelBuilder.Entity("SimpleSocial.Data.Models.SimpleSocialUser", b =>
                 {
                     b.Property<string>("Id")
@@ -209,10 +239,16 @@ namespace SimpleSocial.Data.Migrations
 
                     b.Property<DateTime>("BirthDay");
 
+                    b.Property<string>("City");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Country");
+
                     b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("Description");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -220,6 +256,8 @@ namespace SimpleSocial.Data.Migrations
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName");
+
+                    b.Property<int>("Gender");
 
                     b.Property<string>("LastName");
 
@@ -239,7 +277,7 @@ namespace SimpleSocial.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("ProfilePictureUrl");
+                    b.Property<string>("ProfilePictureId");
 
                     b.Property<string>("SecurityStamp");
 
@@ -260,6 +298,10 @@ namespace SimpleSocial.Data.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
+                    b.HasIndex("ProfilePictureId")
+                        .IsUnique()
+                        .HasFilter("[ProfilePictureId] IS NOT NULL");
+
                     b.HasIndex("WallId")
                         .IsUnique()
                         .HasFilter("[WallId] IS NOT NULL");
@@ -267,19 +309,19 @@ namespace SimpleSocial.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("SimpleSocial.Data.Models.UserFriend", b =>
+            modelBuilder.Entity("SimpleSocial.Data.Models.UserLike", b =>
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("FriendId");
+                    b.Property<string>("PostId");
 
-                    b.Property<DateTime>("CreatedOn");
+                    b.Property<DateTime>("LikedOn");
 
-                    b.HasKey("UserId", "FriendId");
+                    b.HasKey("UserId", "PostId");
 
-                    b.HasIndex("FriendId");
+                    b.HasIndex("PostId");
 
-                    b.ToTable("UserFriends");
+                    b.ToTable("UserLikes");
                 });
 
             modelBuilder.Entity("SimpleSocial.Data.Models.Wall", b =>
@@ -373,23 +415,39 @@ namespace SimpleSocial.Data.Migrations
                         .HasForeignKey("WallId");
                 });
 
+            modelBuilder.Entity("SimpleSocial.Data.Models.PostReport", b =>
+                {
+                    b.HasOne("SimpleSocial.Data.Models.SimpleSocialUser", "Author")
+                        .WithMany()
+                        .HasForeignKey("AuthorId");
+
+                    b.HasOne("SimpleSocial.Data.Models.Post", "Post")
+                        .WithMany("PostReports")
+                        .HasForeignKey("PostId");
+                });
+
             modelBuilder.Entity("SimpleSocial.Data.Models.SimpleSocialUser", b =>
                 {
+                    b.HasOne("SimpleSocial.Data.Models.ProfilePicture", "ProfilePicture")
+                        .WithOne("User")
+                        .HasForeignKey("SimpleSocial.Data.Models.SimpleSocialUser", "ProfilePictureId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("SimpleSocial.Data.Models.Wall", "Wall")
                         .WithOne("User")
                         .HasForeignKey("SimpleSocial.Data.Models.SimpleSocialUser", "WallId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("SimpleSocial.Data.Models.UserFriend", b =>
+            modelBuilder.Entity("SimpleSocial.Data.Models.UserLike", b =>
                 {
-                    b.HasOne("SimpleSocial.Data.Models.SimpleSocialUser", "Friend")
-                        .WithMany("UserFriends")
-                        .HasForeignKey("FriendId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.HasOne("SimpleSocial.Data.Models.Post", "Post")
+                        .WithMany("Likes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SimpleSocial.Data.Models.SimpleSocialUser", "User")
-                        .WithMany()
+                        .WithMany("Likes")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

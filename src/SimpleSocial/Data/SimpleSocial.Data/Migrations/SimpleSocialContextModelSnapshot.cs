@@ -235,7 +235,7 @@ namespace SimpleSocial.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<DateTime>("BirthDay");
+                    b.Property<DateTime?>("BirthDay");
 
                     b.Property<string>("City");
 
@@ -255,7 +255,7 @@ namespace SimpleSocial.Data.Migrations
 
                     b.Property<string>("FirstName");
 
-                    b.Property<int>("Gender");
+                    b.Property<int?>("Gender");
 
                     b.Property<string>("LastName");
 
@@ -313,13 +313,13 @@ namespace SimpleSocial.Data.Migrations
 
                     b.Property<string>("FollowerId");
 
-                    b.Property<string>("UserId1");
+                    b.Property<DateTime?>("FollowedDate");
+
+                    b.Property<DateTime?>("UnfollowedDate");
 
                     b.HasKey("UserId", "FollowerId");
 
                     b.HasIndex("FollowerId");
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("UserFollowers");
                 });
@@ -457,13 +457,14 @@ namespace SimpleSocial.Data.Migrations
             modelBuilder.Entity("SimpleSocial.Data.Models.UserFollower", b =>
                 {
                     b.HasOne("SimpleSocial.Data.Models.SimpleSocialUser", "Follower")
-                        .WithMany("UserFollowers")
+                        .WithMany()
                         .HasForeignKey("FollowerId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SimpleSocial.Data.Models.SimpleSocialUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("SimpleSocial.Data.Models.UserLike", b =>

@@ -10,7 +10,6 @@ namespace SimpleSocial.Data.Models
     {
         public SimpleSocialUser()
         {
-            UserFollowers = new HashSet<UserFollower>();
             Posts = new HashSet<Post>();
             Comments = new HashSet<Comment>();
             UserPages = new HashSet<Page>();
@@ -26,9 +25,9 @@ namespace SimpleSocial.Data.Models
 
         public ProfilePicture ProfilePicture { get; set; }
 
-        public DateTime BirthDay { get; set; }
+        public DateTime? BirthDay { get; set; }
 
-        public Gender Gender { get; set; }
+        public Gender? Gender { get; set; }
 
         public string Description { get; set; }
 
@@ -44,9 +43,7 @@ namespace SimpleSocial.Data.Models
         public Wall Wall { get; set; }
 
         public ICollection<Post> Posts { get; set; }
-
-        public ICollection<UserFollower> UserFollowers { get; set; }
-
+       
         public ICollection<Comment> Comments { get; set; }
 
         public ICollection<Page> UserPages { get; set; }

@@ -1,10 +1,16 @@
 ﻿@model SimpleSocia.Services.Models.Posts.SinglePostViewComponentModel
 
 <div class="single-post">
-    <div class="user" data-attr="@Model.Post.CreatedOn.ToString("d")">
-        <div class="profile-picture" style="background-image: url(/profile-pictures/@Model.Post.User.ProfilePicture.FileName)"></div>
-        <div class="user-name"><strong>@Model.Post.User.UserName</strong></div>
-        <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@Model.Post.Id">Details</a>
+    <div class="user">
+        <div class="header-wrapper">
+            <div class="left-head" data-attr="@Model.Post.CreatedOn.ToString("d")">
+                <div class="profile-picture" style="background-image: url(/profile-pictures/@Model.Post.User.ProfilePicture.FileName)"></div>
+                <div class="user-name"><strong>@Model.Post.User.UserName</strong></div>
+            </div>
+            <div class="right-head">
+                <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@Model.Post.Id">Details</a>
+            </div>
+        </div>
     </div>
     <div class="content">
         <p>@Model.Post.Content</p>
@@ -48,11 +54,11 @@
         @*//TODO: Add the form for comments with emojies*@
         <div class="profile-picture" style="background-image: url(/profile-pictures/@Model.ProfilePicture.FileName); background-size: cover"></div>
         <form asp-controller="Comments" asp-action="PostComment">
-            <input asp-for="CommentInputModel.CommentText" placeholder="Write a comment..."/>
-            <input asp-for="CommentInputModel.AuthorId" value="@Model.Post.UserId" hidden="hidden" aria-hidden="True"/>
-            <input asp-for="CommentInputModel.PostId" value="@Model.Post.Id" hidden="hidden" aria-hidden="True"/>
+            <input asp-for="CommentInputModel.CommentText" placeholder="Write a comment..." />
+            <input asp-for="CommentInputModel.AuthorId" value="@Model.Post.UserId" hidden="hidden" aria-hidden="True" />
+            <input asp-for="CommentInputModel.PostId" value="@Model.Post.Id" hidden="hidden" aria-hidden="True" />
             <button type="button" hidden>Button 1</button>
-            <input type="submit" name="go" value="Submit" hidden/>
+            <input type="submit" name="go" value="Submit" hidden />
         </form>
     </div>
     @foreach (var comment in Model.Post.Comments.OrderByDescending(c => c.PostedOn))

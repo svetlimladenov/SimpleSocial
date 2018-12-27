@@ -13,5 +13,9 @@ namespace SimpleSocial.Data.Models
         public string FollowerId { get; set; }
 
         public SimpleSocialUser Follower { get; set; }
+
+        public DateTime? FollowedDate { get; set; } = DateTime.UtcNow;
+
+        public DateTime? UnfollowedDate { get; set; }
     }
 }

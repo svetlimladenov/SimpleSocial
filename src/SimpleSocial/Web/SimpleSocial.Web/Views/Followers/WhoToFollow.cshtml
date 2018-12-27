@@ -1,0 +1,46 @@
+﻿@model SimpleSocia.Services.Models.Followers.FollowersViewModel
+@{
+    ViewData["Title"] = "WhoToFollow";
+}
+<div class="row">
+    <div class="col-md-3">Hashtags...</div>
+    <div class="col-md-6 who-to-follow-wrapper">
+        <h2 class="text-center">Who to Follow</h2>
+
+        @{ var counter = 1; }
+        @foreach (var user in Model.Users)
+        {
+
+            var followBtnClass = "follow-btn-" + counter;
+            var divHolderClass = "follower-wrapper-" + counter;
+            counter++;
+            <div class="follower @divHolderClass">
+                <div class="left-user-section">
+                    <div class="profile-picture" style="background: url(/profile-pictures/@user.ProfilePicture.FileName); background-size: cover"></div>
+                    <div class="user-name"><strong>@user.UserName</strong></div>
+                </div>
+                <div class="right-user-section">
+                    <button class="@followBtnClass">Follow</button>
+                </div>
+            </div>
+
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+
+            <script>
+                $(".@followBtnClass").click(function() {
+                    $.ajax({
+                        type: "POST",
+                        url: "/Followers/Follow",
+                        data: { userToFollowId: "@user.Id" },
+                        success: function() {
+                            console.log("successly followed");
+                        },
+                        complete: function() {
+                            $(".@divHolderClass").css("display", "none");
+                        }
+                    });
+                })
+            </script>
+        }
+    </div>
+</div>

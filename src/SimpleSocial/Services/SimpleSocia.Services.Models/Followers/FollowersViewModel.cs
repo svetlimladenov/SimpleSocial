@@ -4,8 +4,8 @@ using System.Text;
 
 namespace SimpleSocia.Services.Models.Followers
 {
-    public class AddFollowersViewModel
+    public class FollowersViewModel
     {
-        public ICollection<SimpeUserViewModel> UsersToFollow { get; set; }
+        public ICollection<SimpeUserViewModel> Users { get; set; }
     }
 }

@@ -10,8 +10,8 @@ using SimpleSocial.Data;
 namespace SimpleSocial.Data.Migrations
 {
     [DbContext(typeof(SimpleSocialContext))]
-    [Migration("20181219125053_PostReports")]
-    partial class PostReports
+    [Migration("20181227015933_AllowNullsForUserProps")]
+    partial class AllowNullsForUserProps
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -179,8 +179,6 @@ namespace SimpleSocial.Data.Migrations
 
                     b.Property<bool>("IsDeleted");
 
-                    b.Property<int>("Likes");
-
                     b.Property<int?>("PageId");
 
                     b.Property<string>("Title");
@@ -239,12 +237,18 @@ namespace SimpleSocial.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<DateTime>("BirthDay");
+                    b.Property<DateTime?>("BirthDay");
+
+                    b.Property<string>("City");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<string>("Country");
+
                     b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("Description");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256);
@@ -252,6 +256,8 @@ namespace SimpleSocial.Data.Migrations
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FirstName");
+
+                    b.Property<int?>("Gender");
 
                     b.Property<string>("LastName");
 
@@ -309,15 +315,30 @@ namespace SimpleSocial.Data.Migrations
 
                     b.Property<string>("FollowerId");
 
-                    b.Property<string>("UserId1");
+                    b.Property<DateTime?>("FollowedDate");
+
+                    b.Property<DateTime?>("UnfollowedDate");
 
                     b.HasKey("UserId", "FollowerId");
 
                     b.HasIndex("FollowerId");
 
-                    b.HasIndex("UserId1");
-
                     b.ToTable("UserFollowers");
+                });
+
+            modelBuilder.Entity("SimpleSocial.Data.Models.UserLike", b =>
+                {
+                    b.Property<string>("UserId");
+
+                    b.Property<string>("PostId");
+
+                    b.Property<DateTime>("LikedOn");
+
+                    b.HasKey("UserId", "PostId");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("UserLikes");
                 });
 
             modelBuilder.Entity("SimpleSocial.Data.Models.Wall", b =>
@@ -426,7 +447,8 @@ namespace SimpleSocial.Data.Migrations
                 {
                     b.HasOne("SimpleSocial.Data.Models.ProfilePicture", "ProfilePicture")
                         .WithOne("User")
-                        .HasForeignKey("SimpleSocial.Data.Models.SimpleSocialUser", "ProfilePictureId");
+                        .HasForeignKey("SimpleSocial.Data.Models.SimpleSocialUser", "ProfilePictureId")
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("SimpleSocial.Data.Models.Wall", "Wall")
                         .WithOne("User")
@@ -437,13 +459,27 @@ namespace SimpleSocial.Data.Migrations
             modelBuilder.Entity("SimpleSocial.Data.Models.UserFollower", b =>
                 {
                     b.HasOne("SimpleSocial.Data.Models.SimpleSocialUser", "Follower")
-                        .WithMany("UserFollowers")
+                        .WithMany()
                         .HasForeignKey("FollowerId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SimpleSocial.Data.Models.SimpleSocialUser", "User")
                         .WithMany()
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("SimpleSocial.Data.Models.UserLike", b =>
+                {
+                    b.HasOne("SimpleSocial.Data.Models.Post", "Post")
+                        .WithMany("Likes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SimpleSocial.Data.Models.SimpleSocialUser", "User")
+                        .WithMany("Likes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

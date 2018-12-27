@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using SimpleSocia.Services.Models.Account;
+using SimpleSocia.Services.Models.Followers;
 using SimpleSocia.Services.Models.Posts;
 
 namespace SimpleSocial.Services.DataServices.PostsServices
@@ -14,5 +15,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         PostViewModel GetPostById(string id);
 
         SinglePostViewComponentModel GetSinlSinglePostViewComponentModel(string id, ClaimsPrincipal user);
+
+        bool UserCanSeePost(string id, ClaimsPrincipal user);
     }
 }

@@ -131,3 +131,25 @@ input[type="file"] {
 .body-wrapper { background-color: #E9EBEE; }
 
 .content-wrapper { margin-top: 10px;}
+
+.user-info {
+    background: white;
+}
+
+.who-to-follow-partial {
+    background: white;
+}
+
+.vertical-menu a {
+    margin-top:2px;
+    background-color: white;
+    color: black;
+    display: block;
+    padding: 12px;
+    text-decoration: none;
+}
+
+.vertical-menu a:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 0 -2px #3b5998;
+}

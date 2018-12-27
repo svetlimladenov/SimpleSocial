@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SimpleSocia.Services.Models.Account;
 using SimpleSocia.Services.Models.Comments;
+using SimpleSocia.Services.Models.Followers;
 using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
@@ -34,7 +35,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         }
 
         public void CreatePost(MyProfileViewModel viewModel)
-        {       
+        {
             var post = new Post
             {
                 UserId = viewModel.CreatePost.UserId,
@@ -43,7 +44,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
                 Content = viewModel.CreatePost.Content,
             };
 
-            
+
             postRepository.AddAsync(post).GetAwaiter().GetResult();
             postRepository.SaveChangesAsync().GetAwaiter().GetResult();
         }
@@ -56,7 +57,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         public ICollection<PostViewModel> GetUserPosts(ClaimsPrincipal user)
         {
             var userId = userManager.GetUserId(user);
-            
+
             var posts = this.postRepository.All().Include(p => p.User).ThenInclude(u => u.ProfilePicture).Include(p => p.Comments).ThenInclude(p => p.Author).ThenInclude(a => a.ProfilePicture).Select(x => Mapper.Map<PostViewModel>(x)).Where(x => x.UserId == userId).OrderByDescending(x => x.CreatedOn).ToList();
 
             foreach (var post in posts)
@@ -85,7 +86,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         public SinglePostViewComponentModel GetSinlSinglePostViewComponentModel(string id, ClaimsPrincipal user)
         {
             var userId = this.userManager.GetUserId(user);
-            var userWithProfilePic= this.userRepository.All().Include(u => u.ProfilePicture).FirstOrDefault(x => x.Id == userId);
+            var userWithProfilePic = this.userRepository.All().Include(u => u.ProfilePicture).FirstOrDefault(x => x.Id == userId);
             var profilePicture = userWithProfilePic.ProfilePicture;
             var viewModel = new SinglePostViewComponentModel();
             var post = this.GetPostById(id);
@@ -104,5 +105,23 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
             return viewModel;
         }
+
+        public bool UserCanSeePost(string id, ClaimsPrincipal user)
+        {
+            var currentUser = this.userManager.GetUserAsync(user).GetAwaiter().GetResult();
+            var post = this.postRepository.All().Include(x => x.User).FirstOrDefault(x => x.Id == id);
+
+            var postAuthor = post.User;
+
+            if (postAuthor.Id == currentUser.Id)
+            {
+                return true;
+            }
+
+            return true;
+
+        }
+
+
     }
 }

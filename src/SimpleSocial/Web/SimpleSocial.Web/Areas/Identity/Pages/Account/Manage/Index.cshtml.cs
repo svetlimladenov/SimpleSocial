@@ -50,17 +50,15 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
             public string FirstName { get; set; }
 
-            [Required]
             public string LastName { get; set; }
 
-            public DateTime BirthDay { get; set; }
+            public DateTime? BirthDay { get; set; }
 
             public string Description { get; set; }
 
-            public Gender Gender { get; set; }
+            public Gender? Gender { get; set; }
 
             public string City { get; set; }
 
@@ -161,7 +159,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
-            return RedirectToPage();
+            return RedirectToAction("SuccessfullInput", "ProfileDetails");
         }
 
         public async Task<IActionResult> OnPostSendVerificationEmailAsync()
