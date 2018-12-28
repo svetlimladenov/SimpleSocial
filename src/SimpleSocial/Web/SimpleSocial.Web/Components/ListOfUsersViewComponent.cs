@@ -7,8 +7,8 @@ using SimpleSocia.Services.Models.Followers;
 
 namespace SimpleSocial.Web.Components
 {
-    [ViewComponent(Name = "ListOfFollowers")]
-    public class ListOfFollowersViewComponent : ViewComponent
+    [ViewComponent(Name = "ListOfUsers")]
+    public class ListOfUsersViewComponent : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync(UsersListViewModel viewModel)
         {
