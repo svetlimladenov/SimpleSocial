@@ -8,8 +8,16 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
 {
     public interface IFollowersServices
     {
-        ICollection<SimpeUserViewModel> GetUsersToFollow(ClaimsPrincipal user);
+        ICollection<SimpleUserViewModel> GetUsersToFollow(ClaimsPrincipal user);
 
         void Follow(string userToFollowId, ClaimsPrincipal user);
+
+        ICollection<SimpleUserViewModel> GetFollowers(ClaimsPrincipal user);
+
+        void Unfollow(string userId, ClaimsPrincipal user);
+
+        ICollection<SimpleUserViewModel> GetFollowings(ClaimsPrincipal user);
+
+        bool IsBeingFollowedBy(string userA, string userB);
     }
 }

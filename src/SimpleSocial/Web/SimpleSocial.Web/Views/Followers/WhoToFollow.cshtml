@@ -1,4 +1,4 @@
-﻿@model SimpleSocia.Services.Models.Followers.FollowersViewModel
+﻿@model SimpleSocia.Services.Models.Followers.UsersListViewModel
 @{
     ViewData["Title"] = "WhoToFollow";
 }
@@ -7,7 +7,9 @@
     <div class="col-md-6 who-to-follow-wrapper">
         <h2 class="text-center">Who to Follow</h2>
 
-        @{ var counter = 1; }
+        @await Component.InvokeAsync("ListOfFollowers",new { viewModel = Model})
+
+        @*@{ var counter = 1; }
         @foreach (var user in Model.Users)
         {
 
@@ -41,6 +43,6 @@
                     });
                 })
             </script>
-        }
+        }*@
     </div>
 </div>

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using SimpleSocial.Data.Common;
@@ -22,6 +23,11 @@ namespace SimpleSocial.Services.DataServices.Account
         {
             var userId = userManager.GetUserId(user);
             return userRepository.All().FirstOrDefault(x => x.Id == userId);
+        }
+
+        public ICollection<string> GetAllUsernames()
+        {
+            return this.userRepository.All().Select(x => x.UserName).ToList();
         }
     }
 }

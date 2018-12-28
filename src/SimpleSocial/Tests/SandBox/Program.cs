@@ -31,17 +31,13 @@ namespace SandBox
 
         private static void SandboxCode(IServiceProvider serviceProvider)
         {
-            var userFollowerService = serviceProvider.GetService<IRepository<UserFollower>>();
-            
-            //svetli go follovat - goshe
-            var userFollower = new UserFollower()
-            {              
-                UserId = "884f3d01-2853-4360-bddb-dc2e66a33270",
-                FollowerId = "203a4886-3d37-46fb-aacb-e7e1585f31e4",               
-            };
-
-            userFollowerService.AddAsync(userFollower);
-            userFollowerService.SaveChangesAsync().GetAwaiter().GetResult();
+            var userRepository = serviceProvider.GetService<IRepository<SimpleSocialUser>>();
+            var searchText = "a";
+            var users = userRepository.All().Where(x => x.UserName.Contains(searchText));
+            foreach (var simpleSocialUser in users)
+            {
+                Console.WriteLine(simpleSocialUser.UserName);
+            }
         }
 
         private static void ConfigureServices(ServiceCollection services)

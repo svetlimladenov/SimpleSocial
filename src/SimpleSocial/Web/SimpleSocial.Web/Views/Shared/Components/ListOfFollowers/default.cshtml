@@ -1,0 +1,56 @@
+﻿@model SimpleSocia.Services.Models.Followers.UsersListViewModel
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+@{ var counter = 1; }
+@foreach (var user in Model.Users)
+{
+
+    var followBtnClass = "follow-btn-" + counter;
+    var divHolderClass = "follower-wrapper-" + counter;
+    counter++;
+    <div class="follower @divHolderClass">
+        <div class="left-user-section">
+            <div class="profile-picture" style="background: url(/profile-pictures/@user.ProfilePicture.FileName); background-size: cover"></div>
+            <div class="user-name"><strong>@user.UserName</strong></div>
+        </div>
+        <div class="right-user-section">
+            @if (user.IsFollowingCurrentUser)
+            {
+                <button class="@followBtnClass unfollow">Unfollow</button>
+            }
+            else
+            {
+                <button class="@followBtnClass">Follow</button>
+            }
+
+        </div>
+    </div>
+
+
+        <script>
+                $(".@followBtnClass").click(function () {
+                    var btnText = $(this).text().toLowerCase();
+                    console.log(btnText);
+                    $.ajax({
+                        type: "POST",
+                        url: "/Followers/ChooseAction",
+                        data: { userId: "@user.Id", action : btnText.toLowerCase() },
+                        success: function() {
+                            console.log("successly send");
+                        },
+                        complete: function () {
+                            if (btnText === "follow") {
+                                $(".@followBtnClass").addClass("unfollow").text("Unfollow");
+                            }
+                            else if(btnText === "unfollow"){
+                                $(".@followBtnClass").removeClass("unfollow").text("Follow");
+                            }                          
+                        }
+                    });
+                })
+        </script>
+    
+
+
+}

@@ -9,5 +9,8 @@ namespace SimpleSocial.Services.DataServices.Account
     public interface IUserServices
     {
         SimpleSocialUser GetUser(ClaimsPrincipal user);
+
+        ICollection<string> GetAllUsernames();
+
     }
 }

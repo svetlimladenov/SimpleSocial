@@ -24,26 +24,40 @@ namespace SimpleSocial.Web.Controllers
 
         public IActionResult WhoToFollow()
         {
-            var viewModel = new FollowersViewModel();
+            var viewModel = new UsersListViewModel();
             viewModel.Users = followersServices.GetUsersToFollow(User);
             return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult Follow(string userToFollowId)
+        public IActionResult ChooseAction(string userId, string action)
         {
-            followersServices.Follow(userToFollowId,this.User);
+            if (action == "follow")
+            {
+                followersServices.Follow(userId, this.User);
+            }
+            else if (action == "unfollow")
+            {
+                followersServices.Unfollow(userId, this.User);
+            }
+            else
+            {
+                return BadRequest();
+            }
+
             return Ok();
         }
 
         public IActionResult Followers()
         {
-            return View();
+            var viewModel = new UsersListViewModel {Users = followersServices.GetFollowers(User)};
+            return View(viewModel);
         }
 
         public IActionResult Following()
         {
-            return View();
+            var viewModel = new UsersListViewModel{ Users = followersServices.GetFollowings(User) };
+            return View(viewModel);
         }
     }
 }

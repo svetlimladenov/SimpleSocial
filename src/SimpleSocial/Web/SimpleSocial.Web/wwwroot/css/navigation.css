@@ -184,7 +184,7 @@ a {
     color: black;
     border-radius: 3px;
 }
-    
+
 
 /*Write a comment style*/
 .write-comment {
@@ -192,28 +192,31 @@ a {
     padding-top: 10px;
     padding-left: 10px;
 }
-.write-comment .profile-picture {
-    background-size: cover;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-.write-comment input {
-    border: none;
-    border-radius: 10px;
-    width: 80%;
-    height: 30px;
-    box-shadow: 0 0 1px 1px #b3b3b3;
-}
-.write-comment input:focus {
-    outline: none;
-}
 
-.write-comment form {
-    width: 100%;
-    margin-bottom: 10px;
-}
+    .write-comment .profile-picture {
+        background-size: cover;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .write-comment input {
+        border: none;
+        border-radius: 10px;
+        width: 80%;
+        height: 30px;
+        box-shadow: 0 0 1px 1px #b3b3b3;
+    }
+
+        .write-comment input:focus {
+            outline: none;
+        }
+
+    .write-comment form {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 
 .who-to-follow-wrapper {
     background: #fff;
@@ -234,21 +237,23 @@ a {
     border-top: 0.5px solid #E9EBEE;
     border-bottom: 0.5px solid #E9EBEE;
 }
-.follower .profile-picture {
-    background-size: cover;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-.follower button {
-    margin-left: 10px;
-    border: none;
-    background: #005b96;
-    color: #fff;
-    padding: 5px 15px;
-    border-radius: 10px;
-}
+
+    .follower .profile-picture {
+        background-size: cover;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+
+    .follower button {
+        margin-left: 10px;
+        border: none;
+        background: #005b96;
+        color: #fff;
+        padding: 5px 15px;
+        border-radius: 10px;
+    }
 
 .left-user-section, .right-user-section {
     display: flex;
@@ -276,4 +281,66 @@ a {
 
 .who-to-follow-wrapper h1 {
     border-bottom: 0.5px solid #E9EBEE;
+}
+
+.unfollow {
+    background: #B22222 !important;
+}
+
+
+.search-bar form {
+
+    margin-top: -4px;
+}
+.search-bar form input {
+    width: 200px;
+    padding: 3px;
+    background: #E9EBEE;
+    border: none;
+    box-shadow: 0 0 1px 1px #b3b3b3;
+    border-radius: 2px;
+}
+.search-bar form input:focus {
+    background: white;
+}
+
+    .search-bar form input::-webkit-input-placeholder {
+        text-align: center;
+    }
+
+
+.search-bar button {
+    background: white;
+    color: black;
+}
+
+.autocomplete-ites {
+    z-index: 99;
+}
+
+.autocomplete-items {
+    width: 200px;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff; 
+    border-bottom: 1px solid #d4d4d4; 
+}
+.autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9; 
+}
+.autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important; 
+    color: #ffffff; 
 }
