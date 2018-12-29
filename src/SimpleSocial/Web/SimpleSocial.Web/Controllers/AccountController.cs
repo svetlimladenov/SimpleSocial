@@ -39,9 +39,8 @@ namespace SimpleSocial.Web.Controllers
             {
                 ProfilePicture = myProfileServices.GetProfilePicture(User),
                 Posts = postServices.GetUserPosts(User),
-                WallId = myProfileServices.GetWallId(User),
-                UserId = userManager.GetUserId(User),
-                IsValidProfilePicture = inputModel.IsValidProfilePicture
+                IsValidProfilePicture = inputModel.IsValidProfilePicture,
+                UserInfo = myProfileServices.GetUserInfo(User)
             };
 
             return View(viewModel);
@@ -62,7 +61,6 @@ namespace SimpleSocial.Web.Controllers
 
             if (inputModel.UploadImage != null)
             {
-                var userId = this.userManager.GetUserId(User);
                 var indexOfImgExtensionDot = inputModel.UploadImage.FileName.IndexOf('.');
 
                 //TODO: Move the validation in attribute
@@ -76,7 +74,7 @@ namespace SimpleSocial.Web.Controllers
                     return RedirectToAction("ChangeProfilePicture", new MyProfileViewModel{IsValidProfilePicture = false});
                 }
 
-                myProfileServices.UploadProfilePicture(this.User,inputModel, imgExtension);
+                myProfileServices.UploadProfilePictureCloudinary(this.User,inputModel);
 
             }
 

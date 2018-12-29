@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SimpleSocia.Services.Models.Comments;
 using SimpleSocia.Services.Models.Posts;
+using SimpleSocia.Services.Models.Users;
 using SimpleSocial.Data.Models;
 
 namespace SimpleSocia.Services.Models.Account
@@ -14,6 +15,8 @@ namespace SimpleSocia.Services.Models.Account
         public ProfilePicture ProfilePicture { get; set; }
 
         public CommentInputModel CommentInputModel { get; set; }
+
+        public UserInfoViewModel UserInfo { get; set; }
 
         public string UserId { get; set; }
 

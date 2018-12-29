@@ -14,6 +14,6 @@
     counter++;
     var likeClassName = "like-ajax-" + counter;
 
-    @await Component.InvokeAsync("SinglePost", new { post = post, likeClassName = likeClassName, profilePicture = Model.ProfilePicture, commentInputModel = Model.CommentInputModel })
+    @await Component.InvokeAsync("SinglePost", new { post = post, likeClassName = likeClassName, profilePicture = Model.UserInfo.ProfilePicture, commentInputModel = Model.CommentInputModel })
 
 }

@@ -159,7 +159,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
-            return RedirectToAction("SuccessfullInput", "Profile");
+            return RedirectToAction("SuccessfullInput", "Profiles");
         }
 
         public async Task<IActionResult> OnPostSendVerificationEmailAsync()

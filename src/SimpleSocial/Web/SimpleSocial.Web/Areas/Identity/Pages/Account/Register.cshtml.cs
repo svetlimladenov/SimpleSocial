@@ -93,7 +93,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
                 var profilePicture = new ProfilePicture
                 {
                     UserId = user.Id,
-                    FileName = "default.jpg",
+                    FileName = "https://res.cloudinary.com/svetlinmld/image/upload/v1546050240/default.jpg",
                 };
 
                 dbContext.ProfilePictures.Add(profilePicture);

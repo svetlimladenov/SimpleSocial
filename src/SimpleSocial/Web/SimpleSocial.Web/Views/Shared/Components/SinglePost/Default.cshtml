@@ -4,7 +4,7 @@
     <div class="user">
         <div class="header-wrapper">
             <div class="left-head" data-attr="@Model.Post.CreatedOn.ToString("d")">
-                <div class="profile-picture" style="background-image: url(/profile-pictures/@Model.Post.User.ProfilePicture.FileName)"></div>
+                <div class="profile-picture" style="background-image: url(@Model.Post.User.ProfilePicture.FileName)"></div>
                 <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@Model.Post.User.Id"><strong>@Model.Post.User.UserName</strong></a></div>
             </div>
             <div class="right-head">

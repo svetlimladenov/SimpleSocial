@@ -24,6 +24,8 @@ namespace SimpleSocial.Web.Controllers
             {
                 return RedirectToAction("MyProfile", "Account");
             }
+            
+
             return this.View();
         }
 

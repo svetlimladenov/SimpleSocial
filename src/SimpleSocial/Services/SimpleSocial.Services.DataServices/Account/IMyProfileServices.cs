@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using SimpleSocia.Services.Models.Account;
 using SimpleSocia.Services.Models.Posts;
+using SimpleSocia.Services.Models.Users;
 using SimpleSocial.Data.Models;
 
 namespace SimpleSocial.Services.DataServices.Account
@@ -12,6 +13,8 @@ namespace SimpleSocial.Services.DataServices.Account
 
         ProfilePicture GetProfilePicture(ClaimsPrincipal user);
 
-        void UploadProfilePicture(ClaimsPrincipal user, UploadProfilePictureInputModel inputModel, string imgExtension);
+        void UploadProfilePictureCloudinary(ClaimsPrincipal user, UploadProfilePictureInputModel inputModel);
+        
+        UserInfoViewModel GetUserInfo(ClaimsPrincipal user);
     }
 }

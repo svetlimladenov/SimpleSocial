@@ -8,22 +8,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <div class="row profile-picture-holder user-info text-center">
-                @*TODO: Check if user has profile picture else display default profile picture*@
-                <cache expires-after="@TimeSpan.FromSeconds(2)">
-                    <img src="/profile-pictures/@Model.ProfilePicture.FileName" class="profilePicture" />
-                    <div class="show-link">
-                        <a asp-action="ChangeProfilePicture" class="btn btn-default">Upload Profile Picture</a>
-                    </div>
-                </cache>
-                <h2>@User.Identity.Name</h2>
-            </div>
+            <partial name="~/Views/Shared/_UserInfoPartial.cshtml" for="UserInfo"/>
             <div class="row" style="margin-top: 10px; background: #fff">
                 <div class="text-center vertical-menu">
                     <h2>Menu</h2>
                     <a asp-controller="Followers" asp-action="Followers">Followers</a>
                     <a asp-controller="Followers" asp-action="Following">Following</a>
-                    <a asp-area="Identity" asp-page="/Account/Manage/Index">Settings</a>          
+                    <a asp-area="Identity" asp-page="/Account/Manage/Index">Settings</a>
                 </div>
             </div>
         </div>
@@ -33,8 +24,8 @@
                     <div data-emojiarea data-type="unicode" data-global-picker="false">
                         <div class="emoji-button">&#x1f604;</div>
                         <textarea asp-for="CreatePost.Content" placeholder="What's up today ?" id="input1" cols="70" rows="4"></textarea>
-                        <input asp-for="CreatePost.WallId" value="@Model.WallId" hidden />
-                        <input asp-for="CreatePost.UserId" value="@Model.UserId" hidden />
+                        <input asp-for="CreatePost.WallId" value="@Model.UserInfo.WallId" hidden />
+                        <input asp-for="CreatePost.UserId" value="@Model.UserInfo.UserId" hidden />
                         <div class="post-functions">
                             <div class="icons">
                                 <i class="fas fa-images"></i>

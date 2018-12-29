@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CloudinaryDotNet" Version="1.6.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Data\SimpleSocial.Data.Common\SimpleSocial.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\SimpleSocial.Data.Models\SimpleSocial.Data.Models.csproj" />
     <ProjectReference Include="..\SimpleSocia.Services.Models\SimpleSocia.Services.Models.csproj" />

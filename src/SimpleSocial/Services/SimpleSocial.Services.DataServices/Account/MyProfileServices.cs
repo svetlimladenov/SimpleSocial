@@ -3,11 +3,13 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using AutoMapper;
+using CloudinaryDotNet;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SimpleSocia.Services.Models.Account;
 using SimpleSocia.Services.Models.Posts;
+using SimpleSocia.Services.Models.Users;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 
@@ -52,58 +54,76 @@ namespace SimpleSocial.Services.DataServices.Account
         {
             var userId = userManager.GetUserId(user);
             var profilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
-            var wwwRootPath = hostingEnvironment.WebRootPath;
-            if (File.Exists(wwwRootPath + $"/profile-pictures/{profilePicture?.FileName}"))
-            {
-                return profilePicture;
-            }
-            
-            return new ProfilePicture
-            {
-                FileName = "default.jpg",
-                UserId = userId,
-            };
+            return profilePicture;
         }
 
-        public void UploadProfilePicture(ClaimsPrincipal user, UploadProfilePictureInputModel inputModel, string imgExtension)
+
+        public void UploadProfilePictureCloudinary(ClaimsPrincipal user, UploadProfilePictureInputModel inputModel)
         {
-            var currentProfilePictureFile = this.GetProfilePicture(user);
             var userId = this.userManager.GetUserId(user);
 
+            CloudinaryDotNet.Account account =
+                new CloudinaryDotNet.Account("svetlinmld", "412472163518427", "M90sSSvXSYNzKQ3-l7qb-KGLpSY");
 
-            if (currentProfilePictureFile != null && currentProfilePictureFile.FileName != "default.jpg")
+            CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
+
+            var fileName = $"{userId}_Profile_Picture";
+
+            var stream = inputModel.UploadImage.OpenReadStream();
+
+            CloudinaryDotNet.Actions.ImageUploadParams uploadParams = new CloudinaryDotNet.Actions.ImageUploadParams()
             {
-                System.IO.File.Delete(this.hostingEnvironment.WebRootPath + "/profile-pictures/" + currentProfilePictureFile.FileName);
-            }
+                File = new FileDescription(inputModel.UploadImage.FileName, stream),
+                PublicId = fileName
+            };
 
-            var imageName = this.hostingEnvironment.WebRootPath + "/profile-pictures/" + userId + imgExtension;
+            CloudinaryDotNet.Actions.ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
 
-            using (var fileStream = new FileStream(imageName, FileMode.Create))
+            string url = cloudinary.Api.UrlImgUp.BuildUrl(fileName);
+
+            SaveImageNameToDb(user, url);
+        }
+
+        private void SaveImageNameToDb(ClaimsPrincipal user, string imagePath)
+        {
+            var userId = userManager.GetUserId(user);
+            var currentProfilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
+            while (currentProfilePicture != null)
             {
-                inputModel.UploadImage.CopyToAsync(fileStream).GetAwaiter().GetResult();
-                var currentProfilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
-                while (currentProfilePicture != null)
-                {
-                    profilePicturesRepository.Delete(currentProfilePicture);
-                    profilePicturesRepository.SaveChangesAsync().GetAwaiter().GetResult();
-                    currentProfilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
-                }
-
-                var newProfilePic = new ProfilePicture
-                {
-                    FileName = userId + imgExtension,
-                    UserId = userId
-                };
-                profilePicturesRepository.AddAsync(newProfilePic).GetAwaiter().GetResult();
-
-                var userProfilePicToChange = userManager.GetUserAsync(user).GetAwaiter().GetResult();
-
+                profilePicturesRepository.Delete(currentProfilePicture);
                 profilePicturesRepository.SaveChangesAsync().GetAwaiter().GetResult();
-
-                userProfilePicToChange.ProfilePictureId = newProfilePic.Id;
-
-                userRepository.SaveChangesAsync().GetAwaiter().GetResult();
+                currentProfilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
             }
+
+            var newProfilePic = new ProfilePicture
+            {
+                FileName = imagePath,
+                UserId = userId,
+            };
+
+            profilePicturesRepository.AddAsync(newProfilePic).GetAwaiter().GetResult();
+
+            var userProfilePicToChange = userManager.GetUserAsync(user).GetAwaiter().GetResult();
+
+            profilePicturesRepository.SaveChangesAsync().GetAwaiter().GetResult();
+
+            userProfilePicToChange.ProfilePictureId = newProfilePic.Id;
+
+            userRepository.SaveChangesAsync().GetAwaiter().GetResult();
+        }
+
+        public UserInfoViewModel GetUserInfo(ClaimsPrincipal user)
+        {
+            var userFromDb = this.userManager.GetUserAsync(user).GetAwaiter().GetResult();
+            var userInfo = new UserInfoViewModel
+            {
+                UserId = userFromDb.Id,
+                UserName = userFromDb.UserName,
+                ProfilePicture = this.GetProfilePicture(user),
+                WallId = userFromDb.WallId,
+            };
+
+            return userInfo;
         }
     }
 }
