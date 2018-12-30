@@ -13,3 +13,13 @@
         @await Component.InvokeAsync("ListOfUsers", new { viewModel = Model.UsersFound })
     </div>
 </div>
+
+@section Scripts{ 
+    <script>
+        $(document).ready(function () {
+            $("#comment-button").click(function () {
+                $(".write-comment").css("display", "flex");
+            });
+        });
+    </script>
+}

@@ -8,7 +8,7 @@
                 <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@Model.Post.User.Id"><strong>@Model.Post.User.UserName</strong></a></div>
             </div>
             <div class="right-head">
-                <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@Model.Post.Id">Details</a>
+                <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@Model.Post.Id" asp-route-userId="@Model.Post.User.Id">Details</a>
             </div>
         </div>
     </div>
@@ -29,7 +29,7 @@
             jQuery.ajax({
                 type: "POST",
                 url: "/Likes/GetAction",
-                data: { isLiked: isLiked, postId: "@Model.Post.Id" },
+                data: { isLiked: isLiked, postId: "@Model.Post.Id", userId : "@Model.PostVisitorId" },
                 success: function() {
                     if (isLiked === 'True') {
                         likebtn.data("like", "False");
@@ -51,12 +51,12 @@
     </script>
 
     <div class="write-comment">
-        @*//TODO: Add the form for comments with emojies*@
-        <div class="profile-picture" style="background-image: url(/profile-pictures/@Model.ProfilePicture.FileName); background-size: cover"></div>
+        <div class="profile-picture" style="background-image: url(@Model.ProfilePicture.FileName); background-size: cover"></div>
         <form asp-controller="Comments" asp-action="PostComment">
             <input asp-for="CommentInputModel.CommentText" placeholder="Write a comment..." />
-            <input asp-for="CommentInputModel.AuthorId" value="@Model.Post.UserId" hidden="hidden" aria-hidden="True" />
+            <input asp-for="CommentInputModel.AuthorId" value="@Model.PostVisitorId" hidden="hidden" aria-hidden="True" />
             <input asp-for="CommentInputModel.PostId" value="@Model.Post.Id" hidden="hidden" aria-hidden="True" />
+            <input name="userId" value="@Model.PostAuthorId" hidden="hidden"/>
             <button type="button" hidden>Button 1</button>
             <input type="submit" name="go" value="Submit" hidden />
         </form>
@@ -66,7 +66,7 @@
         <div class="comments">
             <div class="single-comment">
                 <div class="user" data-attr="@comment.PostedOn.ToString("d")">
-                    <div class="profile-picture" style="background-image: url(/profile-pictures/@comment.Author.ProfilePicture.FileName)"></div>
+                    <div class="profile-picture" style="background-image: url(@comment.Author.ProfilePicture.FileName)"></div>
                     <div class="user-name"><strong>@comment.Author.UserName</strong></div>
                 </div>
                 <div class="comment-content">
@@ -76,3 +76,21 @@
         </div>
     }
 </div>
+
+
+<script>
+    var buttons = $(".like-btn");
+
+    $(document).ready(function () {
+        $.each(buttons,
+            function () {
+                var likebtn = $(this);
+                var isLiked = likebtn.data("like");
+                if (isLiked === 'True') {
+                    likebtn.html("<i class=\"far fa-thumbs-down\"></i>Unlike");
+                } else {
+                    likebtn.html("<i class=\"far fa-thumbs-up\"></i>Like");
+                }
+            });
+    });
+</script>

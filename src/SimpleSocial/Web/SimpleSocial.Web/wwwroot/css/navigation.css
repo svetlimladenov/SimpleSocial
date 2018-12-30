@@ -188,7 +188,7 @@ a {
 
 /*Write a comment style*/
 .write-comment {
-    display: none;
+    display: flex;
     padding-top: 10px;
     padding-left: 10px;
 }

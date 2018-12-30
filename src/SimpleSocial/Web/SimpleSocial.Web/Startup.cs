@@ -19,6 +19,7 @@ using SimpleSocial.Services.DataServices.LikesDataServices;
 using SimpleSocial.Services.DataServices.PostsServices;
 using SimpleSocial.Services.DataServices.SearchDataServices;
 using SimpleSocial.Services.DataServices.SignUpDetails;
+using SimpleSocial.Services.DataServices.UsersDataServices;
 using SimpleSocial.Services.Mapping;
 using SimpleSocial.Web.Middlewares;
 using SimpleSocial.Web.Utilities;

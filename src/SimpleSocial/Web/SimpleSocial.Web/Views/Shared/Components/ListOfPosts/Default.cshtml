@@ -1,5 +1,5 @@
 ﻿@using SimpleSocial.Data.Models
-@model SimpleSocia.Services.Models.Account.MyProfileViewModel
+@model SimpleSocia.Services.Models.Account.UserProfileViewModel
 
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -14,6 +14,10 @@
     counter++;
     var likeClassName = "like-ajax-" + counter;
 
-    @await Component.InvokeAsync("SinglePost", new { post = post, likeClassName = likeClassName, profilePicture = Model.UserInfo.ProfilePicture, commentInputModel = Model.CommentInputModel })
-
+    @await Component.InvokeAsync("SinglePost", new {
+    currentUserId = Model.CurrentUserInfo.UserId ,
+    post = post,
+    likeClassName = likeClassName,
+    profilePicture = Model.CurrentUserInfo.ProfilePicture,
+    commentInputModel = Model.CommentInputModel })
 }

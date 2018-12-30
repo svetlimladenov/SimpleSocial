@@ -14,12 +14,12 @@ namespace SimpleSocial.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostComment(MyProfileViewModel inputModel)
+        public IActionResult PostComment(MyProfileViewModel inputModel, string userId)
         {
             var commentInputModel = inputModel.CommentInputModel;
             this.commentsServices.CreateComment(commentInputModel);
             
-            return RedirectToAction("MyProfile", "Account");
+            return RedirectToAction("Index", "Profiles", new { userId = userId});
         }
     }
 }

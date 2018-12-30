@@ -7,40 +7,41 @@ using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.Account;
 using SimpleSocial.Services.DataServices.PostsServices;
+using SimpleSocial.Services.DataServices.UsersDataServices;
 
 namespace SimpleSocial.Web.Controllers
 {
     public class AccountController : BaseController
     {
         private readonly IMyProfileServices myProfileServices;
+        private readonly IUserServices userServices;
         private readonly IPostServices postServices;
         private readonly UserManager<SimpleSocialUser> userManager;
-        private readonly IHostingEnvironment environment;
-        private readonly IRepository<ProfilePicture> profilePicturesRepository;
 
         public AccountController(
             IMyProfileServices myProfileServices,
+            IUserServices userServices,
             IPostServices postServices,
-            UserManager<SimpleSocialUser> userManager,
-            IHostingEnvironment environment,
-            IRepository<ProfilePicture> profilePicturesRepository)
+            UserManager<SimpleSocialUser> userManager
+            )
         {
             this.myProfileServices = myProfileServices;
+            this.userServices = userServices;
             this.postServices = postServices;
             this.userManager = userManager;
-            this.environment = environment;
-            this.profilePicturesRepository = profilePicturesRepository;
+
         }
 
 
         public IActionResult MyProfile(MyProfileViewModel inputModel)
         {
+            var userId = this.userManager.GetUserId(User);
             var viewModel = new MyProfileViewModel
             {
-                ProfilePicture = myProfileServices.GetProfilePicture(User),
-                Posts = postServices.GetUserPosts(User),
+                CurrentUserInfo = userServices.GetUserInfo(userId),
+                Posts = postServices.GetUserPosts(userId, userId),
                 IsValidProfilePicture = inputModel.IsValidProfilePicture,
-                UserInfo = myProfileServices.GetUserInfo(User)
+                UserProfileInfo = userServices.GetUserInfo(userId)
             };
 
             return View(viewModel);

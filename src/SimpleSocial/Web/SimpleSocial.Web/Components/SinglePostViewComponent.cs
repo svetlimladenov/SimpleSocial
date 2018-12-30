@@ -13,16 +13,21 @@ namespace SimpleSocial.Web.Components
     public class SinglePostViewComponent : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync(
+            string currentUserId,
             PostViewModel post,
             CommentInputModel commentInputModel,
             ProfilePicture profilePicture,
             string likeClassName)
         {
-            SinglePostViewComponentModel viewModel = new SinglePostViewComponentModel();
-            viewModel.Post = post;
-            viewModel.CommentInputModel = commentInputModel;
-            viewModel.ProfilePicture = profilePicture;
-            viewModel.LikeClassName = likeClassName;
+            SinglePostViewComponentModel viewModel = new SinglePostViewComponentModel
+            {
+                Post = post,
+                CommentInputModel = commentInputModel,
+                ProfilePicture = profilePicture,
+                LikeClassName = likeClassName,
+                PostVisitorId = currentUserId,
+                PostAuthorId = post.UserId
+            };
             return View(viewModel);
         }
 

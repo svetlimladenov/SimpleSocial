@@ -8,26 +8,31 @@ using SimpleSocia.Services.Models.SignUp;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.Account;
+using SimpleSocial.Services.DataServices.UsersDataServices;
 
 namespace SimpleSocial.Services.DataServices.SignUpDetails
 {
     public class ProfileDetailsServices : IProfileDetailsServices
     {
+        //TODO: DELETE THIS SERVICE !!!
         private readonly IRepository<SimpleSocialUser> userRepository;
         private readonly IUserServices userServices;
+        private readonly UserManager<SimpleSocialUser> userManager;
 
         public ProfileDetailsServices(
             IRepository<SimpleSocialUser> userRepository,
-            IUserServices userServices
+            IUserServices userServices,
+            UserManager<SimpleSocialUser> userManager
         )
         {
             this.userRepository = userRepository;
             this.userServices = userServices;
+            this.userManager = userManager;
         }
 
         public void SetNames(ProfileDetailsInputModel inputModel, ClaimsPrincipal user)
         {
-            var currentUser = userServices.GetUser(user);
+            var currentUser = userManager.GetUserAsync(user).GetAwaiter().GetResult();
             if (currentUser == null || string.IsNullOrEmpty(inputModel.FirstName) || string.IsNullOrEmpty(inputModel.LastName))
             {
                 return;
@@ -40,7 +45,7 @@ namespace SimpleSocial.Services.DataServices.SignUpDetails
 
         public void SetBirthDay(ProfileDetailsInputModel inputModel, ClaimsPrincipal user)
         {
-            var currentUser = userServices.GetUser(user);
+            var currentUser = userManager.GetUserAsync(user).GetAwaiter().GetResult();
             if (currentUser == null || inputModel.BirthDay == DateTime.MinValue)
             {
                 return;
@@ -53,7 +58,7 @@ namespace SimpleSocial.Services.DataServices.SignUpDetails
 
         public void SetLivingPlace(ProfileDetailsInputModel inputModel, ClaimsPrincipal user)
         {
-            var currentUser = userServices.GetUser(user);
+            var currentUser = userManager.GetUserAsync(user).GetAwaiter().GetResult();
             if (currentUser == null || string.IsNullOrEmpty(inputModel.Country) || string.IsNullOrEmpty(inputModel.City))
             {
                 return;

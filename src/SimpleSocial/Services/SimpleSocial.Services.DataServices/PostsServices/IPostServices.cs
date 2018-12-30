@@ -10,11 +10,11 @@ namespace SimpleSocial.Services.DataServices.PostsServices
     {
         void CreatePost(MyProfileViewModel viewModel);
 
-        ICollection<PostViewModel> GetUserPosts(ClaimsPrincipal user);
+        ICollection<PostViewModel> GetUserPosts(string userId, string currrentUserId);
 
         PostViewModel GetPostById(string id);
 
-        SinglePostViewComponentModel GetSinlSinglePostViewComponentModel(string id, ClaimsPrincipal user);
+        SinglePostViewComponentModel GetSinglePostViewComponentModel(string id, string visitorId);
 
         bool UserCanSeePost(string id, ClaimsPrincipal user);
     }

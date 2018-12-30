@@ -8,7 +8,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <partial name="~/Views/Shared/_UserInfoPartial.cshtml" for="UserInfo"/>
+            <partial name="~/Views/Shared/_UserInfoPartial.cshtml" for="UserProfileInfo"/>
             <div class="row" style="margin-top: 10px; background: #fff">
                 <div class="text-center vertical-menu">
                     <h2>Menu</h2>
@@ -24,8 +24,8 @@
                     <div data-emojiarea data-type="unicode" data-global-picker="false">
                         <div class="emoji-button">&#x1f604;</div>
                         <textarea asp-for="CreatePost.Content" placeholder="What's up today ?" id="input1" cols="70" rows="4"></textarea>
-                        <input asp-for="CreatePost.WallId" value="@Model.UserInfo.WallId" hidden />
-                        <input asp-for="CreatePost.UserId" value="@Model.UserInfo.UserId" hidden />
+                        <input asp-for="CreatePost.WallId" value="@Model.UserProfileInfo.WallId" hidden />
+                        <input asp-for="CreatePost.UserId" value="@Model.UserProfileInfo.UserId" hidden />
                         <div class="post-functions">
                             <div class="icons">
                                 <i class="fas fa-images"></i>

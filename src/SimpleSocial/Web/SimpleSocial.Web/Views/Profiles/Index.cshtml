@@ -1,7 +1,35 @@
-﻿
+﻿@model SimpleSocia.Services.Models.Account.UserProfileViewModel
+
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <partial name="~/Views/Shared/_UserInfoPartial.cshtml" for="UserProfileInfo" />
+        </div>
+        <div class="col-md-6">
+            @await Component.InvokeAsync("ListOfPosts", new { posts = Model })
+        </div>
+    </div>
+</div>
 
+@section Scripts{
+    <script>
+        var buttons = $(".like-btn");
+
+        $(document).ready(function () {
+            $.each(buttons,
+                function () {
+                    var likebtn = $(this);
+                    var isLiked = likebtn.data("like");
+                    if (isLiked === 'True') {
+                        likebtn.html("<i class=\"far fa-thumbs-down\"></i>Unlike");
+                    } else {
+                        likebtn.html("<i class=\"far fa-thumbs-up\"></i>Like");
+                    }
+                });
+        });
+    </script>
+}

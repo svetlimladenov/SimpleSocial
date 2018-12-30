@@ -9,12 +9,8 @@ namespace SimpleSocial.Services.DataServices.Account
 {
     public interface IMyProfileServices
     {
-        string GetWallId(ClaimsPrincipal user);
-
-        ProfilePicture GetProfilePicture(ClaimsPrincipal user);
-
+      
         void UploadProfilePictureCloudinary(ClaimsPrincipal user, UploadProfilePictureInputModel inputModel);
-        
-        UserInfoViewModel GetUserInfo(ClaimsPrincipal user);
+
     }
 }

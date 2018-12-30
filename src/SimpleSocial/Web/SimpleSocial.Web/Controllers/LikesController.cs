@@ -25,12 +25,8 @@ namespace SimpleSocial.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult GetAction(string isLiked, string postId)
+        public IActionResult GetAction(string isLiked, string postId, string userId)
         {
-            //TODO: Save like to db;
-            //TODO: Success in ajax;
-            var userId = userManager.GetUserId(this.User);
-
             if (isLiked.ToLower() == "false")
             {
                 likesServices.Like(postId, userId);

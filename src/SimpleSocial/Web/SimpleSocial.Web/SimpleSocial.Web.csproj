@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Emoji-Picker-For-Textarea-jQuery-Emojiarea\docs\assets\js\" />
-    <Folder Include="wwwroot\profile-pictures\" />
   </ItemGroup>
 
 </Project>

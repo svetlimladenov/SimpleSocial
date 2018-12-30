@@ -18,41 +18,32 @@ namespace SimpleSocial.Services.DataServices.Account
 {
     public class MyProfileServices : IMyProfileServices
     {
-        private readonly IRepository<Post> postRepository;
         private readonly IRepository<Wall> wallRepository;
         private readonly IRepository<ProfilePicture> profilePicturesRepository;
         private readonly UserManager<SimpleSocialUser> userManager;
-        private readonly IHostingEnvironment hostingEnvironment;
         private readonly IRepository<SimpleSocialUser> userRepository;
 
         public MyProfileServices(
-            IRepository<Post> postRepository,
             IRepository<Wall> wallRepository,
             IRepository<ProfilePicture> profilePicturesRepository,
             UserManager<SimpleSocialUser> userManager,
-            IHostingEnvironment hostingEnvironment,
             IRepository<SimpleSocialUser> userRepository
             )
         {
-            this.postRepository = postRepository;
             this.wallRepository = wallRepository;
             this.profilePicturesRepository = profilePicturesRepository;
             this.userManager = userManager;
-            this.hostingEnvironment = hostingEnvironment;
             this.userRepository = userRepository;
         }
 
-        public string GetWallId(ClaimsPrincipal user)
+        public string GetWallId(string userId)
         {
-            var userId = userManager.GetUserId(user);
             var posts = wallRepository.All().FirstOrDefault(w => w.UserId == userId)?.Id;
-
             return posts;
         }
 
-        public ProfilePicture GetProfilePicture(ClaimsPrincipal user)
+        public ProfilePicture GetUserProfilePicture(string userId)
         {
-            var userId = userManager.GetUserId(user);
             var profilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
             return profilePicture;
         }
@@ -112,15 +103,20 @@ namespace SimpleSocial.Services.DataServices.Account
             userRepository.SaveChangesAsync().GetAwaiter().GetResult();
         }
 
-        public UserInfoViewModel GetUserInfo(ClaimsPrincipal user)
+        public UserInfoViewModel GetUserInfo(string userId)
         {
-            var userFromDb = this.userManager.GetUserAsync(user).GetAwaiter().GetResult();
+            var user = this.userRepository.All().FirstOrDefault(x => x.Id == userId);
+            if (user == null)
+            {
+                return null;
+            }
+
             var userInfo = new UserInfoViewModel
             {
-                UserId = userFromDb.Id,
-                UserName = userFromDb.UserName,
-                ProfilePicture = this.GetProfilePicture(user),
-                WallId = userFromDb.WallId,
+                UserId = user.Id,
+                UserName = user.UserName,
+                ProfilePicture = this.GetUserProfilePicture(userId),
+                WallId = user.WallId,
             };
 
             return userInfo;
