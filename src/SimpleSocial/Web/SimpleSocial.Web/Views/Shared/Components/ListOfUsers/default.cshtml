@@ -2,55 +2,72 @@
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
-@{ var counter = 1; }
-@foreach (var user in Model.Users)
+@if (!Model.Users.Any() && ViewData["Title"].ToString() != "MyProfile")
 {
-
-    var followBtnClass = "follow-btn-" + counter;
-    var divHolderClass = "follower-wrapper-" + counter;
-    counter++;
-    <div class="follower @divHolderClass">
-        <div class="left-user-section">
-            <div class="profile-picture" style="background: url(@user.ProfilePicture.FileName); background-size: cover"></div>
-            <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@user.Id"><strong>@user.UserName</strong></a></div>
-        </div>
-        <div class="right-user-section">
-            @if (user.IsFollowingCurrentUser)
-            {
-                <button class="@followBtnClass unfollow">Unfollow</button>
-            }
-            else
-            {
-                <button class="@followBtnClass">Follow</button>
-            }
-
-        </div>
+    <div class="text-center">
+        <h3>
+            No @ViewData["Title"]s <i class="fas fa-user-times"></i>
+            <div style="margin-top: 10px;">
+                <a asp-controller="Followers" asp-action="WhoToFollow" class="no-followers-btn">Find Some</a>
+            </div>
+        </h3>
     </div>
+}
+else
+{
+    var users = Model.Users.ToList();
+    if (ViewData["Title"].ToString() == "MyProfile")
+    {
+        users = users.Take(3).ToList();
+    }
+    var counter = 1;
+    foreach (var user in users)
+    {
+
+        var followBtnClass = "follow-btn-" + counter;
+        var divHolderClass = "follower-wrapper-" + counter;
+        counter++;
+        <div class="follower @divHolderClass">
+            <div class="left-user-section">
+                <div class="profile-picture" style="background: url(@user.ProfilePicture.FileName); background-size: cover"></div>
+                <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@user.Id"><strong>@user.UserName</strong></a></div>
+            </div>
+            <div class="right-user-section">
+                @if (user.IsFollowingCurrentUser)
+                {
+                    <button class="@followBtnClass unfollow">Unfollow</button>
+                }
+                else
+                {
+                    <button class="@followBtnClass">Follow</button>
+                }
+
+            </div>
+        </div>
 
 
         <script>
-                $(".@followBtnClass").click(function () {
-                    var btnText = $(this).text().toLowerCase();
-                    console.log(btnText);
-                    $.ajax({
-                        type: "POST",
-                        url: "/Followers/ChooseAction",
-                        data: { userId: "@user.Id", action : btnText.toLowerCase() },
-                        success: function() {
-                            console.log("successly send");
-                        },
-                        complete: function () {
-                            if (btnText === "follow") {
-                                $(".@followBtnClass").addClass("unfollow").text("Unfollow");
-                            }
-                            else if(btnText === "unfollow"){
-                                $(".@followBtnClass").removeClass("unfollow").text("Follow");
-                            }                          
+            $(".@followBtnClass").click(function() {
+                var btnText = $(this).text().toLowerCase();
+                console.log(btnText);
+                $.ajax({
+                    type: "POST",
+                    url: "/Followers/ChooseAction",
+                    data: { userId: "@user.Id", action: btnText.toLowerCase() },
+                    success: function() {
+                        console.log("successly send");
+                    },
+                    complete: function() {
+                        if (btnText === "follow") {
+                            $(".@followBtnClass").addClass("unfollow").text("Unfollow");
+                        } else if (btnText === "unfollow") {
+                            $(".@followBtnClass").removeClass("unfollow").text("Follow");
                         }
-                    });
-                })
+                    }
+                });
+            })
         </script>
-    
 
+    }
 
 }

@@ -33,15 +33,15 @@ namespace SimpleSocial.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult PostDetails(string id, string userId)
+        public IActionResult PostDetails(string id)
         {
             //TODO : CHANGE LOGIC HERE
             //if (!postServices.UserCanSeePost(id,User))
             //{
             //    return BadRequest();
             //}
-            
-            var viewModel = postServices.GetSinglePostViewComponentModel(id, userId);
+            var currentUserId = this.userManager.GetUserId(User);
+            var viewModel = postServices.GetSinglePostViewComponentModel(id, currentUserId);
  
             return View(viewModel);
         }

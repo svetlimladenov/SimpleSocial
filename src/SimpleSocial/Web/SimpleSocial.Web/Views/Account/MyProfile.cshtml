@@ -41,8 +41,10 @@
         </div>
         <div class="col-md-3 who-to-follow-partial text-center" id="test">
             <h2>Who to follow</h2>
-            <a asp-controller="Followers" asp-action="WhoToFollow">Find Followers</a>
-        </div>
+            @await Component.InvokeAsync("ListOfUsers", new { viewModel = Model.WhoToFollow })
+            <div style="margin: 10px;">
+                <a asp-controller="Followers" asp-action="WhoToFollow" class="no-followers-btn" style="font-size: 20px;">Find More</a>
+            </div>
     </div>
 </div>
 

@@ -77,7 +77,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
         public PostViewModel GetPostById(string id)
         {
-            var post = this.postRepository.All().To<PostViewModel>().FirstOrDefault(x => x.Id == id);
+            var post = this.postRepository.All().Include(x => x.Comments).ThenInclude(x => x.Author).ThenInclude(a => a.ProfilePicture).Select(x => Mapper.Map<PostViewModel>(x)).FirstOrDefault(x => x.Id == id);
             return post;
         }
 
@@ -87,6 +87,16 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             var profilePicture = userWithProfilePic.ProfilePicture;
             var viewModel = new SinglePostViewComponentModel();
             var post = this.GetPostById(id);
+            var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).ToList();
+            if (likes.FirstOrDefault(x => x.UserId == visitorId) == null)
+            {
+                post.IsLiked = false;
+            }
+            else
+            {
+                post.IsLiked = true;
+            }
+            post.Likes = likes;
             var postAuthorId = post.User.Id;
             if (post.Likes.FirstOrDefault(x => x.UserId == visitorId) == null)
             {
@@ -107,6 +117,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
         public bool UserCanSeePost(string id, ClaimsPrincipal user)
         {
+            //TODO: change logic here
             var currentUser = this.userManager.GetUserAsync(user).GetAwaiter().GetResult();
             var post = this.postRepository.All().Include(x => x.User).FirstOrDefault(x => x.Id == id);
 

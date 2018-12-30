@@ -8,7 +8,7 @@
                 <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@Model.Post.User.Id"><strong>@Model.Post.User.UserName</strong></a></div>
             </div>
             <div class="right-head">
-                <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@Model.Post.Id" asp-route-userId="@Model.Post.User.Id">Details</a>
+                <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@Model.Post.Id">Details</a>
             </div>
         </div>
     </div>
@@ -67,10 +67,10 @@
             <div class="single-comment">
                 <div class="user" data-attr="@comment.PostedOn.ToString("d")">
                     <div class="profile-picture" style="background-image: url(@comment.Author.ProfilePicture.FileName)"></div>
-                    <div class="user-name"><strong>@comment.Author.UserName</strong></div>
+                    <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@comment.AuthorId"><strong>@comment.Author.UserName</strong></a></div>
                 </div>
                 <div class="comment-content">
-                    <p data-likes="20">@comment.CommentText</p>
+                    <p>@comment.CommentText</p>
                 </div>
             </div>
         </div>

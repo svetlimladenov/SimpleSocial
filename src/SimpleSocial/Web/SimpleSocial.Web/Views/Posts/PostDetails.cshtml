@@ -4,7 +4,7 @@
 }
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <div>
-    @await Component.InvokeAsync("SinglePost", new { userId = Model.PostVisitorId, post = Model.Post, likeClassName = Model.LikeClassName, profilePicture = Model.ProfilePicture, commentInputModel = Model.CommentInputModel })
+    @await Component.InvokeAsync("SinglePost", new { currentUserId = Model.PostVisitorId, post = Model.Post, likeClassName = Model.LikeClassName, profilePicture = Model.ProfilePicture, commentInputModel = Model.CommentInputModel })
 </div>
 
 

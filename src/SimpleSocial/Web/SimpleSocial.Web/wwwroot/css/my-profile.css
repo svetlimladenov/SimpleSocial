@@ -153,3 +153,15 @@ input[type="file"] {
     cursor: pointer;
     box-shadow: 0 4px 0 -2px #3b5998;
 }
+
+.no-followers-btn {
+    margin-top: 10px;
+    padding: 5px;
+    background: #005b96;
+    color: white;
+    border-radius: 6px;
+}
+
+.no-followers-btn :hover {
+    color: white;
+}
