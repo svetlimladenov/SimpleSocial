@@ -19,18 +19,21 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         private readonly IRepository<Post> postRepository;
         private readonly IRepository<UserLike> userLikesRepository;
         private readonly IRepository<SimpleSocialUser> userRepository;
+        private readonly IRepository<UserFollower> userFollowersRepository;
         private readonly UserManager<SimpleSocialUser> userManager;
 
         public PostServices(
             IRepository<Post> postRepository,
             IRepository<UserLike> userLikesRepository,
             IRepository<SimpleSocialUser> userRepository,
+            IRepository<UserFollower> userFollowersRepository,
             UserManager<SimpleSocialUser> userManager
         )
         {
             this.postRepository = postRepository;
             this.userLikesRepository = userLikesRepository;
             this.userRepository = userRepository;
+            this.userFollowersRepository = userFollowersRepository;
             this.userManager = userManager;
         }
 
@@ -71,13 +74,14 @@ namespace SimpleSocial.Services.DataServices.PostsServices
                 }
                 post.Likes = likes;
             }
+
             return posts;
         }
 
 
         public PostViewModel GetPostById(string id)
         {
-            var post = this.postRepository.All().Include(x => x.Comments).ThenInclude(x => x.Author).ThenInclude(a => a.ProfilePicture).Select(x => Mapper.Map<PostViewModel>(x)).FirstOrDefault(x => x.Id == id);
+            var post = this.postRepository.All().Include(p => p.User).ThenInclude(u => u.ProfilePicture).Include(x => x.Comments).ThenInclude(x => x.Author).ThenInclude(a => a.ProfilePicture).Select(x => Mapper.Map<PostViewModel>(x)).FirstOrDefault(x => x.Id == id);
             return post;
         }
 
@@ -132,6 +136,43 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
         }
 
+        public ICollection<PostViewModel> GetNewsFeedPosts(string currrentUserId)
+        {
+            var posts = new List<PostViewModel>();
+            var followings = this.userFollowersRepository.All().Where(x => x.FollowerId == currrentUserId);
+            foreach (var user in followings)
+            {
+                var userPosts = this.postRepository.All().Include(x => x.Comments).ThenInclude(x => x.Author).ThenInclude(a => a.ProfilePicture).Include(x => x.User).ThenInclude(u => u.ProfilePicture).Where(x => x.UserId == user.UserId).Select(x => Mapper.Map<Post, PostViewModel>(x));
+                foreach (var post in userPosts)
+                {
+                    posts.Add(post);
+                }
+            }
 
+            posts = posts.OrderByDescending(x => x.CreatedOn).ToList();
+
+            posts = CheckIsPostsAreLiked(currrentUserId, posts).ToList();
+
+            return posts;
+        }
+
+        private ICollection<PostViewModel> CheckIsPostsAreLiked(string currrentUserId, List<PostViewModel> posts)
+        {
+            foreach (var post in posts)
+            {
+                var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).ToList();
+                if (likes.FirstOrDefault(x => x.UserId == currrentUserId) == null)
+                {
+                    post.IsLiked = false;
+                }
+                else
+                {
+                    post.IsLiked = true;
+                }
+                post.Likes = likes;
+            }
+
+            return posts;
+        }
     }
 }

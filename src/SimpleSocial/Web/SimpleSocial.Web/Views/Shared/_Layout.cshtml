@@ -29,9 +29,9 @@
                     <div class="left-functions">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li><a asp-controller="Home" asp-action="Index">SimpleSocial</a></li>
-                            <li><a href="#">Notifications</a></li>
-                            <li><a href="#">Chat</a></li>
+                            <li><a asp-controller="NewsFeed" asp-action="Index"><div>SimpleSocial</div></a></li>
+                            <li><a href="#"><div>Notifications</div></a></li>
+                            <li><a href="#"><div>Chat</div></a></li>
                             if (User.IsInRole("Admin"))
                             {
                                 <li><a asp-area="Administration" asp-controller="Admin" asp-action="Index">Administration</a></li>

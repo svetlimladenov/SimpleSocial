@@ -8,35 +8,11 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <partial name="~/Views/Shared/_UserInfoPartial.cshtml" for="UserProfileInfo"/>
-            <div class="row" style="margin-top: 10px; background: #fff">
-                <div class="text-center vertical-menu">
-                    <h2>Menu</h2>
-                    <a asp-controller="Followers" asp-action="Followers">Followers</a>
-                    <a asp-controller="Followers" asp-action="Following">Following</a>
-                    <a asp-area="Identity" asp-page="/Account/Manage/Index">Settings</a>
-                </div>
-            </div>
+            <partial name="~/Views/Shared/Partials/_UserInfoPartial.cshtml" for="UserProfileInfo"/>
+            <partial name="~/Views/Shared/Partials/_SideMenuPartial.cshtml" model="@Model.CurrentUserInfo"/>
         </div>
         <div class="col-md-6">
-            <form asp-controller="Posts" asp-action="Create">
-                <div class="foo">
-                    <div data-emojiarea data-type="unicode" data-global-picker="false">
-                        <div class="emoji-button">&#x1f604;</div>
-                        <textarea asp-for="CreatePost.Content" placeholder="What's up today ?" id="input1" cols="70" rows="4"></textarea>
-                        <input asp-for="CreatePost.WallId" value="@Model.UserProfileInfo.WallId" hidden />
-                        <input asp-for="CreatePost.UserId" value="@Model.UserProfileInfo.UserId" hidden />
-                        <div class="post-functions">
-                            <div class="icons">
-                                <i class="fas fa-images"></i>
-                            </div>
-                            <div class="functions">
-                                <button type="submit">post</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
+            <partial name="~/Views/Shared/Partials/_CreatePostPartial.cshtml" model="@Model" />
             @await Component.InvokeAsync("ListOfPosts", new { posts = Model })
         </div>
         <div class="col-md-3 who-to-follow-partial text-center" id="test">

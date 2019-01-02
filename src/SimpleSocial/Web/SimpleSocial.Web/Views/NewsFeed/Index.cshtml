@@ -1,0 +1,37 @@
+﻿@model SimpleSocia.Services.Models.Account.PostsFeedAndUserInfoViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <partial name="~/Views/Shared/Partials/_SideMenuPartial.cshtml" model="@Model.CurrentUserInfo"/>
+        </div>
+        <div class="col-md-6">
+            <partial name="~/Views/Shared/Partials/_CreatePostPartial.cshtml" model="@Model" />
+            @await Component.InvokeAsync("ListOfPosts", new { posts = Model })
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        var buttons = $(".like-btn");
+
+        $(document).ready(function () {
+            $.each(buttons,
+                function () {
+                    var likebtn = $(this);
+                    var isLiked = likebtn.data("like");
+                    if (isLiked === 'True') {
+                        likebtn.html("<i class=\"far fa-thumbs-down\"></i>Unlike");
+                    } else {
+                        likebtn.html("<i class=\"far fa-thumbs-up\"></i>Like");
+                    }
+                });
+        });
+    </script>
+}
+

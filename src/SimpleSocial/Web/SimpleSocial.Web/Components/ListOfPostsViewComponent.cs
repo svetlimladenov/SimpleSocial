@@ -11,7 +11,7 @@ namespace SimpleSocial.Web.Components
     [ViewComponent(Name = "ListOfPosts")]
     public class ListOfPostsViewComponent : ViewComponent
     {
-        public async Task<IViewComponentResult> InvokeAsync(UserProfileViewModel posts)
+        public async Task<IViewComponentResult> InvokeAsync(PostsFeedAndUserInfoViewModel posts)
         {
             return View(posts);
         }

@@ -15,5 +15,7 @@ namespace SimpleSocia.Services.Models.Users
         public string UserId { get; set; }
 
         public string WallId { get; set; }
+
+        public string Description { get; set; }
     }
 }

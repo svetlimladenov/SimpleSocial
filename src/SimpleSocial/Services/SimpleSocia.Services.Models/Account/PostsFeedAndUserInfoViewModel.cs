@@ -6,7 +6,7 @@ using SimpleSocial.Data.Models;
 
 namespace SimpleSocia.Services.Models.Account
 {
-    public class UserProfileViewModel
+    public class PostsFeedAndUserInfoViewModel
     {
         public UserInfoViewModel CurrentUserInfo{ get; set; }
 
@@ -15,5 +15,7 @@ namespace SimpleSocia.Services.Models.Account
         public CommentInputModel CommentInputModel { get; set; }
 
         public UserInfoViewModel UserProfileInfo { get; set; }
+
+        public CreatePostInputModel CreatePost { get; set; }
     }
 }

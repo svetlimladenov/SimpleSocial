@@ -133,6 +133,7 @@ input[type="file"] {
 .content-wrapper { margin-top: 10px;}
 
 .user-info {
+    margin-bottom: 10px;
     background: white;
 }
 
@@ -159,7 +160,7 @@ input[type="file"] {
     padding: 5px;
     background: #005b96;
     color: white;
-    border-radius: 6px;
+    border-radius: 10px;
 }
 
 .no-followers-btn :hover {

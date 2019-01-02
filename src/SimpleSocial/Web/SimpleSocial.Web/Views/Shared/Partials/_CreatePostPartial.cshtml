@@ -1,0 +1,24 @@
+﻿@model SimpleSocia.Services.Models.Account.PostsFeedAndUserInfoViewModel
+
+@{
+    ViewData["Title"] = "_CreatePostPartial";
+}
+
+<form asp-controller="Posts" asp-action="Create">
+    <div class="foo">
+        <div data-emojiarea data-type="unicode" data-global-picker="false">
+            <div class="emoji-button">&#x1f604;</div>
+            <textarea asp-for="CreatePost.Content" placeholder="What's up today ?" id="input1" cols="70" rows="4"></textarea>
+            <input asp-for="CreatePost.WallId" value="@Model.UserProfileInfo.WallId" hidden />
+            <input asp-for="CreatePost.UserId" value="@Model.UserProfileInfo.UserId" hidden />
+            <div class="post-functions">
+                <div class="icons">
+                    <i class="fas fa-images"></i>
+                </div>
+                <div class="functions">
+                    <button type="submit">post</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

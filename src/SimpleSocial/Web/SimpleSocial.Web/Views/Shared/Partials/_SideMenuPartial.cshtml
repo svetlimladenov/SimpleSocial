@@ -1,0 +1,11 @@
+﻿@model SimpleSocia.Services.Models.Users.UserInfoViewModel
+
+<div class="row" style="background: #fff">
+    <div class="text-center vertical-menu">
+        <a asp-controller="Account" asp-action="MyProfile">@Model.UserName</a>
+        <a asp-controller="Followers" asp-action="Followers">Followers</a>
+        <a asp-controller="Followers" asp-action="Following">Following</a>
+        <a asp-area="Identity" asp-page="/Account/Manage/Index">Settings</a>
+    </div>
+</div>
+

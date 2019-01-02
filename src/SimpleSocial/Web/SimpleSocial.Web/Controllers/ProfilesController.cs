@@ -37,11 +37,11 @@ namespace SimpleSocial.Web.Controllers
 
             var currentUserId = this.userManager.GetUserId(User);
 
-            var viewModel = new UserProfileViewModel
+            var viewModel = new PostsFeedAndUserInfoViewModel
             {
                 CurrentUserInfo = userServices.GetUserInfo(currentUserId),
                 Posts = postServices.GetUserPosts(userId, currentUserId),
-                UserProfileInfo = userServices.GetUserInfo(userId),
+                UserProfileInfo = userServices.GetUserInfo(userId),              
             };
             
             return this.View(viewModel);
