@@ -2,7 +2,7 @@
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
-@if (!Model.Users.Any() && ViewData["Title"].ToString() != "MyProfile")
+@if (!Model.Users.Any())
 {
     <div class="text-center">
         <h3>
@@ -28,48 +28,20 @@ else
                 <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@user.Id"><strong>@user.UserName</strong></a></div>
             </div>
             <div class="right-user-section">
-                @if (user.IsFollowingCurrentUser)
+                @if (user.UserName != this.User.Identity.Name)
                 {
-                    <button data-userid="@user.Id" class="unfollow">Unfollow</button>
+                    @if (user.IsFollowingCurrentUser)
+                     {
+                         <button data-userid="@user.Id" class="unfollow">Unfollow</button>
+                     }
+                     else
+                     {
+                         <button data-userid="@user.Id">Follow</button>
+                     }
                 }
-                else
-                {
-                    <button data-userid="@user.Id">Follow</button>
-                }
-
             </div>
         </div>
 
     }
 
 }
-
-<script>
-    var usersToFollow = document.querySelectorAll('.follower');
-
-    usersToFollow.forEach(user => {
-        user.querySelector('button').addEventListener('click', () => {
-            var button = user.querySelector('button');
-            var btnText = button.innerHTML.toLowerCase();
-            var userId = button.dataset.userid;
-            console.log(btnText);
-            console.log(userId);
-            
-            $.ajax({
-                type: "POST",
-                url: "/Followers/ChooseAction",
-                data: { userId: userId, action: btnText.toLowerCase() },
-                success: function() {
-                    console.log("successly send");
-                },
-                complete: function() {
-                    if (btnText === "follow") {
-                        $(button).addClass("unfollow").text("Unfollow");
-                    } else if (btnText === "unfollow") {
-                        $(button).removeClass("unfollow").text("Follow");
-                    }
-                }
-            });
-        });
-    });
-</script>

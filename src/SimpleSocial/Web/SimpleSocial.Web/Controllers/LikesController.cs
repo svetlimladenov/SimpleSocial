@@ -25,8 +25,9 @@ namespace SimpleSocial.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult GetAction(string isLiked, string postId, string userId)
+        public IActionResult GetAction(string isLiked, string postId)
         {
+            var userId = this.userManager.GetUserId(User);
             if (isLiked.ToLower() == "false")
             {
                 likesServices.Like(postId, userId);
