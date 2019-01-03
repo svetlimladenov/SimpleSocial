@@ -33,7 +33,7 @@
     </div>
     <div class="actions">
         <div class="action-buttons" id="like">
-            <button class="like-btn @Model.LikeClassName" data-like="@Model.Post.IsLiked"><i class="far fa-thumbs-up"></i>Like</button>
+            <button class="like-btn @Model.LikeClassName" data-postid="@Model.Post.Id" data-like="@Model.Post.IsLiked"><i class="far fa-thumbs-up"></i>Like</button>
         </div>
         <div class="action-buttons"><i class="far fa-comments"></i><button id="comment-button">Comment</button></div>
     </div>
@@ -78,7 +78,7 @@
 </div>
 
 <script>
-    $(".@Model.LikeClassName").click(function() {
+    @*$(".@Model.LikeClassName").click(function() {
         var likebtn = $(this);
         var isLiked = likebtn.data("like");
         jQuery.ajax({
@@ -101,6 +101,6 @@
                 }
             }
         });
-    });
+    });*@
 
 </script>
