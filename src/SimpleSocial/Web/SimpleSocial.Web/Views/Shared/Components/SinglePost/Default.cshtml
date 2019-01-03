@@ -1,4 +1,6 @@
-﻿@model SimpleSocia.Services.Models.Posts.SinglePostViewComponentModel
+﻿@using SimpleSocia.Services.Models.Followers
+@using SimpleSocial.Data.Models
+@model SimpleSocia.Services.Models.Posts.SinglePostViewComponentModel
 
 <div class="single-post">
     <div class="user">
@@ -7,13 +9,27 @@
                 <div class="profile-picture" style="background-image: url(@Model.Post.User.ProfilePicture.FileName)"></div>
                 <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@Model.Post.User.Id"><strong>@Model.Post.User.UserName</strong></a></div>
             </div>
-            <div class="right-head">
-                <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@Model.Post.Id">Details</a>
+            <div class="right-head details">
+                <span><i class="fas fa-ellipsis-h"></i></span>
+                <div class="submenu">
+                    <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@Model.Post.Id"><b>Details</b></a>
+                    <a href="#"><b>Report</b></a>
+                </div>
+              
             </div>
         </div>
     </div>
     <div class="content">
         <p>@Model.Post.Content</p>
+    </div>
+    <button>@Model.Post.LikesCount likes</button>
+    <div class="likes">
+        @{
+            var viewModel = new UsersListViewModel(){Users = Model.Post.Likes, NoUsersWord = "likes"};
+        }
+        
+
+        @await Component.InvokeAsync("ListOfUsers", new { viewModel = viewModel })
     </div>
     <div class="actions">
         <div class="action-buttons" id="like">
@@ -22,33 +38,7 @@
         <div class="action-buttons"><i class="far fa-comments"></i><button id="comment-button">Comment</button></div>
     </div>
 
-    <script>
-        $(".@Model.LikeClassName").click(function() {
-            var likebtn = $(this);
-            var isLiked = likebtn.data("like");
-            jQuery.ajax({
-                type: "POST",
-                url: "/Likes/GetAction",
-                data: { isLiked: isLiked, postId: "@Model.Post.Id", userId : "@Model.PostVisitorId" },
-                success: function() {
-                    if (isLiked === 'True') {
-                        likebtn.data("like", "False");
-                    } else {
-                        likebtn.data("like", "True");
-                    }
-                },
-                complete: function() {
-                    isLiked = likebtn.data("like");
-                    if (isLiked === 'True') {
-                        likebtn.html("<i class=\"far fa-thumbs-down\"></i>Unlike");
-                    } else {
-                        likebtn.html("<i class=\"far fa-thumbs-up\"></i>Like");
-                    }
-                }
-            });
-        });
 
-    </script>
 
     <div class="write-comment">
         <div class="profile-picture" style="background-image: url(@Model.ProfilePicture.FileName); background-size: cover"></div>
@@ -75,3 +65,42 @@
         </div>
     }
 </div>
+
+<div class="modal">
+    <div class="head">
+        <button>close</button>
+    </div>
+    <div class="body"></div>
+</div>
+
+<div class="overlay">
+  
+</div>
+
+<script>
+    $(".@Model.LikeClassName").click(function() {
+        var likebtn = $(this);
+        var isLiked = likebtn.data("like");
+        jQuery.ajax({
+            type: "POST",
+            url: "/Likes/GetAction",
+            data: { isLiked: isLiked, postId: "@Model.Post.Id", userId : "@Model.PostVisitorId" },
+            success: function() {
+                if (isLiked === 'True') {
+                    likebtn.data("like", "False");
+                } else {
+                    likebtn.data("like", "True");
+                }
+            },
+            complete: function() {
+                isLiked = likebtn.data("like");
+                if (isLiked === 'True') {
+                    likebtn.html("<i class=\"far fa-thumbs-down\"></i>Unlike");
+                } else {
+                    likebtn.html("<i class=\"far fa-thumbs-up\"></i>Like");
+                }
+            }
+        });
+    });
+
+</script>

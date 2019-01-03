@@ -21,3 +21,25 @@
     profilePicture = Model.CurrentUserInfo.ProfilePicture,
     commentInputModel = Model.CommentInputModel })
 }
+
+
+<script>
+    const posts = document.querySelectorAll('.single-post');
+    const modal = document.querySelector('.modal');
+    const overlay = document.querySelector('.overlay');
+
+    function toggleModal() {
+        modal.classList.toggle('modal-show');
+        overlay.classList.toggle('overlay-show');
+    }
+
+    posts.forEach(post => {
+        post.querySelector('button').addEventListener('click', ()=> {
+            const likes = post.querySelector('.likes');
+            modal.querySelector('.body').innerHTML = likes.innerHTML;
+            toggleModal();
+        });
+    });
+
+    modal.querySelector('button').addEventListener('click', toggleModal);
+</script>

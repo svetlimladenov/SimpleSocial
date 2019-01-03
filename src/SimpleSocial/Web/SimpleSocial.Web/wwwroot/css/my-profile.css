@@ -38,19 +38,21 @@ input[type="file"] {
     background-color: #fff;
     border-color: #ccc;
 }
-.image-preview-input input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    filter: alpha(opacity=0);
-}
+
+    .image-preview-input input[type=file] {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+
 .image-preview-input-title {
-    margin-left:2px;
+    margin-left: 2px;
 }
 
 .emoji {
@@ -62,10 +64,10 @@ input[type="file"] {
     width: 25px;
 }
 
-.emoji::selection {
-    background-color: highlight;
-    color: transparent;
-}
+    .emoji::selection {
+        background-color: highlight;
+        color: transparent;
+    }
 
 .emoji-image {
     font-size: 14px;
@@ -102,19 +104,21 @@ input[type="file"] {
     width: 210px;
 }
 
-.emoji-picker a {
-    cursor: pointer;
-    display: inline-block;
-    font-size: 20px;
-    padding: 3px;
-}
+    .emoji-picker a {
+        cursor: pointer;
+        display: inline-block;
+        font-size: 20px;
+        padding: 3px;
+    }
 
 .emoji-selector {
     border-bottom: 1px solid #ccc;
     display: flex;
 }
 
-.emoji-selector li { margin: 5px; }
+    .emoji-selector li {
+        margin: 5px;
+    }
 
 .emoji-group {
     display: <a href="https://www.jqueryscript.net/tags.php?/grid/">grid</a>;
@@ -128,21 +132,39 @@ input[type="file"] {
     height: 100px;
 }
 
-.body-wrapper { background-color: #E9EBEE; }
+.body-wrapper {
+    background-color: #E9EBEE;
+}
 
-.content-wrapper { margin-top: 10px;}
+.content-wrapper {
+    margin-top: 10px;
+}
 
 .user-info {
     margin-bottom: 10px;
+    padding: 10px;
     background: white;
 }
+
+.upload-picture {
+    margin-top: -250px;
+    margin-right: 10px;
+    color: white;
+    
+    background-color: #0a0000bd;
+}
+
+    .upload-picture a:hover {
+        color: white!important;
+        background: #fff0;
+    }
 
 .who-to-follow-partial {
     background: white;
 }
 
 .vertical-menu a {
-    margin-top:2px;
+    margin-top: 2px;
     background-color: white;
     color: black;
     display: block;
@@ -150,10 +172,10 @@ input[type="file"] {
     text-decoration: none;
 }
 
-.vertical-menu a:hover {
-    cursor: pointer;
-    box-shadow: 0 4px 0 -2px #3b5998;
-}
+    .vertical-menu a:hover {
+        cursor: pointer;
+        box-shadow: 0 4px 0 -2px #3b5998;
+    }
 
 .no-followers-btn {
     margin-top: 10px;
@@ -163,6 +185,6 @@ input[type="file"] {
     border-radius: 10px;
 }
 
-.no-followers-btn :hover {
-    color: white;
-}
+    .no-followers-btn :hover {
+        color: white;
+    }

@@ -96,7 +96,7 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
         public ICollection<SimpleUserViewModel> GetFollowings(ClaimsPrincipal user)
         {
             var userId = this.userManager.GetUserId(user);
-            var followings = this.userFollowerRepository.All().Include(x => x.User).Where(x => x.FollowerId == userId)
+            var followings = this.userFollowerRepository.All().Include(x => x.User).Where(x => x.FollowerId == userId && x.UserId != userId)
                 .Select(
                     x => x.User).To<SimpleUserViewModel>().ToList();
 
@@ -112,7 +112,7 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
         public ICollection<SimpleUserViewModel> GetFollowers(ClaimsPrincipal user)
         {
             var userId = this.userManager.GetUserId(user);
-            var followers = this.userFollowerRepository.All().Include(x => x.Follower).Where(x => x.UserId == userId).Select(x => x.Follower).To<SimpleUserViewModel>().ToList();
+            var followers = this.userFollowerRepository.All().Include(x => x.Follower).Where(x => x.UserId == userId && x.FollowerId != userId).Select(x => x.Follower).To<SimpleUserViewModel>().ToList();
             foreach (var follower in followers)
             {
                 follower.IsFollowingCurrentUser = this.IsBeingFollowedBy(follower.Id, userId);

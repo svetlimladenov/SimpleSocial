@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using SimpleSocia.Services.Models.Followers;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
 
@@ -27,7 +28,9 @@ namespace SimpleSocia.Services.Models.Posts
 
         public ICollection<Comment> Comments { get; set; }
 
-        public ICollection<UserLike> Likes { get; set; }
+        public ICollection<SimpleUserViewModel> Likes { get; set; }
+
+        public int LikesCount => this.Likes.Count;
 
         public bool IsLiked { get; set; }
 
@@ -39,7 +42,10 @@ namespace SimpleSocia.Services.Models.Posts
             configuration.CreateMap<Post, PostViewModel>().ForMember(x => x.Comments, x => x.MapFrom(p => p.Comments));
 
             configuration.CreateMap<Post, PostViewModel>().ForMember(x => x.User, x => x.MapFrom(p => p.User));
-            
+
+            configuration.CreateMap<Post, PostViewModel>().ForMember(x => x.Likes, x => x.MapFrom(p => p.Likes.Select(l => l.User)));
+
+
         }
     }
 }

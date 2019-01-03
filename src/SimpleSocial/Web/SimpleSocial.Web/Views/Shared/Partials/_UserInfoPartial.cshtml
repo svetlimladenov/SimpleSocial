@@ -1,14 +1,28 @@
 ﻿@model SimpleSocia.Services.Models.Users.UserInfoViewModel
+@{
+    var followBtnClass = "follow-btn";
+}
+<div class="row user-info text-center">
+    <div class="profile-picture-holder">
+        <img src="@Model.ProfilePicture.FileName" class="profilePicture" />
+        @if (Model.UserName == User.Identity.Name)
+        {
 
-<div class="row profile-picture-holder user-info text-center">
-
-    <img src="@Model.ProfilePicture.FileName" class="profilePicture" />
-    @if (Model.UserName == User.Identity.Name)
-    {
-        <div class="show-link">
-            <a asp-action="ChangeProfilePicture" asp-controller="Account" class="btn btn-default">Upload Profile Picture</a>
-        </div>
-    }
-
+            <div class="show-link">
+                <a asp-action="ChangeProfilePicture" asp-controller="Account" class="upload-picture btn">Upload Profile Picture</a>
+            </div>
+        }
+    </div>
     <h2>@Model.UserName</h2>
+    @if (Model.UserName != User.Identity.Name)
+    {
+        if (Model.IsBeingFollowedByCurrentUser)
+        {
+            <button class="@followBtnClass unfollow">Unfollow</button>
+        }
+        else
+        {
+            <button class="@followBtnClass">Follow</button>
+        }
+    }
 </div>

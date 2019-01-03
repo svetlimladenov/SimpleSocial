@@ -17,5 +17,7 @@ namespace SimpleSocia.Services.Models.Users
         public string WallId { get; set; }
 
         public string Description { get; set; }
+
+        public bool IsBeingFollowedByCurrentUser { get; set; }
     }
 }

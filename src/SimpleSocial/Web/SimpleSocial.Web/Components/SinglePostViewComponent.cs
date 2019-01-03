@@ -26,7 +26,7 @@ namespace SimpleSocial.Web.Components
                 ProfilePicture = profilePicture,
                 LikeClassName = likeClassName,
                 PostVisitorId = currentUserId,
-                PostAuthorId = post.UserId
+                PostAuthorId = post.UserId,
             };
             return View(viewModel);
         }

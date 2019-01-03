@@ -6,6 +6,7 @@ using SimpleSocia.Services.Models.Users;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.Account;
+using SimpleSocial.Services.DataServices.FollowersDataServices;
 
 namespace SimpleSocial.Services.DataServices.UsersDataServices
 {
@@ -14,17 +15,20 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
         private readonly IRepository<SimpleSocialUser> userRepository;
         private readonly IRepository<Wall> wallRepository;
         private readonly IRepository<ProfilePicture> profilePicturesRepository;
+        private readonly IFollowersServices followersServices;
         private readonly UserManager<SimpleSocialUser> userManager;
 
         public UserServices(
             IRepository<SimpleSocialUser> userRepository,
             IRepository<Wall> wallRepository,
             IRepository<ProfilePicture> profilePicturesRepository,
+            IFollowersServices followersServices,
             UserManager<SimpleSocialUser> userManager)
         {
             this.userRepository = userRepository;
             this.wallRepository = wallRepository;
             this.profilePicturesRepository = profilePicturesRepository;
+            this.followersServices = followersServices;
             this.userManager = userManager;
         }
 
@@ -34,13 +38,15 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
         }
 
 
-        public UserInfoViewModel GetUserInfo(string userId)
+        public UserInfoViewModel GetUserInfo(string userId, string currentUserId)
         {
             var user = this.userRepository.All().FirstOrDefault(x => x.Id == userId);
             if (user == null)
             {
                 return null;
             }
+            //is user A followed by user B
+            var isBeingFollowedByCurrentUser = this.followersServices.IsBeingFollowedBy(userId, currentUserId) || userId == currentUserId;
 
             var userInfo = new UserInfoViewModel
             {
@@ -48,6 +54,7 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
                 UserName = user.UserName,
                 ProfilePicture = this.GetUserProfilePicture(userId),
                 WallId = user.WallId,
+                IsBeingFollowedByCurrentUser = isBeingFollowedByCurrentUser
             };
 
             return userInfo;

@@ -24,7 +24,7 @@ namespace SimpleSocial.Web.Controllers
 
         public IActionResult WhoToFollow()
         {
-            var viewModel = new UsersListViewModel();
+            var viewModel = new UsersListViewModel() {NoUsersWord = "more users left to follow."};
             viewModel.Users = followersServices.GetUsersToFollow(User);
             return View(viewModel);
         }
@@ -50,13 +50,13 @@ namespace SimpleSocial.Web.Controllers
 
         public IActionResult Followers()
         {
-            var viewModel = new UsersListViewModel {Users = followersServices.GetFollowers(User)};
+            var viewModel = new UsersListViewModel {Users = followersServices.GetFollowers(User), NoUsersWord = "followers"};
             return View(viewModel);
         }
 
         public IActionResult Following()
         {
-            var viewModel = new UsersListViewModel{ Users = followersServices.GetFollowings(User) };
+            var viewModel = new UsersListViewModel{ Users = followersServices.GetFollowings(User) , NoUsersWord = "followings"};
             return View(viewModel);
         }
     }

@@ -34,8 +34,8 @@ namespace SimpleSocial.Web.Controllers
             var viewModel = new PostsFeedAndUserInfoViewModel()
             {
                 Posts = posts,
-                CurrentUserInfo = userServices.GetUserInfo(currentUserId),       
-                UserProfileInfo = userServices.GetUserInfo(currentUserId),
+                CurrentUserInfo = userServices.GetUserInfo(currentUserId,currentUserId),       
+                UserProfileInfo = userServices.GetUserInfo(currentUserId,currentUserId),
             };
             return View(viewModel);
         }

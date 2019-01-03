@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
 using SimpleSocial.Data.Models;
+using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.DataServices.PostsServices;
 using SimpleSocial.Services.DataServices.UsersDataServices;
 
@@ -17,15 +18,18 @@ namespace SimpleSocial.Web.Controllers
         private readonly UserManager<SimpleSocialUser> userManager;
         private readonly IUserServices userServices;
         private readonly IPostServices postServices;
+        private readonly IFollowersServices followersServices;
 
         public ProfilesController(
             UserManager<SimpleSocialUser> userManager,
             IUserServices userServices,
-            IPostServices postServices)
+            IPostServices postServices,
+            IFollowersServices followersServices)
         {
             this.userManager = userManager;
             this.userServices = userServices;
             this.postServices = postServices;
+            this.followersServices = followersServices;
         }
 
         public IActionResult Index(string userId)
@@ -37,11 +41,11 @@ namespace SimpleSocial.Web.Controllers
 
             var currentUserId = this.userManager.GetUserId(User);
 
-            var viewModel = new PostsFeedAndUserInfoViewModel
+            var viewModel = new PostsFeedAndUserInfoViewModel()
             {
-                CurrentUserInfo = userServices.GetUserInfo(currentUserId),
+                CurrentUserInfo = userServices.GetUserInfo(currentUserId, currentUserId),
                 Posts = postServices.GetUserPosts(userId, currentUserId),
-                UserProfileInfo = userServices.GetUserInfo(userId),              
+                UserProfileInfo = userServices.GetUserInfo(userId, currentUserId),
             };
             
             return this.View(viewModel);

@@ -36,31 +36,9 @@
 
         </script>
     }
-    <script>
-        $(document).ready(function () {
-            $("#comment-button").click(function () {
-                $(".write-comment").css("display", "flex");
-            });
-        });
-    </script>
 
     <script>
-        function disableButton() {
-            if (document.getElementById("input1").value.trim() === "") {
-                document.getElementById('post-button').disabled = true;
-            } else {
-                document.getElementById('post-button').disabled = false;
-            }
-        }
-
-        function disableCommentButton() {
-            if (document.getElementById("comment-text").value.trim() === "") {
-                document.getElementById('comment-button').disabled = true;
-            } else {
-                document.getElementById('comment-button').disabled = false;
-            }
-        }
-
+        //check all posts like buttons
         var buttons = $(".like-btn");
 
         $(document).ready(function () {

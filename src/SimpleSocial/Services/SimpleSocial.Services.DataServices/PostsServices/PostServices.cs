@@ -59,12 +59,12 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
         public ICollection<PostViewModel> GetUserPosts(string userId, string currrentUserId)
         {          
-            var posts = this.postRepository.All().Include(p => p.User).ThenInclude(u => u.ProfilePicture).Include(p => p.Comments).ThenInclude(p => p.Author).ThenInclude(a => a.ProfilePicture).Select(x => Mapper.Map<PostViewModel>(x)).Where(x => x.UserId == userId).OrderByDescending(x => x.CreatedOn).ToList();
+            var posts = this.postRepository.All().Include(p => p.Likes).ThenInclude(l => l.User).Include(p => p.User).ThenInclude(u => u.ProfilePicture).Include(p => p.Comments).ThenInclude(p => p.Author).ThenInclude(a => a.ProfilePicture).Select(x => Mapper.Map<PostViewModel>(x)).Where(x => x.UserId == userId).OrderByDescending(x => x.CreatedOn).ToList();
 
             foreach (var post in posts)
             {
-                var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).ToList();
-                if (likes.FirstOrDefault(x => x.UserId == currrentUserId) == null)
+                var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).Select(x => x.User).To<SimpleUserViewModel>().ToList();
+                if (likes.FirstOrDefault(x => x.Id == currrentUserId) == null)
                 {
                     post.IsLiked = false;
                 }
@@ -81,7 +81,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
         public PostViewModel GetPostById(string id)
         {
-            var post = this.postRepository.All().Include(p => p.User).ThenInclude(u => u.ProfilePicture).Include(x => x.Comments).ThenInclude(x => x.Author).ThenInclude(a => a.ProfilePicture).Select(x => Mapper.Map<PostViewModel>(x)).FirstOrDefault(x => x.Id == id);
+            var post = this.postRepository.All().Include(x => x.Likes).ThenInclude(l => l.User).Include(p => p.User).ThenInclude(u => u.ProfilePicture).Include(x => x.Comments).ThenInclude(x => x.Author).ThenInclude(a => a.ProfilePicture).Select(x => Mapper.Map<PostViewModel>(x)).FirstOrDefault(x => x.Id == id);
             return post;
         }
 
@@ -91,18 +91,10 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             var profilePicture = userWithProfilePic.ProfilePicture;
             var viewModel = new SinglePostViewComponentModel();
             var post = this.GetPostById(id);
-            var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).ToList();
-            if (likes.FirstOrDefault(x => x.UserId == visitorId) == null)
-            {
-                post.IsLiked = false;
-            }
-            else
-            {
-                post.IsLiked = true;
-            }
+            var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).Select(x => x.User).To<SimpleUserViewModel>().ToList();          
             post.Likes = likes;
             var postAuthorId = post.User.Id;
-            if (post.Likes.FirstOrDefault(x => x.UserId == visitorId) == null)
+            if (post.Likes.FirstOrDefault(x => x.Id == visitorId) == null)
             {
                 post.IsLiked = false;
             }
@@ -142,7 +134,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             var followings = this.userFollowersRepository.All().Where(x => x.FollowerId == currrentUserId);
             foreach (var user in followings)
             {
-                var userPosts = this.postRepository.All().Include(x => x.Comments).ThenInclude(x => x.Author).ThenInclude(a => a.ProfilePicture).Include(x => x.User).ThenInclude(u => u.ProfilePicture).Where(x => x.UserId == user.UserId).Select(x => Mapper.Map<Post, PostViewModel>(x));
+                var userPosts = this.postRepository.All().Include(x => x.Likes).ThenInclude(x => x.User).Include(x => x.Comments).ThenInclude(x => x.Author).ThenInclude(a => a.ProfilePicture).Include(x => x.User).ThenInclude(u => u.ProfilePicture).Where(x => x.UserId == user.UserId).Select(x => Mapper.Map<Post, PostViewModel>(x));
                 foreach (var post in userPosts)
                 {
                     posts.Add(post);
@@ -160,8 +152,8 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         {
             foreach (var post in posts)
             {
-                var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).ToList();
-                if (likes.FirstOrDefault(x => x.UserId == currrentUserId) == null)
+                var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).Select(x => x.User).To<SimpleUserViewModel>().ToList();
+                if (likes.FirstOrDefault(x => x.Id == currrentUserId) == null)
                 {
                     post.IsLiked = false;
                 }

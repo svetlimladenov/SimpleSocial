@@ -47,10 +47,10 @@ namespace SimpleSocial.Web.Controllers
             };
             var viewModel = new MyProfileViewModel
             {
-                CurrentUserInfo = userServices.GetUserInfo(userId),
+                CurrentUserInfo = userServices.GetUserInfo(userId, userId),
                 Posts = postServices.GetUserPosts(userId, userId),
                 IsValidProfilePicture = inputModel.IsValidProfilePicture,
-                UserProfileInfo = userServices.GetUserInfo(userId),
+                UserProfileInfo = userServices.GetUserInfo(userId,userId),
                 WhoToFollow = whoToFollowList
         };
 
