@@ -20,14 +20,9 @@ else
     {
         users = users.Take(3).ToList();
     }
-    var counter = 1;
     foreach (var user in users)
-    {
-
-        var followBtnClass = "follow-btn-" + counter;
-        var divHolderClass = "follower-wrapper-" + counter;
-        counter++;
-        <div class="follower @divHolderClass">
+    {     
+        <div class="follower">
             <div class="left-user-section">
                 <div class="profile-picture" style="background: url(@user.ProfilePicture.FileName); background-size: cover"></div>
                 <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@user.Id"><strong>@user.UserName</strong></a></div>
@@ -35,39 +30,46 @@ else
             <div class="right-user-section">
                 @if (user.IsFollowingCurrentUser)
                 {
-                    <button class="@followBtnClass unfollow">Unfollow</button>
+                    <button data-userid="@user.Id" class="unfollow">Unfollow</button>
                 }
                 else
                 {
-                    <button class="@followBtnClass">Follow</button>
+                    <button data-userid="@user.Id">Follow</button>
                 }
 
             </div>
         </div>
 
-
-        <script>
-            $(".@followBtnClass").click(function() {
-                var btnText = $(this).text().toLowerCase();
-                console.log(btnText);
-                $.ajax({
-                    type: "POST",
-                    url: "/Followers/ChooseAction",
-                    data: { userId: "@user.Id", action: btnText.toLowerCase() },
-                    success: function() {
-                        console.log("successly send");
-                    },
-                    complete: function() {
-                        if (btnText === "follow") {
-                            $(".@followBtnClass").addClass("unfollow").text("Unfollow");
-                        } else if (btnText === "unfollow") {
-                            $(".@followBtnClass").removeClass("unfollow").text("Follow");
-                        }
-                    }
-                });
-            })
-        </script>
-
     }
 
 }
+
+<script>
+    var usersToFollow = document.querySelectorAll('.follower');
+
+    usersToFollow.forEach(user => {
+        user.querySelector('button').addEventListener('click', () => {
+            var button = user.querySelector('button');
+            var btnText = button.innerHTML.toLowerCase();
+            var userId = button.dataset.userid;
+            console.log(btnText);
+            console.log(userId);
+            
+            $.ajax({
+                type: "POST",
+                url: "/Followers/ChooseAction",
+                data: { userId: userId, action: btnText.toLowerCase() },
+                success: function() {
+                    console.log("successly send");
+                },
+                complete: function() {
+                    if (btnText === "follow") {
+                        $(button).addClass("unfollow").text("Unfollow");
+                    } else if (btnText === "unfollow") {
+                        $(button).removeClass("unfollow").text("Follow");
+                    }
+                }
+            });
+        });
+    });
+</script>

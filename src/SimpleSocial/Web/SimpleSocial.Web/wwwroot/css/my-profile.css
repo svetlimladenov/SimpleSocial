@@ -180,7 +180,7 @@ input[type="file"] {
 .no-followers-btn {
     margin-top: 10px;
     padding: 5px;
-    background: #005b96;
+    background: #4080ff;
     color: white;
     border-radius: 10px;
 }
@@ -188,3 +188,35 @@ input[type="file"] {
     .no-followers-btn :hover {
         color: white;
     }
+
+.likes-count {
+    border-bottom: 1px solid #E9EBEE;
+}
+
+.likes-count button {
+    background: none;
+    color: black;
+}
+
+    .likes-count button i {
+        width: 20px;
+        height: 20px;
+        background: #4080ff;
+        color: white;
+        border-radius: 50%;
+        padding-top: 2px;
+    }
+
+.head-modal {
+    display: flex;
+    justify-content: space-between;
+}
+
+.head-modal button {
+    background: none;
+    color: black;
+}
+
+.head-modal h3 {
+    margin-left: 50%;
+}

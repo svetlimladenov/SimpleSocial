@@ -103,7 +103,6 @@ namespace SimpleSocial.Services.DataServices.PostsServices
                 post.IsLiked = true;
             }
             viewModel.Post = post;
-            viewModel.LikeClassName = "like-ajax-1";
             viewModel.ProfilePicture = profilePicture;
             viewModel.CommentInputModel = new CommentInputModel();
             viewModel.PostVisitorId = visitorId;

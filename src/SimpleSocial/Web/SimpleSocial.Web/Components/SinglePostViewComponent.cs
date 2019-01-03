@@ -24,7 +24,6 @@ namespace SimpleSocial.Web.Components
                 Post = post,
                 CommentInputModel = commentInputModel,
                 ProfilePicture = profilePicture,
-                LikeClassName = likeClassName,
                 PostVisitorId = currentUserId,
                 PostAuthorId = post.UserId,
             };

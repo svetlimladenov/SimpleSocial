@@ -22,7 +22,9 @@
     <div class="content">
         <p>@Model.Post.Content</p>
     </div>
-    <button>@Model.Post.LikesCount likes</button>
+    <div class="likes-count">   
+        <button><i class="fas fa-thumbs-up"></i> @Model.Post.LikesCount likes</button>
+    </div>  
     <div class="likes">
         @{
             var viewModel = new UsersListViewModel(){Users = Model.Post.Likes, NoUsersWord = "likes"};
@@ -33,7 +35,7 @@
     </div>
     <div class="actions">
         <div class="action-buttons" id="like">
-            <button class="like-btn @Model.LikeClassName" data-postid="@Model.Post.Id" data-like="@Model.Post.IsLiked"><i class="far fa-thumbs-up"></i>Like</button>
+            <button class="like-btn" data-postid="@Model.Post.Id" data-like="@Model.Post.IsLiked"><i class="far fa-thumbs-up"></i>Like</button>
         </div>
         <div class="action-buttons"><i class="far fa-comments"></i><button id="comment-button">Comment</button></div>
     </div>
@@ -67,8 +69,9 @@
 </div>
 
 <div class="modal">
-    <div class="head">
-        <button>close</button>
+    <div class="head-modal">
+        <h3>Likes</h3>
+        <button><i class="fas fa-times"></i></button>
     </div>
     <div class="body"></div>
 </div>
@@ -76,31 +79,3 @@
 <div class="overlay">
   
 </div>
-
-<script>
-    @*$(".@Model.LikeClassName").click(function() {
-        var likebtn = $(this);
-        var isLiked = likebtn.data("like");
-        jQuery.ajax({
-            type: "POST",
-            url: "/Likes/GetAction",
-            data: { isLiked: isLiked, postId: "@Model.Post.Id", userId : "@Model.PostVisitorId" },
-            success: function() {
-                if (isLiked === 'True') {
-                    likebtn.data("like", "False");
-                } else {
-                    likebtn.data("like", "True");
-                }
-            },
-            complete: function() {
-                isLiked = likebtn.data("like");
-                if (isLiked === 'True') {
-                    likebtn.html("<i class=\"far fa-thumbs-down\"></i>Unlike");
-                } else {
-                    likebtn.html("<i class=\"far fa-thumbs-up\"></i>Like");
-                }
-            }
-        });
-    });*@
-
-</script>

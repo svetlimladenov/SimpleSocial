@@ -17,7 +17,6 @@ namespace SimpleSocia.Services.Models.Posts
         public CommentInputModel CommentInputModel { get; set; }
 
         public ProfilePicture ProfilePicture { get; set; }
-
-        public string LikeClassName { get; set; }
+        
     }
 }
