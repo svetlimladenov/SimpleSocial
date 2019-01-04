@@ -17,6 +17,7 @@ using SimpleSocial.Services.DataServices.CommentsServices;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.DataServices.LikesDataServices;
 using SimpleSocial.Services.DataServices.PostsServices;
+using SimpleSocial.Services.DataServices.ReportsDataServices;
 using SimpleSocial.Services.DataServices.SearchDataServices;
 using SimpleSocial.Services.DataServices.SignUpDetails;
 using SimpleSocial.Services.DataServices.UsersDataServices;
@@ -99,6 +100,7 @@ namespace SimpleSocial.Web
             services.AddTransient<ILikesServices, LikesServices>();
             services.AddScoped<IFollowersServices, FollowersServices>();
             services.AddScoped<ISearchServices,SearchServices>();
+            services.AddScoped<IReportsService, ReportsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

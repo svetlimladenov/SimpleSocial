@@ -3,6 +3,7 @@ using System.Security.Claims;
 using SimpleSocia.Services.Models.Account;
 using SimpleSocia.Services.Models.Followers;
 using SimpleSocia.Services.Models.Posts;
+using SimpleSocial.Data.Models;
 
 namespace SimpleSocial.Services.DataServices.PostsServices
 {
@@ -19,5 +20,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         bool UserCanSeePost(string id, ClaimsPrincipal user);
 
         ICollection<PostViewModel> GetNewsFeedPosts(string currrentUserId);
+
+        SimpleSocialUser GetPostAuthor(string postId);
     }
 }

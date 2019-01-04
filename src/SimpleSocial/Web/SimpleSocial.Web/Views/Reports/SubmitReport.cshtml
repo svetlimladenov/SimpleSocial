@@ -1,0 +1,19 @@
+﻿@using SimpleSocial.Data.Models
+@model SimpleSocia.Services.Models.Reports.ReportsViewModel
+@{
+    ViewData["Title"] = "SubmitReport";
+}
+<div class="row">
+<div class="col-md-offset-3 col-md-6">
+    <h4>Choose a reason for reporting this post. We won't tell @Model.PostAuthorName who reported @Model.GenderText.</h4>
+    <form asp-action="Report" class="form-group">
+        <input asp-for="PostAuthorName" value="@Model.PostAuthorName" hidden/>
+        <input asp-for="PostId" value="@Model.PostId" hidden/>
+        <label asp-for="ReportReason"></label>
+        @Html.DropDownList("Input.Gender",
+            Html.GetEnumSelectList<ReportReason>(),
+            "Select Reason", new {@class = "form-control"})
+        <input type="submit" value="Report" class="btn btn-danger"/>
+    </form>
+</div>
+</div>

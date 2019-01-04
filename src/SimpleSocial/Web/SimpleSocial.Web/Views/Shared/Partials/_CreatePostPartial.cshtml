@@ -13,7 +13,11 @@
             <input asp-for="CreatePost.UserId" value="@Model.UserProfileInfo.UserId" hidden />
             <div class="post-functions">
                 <div class="icons">
-                    <i class="fas fa-images"></i>
+                    <div class="tooltip">
+                        <i class="fas fa-images" ></i>
+                        <span class="tooltiptext">Comming soon</span>
+                    </div> 
+
                 </div>
                 <div class="functions">
                     <button type="submit">post</button>

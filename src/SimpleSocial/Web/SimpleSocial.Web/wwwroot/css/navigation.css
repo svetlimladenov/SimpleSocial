@@ -9,6 +9,11 @@ nav {
     box-shadow: 0 2px 4px 1px rgba(102, 102, 102, 0.2);
     background-color: white;
     padding: 15px 0;
+    z-index: 1;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 button {
@@ -363,6 +368,7 @@ a {
     }
 
     .right-head.details .submenu {
+        box-shadow: 0 0 1px 1px #b3b3b3;
         z-index: 1;
         border: 1px solid black;
         text-align: center;
@@ -381,6 +387,7 @@ a {
     }
 
         .right-head.details .submenu a {
+            border-bottom: 1px solid #E9EBEE;
             display: block;
         }
 

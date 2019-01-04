@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleSocial.Data;
 
 namespace SimpleSocial.Data.Migrations
 {
     [DbContext(typeof(SimpleSocialContext))]
-    partial class SimpleSocialContextModelSnapshot : ModelSnapshot
+    [Migration("20190103231345_ReportReasons")]
+    partial class ReportReasons
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -206,8 +208,6 @@ namespace SimpleSocial.Data.Migrations
                     b.Property<string>("PostId");
 
                     b.Property<int>("ReportReason");
-
-                    b.Property<DateTime>("ReportedOn");
 
                     b.HasKey("Id");
 

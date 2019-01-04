@@ -147,6 +147,12 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             return posts;
         }
 
+        public SimpleSocialUser GetPostAuthor(string postId)
+        {
+            var post = this.GetPostById(postId);
+            return post.User;
+        }
+
         private ICollection<PostViewModel> CheckIsPostsAreLiked(string currrentUserId, List<PostViewModel> posts)
         {
             foreach (var post in posts)
