@@ -66,6 +66,18 @@ ul {
     }
 }
 
+@media all and (max-width: 991px) {
+    .content-wrapper {
+        margin-top: 80px;
+    }
+}
+
+@media all and (max-width: 800px) {
+    .content-wrapper {
+        margin-top: 226px;
+    }
+}
+
 .foo {
     background: #81CBF8;
     padding: 20px;
@@ -73,6 +85,7 @@ ul {
 }
 
     .foo textarea {
+        width: 100%;
         resize: none;
         border: none;
         box-shadow: 0 0 1px 1px #b3b3b3;
@@ -191,6 +204,14 @@ a {
     border-radius: 3px;
 }
 
+
+.vertical-menu a .profile-picture {
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
 
 /*Write a comment style*/
 .write-comment {
