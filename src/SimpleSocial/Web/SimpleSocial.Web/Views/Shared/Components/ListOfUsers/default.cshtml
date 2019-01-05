@@ -16,10 +16,11 @@
 else
 {
     var users = Model.Users.ToList();
-    if (ViewData["Title"].ToString() == "MyProfile")
+    if (@Model.UsersCount != 0)
     {
-        users = users.Take(3).ToList();
+        users = users.Take(@Model.UsersCount).ToList();
     }
+
     foreach (var user in users)
     {     
         <div class="follower">
