@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocial.Web.Models;
 
@@ -16,13 +17,7 @@ namespace SimpleSocial.Web.Controllers
             return View();
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = $"My app has users.";
-
-            return View();
-        }
-
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();

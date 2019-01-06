@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
 using SimpleSocial.Services.DataServices.CommentsServices;
 
@@ -13,6 +14,7 @@ namespace SimpleSocial.Web.Controllers
             this.commentsServices = commentsServices;
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult PostComment(MyProfileViewModel inputModel)
         {

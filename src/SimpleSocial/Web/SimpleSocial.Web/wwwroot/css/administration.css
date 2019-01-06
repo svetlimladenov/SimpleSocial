@@ -34,3 +34,18 @@ blockquote p {
 td a {
     display: block;
 }
+
+.unfollow-section .follower {
+    background: none;
+    padding: 0;
+}
+
+    .unfollow-section .follower button {
+        margin: 0;
+    }
+
+.user-name-unfollow {
+    margin-left: 10px;
+    font-size: 1.4em;
+    font-weight: bold;
+}

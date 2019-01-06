@@ -10,10 +10,7 @@
             <partial name="~/Views/Shared/Partials/_UserInfoPartial.cshtml" for="UserProfileInfo" />
         </div>
         <div class="col-md-6">
-            @if (Model.UserProfileInfo.IsBeingFollowedByCurrentUser)
-            {
-                @await Component.InvokeAsync("ListOfPosts", new { posts = Model })
-            }          
+            @await Component.InvokeAsync("ListOfPosts", new { posts = Model })
         </div>
     </div>
 </div>

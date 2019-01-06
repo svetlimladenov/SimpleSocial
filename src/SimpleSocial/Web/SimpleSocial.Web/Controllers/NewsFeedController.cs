@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
@@ -27,6 +28,7 @@ namespace SimpleSocial.Web.Controllers
             this.userServices = userServices;
         }
 
+        [Authorize]
         public IActionResult Index()
         {
             var currentUserId = userManager.GetUserId(User);

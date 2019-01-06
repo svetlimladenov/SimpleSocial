@@ -15,6 +15,7 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
         private readonly IRepository<SimpleSocialUser> userRepository;
         private readonly IRepository<Wall> wallRepository;
         private readonly IRepository<ProfilePicture> profilePicturesRepository;
+        private readonly IRepository<UserFollower> userFollowersRepository;
         private readonly IFollowersServices followersServices;
         private readonly UserManager<SimpleSocialUser> userManager;
 
@@ -22,12 +23,14 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
             IRepository<SimpleSocialUser> userRepository,
             IRepository<Wall> wallRepository,
             IRepository<ProfilePicture> profilePicturesRepository,
+            IRepository<UserFollower> userFollowersRepository,
             IFollowersServices followersServices,
             UserManager<SimpleSocialUser> userManager)
         {
             this.userRepository = userRepository;
             this.wallRepository = wallRepository;
             this.profilePicturesRepository = profilePicturesRepository;
+            this.userFollowersRepository = userFollowersRepository;
             this.followersServices = followersServices;
             this.userManager = userManager;
         }
@@ -47,14 +50,18 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
             }
             //is user A followed by user B
             var isBeingFollowedByCurrentUser = this.followersServices.IsBeingFollowedBy(userId, currentUserId) || userId == currentUserId;
-
+            var userFollowers = this.userFollowersRepository.All().Count(x => x.UserId == user.Id);
+            var userFollowings = this.userFollowersRepository.All().Count(x => x.FollowerId == user.Id);
             var userInfo = new UserInfoViewModel
             {
                 UserId = user.Id,
                 UserName = user.UserName,
                 ProfilePicture = this.GetUserProfilePicture(userId),
                 WallId = user.WallId,
-                IsBeingFollowedByCurrentUser = isBeingFollowedByCurrentUser
+                IsBeingFollowedByCurrentUser = isBeingFollowedByCurrentUser,
+                FollowersCount = userFollowers,
+                FollowingsCount = userFollowings,
+                Description = user.Description
             };
 
             return userInfo;

@@ -2,10 +2,24 @@
 
 <div class="row">
     <div class="text-center vertical-menu">
-        <a asp-controller="Account" asp-action="MyProfile"> <div class="profile-picture" style="background-image: url(@Model.ProfilePicture.FileName)"></div> @Model.UserName</a>
-        <a asp-controller="Followers" asp-action="Followers">Followers</a>
-        <a asp-controller="Followers" asp-action="Following">Following</a>
-        <a asp-area="Identity" asp-page="/Account/Manage/Index">Settings</a>
+        <div class="side-menu-link">
+            <a asp-controller="Account" asp-action="MyProfile" style="display: inherit;
+                                      justify-content: space-between;
+                                      align-items: center;">
+                <div class="profile-picture" style="background-image: url(@Model.ProfilePicture.FileName)"></div> @Model.UserName
+            </a>
+        </div>
+        <div class="side-menu-link">
+            <a asp-controller="Followers" asp-action="Followers">Followers</a>
+            <span>@Model.FollowersCount</span>
+        </div>
+        <div class="side-menu-link">
+            <a asp-controller="Followers" asp-action="Following">Following</a>
+            <span>@Model.FollowingsCount</span>
+        </div>
+        <div class="side-menu-link">
+            <a asp-area="Identity" asp-page="/Account/Manage/Index">Settings</a>
+        </div>
     </div>
 </div>
 

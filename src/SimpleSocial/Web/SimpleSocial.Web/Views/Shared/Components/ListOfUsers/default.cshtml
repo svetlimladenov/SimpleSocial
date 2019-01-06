@@ -1,7 +1,5 @@
 ﻿@model SimpleSocia.Services.Models.Followers.UsersListViewModel
 
-<script src="~/lib/jquery/dist/jquery.js"></script>
-
 @if (!Model.Users.Any())
 {
     <div class="text-center">
@@ -31,7 +29,7 @@ else
             <div class="right-user-section">
                 @if (user.UserName != this.User.Identity.Name)
                 {
-                    @if (user.IsFollowingCurrentUser)
+                     if (user.IsFollowingCurrentUser)
                      {
                          <button data-userid="@user.Id" class="unfollow">Unfollow</button>
                      }

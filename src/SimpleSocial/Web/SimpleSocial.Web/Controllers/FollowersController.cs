@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleSocia.Services.Models.Followers;
@@ -22,6 +23,7 @@ namespace SimpleSocial.Web.Controllers
             this.followersServices = followersServices;
         }
 
+        [Authorize]
         public IActionResult WhoToFollow()
         {
             var viewModel = new UsersListViewModel() {NoUsersWord = "more users left to follow."};
@@ -29,6 +31,7 @@ namespace SimpleSocial.Web.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult ChooseAction(string userId, string action)
         {
@@ -47,13 +50,15 @@ namespace SimpleSocial.Web.Controllers
 
             return Ok();
         }
-
+        
+        [Authorize]
         public IActionResult Followers()
         {
             var viewModel = new UsersListViewModel {Users = followersServices.GetFollowers(User), NoUsersWord = "followers"};
             return View(viewModel);
         }
 
+        [Authorize]
         public IActionResult Following()
         {
             var viewModel = new UsersListViewModel{ Users = followersServices.GetFollowings(User) , NoUsersWord = "followings"};

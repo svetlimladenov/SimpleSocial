@@ -29,17 +29,20 @@ namespace SimpleSocial.Web.Areas.Administration.Controllers
             this.userServices = userServices;
         }
 
+        [Authorize("Admin")]
         public IActionResult Index()
         {
             ViewData["Quote"] = administrationServices.GetRandomQuote();
             return View();
         }
 
+        [Authorize("Admin")]
         public IActionResult AllReports()
         {
             return View();
         }
 
+        [Authorize("Admin")]
         public IActionResult ManageUsers(string searchText)
         {
             if (!string.IsNullOrEmpty(searchText))
@@ -66,12 +69,14 @@ namespace SimpleSocial.Web.Areas.Administration.Controllers
             return View(usersToPromoteDemote);
         }
 
+        [Authorize("Admin")]
         public IActionResult Promote(string id)
         {
             administrationServices.PromoteUser(id);
             return RedirectToAction("ManageUsers");
         }
 
+        [Authorize("Admin")]
         public IActionResult Demote(string id)
         {
             administrationServices.DemoteUser(id);

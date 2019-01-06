@@ -12,6 +12,8 @@ namespace SimpleSocia.Services.Models.Reports
 
         public string PostAuthorName { get; set; }
 
+        public string PostAuthorId { get; set; }
+
         public string GenderText { get; set; }
 
         public string PostId { get; set; }       

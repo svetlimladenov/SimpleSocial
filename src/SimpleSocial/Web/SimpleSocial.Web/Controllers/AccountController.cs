@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +38,7 @@ namespace SimpleSocial.Web.Controllers
 
         }
 
-
+        [Authorize]
         public IActionResult MyProfile(MyProfileViewModel inputModel)
         {
             var userId = this.userManager.GetUserId(User);
@@ -58,12 +59,13 @@ namespace SimpleSocial.Web.Controllers
             return View(viewModel);
         }
 
-
+        [Authorize]
         public IActionResult ChangeProfilePicture()
         {
             return this.View();
         }
 
+        [Authorize]
         public IActionResult UploadProfilePicture(UploadProfilePictureInputModel inputModel)
         {
             if (!ModelState.IsValid)
@@ -85,9 +87,7 @@ namespace SimpleSocial.Web.Controllers
                 {
                     return RedirectToAction("ChangeProfilePicture", new MyProfileViewModel{IsValidProfilePicture = false});
                 }
-
                 myProfileServices.UploadProfilePictureCloudinary(this.User,inputModel);
-
             }
 
             return RedirectToAction("MyProfile");

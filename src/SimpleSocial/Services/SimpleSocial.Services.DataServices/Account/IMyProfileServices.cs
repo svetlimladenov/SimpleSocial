@@ -8,9 +8,7 @@ using SimpleSocial.Data.Models;
 namespace SimpleSocial.Services.DataServices.Account
 {
     public interface IMyProfileServices
-    {
-      
+    {      
         void UploadProfilePictureCloudinary(ClaimsPrincipal user, UploadProfilePictureInputModel inputModel);
-
     }
 }

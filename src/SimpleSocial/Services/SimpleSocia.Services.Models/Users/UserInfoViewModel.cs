@@ -18,6 +18,10 @@ namespace SimpleSocia.Services.Models.Users
 
         public string Description { get; set; }
 
+        public int FollowersCount { get; set; }
+
+        public int FollowingsCount { get; set; }
+
         public bool IsBeingFollowedByCurrentUser { get; set; }
     }
 }

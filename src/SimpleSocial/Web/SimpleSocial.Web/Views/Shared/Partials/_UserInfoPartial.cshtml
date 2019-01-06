@@ -16,11 +16,11 @@
         <div class="follower" style="display: block;">
             @if (Model.IsBeingFollowedByCurrentUser)
             {
-            <button data-userid="@Model.UserId" class="unfollow" onClick="window.location.reload()">Unfollow</button>
+                <button data-userid="@Model.UserId" class="unfollow" onClick="window.location.reload()">Unfollow</button>
             }
             else
             {
-            <button data-userid="@Model.UserId" onClick="window.location.reload()">Follow</button>
+                <button data-userid="@Model.UserId" onClick="window.location.reload()">Follow</button>
             }
         </div>
     }

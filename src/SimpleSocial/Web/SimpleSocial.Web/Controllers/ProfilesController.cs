@@ -32,6 +32,7 @@ namespace SimpleSocial.Web.Controllers
             this.followersServices = followersServices;
         }
 
+        [Authorize]
         public IActionResult Index(string userId)
         {
             if (this.userManager.GetUserId(User) == userId)

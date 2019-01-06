@@ -32,9 +32,9 @@
         @{
             var viewModel = new UsersListViewModel() { Users = Model.Post.Likes, NoUsersWord = "likes" };
         }
-
-
-        @await Component.InvokeAsync("ListOfUsers", new { viewModel = viewModel })
+        <div class="who-to-follow-wrapper">
+            @await Component.InvokeAsync("ListOfUsers", new { viewModel = viewModel })
+        </div>
     </div>
     <div class="actions">
         <div class="action-buttons" id="like">
