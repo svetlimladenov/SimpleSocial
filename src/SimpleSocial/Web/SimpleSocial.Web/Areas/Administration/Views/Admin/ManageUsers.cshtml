@@ -87,14 +87,9 @@
 <script>
     var manageNames = [];
 
-    @foreach (var name in this.Model.AdminUsers)
+    @foreach (var name in this.Model.AllUsers)
     {
-        @: manageNames = manageNames.concat('@name.UserName');
-    }
-
-    @foreach (var name in this.Model.NonAdminUsers)
-    {
-        @: manageNames = manageNames.concat('@name.UserName');
+        @: manageNames = manageNames.concat('@name');
     }
 
     autocomplete(document.getElementById("manageUsers"), manageNames);

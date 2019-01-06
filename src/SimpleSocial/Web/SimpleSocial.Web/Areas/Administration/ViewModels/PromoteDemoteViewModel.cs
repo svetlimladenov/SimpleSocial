@@ -10,6 +10,9 @@ namespace SimpleSocial.Web.Areas.Administration.ViewModels
     {
         public ICollection<SimpleUserViewModel> NonAdminUsers { get; set; }
 
-        public ICollection<SimpleUserViewModel> AdminUsers { get; set; }  
+        public ICollection<SimpleUserViewModel> AdminUsers { get; set; }
+
+        public ICollection<string> AllUsers { get; set; }
     }
 }
+    

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocial.Services.DataServices.SearchDataServices;
+using SimpleSocial.Services.DataServices.UsersDataServices;
 using SimpleSocial.Web.Areas.Administration.Services;
 using SimpleSocial.Web.Areas.Administration.ViewModels;
 
@@ -16,13 +17,16 @@ namespace SimpleSocial.Web.Areas.Administration.Controllers
     {
         private readonly IAdministrationServices administrationServices;
         private readonly ISearchServices searchServices;
+        private readonly IUserServices userServices;
 
         public AdminController(
             IAdministrationServices administrationServices,
-            ISearchServices searchServices)
+            ISearchServices searchServices,
+            IUserServices userServices)
         {
             this.administrationServices = administrationServices;
             this.searchServices = searchServices;
+            this.userServices = userServices;
         }
 
         public IActionResult Index()
@@ -45,7 +49,8 @@ namespace SimpleSocial.Web.Areas.Administration.Controllers
                 var usersFoundToPromoteDemote = new PromoteDemoteViewModel()
                 {
                     AdminUsers = administrationServices.GetAdminUsers(User,users),
-                    NonAdminUsers = administrationServices.GetNonAdminUsers(User,users)
+                    NonAdminUsers = administrationServices.GetNonAdminUsers(User,users),
+                    AllUsers = this.userServices.GetAllUsernames()
                 };
 
                 return View(usersFoundToPromoteDemote);
@@ -54,7 +59,8 @@ namespace SimpleSocial.Web.Areas.Administration.Controllers
             var usersToPromoteDemote = new PromoteDemoteViewModel
             {
                 AdminUsers = administrationServices.GetAdminUsers(User),
-                NonAdminUsers = administrationServices.GetNonAdminUsers(User)
+                NonAdminUsers = administrationServices.GetNonAdminUsers(User),
+                AllUsers = this.userServices.GetAllUsernames()
             };
 
             return View(usersToPromoteDemote);
