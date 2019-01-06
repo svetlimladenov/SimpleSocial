@@ -11,6 +11,5 @@ namespace SimpleSocia.Services.Models.Followers
         public string NoUsersWord { get; set; }
 
         public int UsersCount { get; set; } = 0;
-
     }
 }

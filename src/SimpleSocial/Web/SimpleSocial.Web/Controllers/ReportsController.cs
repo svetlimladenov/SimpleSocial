@@ -57,11 +57,5 @@ namespace SimpleSocial.Web.Controllers
             //reportsService.AddReport(currentUserId,inputModel.PostId,inputModel.ReportReason);
             return RedirectToAction("UnfollowUser", new { username = inputModel.PostAuthorName});
         }
-
-        public IActionResult UnfollowUser(string username)
-        {
-            ViewData["USER"] = username;
-            return View();
-        }
     }
 }

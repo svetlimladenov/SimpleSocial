@@ -2,9 +2,16 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Hello from area index</h2>
-
+<div class="greetings-header">
+    <h2>Administration</h2>
+    <blockquote>
+        <p>"@ViewData["Quote"]"</p>
+    </blockquote>
+</div>
 <div class="row">
-    <a asp-area="Administration" asp-controller="Reports" asp-action="All">All Reports</a>
+    <div class="btn-holder">
+        <a asp-action="AllReports" class="btn btn-danger">Reports</a>
+        <a asp-action="ManageUsers" class="btn btn-success">Manage Users</a>
+    </div>
 </div>
 

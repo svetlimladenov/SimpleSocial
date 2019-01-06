@@ -1,0 +1,101 @@
+﻿@model SimpleSocial.Web.Areas.Administration.ViewModels.PromoteDemoteViewModel
+@{
+    ViewData["Title"] = "ManageUsers";
+}
+<script src="~/js/autocomplete.js"></script>
+
+<h2>ManageUsers</h2>
+
+<div class="mx-auto">
+    <div class="search-bar">
+        <form autocomplete="off" asp-area="Administration" asp-controller="Admin" asp-action="ManageUsers" method="get">
+            <div class="autocomplete">
+                <input type="text" name="searchText" placeholder="Search for users" id="manageUsers">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mx-auto w-75">
+    <h3 class="text-center">Promote</h3>
+    <div class="row">
+        <table class="table justify-content-center">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Picture</th>
+                <th scope="col">Id</th>
+                <th scope="col">Username</th>
+                <th scope="col">Promote</th>
+            </tr>
+            </thead>
+            <tbody>
+            @{
+                var counterP = 1;
+            }
+            @foreach (var user in Model.NonAdminUsers)
+            {
+                <tr>
+                    <th scope="col" style="padding-top: 24px;">@counterP</th>
+                    <th scope="col"><img src="@user.ProfilePicture.FileName" class="table-profile-pic" /></th>
+                    <th scope="col" style="padding-top: 24px;">@user.Id</th>
+                    <th scope="col" style="padding-top: 24px;">@user.UserName</th>
+                    <th scope="col" style="padding-top: 15px;"><a asp-action="Promote" asp-route-id="@user.Id" class="btn btn-success">Promote</a></th>
+                </tr>
+                counterP++;
+            }
+            </tbody>
+        </table>
+    </div>
+
+
+    <h3 class="text-center justify-content-center">Demote</h3>
+    <div class="row">
+        <table class="table justify-content-center">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Id</th>
+                <th scope="col">Username</th>
+                <th scope="col">Demote</th>
+            </tr>
+            </thead>
+            <tbody>
+            @{
+                var counter = 1;
+            }
+            @foreach (var user in Model.AdminUsers)
+            {
+                <tr>
+                    <th scope="col" style="padding-top: 24px;">@counter</th>
+                    <th scope="col"><img src="@user.ProfilePicture.FileName" class="table-profile-pic" /></th>
+                    <th scope="col" style="padding-top: 24px;">@user.Id</th>
+                    <th scope="col" style="padding-top: 24px;">@user.UserName</th>
+                    <th scope="col" style="padding-top: 15px;"><a asp-action="Demote" asp-route-id="@user.Id" class="btn btn-danger">Demote</a></th>
+                </tr>
+                counter++;
+            }
+            </tbody>
+        </table>
+    </div>
+
+
+
+</div>
+
+<script>
+    var manageNames = [];
+
+    @foreach (var name in this.Model.AdminUsers)
+    {
+        @: manageNames = manageNames.concat('@name.UserName');
+    }
+
+    @foreach (var name in this.Model.NonAdminUsers)
+    {
+        @: manageNames = manageNames.concat('@name.UserName');
+    }
+
+    autocomplete(document.getElementById("manageUsers"), manageNames);
+</script>

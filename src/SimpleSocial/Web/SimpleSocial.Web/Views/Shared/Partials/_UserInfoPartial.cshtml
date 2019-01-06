@@ -1,7 +1,4 @@
 ﻿@model SimpleSocia.Services.Models.Users.UserInfoViewModel
-@{
-    var followBtnClass = "follow-btn";
-}
 <div class="row user-info text-center">
     <div class="profile-picture-holder">
         <img src="@Model.ProfilePicture.FileName" class="profilePicture" />
@@ -16,13 +13,15 @@
     <h2>@Model.UserName</h2>
     @if (Model.UserName != User.Identity.Name)
     {
-        if (Model.IsBeingFollowedByCurrentUser)
-        {
-            <button class="@followBtnClass unfollow">Unfollow</button>
-        }
-        else
-        {
-            <button class="@followBtnClass">Follow</button>
-        }
+        <div class="follower" style="display: block;">
+            @if (Model.IsBeingFollowedByCurrentUser)
+            {
+            <button data-userid="@Model.UserId" class="unfollow" onClick="window.location.reload()">Unfollow</button>
+            }
+            else
+            {
+            <button data-userid="@Model.UserId" onClick="window.location.reload()">Follow</button>
+            }
+        </div>
     }
 </div>

@@ -22,6 +22,7 @@ using SimpleSocial.Services.DataServices.SearchDataServices;
 using SimpleSocial.Services.DataServices.SignUpDetails;
 using SimpleSocial.Services.DataServices.UsersDataServices;
 using SimpleSocial.Services.Mapping;
+using SimpleSocial.Web.Areas.Administration.Services;
 using SimpleSocial.Web.Middlewares;
 using SimpleSocial.Web.Utilities;
 
@@ -86,7 +87,9 @@ namespace SimpleSocial.Web
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddSessionStateTempDataProvider();
+
+            services.AddSession();
 
             //Application services
 
@@ -101,6 +104,7 @@ namespace SimpleSocial.Web
             services.AddScoped<IFollowersServices, FollowersServices>();
             services.AddScoped<ISearchServices,SearchServices>();
             services.AddScoped<IReportsService, ReportsService>();
+            services.AddScoped<IAdministrationServices, AdministrationServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -122,6 +126,7 @@ namespace SimpleSocial.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseAuthentication();
 
