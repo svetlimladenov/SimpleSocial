@@ -65,14 +65,14 @@ namespace SimpleSocial.Services.DataServices.Account
             CloudinaryDotNet.Actions.ImageUploadParams uploadParams = new CloudinaryDotNet.Actions.ImageUploadParams()
             {
                 File = new FileDescription(inputModel.UploadImage.FileName, stream),
-                PublicId = fileName
+                PublicId = fileName,
             };
 
             CloudinaryDotNet.Actions.ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
 
-            string url = cloudinary.Api.UrlImgUp.BuildUrl(fileName);
+            var updatedUrl = cloudinary.GetResource(uploadResult.PublicId).Url;
 
-            SaveImageNameToDb(user, url);
+            SaveImageNameToDb(user, updatedUrl);
         }
 
         private void SaveImageNameToDb(ClaimsPrincipal user, string imagePath)
