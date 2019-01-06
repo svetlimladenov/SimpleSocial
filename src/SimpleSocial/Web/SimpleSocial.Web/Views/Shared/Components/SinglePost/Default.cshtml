@@ -14,21 +14,25 @@
                 <div class="submenu">
                     <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@Model.Post.Id"><b>Go to post</b></a>
                     <a asp-area="" asp-controller="Reports" asp-action="SubmitReport" asp-route-postId="@Model.Post.Id"><b>Report</b></a>
-                </div>            
+                    @if (Model.Post.User.UserName == this.User.Identity.Name)
+                    {
+                        <button class="delete-post" data-deleteid="@Model.Post.Id"><b>Delete Post</b></button>
+                    }
+                </div>
             </div>
         </div>
     </div>
     <div class="content">
         <p>@Model.Post.Content</p>
     </div>
-    <div class="likes-count">   
-        <button><i class="fas fa-thumbs-up"></i> @Model.Post.LikesCount likes</button>
-    </div>  
+    <div class="likes-count">
+        <button class="show-likes"><i class="fas fa-thumbs-up"></i> @Model.Post.LikesCount likes</button>
+    </div>
     <div class="likes">
         @{
-            var viewModel = new UsersListViewModel(){Users = Model.Post.Likes, NoUsersWord = "likes"};
+            var viewModel = new UsersListViewModel() { Users = Model.Post.Likes, NoUsersWord = "likes" };
         }
-        
+
 
         @await Component.InvokeAsync("ListOfUsers", new { viewModel = viewModel })
     </div>
@@ -70,11 +74,11 @@
 <div class="modal">
     <div class="head-modal">
         <h3>Likes</h3>
-        <button><i class="fas fa-times"></i></button>
+        <button class="close-likes"><i class="fas fa-times"></i></button>
     </div>
     <div class="body"></div>
 </div>
 
 <div class="overlay">
-  
+
 </div>

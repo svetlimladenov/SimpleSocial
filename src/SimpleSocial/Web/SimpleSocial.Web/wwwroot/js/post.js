@@ -26,14 +26,14 @@ function toggleModal() {
 }
 
 posts.forEach(post => {
-    post.querySelector('button').addEventListener('click', () => {
+    post.querySelector('button.show-likes').addEventListener('click', () => {
         const likes = post.querySelector('.likes');
         modal.querySelector('.body').innerHTML = likes.innerHTML;
         toggleModal();
     });
 });
 
-modal.querySelector('button').addEventListener('click', toggleModal);
+modal.querySelector('button.close-likes').addEventListener('click', toggleModal);
 
 posts.forEach(post => {
     post.querySelector('.like-btn').addEventListener('click', () => {
@@ -64,3 +64,11 @@ posts.forEach(post => {
         });
     });
 });
+
+
+posts.forEach(post => {
+    post.querySelector('.delete-post').addEventListener('click', () => {
+        console.log(post);
+    });
+});
+

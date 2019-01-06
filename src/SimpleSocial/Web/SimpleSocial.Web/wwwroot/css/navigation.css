@@ -391,12 +391,11 @@ a {
     .right-head.details .submenu {
         box-shadow: 0 0 1px 1px #b3b3b3;
         z-index: 1;
-        border: 1px solid black;
         text-align: center;
         position: absolute;
         left: 0;
         right: 0;
-        width: 70px;
+        width: 100px;
         background: white;
         padding: 5px;
         display: flex;

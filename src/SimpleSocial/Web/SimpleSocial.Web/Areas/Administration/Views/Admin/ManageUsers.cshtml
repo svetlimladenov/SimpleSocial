@@ -22,29 +22,29 @@
     <div class="row">
         <table class="table justify-content-center">
             <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Picture</th>
-                <th scope="col">Id</th>
-                <th scope="col">Username</th>
-                <th scope="col">Promote</th>
-            </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Picture</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Promote</th>
+                </tr>
             </thead>
             <tbody>
-            @{
-                var counterP = 1;
-            }
-            @foreach (var user in Model.NonAdminUsers)
-            {
-                <tr>
-                    <th scope="col" style="padding-top: 24px;">@counterP</th>
-                    <th scope="col"><img src="@user.ProfilePicture.FileName" class="table-profile-pic" /></th>
-                    <th scope="col" style="padding-top: 24px;">@user.Id</th>
-                    <th scope="col" style="padding-top: 24px;">@user.UserName</th>
-                    <th scope="col" style="padding-top: 15px;"><a asp-action="Promote" asp-route-id="@user.Id" class="btn btn-success">Promote</a></th>
-                </tr>
-                counterP++;
-            }
+                @{
+                    var counterP = 1;
+                }
+                @foreach (var user in Model.NonAdminUsers)
+                {
+                    <tr>
+                        <td scope="col" style="padding-top: 24px;"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@user.Id">@counterP</a></td>
+                        <td scope="col"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@user.Id"><img src="@user.ProfilePicture.FileName" class="table-profile-pic" /></a></td>
+                        <td scope="col" style="padding-top: 24px;"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@user.Id">@user.Id</a></td>
+                        <td scope="col" style="padding-top: 24px;"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@user.Id">@user.UserName</a></td>
+                        <td scope="col" style="padding-top: 15px;"><a asp-action="Promote" asp-route-id="@user.Id" class="btn btn-success">Promote</a></td>
+                    </tr>
+                    counterP++;
+                }
             </tbody>
         </table>
     </div>
@@ -54,28 +54,29 @@
     <div class="row">
         <table class="table justify-content-center">
             <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Id</th>
-                <th scope="col">Username</th>
-                <th scope="col">Demote</th>
-            </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Picture</th>
+                    <th scope="col">Id</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Promote</th>
+                </tr>
             </thead>
             <tbody>
-            @{
-                var counter = 1;
-            }
-            @foreach (var user in Model.AdminUsers)
-            {
-                <tr>
-                    <th scope="col" style="padding-top: 24px;">@counter</th>
-                    <th scope="col"><img src="@user.ProfilePicture.FileName" class="table-profile-pic" /></th>
-                    <th scope="col" style="padding-top: 24px;">@user.Id</th>
-                    <th scope="col" style="padding-top: 24px;">@user.UserName</th>
-                    <th scope="col" style="padding-top: 15px;"><a asp-action="Demote" asp-route-id="@user.Id" class="btn btn-danger">Demote</a></th>
-                </tr>
-                counter++;
-            }
+                @{
+                    var counter = 1;
+                }
+                @foreach (var user in Model.AdminUsers)
+                {
+                    <tr data-href="">
+                        <td scope="col" style="padding-top: 24px;"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@user.Id">@counter</a></td>
+                        <td scope="col"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@user.Id"><img src="@user.ProfilePicture.FileName" alt="profile-pic" class="table-profile-pic" /></a></td>
+                        <td scope="col" style="padding-top: 24px;"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@user.Id">@user.Id</a></td>
+                        <td scope="col" style="padding-top: 24px;"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@user.Id">@user.UserName</a></td>
+                        <td scope="col" style="padding-top: 15px;"><a asp-action="Demote" asp-route-id="@user.Id" class="btn btn-danger">Demote</a></td>
+                    </tr>
+                    counter++;
+                }
             </tbody>
         </table>
     </div>

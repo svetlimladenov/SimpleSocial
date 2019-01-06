@@ -29,3 +29,8 @@ blockquote:before {
 blockquote p {
     display: inline;
 }
+
+
+td a {
+    display: block;
+}
