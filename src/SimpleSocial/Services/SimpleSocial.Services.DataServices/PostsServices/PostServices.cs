@@ -61,7 +61,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         }
 
         public ICollection<PostViewModel> GetUserPosts(string userId, string currrentUserId)
-        {          
+        {
             var posts = this.postRepository.All().Include(p => p.Likes).ThenInclude(l => l.User).Include(p => p.User).ThenInclude(u => u.ProfilePicture).Include(p => p.Comments).ThenInclude(p => p.Author).ThenInclude(a => a.ProfilePicture).Select(x => Mapper.Map<PostViewModel>(x)).Where(x => x.UserId == userId).OrderByDescending(x => x.CreatedOn).ToList();
 
             foreach (var post in posts)
@@ -168,14 +168,21 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             return post?.User;
         }
 
-        public void DeletePost(string id)
+        public void DeletePost(string id, ClaimsPrincipal user)
         {
             var post = this.postRepository.All().FirstOrDefault(x => x.Id == id);
+            var currentUser = userManager.GetUserAsync(user).GetAwaiter().GetResult();
+            var isCurrentUserAdmin = userManager.IsInRoleAsync(currentUser, "Admin").GetAwaiter().GetResult();
+
             if (post == null)
             {
                 return;
             }
 
+            if (post.UserId != currentUser.Id && isCurrentUserAdmin == false)
+            {
+                return;
+            }
             var report = this.reportsRepository.All().FirstOrDefault(x => x.PostId == id);
             if (report != null)
             {

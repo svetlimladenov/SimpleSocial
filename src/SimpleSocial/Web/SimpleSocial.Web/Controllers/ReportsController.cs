@@ -76,5 +76,13 @@ namespace SimpleSocial.Web.Controllers
             }
             return View(viewModel);
         }
+
+        [Authorize("Admin")]
+        [HttpPost]
+        public IActionResult DeleteReport(string id)
+        {
+            this.reportsService.DeleteReport(id,User);
+            return RedirectToAction("SuccessfullInput", "Profiles", new { message = "You have successfully deleted this report." });
+        }
     }
 }

@@ -24,6 +24,7 @@
             <h3>
                 Report Reason - @Model.ReportReason.ToString()
             </h3>
+            <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@Model.Post.Id" class="btn btn-success">See post</a>
         </div>
         <div class="row reporter-info text-center">
             <h3>
@@ -42,7 +43,8 @@
                     <input name="id" type="text" value="@Model.Post.Id" hidden="hidden"/>
                     <button type="submit" class="btn btn-danger">Delete Post</button>
                 </form>
-                <form>
+                <form asp-controller="Reports" asp-action="DeleteReport">
+                    <input type="text" name="id" hidden="hidden" value="@Model.Id"/>
                     <button class="btn btn-danger">Delete Report</button>
                 </form>
                 

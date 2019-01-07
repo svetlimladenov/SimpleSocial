@@ -88,5 +88,24 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
 
             return viewModel;
         }
+
+        public void DeleteReport(string id, ClaimsPrincipal user)
+        {
+            var currentUser = this.userManager.GetUserAsync(user).GetAwaiter().GetResult();
+            var currentUserIsAdmin = this.userManager.IsInRoleAsync(currentUser, "Admin").GetAwaiter().GetResult();
+            if (!currentUserIsAdmin)
+            {
+                return;
+            }
+
+            var report = this.reportsRepository.All().FirstOrDefault(x => x.Id == id);
+            if (report == null)
+            {
+                return;
+            }
+
+            this.reportsRepository.Delete(report);
+            this.reportsRepository.SaveChangesAsync().GetAwaiter().GetResult();
+        }
     }
 }

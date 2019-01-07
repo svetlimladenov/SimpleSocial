@@ -13,5 +13,7 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
         ReportViewModel GetReportDetails(string id);
 
         ReportViewModel GetSubmitReportViewModel(string postId, ClaimsPrincipal user);
+
+        void DeleteReport(string id, ClaimsPrincipal user);
     }
 }

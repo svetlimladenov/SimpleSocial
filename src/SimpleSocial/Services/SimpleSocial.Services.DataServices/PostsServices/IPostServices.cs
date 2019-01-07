@@ -21,7 +21,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
         SimpleSocialUser GetPostAuthor(string postId);
 
-        void DeletePost(string id);
+        void DeletePost(string id, ClaimsPrincipal User);
 
         bool PostExists(string id);
     }
