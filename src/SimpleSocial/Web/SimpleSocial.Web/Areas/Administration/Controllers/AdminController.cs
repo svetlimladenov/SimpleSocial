@@ -39,7 +39,8 @@ namespace SimpleSocial.Web.Areas.Administration.Controllers
         [Authorize("Admin")]
         public IActionResult AllReports()
         {
-            return View();
+            var viewModel = new AllReportsViewModel {PostReports = this.administrationServices.GetAllReports()};
+            return View(viewModel);
         }
 
         [Authorize("Admin")]

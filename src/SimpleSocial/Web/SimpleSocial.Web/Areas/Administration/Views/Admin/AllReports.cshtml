@@ -1,7 +1,36 @@
-﻿
+﻿@model SimpleSocial.Web.Areas.Administration.ViewModels.AllReportsViewModel
 @{
     ViewData["Title"] = "All";
 }
 
-<h2>All</h2>
+<h2 class="text-center">All Reports</h2>
+<div class="mx-auto w-75">
 
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">See Report</th>
+                <th scope="col">Post Author</th>
+                <th scope="col">Report Author</th>
+                <th scope="col">Report Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+        @{ var counter = 0;}
+        @foreach (var report in Model.PostReports)
+        {
+            counter++;  
+            <tr>
+                <th scope="row" style="padding-top: 22px;">@counter</th>
+                <td style="padding-top: 15px;"><a asp-controller="Reports" asp-action="ReportDetails" asp-route-id="@report.Id" class="btn btn-success">Details</a></td>
+                <td style="padding-top: 22px;"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@report.Post.User.Id">@report.Post.User.UserName</a></td>
+                <td style="padding-top: 22px;"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@report.AuthorId">@report.Author.UserName</a></td>
+                <td style="padding-top: 22px;">@report.ReportReason.ToString()</td>
+            </tr>
+        }
+
+        </tbody>
+    </table>
+
+</div>

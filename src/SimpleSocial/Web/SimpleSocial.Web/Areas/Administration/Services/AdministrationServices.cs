@@ -16,16 +16,16 @@ namespace SimpleSocial.Web.Areas.Administration.Services
     {
         private readonly UserManager<SimpleSocialUser> userManager;
         private readonly IRepository<SimpleSocialUser> userRepository;
-        private readonly IRepository<IdentityRole> rolesRepository;
+        private readonly IRepository<PostReport> reportsRepository;
 
         public AdministrationServices(
             UserManager<SimpleSocialUser> userManager,
             IRepository<SimpleSocialUser> userRepository,
-            IRepository<IdentityRole> rolesRepository)
+            IRepository<PostReport> reportsRepository)
         {
             this.userManager = userManager;
             this.userRepository = userRepository;
-            this.rolesRepository = rolesRepository;
+            this.reportsRepository = reportsRepository;
         }
 
 
@@ -124,6 +124,11 @@ namespace SimpleSocial.Web.Areas.Administration.Services
             };
             var randomNumber = new Random().Next(0, motivationQuotes.Length - 1);
             return motivationQuotes[randomNumber];
+        }
+
+        public ICollection<PostReport> GetAllReports()
+        {
+            return this.reportsRepository.All().Include(x => x.Author).Include(x => x.Post).ThenInclude(p => p.User).ToList();
         }
     }
 }

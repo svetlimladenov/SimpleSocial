@@ -32,7 +32,12 @@ blockquote p {
 
 
 td a {
+    font-weight: bold;
     display: block;
+}
+
+td {
+    font-weight: bold;
 }
 
 .unfollow-section .follower {
@@ -49,3 +54,35 @@ td a {
     font-size: 1.4em;
     font-weight: bold;
 }
+
+table {
+    background: white;
+}
+
+.post-info {
+    background: white;
+    padding: 10px;
+}
+.post-info h3 {
+    margin: 5px;
+}
+
+    .post-info .post-content {
+        margin-left: 10px;
+    }
+
+.reporter-info {
+    background: white;
+    margin-top: 10px;
+}
+
+.report-actions {
+    background: white;
+    margin-top: 10px;
+}
+
+    .report-actions .delete-actions {
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 10px;
+    }

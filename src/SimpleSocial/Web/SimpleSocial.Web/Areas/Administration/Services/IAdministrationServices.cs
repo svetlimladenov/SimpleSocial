@@ -18,5 +18,7 @@ namespace SimpleSocial.Web.Areas.Administration.Services
         void DemoteUser(string id);
 
         string GetRandomQuote();
+
+        ICollection<PostReport> GetAllReports();
     }
 }

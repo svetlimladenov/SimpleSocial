@@ -1,0 +1,46 @@
+﻿@model SimpleSocia.Services.Models.Reports.ReportViewModel
+@{
+    ViewData["Title"] = "ReportDetails";
+}
+
+<h2>@ViewData["ID"]</h2>
+
+<div class="row">
+    <h1 class="text-center">Report Id - @Model.Id</h1>
+    <div class="col-md-8 col-md-offset-2">
+        <div class="row post-info text-center">
+            <h3>
+                Post Author -
+                <img src="@Model.Post.User.ProfilePicture.FileName" class="table-profile-pic">
+                <a asp-controller="Profiles" asp-action="Index" asp-route-userId="@Model.PostAuthorId" style="margin-left: 5px;">
+                    @Model.Post.User.UserName
+                </a>
+            </h3>
+            <h3>Post Content</h3>
+            <div class="post-content">
+                @Model.Post.Content
+            </div>
+            <h4>Posted On - @Model.Post.CreatedOn</h4>
+            <h3>
+                @Model.ReportReason.ToString()
+            </h3>
+        </div>
+        <div class="row reporter-info text-center">
+            <h3>
+                Report Author -
+                <img src="@Model.Author.ProfilePicture.FileName" class="table-profile-pic" />
+                <a asp-controller="Profiles" asp-action="Index" asp-route-userId="@Model.AuthorId" style="margin-left: 5px;">
+                    @Model.Author.UserName
+                </a>
+                <h4>Reported On - @Model.ReportedOn</h4>
+            </h3>
+        </div>
+        <div class="row report-actions">
+            <h3 class="text-center">Actions</h3>
+            <div class="delete-actions">
+                <button class="btn btn-danger">Delete Post</button>
+                <button class="btn btn-danger">Delete Report</button>
+            </div>
+        </div>
+    </div>
+</div>

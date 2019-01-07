@@ -1,5 +1,5 @@
 ﻿@using SimpleSocial.Data.Models
-@model SimpleSocia.Services.Models.Reports.ReportsViewModel
+@model SimpleSocia.Services.Models.Reports.ReportViewModel
 @{
     ViewData["Title"] = "SubmitReport";
 }
@@ -10,14 +10,21 @@
             <input asp-for="PostAuthorName" value="@Model.PostAuthorName" hidden />
             <input asp-for="PostId" value="@Model.PostId" hidden />
             <label asp-for="ReportReason"></label>
-            @Html.DropDownList("Input.Gender",
+            @Html.DropDownList("ReportReason",
                 Html.GetEnumSelectList<ReportReason>(),
                 "Select Reason", new {@class = "form-control"})
             <button type="submit" class="unfollow" style="margin-top: 10px;">Report</button>
         </form>
         <div class="unfollow-section">
             <div class="follower" style="display: block;">
-                <button data-userid="@Model.PostAuthorId" class="unfollow">Unfollow</button><span class="user-name-unfollow">- @Model.PostAuthorName</span>
+                @if (Model.IsBeingFollowedByCurrentUser)
+                {
+                    <button data-userid="@Model.PostAuthorId" class="unfollow">Unfollow</button><span class="user-name-unfollow">- @Model.PostAuthorName</span>
+                }
+                else
+                {
+                    <button data-userid="@Model.PostAuthorId">Follow</button><span class="user-name-unfollow">- @Model.PostAuthorName</span>
+                }
             </div>
         </div>
     </div>
