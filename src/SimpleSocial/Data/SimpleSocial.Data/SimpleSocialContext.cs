@@ -60,7 +60,8 @@ namespace SimpleSocial.Data
             builder.Entity<PostReport>()
                 .HasOne(pr => pr.Post)
                 .WithMany(p => p.PostReports)
-                .HasForeignKey(pr => pr.PostId);
+                .HasForeignKey(pr => pr.PostId)
+                .OnDelete(DeleteBehavior.SetNull);
 
             builder.Entity<SimpleSocialUser>()
                 .HasOne(u => u.ProfilePicture)
@@ -69,7 +70,14 @@ namespace SimpleSocial.Data
 
             builder.Entity<UserLike>()
                 .HasKey(ul => new {ul.UserId, ul.PostId});
-          
+
+            builder.Entity<Post>()
+                .HasMany(p => p.PostReports)
+                .WithOne(pr => pr.Post)
+                .HasForeignKey(pr => pr.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            
         }
     }
 }

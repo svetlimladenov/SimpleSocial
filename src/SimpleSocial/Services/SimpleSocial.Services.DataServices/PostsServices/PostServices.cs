@@ -20,6 +20,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         private readonly IRepository<UserLike> userLikesRepository;
         private readonly IRepository<SimpleSocialUser> userRepository;
         private readonly IRepository<UserFollower> userFollowersRepository;
+        private readonly IRepository<PostReport> reportsRepository;
         private readonly UserManager<SimpleSocialUser> userManager;
 
         public PostServices(
@@ -27,6 +28,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             IRepository<UserLike> userLikesRepository,
             IRepository<SimpleSocialUser> userRepository,
             IRepository<UserFollower> userFollowersRepository,
+            IRepository<PostReport> reportsRepository,
             UserManager<SimpleSocialUser> userManager
         )
         {
@@ -34,6 +36,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             this.userLikesRepository = userLikesRepository;
             this.userRepository = userRepository;
             this.userFollowersRepository = userFollowersRepository;
+            this.reportsRepository = reportsRepository;
             this.userManager = userManager;
         }
 
@@ -151,6 +154,25 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         {
             var post = this.GetPostById(postId);
             return post.User;
+        }
+
+        public void DeletePost(string id)
+        {
+            var post = this.postRepository.All().FirstOrDefault(x => x.Id == id);
+            if (post == null)
+            {
+                return;
+            }
+
+            var report = this.reportsRepository.All().FirstOrDefault(x => x.PostId == id);
+            if (report != null)
+            {
+                this.reportsRepository.Delete(report);
+                this.reportsRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            }
+
+            this.postRepository.Delete(post);
+            this.postRepository.SaveChangesAsync().GetAwaiter().GetResult();
         }
 
         private ICollection<PostViewModel> CheckIsPostsAreLiked(string currrentUserId, List<PostViewModel> posts)

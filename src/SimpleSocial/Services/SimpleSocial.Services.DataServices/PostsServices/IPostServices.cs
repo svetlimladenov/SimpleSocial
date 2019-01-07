@@ -22,5 +22,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         ICollection<PostViewModel> GetNewsFeedPosts(string currrentUserId);
 
         SimpleSocialUser GetPostAuthor(string postId);
+
+        void DeletePost(string id);
     }
 }

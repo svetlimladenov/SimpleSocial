@@ -22,7 +22,7 @@
             </div>
             <h4>Posted On - @Model.Post.CreatedOn</h4>
             <h3>
-                @Model.ReportReason.ToString()
+                Report Reason - @Model.ReportReason.ToString()
             </h3>
         </div>
         <div class="row reporter-info text-center">
@@ -38,8 +38,14 @@
         <div class="row report-actions">
             <h3 class="text-center">Actions</h3>
             <div class="delete-actions">
-                <button class="btn btn-danger">Delete Post</button>
-                <button class="btn btn-danger">Delete Report</button>
+                <form asp-controller="Posts" asp-action="DeletePost">
+                    <input name="id" type="text" value="@Model.Post.Id" hidden="hidden"/>
+                    <button type="submit" class="btn btn-danger">Delete Post</button>
+                </form>
+                <form>
+                    <button class="btn btn-danger">Delete Report</button>
+                </form>
+                
             </div>
         </div>
     </div>

@@ -442,7 +442,8 @@ namespace SimpleSocial.Data.Migrations
 
                     b.HasOne("SimpleSocial.Data.Models.Post", "Post")
                         .WithMany("PostReports")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("SimpleSocial.Data.Models.SimpleSocialUser", b =>

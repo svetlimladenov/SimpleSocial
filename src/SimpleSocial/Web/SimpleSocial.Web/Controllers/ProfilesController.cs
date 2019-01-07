@@ -53,8 +53,9 @@ namespace SimpleSocial.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult SuccessfullInput()
+        public IActionResult SuccessfullInput(string message)
         {
+            ViewData["Message"] = message;
             return View();
         }
     }

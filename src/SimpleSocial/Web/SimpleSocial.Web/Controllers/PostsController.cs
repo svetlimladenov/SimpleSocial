@@ -35,15 +35,17 @@ namespace SimpleSocial.Web.Controllers
         [Authorize]
         public IActionResult PostDetails(string id)
         {
-            //TODO : CHANGE LOGIC HERE
-            //if (!postServices.UserCanSeePost(id,User))
-            //{
-            //    return BadRequest();
-            //}
             var currentUserId = this.userManager.GetUserId(User);
             var viewModel = postServices.GetSinglePostViewComponentModel(id, currentUserId);
  
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult DeletePost(string id)
+        {
+            postServices.DeletePost(id);
+            return RedirectToAction("SuccessfullInput", "Profiles", new { message = "You have successfully deleted this post." });
         }
     }
 }

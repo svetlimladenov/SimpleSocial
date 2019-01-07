@@ -26,7 +26,7 @@ namespace SimpleSocial.Services.DataServices.Tests
                 new Post(),
                 new Post()
             }.AsQueryable());
-            var service = new PostServices(jokesRepository.Object,null, null, null, null);
+            var service = new PostServices(jokesRepository.Object,null,null, null, null, null);
             Assert.Equal(3,service.GetTotalPostsCount());       
         }
 
@@ -45,7 +45,7 @@ namespace SimpleSocial.Services.DataServices.Tests
             await dbContext.SaveChangesAsync();
 
             var repository = new DbRepository<Post>(dbContext);
-            var postService = new PostServices(repository, null,null, null,null);
+            var postService = new PostServices(repository,null,null,null, null,null);
             var count = postService.GetTotalPostsCount();
             Assert.Equal(3,count);
         }
@@ -59,7 +59,7 @@ namespace SimpleSocial.Services.DataServices.Tests
             var dbContext = new SimpleSocialContext(options);
 
             var repository = new DbRepository<Post>(dbContext);
-            var postService = new PostServices(repository,null, null, null, null);
+            var postService = new PostServices(repository, null, null, null, null, null);
 
             postService.CreatePost(new MyProfileViewModel
             {
