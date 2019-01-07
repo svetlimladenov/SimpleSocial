@@ -12,9 +12,5 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
         ICollection<string> GetAllUsernames();
 
         UserInfoViewModel GetUserInfo(string userId, string currentUserId);
-
-        string GetWallId(string userId);
-
-        ProfilePicture GetUserProfilePicture(string userId);
     }
 }

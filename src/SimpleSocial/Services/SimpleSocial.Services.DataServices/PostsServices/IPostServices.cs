@@ -17,12 +17,12 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
         SinglePostViewComponentModel GetSinglePostViewComponentModel(string id, string visitorId);
 
-        bool UserCanSeePost(string id, ClaimsPrincipal user);
-
         ICollection<PostViewModel> GetNewsFeedPosts(string currrentUserId);
 
         SimpleSocialUser GetPostAuthor(string postId);
 
         void DeletePost(string id);
+
+        bool PostExists(string id);
     }
 }

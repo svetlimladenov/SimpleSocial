@@ -19,6 +19,6 @@ namespace SimpleSocial.Web.Areas.Administration.Services
 
         string GetRandomQuote();
 
-        ICollection<PostReport> GetAllReports();
+        IEnumerable<PostReport> GetAllReports();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -35,28 +36,14 @@ namespace SimpleSocial.Web.Controllers
         [Authorize]
         public IActionResult SubmitReport(string postId)
         {
-            var postAuthor = postServices.GetPostAuthor(postId);
-            var genderText = "Him";
-            var currentUserId = userManager.GetUserId(User);
-            if (postAuthor.Gender == Gender.Male)
+            ReportViewModel viewModel = this.reportsService.GetSubmitReportViewModel(postId,User);
+            if (viewModel == null)
             {
-                genderText = "Him";
+                var result = this.View("Error", this.ModelState);
+                ViewData["Message"] = "This page is not avaivable";
+                result.StatusCode = (int)HttpStatusCode.BadRequest;
+                return result;
             }
-            else if(postAuthor.Gender == Gender.Famale)
-            {
-                genderText = "Her";
-            }
-            var isBeingFollowedByCurrentUser = this.followersServices.IsBeingFollowedBy(postAuthor.Id, currentUserId) || postAuthor.Id == currentUserId;
-            var viewModel = new ReportViewModel
-            {
-                PostId = postId,
-                ReportReason = new ReportReason(),
-                PostAuthorName = postAuthor.UserName,
-                PostAuthorId = postAuthor.Id,
-                GenderText = genderText,
-                IsBeingFollowedByCurrentUser = isBeingFollowedByCurrentUser
-            };
-
             return View(viewModel);
         }
 
@@ -64,6 +51,13 @@ namespace SimpleSocial.Web.Controllers
         [HttpPost]
         public IActionResult Report(ReportViewModel inputModel)
         {
+            if (!ModelState.IsValid)
+            {
+                var result = this.View("Error", this.ModelState);
+                result.StatusCode = (int)HttpStatusCode.BadRequest;
+                return result;
+            }
+
             var currentUserId = this.userManager.GetUserId(User);
             reportsService.AddReport(currentUserId,inputModel.PostId,inputModel.ReportReason);
             return RedirectToAction("Index","NewsFeed");
@@ -73,6 +67,13 @@ namespace SimpleSocial.Web.Controllers
         public IActionResult ReportDetails(string id)
         {
             var viewModel = this.reportsService.GetReportDetails(id);
+            if (viewModel == null)
+            {
+                var result = this.View("Error", this.ModelState);
+                ViewData["Message"] = "This page is not avaivable";
+                result.StatusCode = (int)HttpStatusCode.NotFound;
+                return result;
+            }
             return View(viewModel);
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -48,7 +49,15 @@ namespace SimpleSocial.Web.Controllers
                 Posts = postServices.GetUserPosts(userId, currentUserId),
                 UserProfileInfo = userServices.GetUserInfo(userId, currentUserId),
             };
-            
+
+            if (viewModel.UserProfileInfo == null || viewModel.CurrentUserInfo == null)
+            {
+                var result = this.View("Error", this.ModelState);
+                ViewData["Message"] = "This page is not avaivable";
+                result.StatusCode = (int)HttpStatusCode.NotFound;
+                return result;
+            }
+
             return this.View(viewModel);
         }
 

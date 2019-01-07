@@ -8,6 +8,6 @@ namespace SimpleSocial.Web.Areas.Administration.ViewModels
 {
     public class AllReportsViewModel
     {
-        public ICollection<PostReport> PostReports { get; set; }    
+        public IEnumerable<PostReport> PostReports { get; set; }    
     }
 }

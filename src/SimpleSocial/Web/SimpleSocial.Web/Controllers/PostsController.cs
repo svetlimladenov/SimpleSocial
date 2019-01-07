@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
@@ -25,11 +26,18 @@ namespace SimpleSocial.Web.Controllers
         [HttpPost]
         public IActionResult Create(MyProfileViewModel viewModel)
         {
-            var inputModel = viewModel.CreatePost;
+            if (ModelState.IsValid)
+            {
+                postServices.CreatePost(viewModel);
+                return RedirectToAction("MyProfile", "Account");
+            }
+            else
+            {
+                var result = this.View("Error", this.ModelState);
+                result.StatusCode = (int)HttpStatusCode.BadRequest;
+                return result;
+            }
 
-            postServices.CreatePost(viewModel);
-
-            return RedirectToAction("MyProfile", "Account");
         }
 
         [Authorize]
@@ -37,7 +45,14 @@ namespace SimpleSocial.Web.Controllers
         {
             var currentUserId = this.userManager.GetUserId(User);
             var viewModel = postServices.GetSinglePostViewComponentModel(id, currentUserId);
- 
+            if (viewModel == null)
+            {
+                var result = this.View("Error", this.ModelState);
+                ViewData["Message"] = "This page is not avaivable";
+                result.StatusCode = (int)HttpStatusCode.BadRequest;
+                return result;
+            }
+
             return View(viewModel);
         }
 

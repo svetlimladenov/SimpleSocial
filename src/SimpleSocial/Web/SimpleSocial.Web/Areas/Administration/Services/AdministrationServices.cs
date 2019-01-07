@@ -126,9 +126,9 @@ namespace SimpleSocial.Web.Areas.Administration.Services
             return motivationQuotes[randomNumber];
         }
 
-        public ICollection<PostReport> GetAllReports()
+        public IEnumerable<PostReport> GetAllReports()
         {
-            return this.reportsRepository.All().Include(x => x.Author).Include(x => x.Post).ThenInclude(p => p.User).ToList();
+            return this.reportsRepository.All().Include(x => x.Author).Include(x => x.Post).ThenInclude(p => p.User).OrderByDescending(x => x.ReportedOn).ToList();
         }
     }
 }

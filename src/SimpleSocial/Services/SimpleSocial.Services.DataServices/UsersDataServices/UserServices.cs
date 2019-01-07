@@ -72,11 +72,5 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
             var profilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
             return profilePicture;
         }
-
-        public string GetWallId(string userId)
-        {
-            var posts = wallRepository.All().FirstOrDefault(w => w.UserId == userId)?.Id;
-            return posts;
-        }
     }
 }

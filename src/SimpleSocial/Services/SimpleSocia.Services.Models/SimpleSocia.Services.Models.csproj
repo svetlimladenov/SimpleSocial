@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\SimpleSocial.Data.Common\SimpleSocial.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\SimpleSocial.Data.Models\SimpleSocial.Data.Models.csproj" />
     <ProjectReference Include="..\SimpleSocial.Services.Mapping\SimpleSocial.Services.Mapping.csproj" />
   </ItemGroup>

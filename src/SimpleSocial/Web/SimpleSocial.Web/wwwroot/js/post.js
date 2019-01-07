@@ -64,11 +64,3 @@ posts.forEach(post => {
         });
     });
 });
-
-
-posts.forEach(post => {
-    post.querySelector('.delete-post').addEventListener('click', () => {
-        console.log(post);
-    });
-});
-

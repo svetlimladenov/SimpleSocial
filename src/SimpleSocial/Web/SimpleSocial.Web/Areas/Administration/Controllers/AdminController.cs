@@ -8,6 +8,7 @@ using SimpleSocial.Services.DataServices.SearchDataServices;
 using SimpleSocial.Services.DataServices.UsersDataServices;
 using SimpleSocial.Web.Areas.Administration.Services;
 using SimpleSocial.Web.Areas.Administration.ViewModels;
+using X.PagedList;
 
 namespace SimpleSocial.Web.Areas.Administration.Controllers
 {
@@ -37,9 +38,12 @@ namespace SimpleSocial.Web.Areas.Administration.Controllers
         }
 
         [Authorize("Admin")]
-        public IActionResult AllReports()
+        public IActionResult AllReports(int? pageNumberr)
         {
             var viewModel = new AllReportsViewModel {PostReports = this.administrationServices.GetAllReports()};
+            var number = pageNumberr ?? 1;
+            viewModel.PostReports = viewModel.PostReports.ToPagedList(number,10);
+            ViewBag.PageNum = number;
             return View(viewModel);
         }
 

@@ -77,7 +77,17 @@ namespace SimpleSocial.Data
                 .HasForeignKey(pr => pr.PostId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            
+            builder.Entity<Post>()
+                .HasMany(p => p.Comments)
+                .WithOne(c => c.Post)
+                .HasForeignKey(c => c.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Post>()
+                .HasMany(p => p.Likes)
+                .WithOne(l => l.Post)
+                .HasForeignKey(l => l.PostId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

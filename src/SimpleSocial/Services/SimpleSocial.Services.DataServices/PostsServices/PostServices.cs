@@ -85,16 +85,28 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         public PostViewModel GetPostById(string id)
         {
             var post = this.postRepository.All().Include(x => x.Likes).ThenInclude(l => l.User).Include(p => p.User).ThenInclude(u => u.ProfilePicture).Include(x => x.Comments).ThenInclude(x => x.Author).ThenInclude(a => a.ProfilePicture).Select(x => Mapper.Map<PostViewModel>(x)).FirstOrDefault(x => x.Id == id);
+            if (post == null)
+            {
+                return null;
+            }
             return post;
         }
 
         public SinglePostViewComponentModel GetSinglePostViewComponentModel(string id, string visitorId)
         {
             var userWithProfilePic = this.userRepository.All().Include(u => u.ProfilePicture).FirstOrDefault(x => x.Id == visitorId);
+            if (userWithProfilePic == null)
+            {
+                return null;
+            }
             var profilePicture = userWithProfilePic.ProfilePicture;
             var viewModel = new SinglePostViewComponentModel();
             var post = this.GetPostById(id);
-            var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).Select(x => x.User).To<SimpleUserViewModel>().ToList();          
+            if (post == null)
+            {
+                return null;
+            }
+            var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).Select(x => x.User).To<SimpleUserViewModel>().ToList();
             post.Likes = likes;
             var postAuthorId = post.User.Id;
             if (post.Likes.FirstOrDefault(x => x.Id == visitorId) == null)
@@ -153,7 +165,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         public SimpleSocialUser GetPostAuthor(string postId)
         {
             var post = this.GetPostById(postId);
-            return post.User;
+            return post?.User;
         }
 
         public void DeletePost(string id)
@@ -173,6 +185,18 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
             this.postRepository.Delete(post);
             this.postRepository.SaveChangesAsync().GetAwaiter().GetResult();
+        }
+
+        public bool PostExists(string id)
+        {
+            if (this.postRepository.All().Any(p => p.Id == id))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private ICollection<PostViewModel> CheckIsPostsAreLiked(string currrentUserId, List<PostViewModel> posts)

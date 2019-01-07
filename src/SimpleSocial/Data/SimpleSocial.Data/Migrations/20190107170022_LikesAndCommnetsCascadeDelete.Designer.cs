@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleSocial.Data;
 
 namespace SimpleSocial.Data.Migrations
 {
     [DbContext(typeof(SimpleSocialContext))]
-    partial class SimpleSocialContextModelSnapshot : ModelSnapshot
+    [Migration("20190107170022_LikesAndCommnetsCascadeDelete")]
+    partial class LikesAndCommnetsCascadeDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
