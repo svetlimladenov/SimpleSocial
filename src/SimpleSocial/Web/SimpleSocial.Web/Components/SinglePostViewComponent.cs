@@ -15,14 +15,12 @@ namespace SimpleSocial.Web.Components
         public async Task<IViewComponentResult> InvokeAsync(
             string currentUserId,
             PostViewModel post,
-            CommentInputModel commentInputModel,
-            ProfilePicture profilePicture,
-            string likeClassName)
+            ProfilePicture profilePicture)
         {
             SinglePostViewComponentModel viewModel = new SinglePostViewComponentModel
             {
                 Post = post,
-                CommentInputModel = commentInputModel,
+                CommentInputModel = new CommentInputModel(),
                 ProfilePicture = profilePicture,
                 PostVisitorId = currentUserId,
                 PostAuthorId = post.UserId,

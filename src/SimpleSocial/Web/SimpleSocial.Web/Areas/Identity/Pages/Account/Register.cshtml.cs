@@ -66,9 +66,16 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
         }
 
-        public void OnGet(string returnUrl = null)
+        public async Task<IActionResult> OnGet(string returnUrl = null)
         {
+
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "NewsFeed");
+            }
             ReturnUrl = returnUrl;
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

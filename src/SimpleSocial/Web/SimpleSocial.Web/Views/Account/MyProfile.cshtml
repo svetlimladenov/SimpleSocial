@@ -5,11 +5,15 @@
     ViewData["Title"] = "MyProfile";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <partial name="~/Views/Shared/Partials/_UserInfoPartial.cshtml" for="UserProfileInfo"/>
-            <partial name="~/Views/Shared/Partials/_SideMenuPartial.cshtml" model="@Model.CurrentUserInfo"/>
+            <partial name="~/Views/Shared/Partials/_UserInfoPartial.cshtml" for="UserProfileInfo" />
+            <partial name="~/Views/Shared/Partials/_SideMenuPartial.cshtml" model="@Model.CurrentUserInfo" />
         </div>
         <div class="col-md-6">
             <partial name="~/Views/Shared/Partials/_CreatePostPartial.cshtml" model="@Model" />
@@ -24,6 +28,7 @@
             <div style="margin: 10px;">
                 <a asp-controller="Followers" asp-action="WhoToFollow" class="no-followers-btn" style="font-size: 20px;">Find More</a>
             </div>
+        </div>
     </div>
 </div>
 
@@ -40,27 +45,23 @@
         </script>
     }
 
-    <script src="/Emoji-Picker-For-Textarea-jQuery-Emojiarea/src/js/EmojiArea.js"></script>
-    <script src="/Emoji-Picker-For-Textarea-jQuery-Emojiarea/main.js"></script>
-    <script src="/Emoji-Picker-For-Textarea-jQuery-Emojiarea/jquery.emojiarea.js"></script>
-    
     <script>
         var pageNumber = 0;
         $(window).scroll(function () {
-        
+
             if ($(window).scrollTop() + $(window).height() == $(document).height()) {
                 pageNumber++;
                 var url = "/Account/GetMyPosts?pageNumber=" + pageNumber;
                 $.ajax({
                     type: "GET",
                     url: url,
-                    success: function(posts) {
+                    success: function (posts) {
                         $('#postsHolder').append(posts);
                         $.getScript('../js/post.js');
 
                     }
                 });
-                
+
                 posts = document.querySelectorAll('.single-post');
             }
         });

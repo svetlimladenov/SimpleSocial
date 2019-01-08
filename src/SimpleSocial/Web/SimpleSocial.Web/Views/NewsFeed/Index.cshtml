@@ -3,6 +3,8 @@
     ViewData["Title"] = "NewsFeed";
 }
 
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
 <div class="container">
     <div class="row">
         <div class="col-md-3">
@@ -10,7 +12,20 @@
         </div>
         <div class="col-md-6">
             <partial name="~/Views/Shared/Partials/_CreatePostPartial.cshtml" model="@Model" />
-            @await Component.InvokeAsync("ListOfPosts", new { posts = Model })
+
+            @if (!Model.Posts.Any())
+            {
+                <div class="no-posts">
+                    <h1>What? No Posts?</h1>
+                    <p>Start following people and you’ll see Posts show up here.</p>
+                    <a asp-controller="Followers" asp-action="WhoToFollow" class="no-followers-btn" style="font-weight: 500; padding: 5px;">Find people to follow</a>
+                </div>
+            }
+            else
+            {
+                @await Component.InvokeAsync("ListOfPosts", new { posts = Model })
+            }
+
             <div id="postsHolder">
 
             </div>
@@ -21,20 +36,20 @@
 <script>
     var pageNumber = 0;
     $(window).scroll(function () {
-        
+
         if ($(window).scrollTop() + $(window).height() == $(document).height()) {
             pageNumber++;
             var url = "/Posts/GetPosts?pageNumber=" + pageNumber;
             $.ajax({
                 type: "GET",
                 url: url,
-                success: function(posts) {
+                success: function (posts) {
                     $('#postsHolder').append(posts);
                     $.getScript('../js/post.js');
 
                 }
             });
-            
+
             posts = document.querySelectorAll('.single-post');
         }
     });

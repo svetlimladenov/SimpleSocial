@@ -2,6 +2,7 @@
     opacity: 1;
     position: relative;
     display: inline-block;
+    z-index: 1;
 }
 
 .tooltip .tooltiptext {
@@ -32,4 +33,9 @@
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
+}
+
+.no-posts {
+    background: white;
+    padding: 10px;
 }

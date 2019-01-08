@@ -118,7 +118,7 @@ input[type="file"] {
 }
 
     .emoji-selector li {
-        margin: 5px;
+        padding: 0;
     }
 
 .emoji-group {
@@ -162,7 +162,7 @@ user-info-row {
 }
 
     .upload-picture a:hover {
-        color: white!important;
+        color: white !important;
         background: #fff0;
     }
 
@@ -181,7 +181,7 @@ user-info-row {
     text-decoration: none;
 }*/
 
-    /*.vertical-menu a:hover {
+/*.vertical-menu a:hover {
         cursor: pointer;
         background: #f5f6f7;
         box-shadow: 0 4px 0 -2px #3b5998;
@@ -203,33 +203,33 @@ user-info-row {
     border-bottom: 1px solid #E9EBEE;
 }
 
-.likes-count button {
-    background: none;
-    color: black;
-}
-
-    .likes-count button i {
-        width: 20px;
-        height: 20px;
-        background: #4080ff;
-        color: white;
-        border-radius: 50%;
-        padding-top: 2px;
+    .likes-count button {
+        background: none;
+        color: black;
     }
+
+        .likes-count button i {
+            width: 20px;
+            height: 20px;
+            background: #4080ff;
+            color: white;
+            border-radius: 50%;
+            padding-top: 2px;
+        }
 
 .head-modal {
     display: flex;
     justify-content: space-between;
 }
 
-.head-modal button {
-    background: none;
-    color: black;
-}
+    .head-modal button {
+        background: none;
+        color: black;
+    }
 
-.head-modal h3 {
-    margin-left: 50%;
-}
+    .head-modal h3 {
+        margin-left: 50%;
+    }
 
 .table-profile-pic {
     width: 50px;
@@ -251,7 +251,7 @@ user-info-row {
     text-decoration: none;
 }
 
-    .side-menu-link a{
+    .side-menu-link a {
         align-items: center;
         display: inherit;
         width: 100%;
@@ -259,10 +259,19 @@ user-info-row {
     }
 
 
-    .settings-menu {
-        background: white;
+.settings-menu {
+    background: white;
+}
+
+    .settings-menu li {
+        padding: 10px;
     }
 
-.settings-menu li {
-    padding: 10px;
+        .settings-menu li:hover {
+            box-shadow: 0 4px 0 -2px #3b5998;
+            transition-duration: 1s;
+        }
+
+.nav-tabs > li > a {
+    padding: 0;
 }

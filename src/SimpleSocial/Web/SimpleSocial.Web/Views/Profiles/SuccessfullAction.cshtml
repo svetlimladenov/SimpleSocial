@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "SuccessfullInput";
+}
+
+<div class="row">
+    <div class="text-center">
+        <h1>Congratulations!🎆</h1>
+        <h4>@ViewData["Message"]</h4>
+        <input type="button" value="Back" onclick="window.history.back()" class="btn btn-primary" />
+        <a asp-controller="NewsFeed" asp-action="Index" class="btn btn-primary">Go home</a>
+    </div>
+</div>
+
+
+<div class="row">
+    <iframe width="1196" height="673" src="https://www.youtube.com/embed/SC4xMk98Pdc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+

@@ -2,21 +2,13 @@
 @model SimpleSocia.Services.Models.Account.PostsFeedAndUserInfoViewModel
 
 
-<script src="~/lib/jquery/dist/jquery.js"></script>
-@{
-    var counter = 0;
-}
-
-
 @foreach (var post in Model.Posts)
 {
-
-    counter++;
-    var likeClassName = "like-ajax-" + counter;
-
-    @await Component.InvokeAsync("SinglePost", new {
-    currentUserId = Model.CurrentUserInfo.UserId ,
-    post = post,
-    profilePicture = Model.CurrentUserInfo.ProfilePicture,
-    commentInputModel = Model.CommentInputModel })
+    @await Component.InvokeAsync("SinglePost", new
+    {
+        currentUserId = Model.CurrentUserInfo.UserId,
+        post = post,
+        profilePicture = Model.CurrentUserInfo.ProfilePicture
+    })
 }
+

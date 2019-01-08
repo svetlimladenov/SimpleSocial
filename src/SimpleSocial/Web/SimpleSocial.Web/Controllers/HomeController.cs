@@ -14,7 +14,7 @@ namespace SimpleSocial.Web.Controllers
                 return RedirectToAction("MyProfile","Account");
             }
 
-            return View();
+            return LocalRedirect("/Identity/Account/Login");
         }
 
         [Authorize]

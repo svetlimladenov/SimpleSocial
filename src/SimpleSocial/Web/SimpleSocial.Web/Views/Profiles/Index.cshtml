@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Index";
 }
+<script src="~/lib/jquery/dist/jquery.js"></script>
 
 <div class="container">
     <div class="row">
@@ -32,7 +33,7 @@
                     $('#postsHolder').append(posts);
                     $.getScript('../js/post.js');
                 }
-            });      
+            });
             posts = document.querySelectorAll('.single-post');
         }
     });

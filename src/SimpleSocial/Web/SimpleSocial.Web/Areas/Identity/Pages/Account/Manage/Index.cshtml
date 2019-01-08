@@ -44,7 +44,7 @@
             <div class="form-group">
                 <label asp-for="Input.Country"></label>
                 <div class="form-group">
-                    @Html.DropDownList("Input.Country", new SelectList(Model.Countries), new { @class = "form-control" })
+                    @Html.DropDownList("Input.Country", new SelectList(Model.Countries), "Select One", new { @class = "form-control" })
                 </div>
             </div>
             <div class="form-group">

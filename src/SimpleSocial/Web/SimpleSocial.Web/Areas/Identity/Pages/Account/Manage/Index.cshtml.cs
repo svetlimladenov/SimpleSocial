@@ -36,7 +36,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
             this.userRepository = userRepository;
         }
 
-        public string Username { get; set; }     
+        public string Username { get; set; }
 
         public bool IsEmailConfirmed { get; set; }
 
@@ -148,13 +148,41 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            user.FirstName = Input.FirstName;
-            user.LastName = Input.LastName;
-            user.Gender = Input.Gender;
-            user.Description = Input.Description;
-            user.City = Input.City;
-            user.Country = Input.Country;
-            user.BirthDay = Input.BirthDay;
+            if (!string.IsNullOrEmpty(Input.FirstName))
+            {
+                user.FirstName = Input.FirstName;
+            }
+
+            if (!string.IsNullOrEmpty(Input.LastName))
+            {
+                user.LastName = Input.LastName;
+            }
+
+            if (Input.Gender == null)
+            {
+                user.Gender = Input.Gender;
+            }
+
+            if (!string.IsNullOrEmpty(Input.Description))
+            {
+                user.Description = Input.Description;
+            }
+
+            if (!string.IsNullOrEmpty(Input.City))
+            {
+                user.City = Input.City;
+            }
+
+            if (!string.IsNullOrEmpty(Input.Country))
+            {
+                user.Country = Input.Country;
+            }
+
+            if (Input.BirthDay != null)
+            {
+                user.BirthDay = Input.BirthDay;
+            }
+
 
             userRepository.SaveChangesAsync().GetAwaiter().GetResult();
 
