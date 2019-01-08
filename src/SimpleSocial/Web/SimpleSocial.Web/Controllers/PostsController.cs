@@ -6,6 +6,7 @@ using SimpleSocia.Services.Models.Account;
 using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.PostsServices;
+using SimpleSocial.Services.DataServices.UsersDataServices;
 
 namespace SimpleSocial.Web.Controllers
 {
@@ -13,13 +14,16 @@ namespace SimpleSocial.Web.Controllers
     {
         private readonly IPostServices postServices;
         private readonly UserManager<SimpleSocialUser> userManager;
+        private readonly IUserServices userServices;
 
         public PostsController(
             IPostServices postServices,
-            UserManager<SimpleSocialUser> userManager)
+            UserManager<SimpleSocialUser> userManager,
+            IUserServices userServices)
         {
             this.postServices = postServices;
             this.userManager = userManager;
+            this.userServices = userServices;
         }
 
         [Authorize]
@@ -61,6 +65,20 @@ namespace SimpleSocial.Web.Controllers
         {
             postServices.DeletePost(id, User);
             return RedirectToAction("SuccessfullInput", "Profiles", new { message = "You have successfully deleted this post." });
+        }
+
+        public IActionResult GetPosts(int pageNumber)
+        {
+            var currentUserId = userManager.GetUserId(User);
+            var posts = postServices.GetNewsFeedPosts(currentUserId, pageNumber);
+            var viewModel = new PostsFeedAndUserInfoViewModel()
+            {
+                Posts = posts,
+                CurrentUserInfo = userServices.GetUserInfo(currentUserId, currentUserId),
+                UserProfileInfo = userServices.GetUserInfo(currentUserId, currentUserId),
+            };
+            var partial = this.PartialView("Components/ListOfPosts/Default", viewModel);
+            return partial;
         }
     }
 }

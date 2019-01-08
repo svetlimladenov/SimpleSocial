@@ -11,7 +11,32 @@
         <div class="col-md-6">
             <partial name="~/Views/Shared/Partials/_CreatePostPartial.cshtml" model="@Model" />
             @await Component.InvokeAsync("ListOfPosts", new { posts = Model })
+            <div id="postsHolder">
+
+            </div>
         </div>
     </div>
 </div>
 
+<script>
+    var pageNumber = 0;
+    $(window).scroll(function () {
+        
+        if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+            pageNumber++;
+            var url = "/Posts/GetPosts?pageNumber=" + pageNumber;
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function(posts) {
+                    $('#postsHolder').append(posts);
+                    $.getScript('../js/post.js');
+
+                }
+            });
+            
+            posts = document.querySelectorAll('.single-post');
+        }
+    });
+
+</script>

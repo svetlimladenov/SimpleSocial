@@ -50,13 +50,27 @@ namespace SimpleSocial.Web.Controllers
             var viewModel = new MyProfileViewModel
             {
                 CurrentUserInfo = userServices.GetUserInfo(userId, userId),
-                Posts = postServices.GetUserPosts(userId, userId),
+                Posts = postServices.GetUserPosts(userId, userId,0),
                 IsValidProfilePicture = inputModel.IsValidProfilePicture,
-                UserProfileInfo = userServices.GetUserInfo(userId,userId),
+                UserProfileInfo = userServices.GetUserInfo(userId, userId),
                 WhoToFollow = whoToFollowList
-        };
+            };
 
             return View(viewModel);
+        }
+
+        public IActionResult GetMyPosts(int pageNumber)
+        {
+            var currentUserId = userManager.GetUserId(User);
+            var posts = postServices.GetUserPosts(currentUserId,currentUserId, pageNumber);
+            var viewModel = new PostsFeedAndUserInfoViewModel()
+            {
+                Posts = posts,
+                CurrentUserInfo = userServices.GetUserInfo(currentUserId, currentUserId),
+                UserProfileInfo = userServices.GetUserInfo(currentUserId, currentUserId),
+            };
+            var partial = this.PartialView("Components/ListOfPosts/Default", viewModel);
+            return partial;
         }
 
         [Authorize]
@@ -85,9 +99,9 @@ namespace SimpleSocial.Web.Controllers
 
                 if (!allowedExtensions.Contains(imgExtension))
                 {
-                    return RedirectToAction("ChangeProfilePicture", new MyProfileViewModel{IsValidProfilePicture = false});
+                    return RedirectToAction("ChangeProfilePicture", new MyProfileViewModel { IsValidProfilePicture = false });
                 }
-                myProfileServices.UploadProfilePictureCloudinary(this.User,inputModel);
+                myProfileServices.UploadProfilePictureCloudinary(this.User, inputModel);
             }
 
             return RedirectToAction("MyProfile");

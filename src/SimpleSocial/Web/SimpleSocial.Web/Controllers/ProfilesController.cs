@@ -46,7 +46,7 @@ namespace SimpleSocial.Web.Controllers
             var viewModel = new PostsFeedAndUserInfoViewModel()
             {
                 CurrentUserInfo = userServices.GetUserInfo(currentUserId, currentUserId),
-                Posts = postServices.GetUserPosts(userId, currentUserId),
+                Posts = postServices.GetUserPosts(userId, currentUserId,0),
                 UserProfileInfo = userServices.GetUserInfo(userId, currentUserId),
             };
 
@@ -59,6 +59,20 @@ namespace SimpleSocial.Web.Controllers
             }
 
             return this.View(viewModel);
+        }
+
+        public IActionResult GetUserPosts(int pageNumber, string userId)
+        {
+            var currentUserId = userManager.GetUserId(User);
+            var posts = postServices.GetUserPosts(userId, currentUserId, pageNumber);
+            var viewModel = new PostsFeedAndUserInfoViewModel()
+            {
+                Posts = posts,
+                CurrentUserInfo = userServices.GetUserInfo(currentUserId, currentUserId),
+                UserProfileInfo = userServices.GetUserInfo(userId, currentUserId),
+            };
+            var partial = this.PartialView("Components/ListOfPosts/Default", viewModel);
+            return partial;
         }
 
         [Authorize]

@@ -11,13 +11,13 @@ namespace SimpleSocial.Services.DataServices.PostsServices
     {
         void CreatePost(MyProfileViewModel viewModel);
 
-        ICollection<PostViewModel> GetUserPosts(string userId, string currrentUserId);
+        ICollection<PostViewModel> GetUserPosts(string userId, string currrentUserId, int pageNumber);
 
         PostViewModel GetPostById(string id);
 
         SinglePostViewComponentModel GetSinglePostViewComponentModel(string id, string visitorId);
 
-        ICollection<PostViewModel> GetNewsFeedPosts(string currrentUserId);
+        ICollection<PostViewModel> GetNewsFeedPosts(string currrentUserId, int pageNumber);
 
         SimpleSocialUser GetPostAuthor(string postId);
 

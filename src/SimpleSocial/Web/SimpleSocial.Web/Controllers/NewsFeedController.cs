@@ -32,7 +32,7 @@ namespace SimpleSocial.Web.Controllers
         public IActionResult Index()
         {
             var currentUserId = userManager.GetUserId(User);
-            var posts = postServices.GetNewsFeedPosts(currentUserId);
+            var posts = postServices.GetNewsFeedPosts(currentUserId,0);
             var viewModel = new PostsFeedAndUserInfoViewModel()
             {
                 Posts = posts,

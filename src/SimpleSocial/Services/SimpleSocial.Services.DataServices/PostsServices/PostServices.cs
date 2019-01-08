@@ -60,7 +60,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             return this.postRepository.All().Count();
         }
 
-        public ICollection<PostViewModel> GetUserPosts(string userId, string currrentUserId)
+        public ICollection<PostViewModel> GetUserPosts(string userId, string currrentUserId, int pageNumber)
         {
             var posts = this.postRepository.All().Include(p => p.Likes).ThenInclude(l => l.User).Include(p => p.User).ThenInclude(u => u.ProfilePicture).Include(p => p.Comments).ThenInclude(p => p.Author).ThenInclude(a => a.ProfilePicture).Select(x => Mapper.Map<PostViewModel>(x)).Where(x => x.UserId == userId).OrderByDescending(x => x.CreatedOn).ToList();
 
@@ -77,6 +77,8 @@ namespace SimpleSocial.Services.DataServices.PostsServices
                 }
                 post.Likes = likes;
             }
+
+            posts = posts.Skip(pageNumber * 20).Take(20).ToList();
 
             return posts;
         }
@@ -142,7 +144,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
         }
 
-        public ICollection<PostViewModel> GetNewsFeedPosts(string currrentUserId)
+        public ICollection<PostViewModel> GetNewsFeedPosts(string currrentUserId, int pageNumber)
         {
             var posts = new List<PostViewModel>();
             var followings = this.userFollowersRepository.All().Where(x => x.FollowerId == currrentUserId);
@@ -158,6 +160,8 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             posts = posts.OrderByDescending(x => x.CreatedOn).ToList();
 
             posts = CheckIsPostsAreLiked(currrentUserId, posts).ToList();
+
+            posts = posts.Skip(pageNumber * 20).Take(20).ToList();
 
             return posts;
         }
