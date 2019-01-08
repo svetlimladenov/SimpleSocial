@@ -17,7 +17,6 @@
     @await Component.InvokeAsync("SinglePost", new {
     currentUserId = Model.CurrentUserInfo.UserId ,
     post = post,
-    likeClassName = likeClassName,
     profilePicture = Model.CurrentUserInfo.ProfilePicture,
     commentInputModel = Model.CommentInputModel })
 }

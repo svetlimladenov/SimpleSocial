@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -8,6 +9,7 @@ using SimpleSocial.Data.Models;
 
 namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
 {
+    [Authorize("Admin")]
     public class Disable2faModel : PageModel
     {
         private readonly UserManager<SimpleSocialUser> _userManager;
@@ -24,6 +26,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
+        [Authorize("Admin")]
         public async Task<IActionResult> OnGet()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -40,6 +43,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+        [Authorize("Admin")]
         public async Task<IActionResult> OnPostAsync()
         {
             var user = await _userManager.GetUserAsync(User);

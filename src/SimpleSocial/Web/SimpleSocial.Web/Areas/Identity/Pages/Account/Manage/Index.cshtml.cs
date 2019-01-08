@@ -154,12 +154,13 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
             user.Description = Input.Description;
             user.City = Input.City;
             user.Country = Input.Country;
+            user.BirthDay = Input.BirthDay;
 
             userRepository.SaveChangesAsync().GetAwaiter().GetResult();
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
-            return RedirectToAction("SuccessfullInput", "Profiles");
+            return RedirectToAction("SuccessfullAction", "Profiles");
         }
 
         public async Task<IActionResult> OnPostSendVerificationEmailAsync()

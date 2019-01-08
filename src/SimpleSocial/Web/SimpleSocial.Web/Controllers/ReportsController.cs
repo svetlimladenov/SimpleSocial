@@ -82,7 +82,7 @@ namespace SimpleSocial.Web.Controllers
         public IActionResult DeleteReport(string id)
         {
             this.reportsService.DeleteReport(id,User);
-            return RedirectToAction("SuccessfullInput", "Profiles", new { message = "You have successfully deleted this report." });
+            return RedirectToAction("SuccessfullAction", "Profiles", new { message = "You have successfully deleted this report." });
         }
     }
 }

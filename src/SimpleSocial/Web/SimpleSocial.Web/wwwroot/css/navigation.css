@@ -121,11 +121,11 @@ ul {
 }
 
 .single-post .user {
-    display: flex;
+    display: block;
     align-items: center;
     position: relative;
+    height: 50px;
 }
-
     .single-post .user:after {
         content: attr(data-attr);
         margin: 10px;
@@ -153,10 +153,17 @@ ul {
     }
 
 .single-comment {
-    background: #d0e0ec;
-    padding: 15px;
+    display: flex;
+    align-items: center;
+    background: #f2f3f5;
+    padding: 5px;
     margin: 5px 0;
     border-radius: 25px;
+}
+
+.comment-posted-on {
+    margin-left: -10px;
+    font-size: 0.8em;
 }
 
 a {
@@ -192,6 +199,18 @@ a {
 
 .write-comment {
     border-top: 1px solid #E9EBEE;
+}
+
+.comment-content {
+    width: 70%;
+    margin-left: 10px;
+    font-weight: 200;
+    word-break: break-all;
+}
+
+.comment-content p {
+    padding: 0;
+    margin: 0;
 }
 
 .action-buttons:hover {

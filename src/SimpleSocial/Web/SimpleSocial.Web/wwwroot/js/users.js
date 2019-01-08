@@ -26,6 +26,6 @@ usersToFollow.forEach(user => {
             });
         });
     } else {
-        console.log('kur');
+        
     } 
 });

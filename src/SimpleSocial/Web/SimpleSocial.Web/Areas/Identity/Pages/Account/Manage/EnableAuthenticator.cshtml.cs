@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using SimpleSocial.Data.Models;
 namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
 {
+    [Authorize("Admin")]
     public class EnableAuthenticatorModel : PageModel
     {
         private readonly UserManager<SimpleSocialUser> _userManager;

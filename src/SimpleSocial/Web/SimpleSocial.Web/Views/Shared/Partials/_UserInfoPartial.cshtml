@@ -6,11 +6,30 @@
         {
 
             <div class="show-link">
-                <a asp-action="ChangeProfilePicture" asp-controller="Account" class="upload-picture btn">Upload Profile Picture</a>
+                <a asp-action="ChangeProfilePicture" asp-controller="Account" style="color:white" class="upload-picture btn">Upload Profile Picture</a>
             </div>
         }
     </div>
     <h2>@Model.UserName</h2>
+    <div class="user-info-details">
+        @if (Model.Description != null)
+        {
+            <div><b>Bio</b></div>
+            <div>@Model.Description</div>
+        }
+        @if (Model.BirthDay != null)
+        {
+            <div><b>Age</b></div><div>@Model.Age</div>
+            <div><b><i class="fas fa-birthday-cake"></i> Birthday</b></div><div>@Model.BirthDay.Value.ToString("d")</div>
+        }
+        @if (!string.IsNullOrEmpty(Model.City) || !string.IsNullOrEmpty(Model.Country))
+        {
+            <div><b><i class="fas fa-map-marker-alt"></i> Location</b></div><div>@Model.City @Model.Country</div>
+        }
+
+
+    </div>
+
     @if (Model.UserName != User.Identity.Name)
     {
         <div class="follower" style="display: block;">

@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using SimpleSocia.Services.Models;
 using SimpleSocia.Services.Models.Users;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
@@ -43,34 +46,24 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
 
         public UserInfoViewModel GetUserInfo(string userId, string currentUserId)
         {
-            var user = this.userRepository.All().FirstOrDefault(x => x.Id == userId);
+            var user = this.userRepository.All().Include(x => x.ProfilePicture).FirstOrDefault(x => x.Id == userId);
             if (user == null)
             {
                 return null;
             }
+
+            var userInfo = Mapper.Map<SimpleSocialUser, UserInfoViewModel>(user);
+
             //is user A followed by user B
             var isBeingFollowedByCurrentUser = this.followersServices.IsBeingFollowedBy(userId, currentUserId) || userId == currentUserId;
             var userFollowers = this.userFollowersRepository.All().Count(x => x.UserId == user.Id);
             var userFollowings = this.userFollowersRepository.All().Count(x => x.FollowerId == user.Id);
-            var userInfo = new UserInfoViewModel
-            {
-                UserId = user.Id,
-                UserName = user.UserName,
-                ProfilePicture = this.GetUserProfilePicture(userId),
-                WallId = user.WallId,
-                IsBeingFollowedByCurrentUser = isBeingFollowedByCurrentUser,
-                FollowersCount = userFollowers,
-                FollowingsCount = userFollowings,
-                Description = user.Description
-            };
 
+            userInfo.Age = user.BirthDay.GetAge();
+            userInfo.IsBeingFollowedByCurrentUser = isBeingFollowedByCurrentUser;
+            userInfo.FollowersCount = userFollowers;
+            userInfo.FollowingsCount = userFollowings;
             return userInfo;
-        }
-
-        public ProfilePicture GetUserProfilePicture(string userId)
-        {
-            var profilePicture = profilePicturesRepository.All().FirstOrDefault(x => x.UserId == userId);
-            return profilePicture;
         }
     }
 }

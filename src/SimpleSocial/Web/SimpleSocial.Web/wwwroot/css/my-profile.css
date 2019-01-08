@@ -147,11 +147,17 @@ input[type="file"] {
     background: white;
 }
 
+.user-info-details {
+    border-top: 1px solid #E9EBEE;
+}
+
+user-info-row {
+    display: flex;
+    justify-content: space-between;
+}
+
 .upload-picture {
-    margin-top: -250px;
-    margin-right: 10px;
     color: white;
-    
     background-color: #0a0000bd;
 }
 
@@ -245,3 +251,18 @@ input[type="file"] {
     text-decoration: none;
 }
 
+    .side-menu-link a{
+        align-items: center;
+        display: inherit;
+        width: 100%;
+        font-weight: bold;
+    }
+
+
+    .settings-menu {
+        background: white;
+    }
+
+.settings-menu li {
+    padding: 10px;
+}

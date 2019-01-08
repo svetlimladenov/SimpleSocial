@@ -29,7 +29,7 @@
         <p>@Model.Post.Content</p>
     </div>
     <div class="likes-count">
-        <button class="show-likes"><i class="fas fa-thumbs-up"></i> @Model.Post.LikesCount likes</button>
+        <button class="show-likes"><i class="fas fa-thumbs-up"></i> <span class="post-likes-number">@Model.Post.LikesCount</span> likes</button>
     </div>
     <div class="likes">
         @{
@@ -51,7 +51,7 @@
             <input asp-for="CommentInputModel.CommentText" required placeholder="Write a comment..." />
             <input asp-for="CommentInputModel.AuthorId" required value="@Model.PostVisitorId" hidden="hidden" aria-hidden="True" />
             <input asp-for="CommentInputModel.PostId" required value="@Model.Post.Id" hidden="hidden" aria-hidden="True" />
-            <button type="button" hidden>Button 1</button>
+            <button type="submit" hidden>Button</button>
             <input type="submit" name="go" value="Submit" hidden />
         </form>
     </div>
@@ -59,9 +59,12 @@
     {
         <div class="comments">
             <div class="single-comment">
-                <div class="user" data-attr="@comment.PostedOn.ToString("d")">
-                    <div class="profile-picture" style="background-image: url(@comment.Author.ProfilePicture.FileName)"></div>
+                <div class="user">
+                    <div class="profile-picture" style="background-image: url(@comment.Author.ProfilePicture.FileName); width: 32px; height: 32px;"></div>
                     <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@comment.AuthorId"><strong>@comment.Author.UserName</strong></a></div>
+                </div>
+                <div class="comment-posted-on">
+                    @comment.PostedOn.ToString("d")
                 </div>
                 <div class="comment-content">
                     <p>@comment.CommentText</p>

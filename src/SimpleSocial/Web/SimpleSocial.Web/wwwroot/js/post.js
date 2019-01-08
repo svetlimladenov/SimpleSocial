@@ -35,42 +35,13 @@ posts.forEach(post => {
 
 modal.querySelector('button.close-likes').onclick = toggleModal;
 
-//posts.forEach(post => {
-//    post.querySelector('.like-btn').addEventListener('click', () => {
-//        var likeBtn = post.querySelector('button.like-btn');
-//        var dataLike = likeBtn.dataset.like.toLowerCase();
-//        var postId = likeBtn.dataset.postid;
-
-//        jQuery.ajax({
-//            type: "POST",
-//            url: "/Likes/GetAction",
-//            data: { isLiked: dataLike, postId: postId},
-//            success: function () {
-//                if (dataLike === 'true') {
-//                    likeBtn.dataset.like = 'false';
-//                } else {
-//                    likeBtn.dataset.like = 'true';
-//                }
-//            },
-//            complete: function () {
-//                if (dataLike === 'true') {
-//                    likeBtn.innerHTML = "";
-//                    likeBtn.innerHTML = "<i class=\"far fa-thumbs-up\"></i>Like";
-//                } else {
-//                    likeBtn.innerHTML = "";
-//                    likeBtn.innerHTML = "<i class=\"far fa-thumbs-down\"></i>Unlike";
-//                }
-//            }
-//        });
-//    });
-//});
-
 posts.forEach(post => {
+    var postLikes = post.querySelector('.post-likes-number');
+    var postLikesNumber = parseInt(postLikes.innerHTML);
     post.querySelector('.like-btn').onclick = function () {
         var likeBtn = post.querySelector('button.like-btn');
         var dataLike = likeBtn.dataset.like.toLowerCase();
         var postId = likeBtn.dataset.postid;
-        console.log('clicked');
         jQuery.ajax({
             type: "POST",
             url: "/Likes/GetAction",
@@ -86,9 +57,13 @@ posts.forEach(post => {
                 if (dataLike === 'true') {
                     likeBtn.innerHTML = "";
                     likeBtn.innerHTML = "<i class=\"far fa-thumbs-up\"></i>Like";
+                    postLikes.innerHTML = postLikesNumber - 1;
+                    postLikesNumber = parseInt(postLikes.innerHTML);
                 } else {
                     likeBtn.innerHTML = "";
                     likeBtn.innerHTML = "<i class=\"far fa-thumbs-down\"></i>Unlike";
+                    postLikes.innerHTML = postLikesNumber + 1;
+                    postLikesNumber = parseInt(postLikes.innerHTML);
                 }
             }
         });
