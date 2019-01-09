@@ -478,3 +478,30 @@ a {
 .privacy-link:hover {
     text-decoration: black underline;
 }
+
+.form-holder {
+    width: 100%;
+    border-radius: 10px;
+    background: #81CBF8;
+    padding: 20px;
+    box-shadow: 0 2px 4px 1px rgba(102, 102, 102, 0.2); 
+}
+
+.login-btn{
+    border: none;
+    border-radius:10px;
+    color:white;
+    background:#57b845;
+    font-size:1.1em;
+    width:50%;
+}
+
+.input-login {
+    margin: 0 auto;
+    width: 75%;
+    border-radius: 15px;
+}
+
+    .input-login::-moz-placeholder {
+        color: grey;
+    }

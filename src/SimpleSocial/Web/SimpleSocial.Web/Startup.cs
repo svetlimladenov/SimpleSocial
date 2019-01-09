@@ -98,6 +98,7 @@ namespace SimpleSocial.Web
             services.AddScoped<IMyProfileServices, MyProfileServices>();
             services.AddScoped<IPostServices, PostServices>();
             services.AddScoped<ICommentsServices, CommentsServices>();
+            services.AddScoped<IProfileDetailsServices, ProfileDetailsServices>();
             services.AddScoped<IUserServices, UserServices>();
             services.AddTransient<ILikesServices, LikesServices>();
             services.AddScoped<IFollowersServices, FollowersServices>();

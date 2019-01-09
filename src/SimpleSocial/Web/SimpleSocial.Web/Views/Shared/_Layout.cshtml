@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="~/css/administration.css" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -73,9 +74,12 @@
             @RenderBody()
             <hr />
             <footer>
-                <p>&copy; @DateTime.Now.Year - SimpleSocial</p>
-                <p><a asp-controller="Home" asp-action="Privacy" class="privacy-link">Privacy policy</a></p>
-                <p>All rights reserved</p>
+                <p>
+                    &copy; @DateTime.Now.Year - SimpleSocial
+                    <a asp-controller="Home" asp-action="Privacy" style="margin-left: 10px;" class="privacy-link">Privacy policy</a>
+                    <span style="margin-left: 10px;">All rights reserved</span>
+
+                </p>
             </footer>
         </div>
     </div>
