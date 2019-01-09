@@ -13,6 +13,10 @@ namespace SimpleSocia.Services.Models.Users
 
         public string UserName { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
         public string UserId { get; set; }
 
         public string WallId { get; set; }
@@ -30,6 +34,8 @@ namespace SimpleSocia.Services.Models.Users
         public string Country { get; set; }
 
         public DateTime? BirthDay { get; set; }
+
+        public DateTime CreatedOn { get; set; }
 
         public int Age { get; set; }
 

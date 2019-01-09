@@ -127,23 +127,6 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             return viewModel;
         }
 
-        public bool UserCanSeePost(string id, ClaimsPrincipal user)
-        {
-            //TODO: change logic here
-            var currentUser = this.userManager.GetUserAsync(user).GetAwaiter().GetResult();
-            var post = this.postRepository.All().Include(x => x.User).FirstOrDefault(x => x.Id == id);
-
-            var postAuthor = post.User;
-
-            if (postAuthor.Id == currentUser.Id)
-            {
-                return true;
-            }
-
-            return true;
-
-        }
-
         public ICollection<PostViewModel> GetNewsFeedPosts(string currrentUserId, int pageNumber)
         {
             var posts = new List<PostViewModel>();
@@ -169,7 +152,8 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         public SimpleSocialUser GetPostAuthor(string postId)
         {
             var post = this.GetPostById(postId);
-            return post?.User;
+            var author = this.userRepository.All().FirstOrDefault(x => x.Id == post.UserId);
+            return author;
         }
 
         public void DeletePost(string id, ClaimsPrincipal user)
