@@ -466,3 +466,15 @@ a {
 
 .modal-show { display: block; }
 
+.side-partial {
+    margin-top: 10px;
+    background: white;
+}
+
+    .side-partial p, .side-partial a {
+        color: #657786;
+    }
+
+.privacy-link:hover {
+    text-decoration: black underline;
+}

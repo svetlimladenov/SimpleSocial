@@ -22,11 +22,16 @@
 
             </div>
         </div>
-        <div class="col-md-3 who-to-follow-partial text-center" id="test">
-            <h2>Who to follow</h2>
-            @await Component.InvokeAsync("ListOfUsers", new { viewModel = Model.WhoToFollow })
-            <div style="margin: 10px;">
-                <a asp-controller="Followers" asp-action="WhoToFollow" class="no-followers-btn" style="font-size: 20px;">Find More</a>
+        <div class="col-md-3 text-center" id="test">
+            <div class="row" style="background: white">
+                <h2>Who to follow</h2>
+                @await Component.InvokeAsync("ListOfUsers", new { viewModel = Model.WhoToFollow })
+                <div style="margin: 10px;">
+                    <a asp-controller="Followers" asp-action="WhoToFollow" class="no-followers-btn" style="font-size: 20px;">Find More</a>
+                </div>
+            </div>
+            <div class="row" style="background: white; margin-top: 10px;">
+                <partial name="~/Views/Shared/Partials/_SideFooter.cshtml" />
             </div>
         </div>
     </div>

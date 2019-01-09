@@ -91,8 +91,6 @@ namespace SimpleSocial.Web.Controllers
             {
                 var indexOfImgExtensionDot = inputModel.UploadImage.FileName.IndexOf('.');
 
-                //TODO: Move the validation in attribute
-
                 var imgExtension = inputModel.UploadImage.FileName.Substring(indexOfImgExtensionDot).ToLower();
 
                 string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };

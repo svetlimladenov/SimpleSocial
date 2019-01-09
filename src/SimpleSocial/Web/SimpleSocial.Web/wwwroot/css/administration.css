@@ -86,3 +86,14 @@ table {
         justify-content: space-evenly;
         margin-bottom: 10px;
     }
+
+
+.privacy-polici-holder {
+    padding: 10px;
+    background: white
+}
+
+.privacy-polici-holder div {
+    margin-top: 20px;
+    font-size: 1.2em;
+}
