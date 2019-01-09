@@ -1,8 +1,9 @@
 ﻿var usersToFollow = document.querySelectorAll('.follower');
 
 usersToFollow.forEach(user => {
+    $.getScript('../js/post.js');
     if (user.querySelector('button')) {
-        user.querySelector('button').addEventListener('click', () => {
+        user.querySelector('button').onclick = function() {
             var button = user.querySelector('button');
             var btnText = button.innerHTML.toLowerCase();
             var userId = button.dataset.userid;

@@ -11,6 +11,7 @@ using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.Mapping;
+using X.PagedList;
 
 namespace SimpleSocial.Web.Controllers
 {
@@ -24,10 +25,14 @@ namespace SimpleSocial.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult WhoToFollow()
+        public IActionResult WhoToFollow(int? pageNumbar)
         {
             var viewModel = new UsersListViewModel() {NoUsersWord = "more users left to follow."};
-            viewModel.Users = followersServices.GetUsersToFollow(User);
+            var number = pageNumbar ?? 1;
+            ViewBag.PageNum = number;
+            var usersToFollow = followersServices.GetUsersToFollow(User);
+
+            viewModel.Users = usersToFollow.ToPagedList(number, 3);
             return View(viewModel);
         }
 
@@ -52,16 +57,25 @@ namespace SimpleSocial.Web.Controllers
         }
         
         [Authorize]
-        public IActionResult Followers()
+        public IActionResult Followers(int? pageNumbar)
         {
-            var viewModel = new UsersListViewModel {Users = followersServices.GetFollowers(User), NoUsersWord = "followers"};
+            var number = pageNumbar ?? 1;
+            var followers = followersServices.GetFollowers(User);
+            ViewBag.PageNum = number;    
+            var viewModel = new UsersListViewModel {Users = followers.ToPagedList(number,10), NoUsersWord = "followers"};
+            ViewData["FollowersCount"] = followers.Count;
             return View(viewModel);
         }
 
         [Authorize]
-        public IActionResult Following()
+        public IActionResult Following(int? pageNumbar)
         {
-            var viewModel = new UsersListViewModel{ Users = followersServices.GetFollowings(User) , NoUsersWord = "followings"};
+            var number = pageNumbar ?? 1;
+            var followings = followersServices.GetFollowings(User);
+            ViewBag.PageNum = number;
+            var viewModel = new UsersListViewModel{ Users = followings.ToPagedList(number,10) , NoUsersWord = "followings"};
+            ViewData["FollowingsCount"] = followings.Count;
+
             return View(viewModel);
         }
     }

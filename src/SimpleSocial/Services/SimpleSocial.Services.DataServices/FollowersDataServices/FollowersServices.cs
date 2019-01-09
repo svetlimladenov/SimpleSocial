@@ -28,7 +28,7 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
             this.userFollowerRepository = userFollowerRepository;
         }
 
-        public ICollection<SimpleUserViewModel> GetUsersToFollow(ClaimsPrincipal user)
+        public IEnumerable<SimpleUserViewModel> GetUsersToFollow(ClaimsPrincipal user)
         {
             var currentUser = userManager.GetUserAsync(user).GetAwaiter().GetResult();
             var allUsers = this.userRepository.All().Where(x => x.Id != currentUser.Id).To<SimpleUserViewModel>().Take(20).ToList();

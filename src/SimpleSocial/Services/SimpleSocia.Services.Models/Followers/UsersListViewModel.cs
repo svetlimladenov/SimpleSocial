@@ -6,7 +6,7 @@ namespace SimpleSocia.Services.Models.Followers
 {
     public class UsersListViewModel
     {
-        public ICollection<SimpleUserViewModel> Users { get; set; } = new HashSet<SimpleUserViewModel>();
+        public IEnumerable<SimpleUserViewModel> Users { get; set; } = new HashSet<SimpleUserViewModel>();
 
         public string NoUsersWord { get; set; }
 

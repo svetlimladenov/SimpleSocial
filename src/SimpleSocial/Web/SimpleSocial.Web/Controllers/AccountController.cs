@@ -44,7 +44,7 @@ namespace SimpleSocial.Web.Controllers
             var userId = this.userManager.GetUserId(User);
             var whoToFollowList = new UsersListViewModel()
             {
-                Users = followersServices.GetUsersToFollow(User),
+                Users = followersServices.GetUsersToFollow(User).ToList(),
                 UsersCount = 3,
             };
             var viewModel = new MyProfileViewModel

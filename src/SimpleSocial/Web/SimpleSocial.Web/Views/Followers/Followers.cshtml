@@ -3,11 +3,15 @@
 @{
     ViewData["Title"] = "Followers";
 }
-
+@using X.PagedList.Mvc;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core
 <div class="row">
     <div class="col-md-6 col-md-offset-3 who-to-follow-wrapper">
-        <h2 class="text-center">Followers @Model.Users.Count</h2>
+        <h2 class="text-center">Followers - @ViewData["FollowersCount"]</h2>
 
         @await Component.InvokeAsync("ListOfUsers", new { viewModel = Model, })
     </div>
 </div>
+
+@Html.PagedListPager((IPagedList)Model.Users, pageNumbar => Url.Action("Followers", new { pageNumbar }))

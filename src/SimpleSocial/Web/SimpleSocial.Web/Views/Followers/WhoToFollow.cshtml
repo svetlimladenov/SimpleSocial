@@ -2,12 +2,18 @@
 @{
     ViewData["Title"] = "WhoToFollow";
 }
+@using X.PagedList.Mvc;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core
+
 <div class="row">
     <div class="col-md-3">Hashtags...</div>
     <div class="col-md-6 who-to-follow-wrapper">
         <h2 class="text-center">Who to Follow</h2>
 
-        @await Component.InvokeAsync("ListOfUsers", new { viewModel = Model})
+        @await Component.InvokeAsync("ListOfUsers", new { viewModel = Model })
 
     </div>
 </div>
+
+@Html.PagedListPager((IPagedList)Model.Users, pageNumbar => Url.Action("WhoToFollow", new { pageNumbar }))

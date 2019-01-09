@@ -8,7 +8,7 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
 {
     public interface IFollowersServices
     {
-        ICollection<SimpleUserViewModel> GetUsersToFollow(ClaimsPrincipal user);
+        IEnumerable<SimpleUserViewModel> GetUsersToFollow(ClaimsPrincipal user);
 
         void Follow(string userToFollowId, ClaimsPrincipal user);
 
