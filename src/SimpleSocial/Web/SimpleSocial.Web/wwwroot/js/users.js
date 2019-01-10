@@ -1,9 +1,11 @@
 ﻿var usersToFollow = document.querySelectorAll('.follower');
-
+console.log(usersToFollow);
 usersToFollow.forEach(user => {
-    $.getScript('../js/post.js');
     if (user.querySelector('button')) {
-        user.querySelector('button').onclick = function() {
+        console.log('aa');
+        $(user.querySelector('button')).on('click', function (e) {
+            console.log('clicked');
+            console.log(e);
             var button = user.querySelector('button');
             var btnText = button.innerHTML.toLowerCase();
             var userId = button.dataset.userid;
@@ -27,6 +29,6 @@ usersToFollow.forEach(user => {
             });
         });
     } else {
-        
-    } 
+        console.log('error');
+    }
 });

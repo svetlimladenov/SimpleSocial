@@ -67,6 +67,10 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             foreach (var post in posts)
             {
                 var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).Select(x => x.User).To<SimpleUserViewModel>().ToList();
+                foreach (var liker in likes)
+                {
+                    liker.IsFollowingCurrentUser = this.IsBeingFollowedBy(liker.Id, currrentUserId);
+                }
                 if (likes.FirstOrDefault(x => x.Id == currrentUserId) == null)
                 {
                     post.IsLiked = false;
@@ -109,6 +113,10 @@ namespace SimpleSocial.Services.DataServices.PostsServices
                 return null;
             }
             var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).Select(x => x.User).To<SimpleUserViewModel>().ToList();
+            foreach (var liker in likes)
+            {
+                liker.IsFollowingCurrentUser = this.IsBeingFollowedBy(liker.Id, visitorId);
+            }
             post.Likes = likes;
             var postAuthorId = post.User.Id;
             if (post.Likes.FirstOrDefault(x => x.Id == visitorId) == null)
@@ -135,14 +143,30 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             {
                 var userPosts = this.postRepository.All().Include(x => x.Likes).ThenInclude(x => x.User).Include(x => x.Comments).ThenInclude(x => x.Author).ThenInclude(a => a.ProfilePicture).Include(x => x.User).ThenInclude(u => u.ProfilePicture).Where(x => x.UserId == user.UserId).Select(x => Mapper.Map<Post, PostViewModel>(x));
                 foreach (var post in userPosts)
-                {
+                {                   
                     posts.Add(post);
                 }
             }
 
             posts = posts.OrderByDescending(x => x.CreatedOn).ToList();
 
-            posts = CheckIsPostsAreLiked(currrentUserId, posts).ToList();
+            foreach (var post in posts)
+            {
+                var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).Select(x => x.User).To<SimpleUserViewModel>().ToList();
+                foreach (var liker in likes)
+                {
+                    liker.IsFollowingCurrentUser = this.IsBeingFollowedBy(liker.Id, currrentUserId);
+                }
+                if (likes.FirstOrDefault(x => x.Id == currrentUserId) == null)
+                {
+                    post.IsLiked = false;
+                }
+                else
+                {
+                    post.IsLiked = true;
+                }
+                post.Likes = likes;
+            }
 
             posts = posts.Skip(pageNumber * 20).Take(20).ToList();
 
@@ -188,10 +212,9 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
+
         }
 
         private ICollection<PostViewModel> CheckIsPostsAreLiked(string currrentUserId, List<PostViewModel> posts)
@@ -211,6 +234,13 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             }
 
             return posts;
+        }
+
+        public bool IsBeingFollowedBy(string userA, string userB)
+        {
+            var userAid = userA;
+            var userBid = userB;
+            return this.userFollowersRepository.All().FirstOrDefault(x => x.UserId == userAid && x.FollowerId == userBid) != null;
         }
     }
 }
