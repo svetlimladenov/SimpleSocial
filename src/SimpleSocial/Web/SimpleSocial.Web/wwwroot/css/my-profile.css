@@ -264,6 +264,9 @@ user-info-row {
 }
 
     .settings-menu li {
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+        margin-top: 5px;
         padding: 10px;
     }
 

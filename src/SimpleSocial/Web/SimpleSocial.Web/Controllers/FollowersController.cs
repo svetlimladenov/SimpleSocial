@@ -32,7 +32,7 @@ namespace SimpleSocial.Web.Controllers
             ViewBag.PageNum = number;
             var usersToFollow = followersServices.GetUsersToFollow(User);
 
-            viewModel.Users = usersToFollow.ToPagedList(number, 3);
+            viewModel.Users = usersToFollow.ToPagedList(number, 12);
             return View(viewModel);
         }
 
@@ -62,7 +62,7 @@ namespace SimpleSocial.Web.Controllers
             var number = pageNumbar ?? 1;
             var followers = followersServices.GetFollowers(User);
             ViewBag.PageNum = number;    
-            var viewModel = new UsersListViewModel {Users = followers.ToPagedList(number,10), NoUsersWord = "followers"};
+            var viewModel = new UsersListViewModel {Users = followers.ToPagedList(number,12), NoUsersWord = "followers"};
             ViewData["FollowersCount"] = followers.Count;
             return View(viewModel);
         }
@@ -73,7 +73,7 @@ namespace SimpleSocial.Web.Controllers
             var number = pageNumbar ?? 1;
             var followings = followersServices.GetFollowings(User);
             ViewBag.PageNum = number;
-            var viewModel = new UsersListViewModel{ Users = followings.ToPagedList(number,10) , NoUsersWord = "followings"};
+            var viewModel = new UsersListViewModel{ Users = followings.ToPagedList(number,12) , NoUsersWord = "followings"};
             ViewData["FollowingsCount"] = followings.Count;
 
             return View(viewModel);

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,31 +35,48 @@ namespace SandBox
 
         private static void SandboxCode(IServiceProvider serviceProvider)
         {
-            var userRepository = serviceProvider.GetService<IRepository<SimpleSocialUser>>();
-            var contents = new List<string>()
+            var userRepo = serviceProvider.GetService<IRepository<SimpleSocialUser>>();
+            var postRepo = serviceProvider.GetService<IRepository<Post>>();
+
+            var postContent = new List<string>()
             {
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec efficitur leo. Etiam egestas, erat et ornare consectetur, ligula arcu tincidunt elit, non eleifend diam augue sed arcu. Vestibulum laoreet ultrices purus, id lacinia ligula accumsan non. Fusce tempor eget lorem hendrerit vehicula. Aliquam malesuada purus ac sodales pulvinar. Quisque eleifend odio id ipsum dictum, quis tristique enim maximus. Sed a pretium odio. Vestibulum ante ipsum primis in faucibus orci luctus et ultrice",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "Kur",
-                "Chestita nova godina",
-                "Oro kurwi",
+                "Happy New Year !!!",
+                "Merry Christmas !!!",
+                "Hi there",
+                "Good Morning",
+                "Good Morning, Friends",
+                "Good Afternoon",
+                "Good Evening",
+                "Night Out",
+                "I miss her",
+                "Do you miss me",
+                "I love music",
+                "I LOVE STACKOVERFLOW",
+                "I LOVE STACKOVERFLOW",
+                "I LOVE STACKOVERFLOW",
+                "I love dogs",
+                "Supp bitches",
+                "Yesterday was one of the best days in my entire life",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac diam vel justo consectetur ultrices. Nulla sed sollicitudin nunc, ac porta leo. Mauris dapibus quis est in porttitor. In vestibulum pretium eros sit amet porttitor. Phasellus quis fermentum libero. Curabitur egestas risus imperdiet molestie tincidunt. Suspendisse potenti. Donec suscipit imperdiet lacinia. Donec placerat dictum efficitur.",
+                "Vivamus non justo quis dolor iaculis vehicula nec sed diam. Nam placerat nibh eu luctus mattis. Vestibulum pulvinar purus sed scelerisque blandit. Nullam nec mauris ex. Vestibulum mauris lorem,"
             };
-            for (int i = 0; i < 10; i++)
+            var rnd = new Random();
+            foreach (var user in userRepo.All().Include(x => x.Wall))
             {
-                foreach (var user in userRepository.All().Include(x => x.Wall))
+                for (int i = 0; i < rnd.Next(10, 20); i++)
                 {
-                    var rnd = new Random();
-                    var randomPost = rnd.Next(0, contents.Count - 1);
-                    user.Posts.Add(new Post()
+                    var post = new Post
                     {
+                        Content = postContent[rnd.Next(0, postContent.Count - 1)],
                         UserId = user.Id,
+                        User = user,
                         WallId = user.WallId,
-                        Content = contents[randomPost],
-                    });
+                    };
+                    postRepo.AddAsync(post).GetAwaiter().GetResult();
+                    
                 }
             }
-
-            userRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            postRepo.SaveChangesAsync().GetAwaiter().GetResult();
         }
 
         private static void ConfigureServices(ServiceCollection services)

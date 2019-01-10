@@ -32,7 +32,7 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
         public IEnumerable<SimpleUserViewModel> GetUsersToFollow(ClaimsPrincipal user)
         {
             var currentUser = userManager.GetUserAsync(user).GetAwaiter().GetResult();
-            var allUsers = this.userRepository.All().Where(x => x.Id != currentUser.Id).To<SimpleUserViewModel>().Take(20).ToList();
+            var allUsers = this.userRepository.All().Include(x => x.ProfilePicture).Where(x => x.Id != currentUser.Id).To<SimpleUserViewModel>().Take(20).ToList();
 
             if (allUsers.Count == 0)
             {

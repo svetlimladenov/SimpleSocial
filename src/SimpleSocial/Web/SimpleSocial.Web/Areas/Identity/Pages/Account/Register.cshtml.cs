@@ -121,7 +121,6 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
                     else
                     {
                         await this._userManager.AddToRoleAsync(user, "User");
-
                     }
                     _logger.LogInformation("User created a new account with password.");
 
