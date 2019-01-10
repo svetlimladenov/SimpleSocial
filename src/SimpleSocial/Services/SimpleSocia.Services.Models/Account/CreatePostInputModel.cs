@@ -12,6 +12,8 @@ namespace SimpleSocia.Services.Models.Account
     {
         public string Title => string.IsNullOrEmpty(Content) ? string.Empty : Content.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0];
 
+        public string Id { get; set; }
+
         [Required]
         public string Content { get; set; }
 

@@ -29,11 +29,17 @@ namespace SimpleSocial.Services.DataServices.Tests
 
         protected SimpleSocialContext Context { get; set; }
 
+        public static object thisLock = new object();
 
         public BaseServiceInitializer()
         {
-            Mapper.Reset();
-            Mapper.Initialize(x => { x.AddProfile<SimpleSocialProfile>(); });
+            lock (thisLock)
+            {
+                Mapper.Reset();
+                Mapper.Initialize(x => { x.AddProfile<SimpleSocialProfile>(); });
+            }
+            
+
             var services = SetServices();
             this.Provider = services.BuildServiceProvider();
             this.Context = this.Provider.GetRequiredService<SimpleSocialContext>();

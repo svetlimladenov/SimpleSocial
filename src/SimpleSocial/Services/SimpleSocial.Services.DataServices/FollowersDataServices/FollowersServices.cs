@@ -5,6 +5,7 @@ using SimpleSocia.Services.Models.Followers;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using System.Linq;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SimpleSocial.Services.Mapping;
 using SimpleUserViewModel = SimpleSocia.Services.Models.Followers.SimpleUserViewModel;
@@ -117,6 +118,7 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
             {
                 follower.IsFollowingCurrentUser = this.IsBeingFollowedBy(follower.Id, userId);
             }
+
             return followers;
         }
 
