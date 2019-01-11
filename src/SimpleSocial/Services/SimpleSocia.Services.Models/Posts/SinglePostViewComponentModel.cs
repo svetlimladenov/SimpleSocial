@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SimpleSocia.Services.Models.Comments;
+﻿using SimpleSocia.Services.Models.Comments;
 using SimpleSocial.Data.Models;
 
 namespace SimpleSocia.Services.Models.Posts

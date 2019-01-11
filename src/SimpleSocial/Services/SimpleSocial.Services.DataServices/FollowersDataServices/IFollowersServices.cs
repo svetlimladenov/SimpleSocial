@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
-using System.Text;
 using SimpleSocia.Services.Models.Followers;
 
 namespace SimpleSocial.Services.DataServices.FollowersDataServices

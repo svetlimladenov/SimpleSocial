@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Text;
-
-namespace SimpleSocial.Services.DataServices.LikesDataServices
+﻿namespace SimpleSocial.Services.DataServices.LikesDataServices
 {
     public interface ILikesServices
     {

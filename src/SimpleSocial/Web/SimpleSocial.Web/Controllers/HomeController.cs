@@ -1,7 +1,5 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SimpleSocial.Web.Models;
 
 namespace SimpleSocial.Web.Controllers
 {

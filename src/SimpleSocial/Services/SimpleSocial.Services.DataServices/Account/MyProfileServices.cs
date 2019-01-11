@@ -1,14 +1,8 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
-using AutoMapper;
 using CloudinaryDotNet;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using SimpleSocia.Services.Models.Account;
-using SimpleSocia.Services.Models.Posts;
 using SimpleSocia.Services.Models.Users;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;

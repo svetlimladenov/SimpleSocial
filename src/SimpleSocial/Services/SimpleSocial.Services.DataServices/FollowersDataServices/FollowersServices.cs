@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
-using SimpleSocia.Services.Models.Followers;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using System.Linq;
-using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using SimpleSocial.Services.Mapping;
 using SimpleUserViewModel = SimpleSocia.Services.Models.Followers.SimpleUserViewModel;

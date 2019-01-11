@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Security.Claims;
-using System.Text;
+﻿using System.Security.Claims;
 using SimpleSocia.Services.Models.Reports;
 using SimpleSocial.Data.Models;
 

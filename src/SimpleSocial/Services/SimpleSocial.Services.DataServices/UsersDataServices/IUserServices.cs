@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Text;
+﻿using System.Collections.Generic;
 using SimpleSocia.Services.Models.Users;
-using SimpleSocial.Data.Models;
 
 namespace SimpleSocial.Services.DataServices.UsersDataServices
 {

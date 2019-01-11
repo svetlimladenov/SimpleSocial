@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using SimpleSocia.Services.Models.Followers;
-using SimpleSocial.Data.Common;
-using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
-using SimpleSocial.Services.Mapping;
 using X.PagedList;
 
 namespace SimpleSocial.Web.Controllers

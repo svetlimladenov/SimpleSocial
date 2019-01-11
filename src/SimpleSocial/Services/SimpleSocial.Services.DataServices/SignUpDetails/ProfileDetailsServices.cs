@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
-using SimpleSocia.Services.Models.SignUp;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
-using SimpleSocial.Services.DataServices.Account;
 using SimpleSocial.Services.DataServices.UsersDataServices;
 
 namespace SimpleSocial.Services.DataServices.SignUpDetails

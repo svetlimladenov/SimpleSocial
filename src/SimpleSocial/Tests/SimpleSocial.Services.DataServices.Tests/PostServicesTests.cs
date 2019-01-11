@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Moq;
-using Shouldly;
-using SimpleSocial.Data.Common;
-using SimpleSocial.Data.Models;
-using SimpleSocial.Services.DataServices.PostsServices;
-using SimpleSocia.Services.Models.Account;
 using SimpleSocial.Data;
-using Xunit;
 
 namespace SimpleSocial.Services.DataServices.Tests
 {

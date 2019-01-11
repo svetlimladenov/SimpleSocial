@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +7,6 @@ using SimpleSocia.Services.Models;
 using SimpleSocia.Services.Models.Users;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
-using SimpleSocial.Services.DataServices.Account;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
 
 namespace SimpleSocial.Services.DataServices.UsersDataServices

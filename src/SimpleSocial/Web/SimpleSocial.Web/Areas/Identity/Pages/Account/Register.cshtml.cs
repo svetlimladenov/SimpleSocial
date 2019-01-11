@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using SimpleSocial.Data;
-using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 
 namespace SimpleSocial.Web.Areas.Identity.Pages.Account

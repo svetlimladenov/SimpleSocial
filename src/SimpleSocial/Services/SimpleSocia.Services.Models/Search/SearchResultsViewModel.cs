@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using SimpleSocia.Services.Models.Followers;
+﻿using SimpleSocia.Services.Models.Followers;
 
 namespace SimpleSocia.Services.Models.Search
 {

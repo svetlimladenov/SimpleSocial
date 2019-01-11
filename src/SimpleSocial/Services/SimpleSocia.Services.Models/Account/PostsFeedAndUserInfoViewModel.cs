@@ -2,7 +2,6 @@
 using SimpleSocia.Services.Models.Comments;
 using SimpleSocia.Services.Models.Posts;
 using SimpleSocia.Services.Models.Users;
-using SimpleSocial.Data.Models;
 
 namespace SimpleSocia.Services.Models.Account
 {

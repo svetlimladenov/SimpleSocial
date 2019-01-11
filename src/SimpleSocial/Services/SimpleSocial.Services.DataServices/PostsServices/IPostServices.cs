@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using SimpleSocia.Services.Models.Account;
-using SimpleSocia.Services.Models.Followers;
 using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Models;
 
