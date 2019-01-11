@@ -55,11 +55,6 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             postRepository.SaveChangesAsync().GetAwaiter().GetResult();
         }
 
-        public int GetTotalPostsCount()
-        {
-            return this.postRepository.All().Count();
-        }
-
         public ICollection<PostViewModel> GetUserPosts(string userId, string currrentUserId, int pageNumber)
         {
             var posts = this.postRepository.All().Include(p => p.Likes).ThenInclude(l => l.User).Include(p => p.User).ThenInclude(u => u.ProfilePicture).Include(p => p.Comments).ThenInclude(p => p.Author).ThenInclude(a => a.ProfilePicture).Select(x => Mapper.Map<PostViewModel>(x)).Where(x => x.UserId == userId).OrderByDescending(x => x.CreatedOn).ToList();
@@ -215,25 +210,6 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
             return false;
 
-        }
-
-        private ICollection<PostViewModel> CheckIsPostsAreLiked(string currrentUserId, List<PostViewModel> posts)
-        {
-            foreach (var post in posts)
-            {
-                var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).Select(x => x.User).To<SimpleUserViewModel>().ToList();
-                if (likes.FirstOrDefault(x => x.Id == currrentUserId) == null)
-                {
-                    post.IsLiked = false;
-                }
-                else
-                {
-                    post.IsLiked = true;
-                }
-                post.Likes = likes;
-            }
-
-            return posts;
         }
 
         public bool IsBeingFollowedBy(string userA, string userB)
