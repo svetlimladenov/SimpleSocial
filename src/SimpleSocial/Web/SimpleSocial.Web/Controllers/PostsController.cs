@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
+using SimpleSocial.Data.Common.Constants;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.PostsServices;
 using SimpleSocial.Services.DataServices.UsersDataServices;
@@ -51,7 +52,7 @@ namespace SimpleSocial.Web.Controllers
             if (viewModel == null)
             {
                 var result = this.View("Error", this.ModelState);
-                ViewData["Message"] = "This page is not avaivable";
+                ViewData["Message"] = ErrorConstants.PageNotAvaivableMessage;
                 result.StatusCode = (int)HttpStatusCode.BadRequest;
                 return result;
             }
@@ -63,7 +64,7 @@ namespace SimpleSocial.Web.Controllers
         public IActionResult DeletePost(string id)
         {
             postServices.DeletePost(id, User);
-            return RedirectToAction("SuccessfullAction", "Profiles", new { message = "You have successfully deleted this post." });
+            return RedirectToAction("SuccessfullAction", "Profiles", new { message = ControllerConstants.SuccessfullyDeletedPostMessage });
         }
 
         public IActionResult GetPosts(int pageNumber)

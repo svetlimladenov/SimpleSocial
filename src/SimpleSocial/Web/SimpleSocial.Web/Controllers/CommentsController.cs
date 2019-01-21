@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
+using SimpleSocial.Data.Common;
+using SimpleSocial.Data.Common.Constants;
 using SimpleSocial.Services.DataServices.CommentsServices;
 
 namespace SimpleSocial.Web.Controllers
@@ -22,7 +24,7 @@ namespace SimpleSocial.Web.Controllers
             if (!ModelState.IsValid)
             {
                 var result = this.View("Error", this.ModelState);
-                ViewData["Message"] = "Oops something went wrong.";
+                ViewData["Message"] = ErrorConstants.SomethingWentWrongError;
                 result.StatusCode = (int)HttpStatusCode.BadRequest;
                 return result;
             }

@@ -177,7 +177,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
                 user.Country = Input.Country;
             }
 
-            if (Input.BirthDay != null)
+            if (Input.BirthDay != null && Input.BirthDay < DateTime.Now)
             {
                 user.BirthDay = Input.BirthDay;
             }

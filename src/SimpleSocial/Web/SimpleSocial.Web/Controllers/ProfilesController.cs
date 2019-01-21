@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
+using SimpleSocial.Data.Common.Constants;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.DataServices.PostsServices;
@@ -49,7 +50,7 @@ namespace SimpleSocial.Web.Controllers
             if (viewModel.UserProfileInfo == null || viewModel.CurrentUserInfo == null)
             {
                 var result = this.View("Error", this.ModelState);
-                ViewData["Message"] = "This page is not avaivable";
+                ViewData["Message"] = ErrorConstants.PageNotAvaivableMessage;
                 result.StatusCode = (int)HttpStatusCode.NotFound;
                 return result;
             }

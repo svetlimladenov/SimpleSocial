@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
 using SimpleSocia.Services.Models.Followers;
+using SimpleSocial.Data.Common;
+using SimpleSocial.Data.Common.Constants;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.Account;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
@@ -43,7 +45,7 @@ namespace SimpleSocial.Web.Controllers
             var whoToFollowList = new UsersListViewModel()
             {
                 Users = followersServices.GetUsersToFollow(User).ToList(),
-                UsersCount = 3,
+                UsersCount = ControllerConstants.WhoToFollowPartialFollowerCount,
             };
             var viewModel = new MyProfileViewModel
             {
