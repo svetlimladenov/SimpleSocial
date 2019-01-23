@@ -29,8 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Services.Mappi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Services.DataServices.Tests", "Tests\SimpleSocial.Services.DataServices.Tests\SimpleSocial.Services.DataServices.Tests.csproj", "{7D784B2D-2C3C-4452-AB30-DB73243486F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSocial.Web.Chat", "Web\SimpleSocial.Web.Chat\SimpleSocial.Web.Chat.csproj", "{BA2437DD-EF31-463E-9FE4-7CF0CF338816}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -73,10 +71,6 @@ Global
 		{7D784B2D-2C3C-4452-AB30-DB73243486F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D784B2D-2C3C-4452-AB30-DB73243486F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D784B2D-2C3C-4452-AB30-DB73243486F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA2437DD-EF31-463E-9FE4-7CF0CF338816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA2437DD-EF31-463E-9FE4-7CF0CF338816}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA2437DD-EF31-463E-9FE4-7CF0CF338816}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA2437DD-EF31-463E-9FE4-7CF0CF338816}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -91,7 +85,6 @@ Global
 		{DC5F94B8-0C7E-421F-9063-F1F63BBBAFA9} = {D3367308-54FE-4461-B894-EA088F95E5C3}
 		{AB4B7780-3A36-4131-B829-EFF69BE725A5} = {D3367308-54FE-4461-B894-EA088F95E5C3}
 		{7D784B2D-2C3C-4452-AB30-DB73243486F4} = {BC838223-68BB-41AB-B01C-2317C626295C}
-		{BA2437DD-EF31-463E-9FE4-7CF0CF338816} = {B3524A55-80B7-4039-A8CA-4C525CB49D65}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2584DF72-F5A3-4A64-9BCA-9E713E4699FB}
