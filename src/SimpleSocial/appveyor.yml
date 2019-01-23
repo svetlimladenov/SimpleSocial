@@ -1,0 +1,14 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+skip_commits:
+  files:
+    - Tests/
+before_build:
+- nuget restore
+- cmd: >-
+    dotnet --version
+    
+    dotnet restore "SimpleSocial.sln"
+build:
+  project: SimpleSocial.sln
+  verbosity: minimal
