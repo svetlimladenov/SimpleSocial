@@ -10,19 +10,11 @@
             <label for="file-upload" class="custom-file-upload">
                 <i class="fa fa-cloud-upload"></i> Upload Image
             </label>
-            <input type="file" name="UploadImage" id="file-upload" accept="image/*" />
-            <span id="file-selected"></span>
+            <input type="file" name="UploadImage" id="file-upload" accept="image/*" onchange="previewFile()"/>
+            <div>
+                <img src="" height="200" alt="Image preview..." id="image-preview">
+            </div> 
             <input type="submit" class="btn btn-primary" value="Upload" />
         </form>
     </div>
 </div>
-
-@section Scripts
-{
-    <script>
-        $('#file-upload').bind('change', function () {
-            var fileName = ''; fileName = $(this).val();
-            $('#file-selected').html(fileName);
-        }) 
-    </script>
-}
