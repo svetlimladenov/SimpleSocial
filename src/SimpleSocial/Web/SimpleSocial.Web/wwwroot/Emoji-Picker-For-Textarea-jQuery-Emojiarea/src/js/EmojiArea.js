@@ -3,9 +3,9 @@
  *
  * @author Wolfgang Stöttinger
  */
-import $ from 'jquery';
-import EmojiPicker from 'EmojiPicker';
-import Emoji from 'EmojiUtil'
+//import $ from 'jquery';
+//import EmojiPicker from 'EmojiPicker';
+//import Emoji from 'EmojiUtil'
 
 export default class EmojiArea {
 
