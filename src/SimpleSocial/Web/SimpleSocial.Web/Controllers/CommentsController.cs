@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Account;
@@ -19,7 +20,7 @@ namespace SimpleSocial.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult PostComment(MyProfileViewModel inputModel)
+        public async Task<IActionResult> PostComment(MyProfileViewModel inputModel)
         {
             if (!ModelState.IsValid)
             {
@@ -27,10 +28,10 @@ namespace SimpleSocial.Web.Controllers
                 ViewData["Message"] = ErrorConstants.SomethingWentWrongError;
                 result.StatusCode = (int)HttpStatusCode.BadRequest;
                 return result;
-            }
+            }   
 
             var commentInputModel = inputModel.CommentInputModel;
-            this.commentsServices.CreateComment(commentInputModel);
+            await this.commentsServices.CreateCommentAsync(commentInputModel);
             
             return RedirectToAction("PostDetails", "Posts", new { id = inputModel.CommentInputModel.PostId});
         }

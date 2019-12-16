@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocia.Services.Models.Followers;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
@@ -31,13 +32,14 @@ namespace SimpleSocial.Web.Controllers
         [HttpPost]
         public IActionResult ChooseAction(string userId, string action)
         {
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (action == "follow")
             {
-                followersServices.Follow(userId, this.User);
+                followersServices.Follow(userId, currentUserId);
             }
             else if (action == "unfollow")
             {
-                followersServices.Unfollow(userId, this.User);
+                followersServices.Unfollow(userId, currentUserId);
             }
             else
             {

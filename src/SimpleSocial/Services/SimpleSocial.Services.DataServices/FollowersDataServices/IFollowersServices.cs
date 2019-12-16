@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using SimpleSocia.Services.Models.Followers;
 
 namespace SimpleSocial.Services.DataServices.FollowersDataServices
@@ -8,11 +9,11 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
     {
         IEnumerable<SimpleUserViewModel> GetUsersToFollow(ClaimsPrincipal user);
 
-        void Follow(string userToFollowId, ClaimsPrincipal user);
+        Task Follow(string userToFollowId, string currentUserId);
 
         ICollection<SimpleUserViewModel> GetFollowers(ClaimsPrincipal user);
 
-        void Unfollow(string userId, ClaimsPrincipal user);
+        Task Unfollow(string userId, string currentUserId);
 
         ICollection<SimpleUserViewModel> GetFollowings(ClaimsPrincipal user);
 
