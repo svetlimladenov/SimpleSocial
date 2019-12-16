@@ -1,9 +1,10 @@
-﻿using SimpleSocia.Services.Models.Comments;
+﻿using System.Threading.Tasks;
+using SimpleSocia.Services.Models.Comments;
 
 namespace SimpleSocial.Services.DataServices.CommentsServices
 {
     public interface ICommentsServices
     {
-        void CreateComment(CommentInputModel inputModel);
+        Task CreateCommentAsync(CommentInputModel inputModel);
     }
 }

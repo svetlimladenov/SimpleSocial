@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimpleSocial.Services.Mapping;
 using SimpleUserViewModel = SimpleSocia.Services.Models.Followers.SimpleUserViewModel;
@@ -56,27 +57,25 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
             return allUsers;
         }
 
-        public void Follow(string userToFollowId, ClaimsPrincipal user)
+        public async Task Follow(string userToFollowId, string currentUserId)
         {
-            var userId = userManager.GetUserId(user);
             var userFollower = new UserFollower()
             {
                 UserId = userToFollowId,
-                FollowerId = userId,
+                FollowerId = currentUserId,
             };
 
-            if (this.IsBeingFollowedBy(userToFollowId,userId))
+            if (this.IsBeingFollowedBy(userToFollowId, currentUserId))
             {
                 return;
             }
 
-            userFollowerRepository.AddAsync(userFollower).GetAwaiter().GetResult();
+            await userFollowerRepository.AddAsync(userFollower);
             userFollowerRepository.SaveChangesAsync().GetAwaiter().GetResult();
         }
 
-        public void Unfollow(string userToUnfollowId, ClaimsPrincipal user)
+        public async Task Unfollow(string userToUnfollowId, string currentUserId)
         {
-            var currentUserId = this.userManager.GetUserId(user);
             if (!this.IsBeingFollowedBy(userToUnfollowId, currentUserId))
             {
                 return;

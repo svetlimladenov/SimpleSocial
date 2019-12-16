@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SimpleSocial.Data.Models;
 
@@ -10,6 +12,11 @@ namespace SimpleSocial.Data
             : base(options)
         {
         }
+
+        public override int SaveChanges() => this.SaveChanges(true);
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
+            this.SaveChangesAsync(true, cancellationToken);
 
         public DbSet<UserFollower> UserFollowers { get; set; }
 

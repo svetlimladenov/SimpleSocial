@@ -19,7 +19,7 @@ namespace SimpleSocial.Services.DataServices.Tests.CommentsServicesTests
                 CommentText = "test",
                 PostId = "test",
             };
-            this.CommentsServices.CreateComment(comment);
+            this.CommentsServices.CreateCommentAsync(comment);
             
             this.Context.Comments.ToList()[0].CommentText.ShouldBe(comment.CommentText);
             

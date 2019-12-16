@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +41,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             this.userManager = userManager;
         }
 
-        public void CreatePost(MyProfileViewModel viewModel)
+        public async Task CreatePost(MyProfileViewModel viewModel)
         {
             var post = new Post
             {
@@ -50,9 +51,12 @@ namespace SimpleSocial.Services.DataServices.PostsServices
                 Content = viewModel.CreatePost.Content,
             };
 
-
-            postRepository.AddAsync(post).GetAwaiter().GetResult();
-            postRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            using (postRepository)
+            {
+                await postRepository.AddAsync(post);
+                await postRepository.SaveChangesAsync();
+                postRepository.Dispose();
+            }
         }
 
         public ICollection<PostViewModel> GetUserPosts(string userId, string currrentUserId, int pageNumber)

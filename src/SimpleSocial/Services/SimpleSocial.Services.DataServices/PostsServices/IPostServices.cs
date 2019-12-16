@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using SimpleSocia.Services.Models.Account;
 using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Models;
@@ -8,7 +9,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 {
     public interface IPostServices
     {
-        void CreatePost(MyProfileViewModel viewModel);
+        Task CreatePost(MyProfileViewModel viewModel);
 
         ICollection<PostViewModel> GetUserPosts(string userId, string currrentUserId, int pageNumber);
 

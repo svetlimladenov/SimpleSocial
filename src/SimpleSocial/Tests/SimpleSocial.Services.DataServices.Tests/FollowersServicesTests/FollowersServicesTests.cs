@@ -34,7 +34,7 @@ namespace SimpleSocial.Services.DataServices.Tests.FollowersServicesTests
             this.UserManager.CreateAsync(userToFollow).GetAwaiter();
             var claims = this.SingInManager.CreateUserPrincipalAsync(user).GetAwaiter().GetResult();
 
-            this.FollowersServices.Follow(userToFollow.Id,claims);
+            this.FollowersServices.Follow(userToFollow.Id,claims.Identity.Name);
 
             var currentUserFollowing = this.Context.UserFollowers.ToArray()[0];
 
