@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +23,6 @@ using SimpleSocial.Services.DataServices.UsersDataServices;
 using SimpleSocial.Services.Mapping;
 using SimpleSocial.Web.Areas.Administration.Services;
 using SimpleSocial.Web.Middlewares;
-using SimpleSocial.Web.Utilities;
 
 
 namespace SimpleSocial.Web
@@ -47,6 +45,9 @@ namespace SimpleSocial.Web
                 typeof(CommentInputModel).Assembly
                 );
 
+
+            services.AddRazorPages();
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -68,7 +69,6 @@ namespace SimpleSocial.Web
                         options.Password.RequireUppercase = false;
                         options.Password.RequireDigit = false;
                     })
-                .AddDefaultUI()
                 .AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<SimpleSocialContext>();
 
@@ -86,15 +86,14 @@ namespace SimpleSocial.Web
                     });
             });
 
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2).AddSessionStateTempDataProvider();
+            services.AddControllersWithViews();
 
             services.AddSession();
 
             //Application services
 
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
-            services.AddSingleton<IEmailSender, EmailSender>();
+            //services.AddSingleton<IEmailSender, EmailSender>();
             services.AddScoped<IMyProfileServices, MyProfileServices>();
             services.AddScoped<IPostServices, PostServices>();
             services.AddScoped<ICommentsServices, CommentsServices>();
@@ -108,42 +107,42 @@ namespace SimpleSocial.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                //app.UseDatabaseErrorPage();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
-
-
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
             app.UseCookiePolicy();
-            app.UseSession();
 
+            app.UseRouting();
+
+
+            app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseMiddleware<SeedRolesMiddleware>();
-            
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
 
-                routes.MapRoute(
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
                     name: "areas",
-                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
                 );
+                endpoints.MapRazorPages();
             });
-           
         }
     }
 }
