@@ -1,7 +1,4 @@
-﻿@using SimpleSocial.Services.DataServices.UsersDataServices
-@inject IUserServices UserServices
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -93,17 +90,6 @@
         <script src="/Emoji-Picker-For-Textarea-jQuery-Emojiarea/src/js/EmojiArea.js"></script>
         <script src="/Emoji-Picker-For-Textarea-jQuery-Emojiarea/main.js"></script>
         <script src="/Emoji-Picker-For-Textarea-jQuery-Emojiarea/jquery.emojiarea.js"></script>
-
-        <script>
-            var names = [];
-
-            @foreach (var name in (List<string>)this.UserServices.GetAllUsernames())
-            {
-                @: names = names.concat('@name');
-            }
-
-            autocomplete(document.getElementById("myInput"), names);
-        </script>
     </environment>
     <environment exclude="Development">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
