@@ -25,8 +25,4 @@
     <ProjectReference Include="..\..\Services\SimpleSocial.Services.Mapping\SimpleSocial.Services.Mapping.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\Emoji-Picker-For-Textarea-jQuery-Emojiarea\docs\assets\js\" />
-  </ItemGroup>
-
 </Project>
