@@ -23,48 +23,7 @@
 </head>
 <body>
     <div class="body-wrapper">
-        <nav>
-            <div class="container">
-                <ul>
-                    <div class="left-functions">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li><a asp-controller="NewsFeed" asp-action="Index"><div>SimpleSocial</div></a></li>
-                            if (User.IsInRole("Admin"))
-                            {
-                                <li><a asp-area="Administration" asp-controller="Admin" asp-action="Index">Administration</a></li>
-                            }
-                            <div class="search-bar">
-                                <form autocomplete="off" asp-controller="Search" asp-action="Index" method="get">
-                                    <div class="autocomplete">
-                                        <input type="text" name="searchText" placeholder="Search for users" id="myInput">
-                                        <button type="submit"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </form>
-                            </div>
-                        }
-                        else
-                        {
-                            <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
-                            <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
-                        }
-
-                    </div>
-                    <div class="right-functions">
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li><a asp-controller="Account" asp-action="MyProfile">My Profile</a></li>
-                            <li>
-                                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})" method="post" id="logoutForm">
-                                    <button type="submit" class="logout-btn">Logout</button>
-                                </form>
-                            </li>
-                        }
-                    </div>
-                </ul>
-            </div>
-        </nav>
-
+        <partial name="Partials/_NavBar" />
         @*<partial name="_CookieConsentPartial" /> TODO: Fix this *@
 
         <div class="container body-content content-wrapper">
