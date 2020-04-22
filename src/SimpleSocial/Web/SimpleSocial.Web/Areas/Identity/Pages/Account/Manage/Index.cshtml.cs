@@ -17,20 +17,17 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
     {
         private readonly UserManager<SimpleSocialUser> _userManager;
         private readonly SignInManager<SimpleSocialUser> _signInManager;
-        private readonly IEmailSender _emailSender;
         private readonly IProfileDetailsServices profileDetailsServices;
         private readonly IRepository<SimpleSocialUser> userRepository;
 
         public IndexModel(
             UserManager<SimpleSocialUser> userManager,
             SignInManager<SimpleSocialUser> signInManager,
-            IEmailSender emailSender,
             IProfileDetailsServices profileDetailsServices,
             IRepository<SimpleSocialUser> userRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
             this.profileDetailsServices = profileDetailsServices;
             this.userRepository = userRepository;
         }
@@ -212,10 +209,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
                 pageHandler: null,
                 values: new { userId = userId, code = code },
                 protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
-                email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+            
 
             StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToPage();
