@@ -10,7 +10,7 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3 who-to-follow-wrapper">
         <h2 class="text-center">Users</h2>
-        @await Component.InvokeAsync("ListOfUsers", new { viewModel = Model.UsersFound })
+        <partial name="~/Views/Shared/Partials/_UsersListPartial.cshtml" model="@Model.UsersFound" />
     </div>
 </div>
 

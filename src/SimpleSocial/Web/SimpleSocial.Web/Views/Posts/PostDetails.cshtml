@@ -4,5 +4,5 @@
 }
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <div>
-    @await Component.InvokeAsync("SinglePost", new { currentUserId = Model.PostVisitorId, post = Model.Post, profilePicture = Model.ProfilePicture})
+    @await Component.InvokeAsync("SinglePost", new { currentUserId = Model.PostVisitorId, post = Model.Post, ProfilePictureURL = Model.ProfilePictureURL})
 </div>

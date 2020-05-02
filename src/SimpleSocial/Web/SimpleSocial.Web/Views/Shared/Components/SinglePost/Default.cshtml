@@ -5,7 +5,7 @@
     <div class="user">
         <div class="header-wrapper">
             <div class="left-head" data-attr="@Model.Post.CreatedOn.ToString("d")">
-                <div class="profile-picture" style="background-image: url(@Model.Post.User.ProfilePicture.FileName)"></div>
+                @*<div class="profile-picture" style="background-image: url(@Model.Post.User.ProfilePicture.FileName)"></div>*@
                 <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@Model.Post.User.Id"><strong>@Model.Post.User.UserName</strong></a></div>
             </div>
             <div class="right-head details">
@@ -35,7 +35,7 @@
             var viewModel = new UsersListViewModel() { Users = Model.Post.Likes, NoUsersWord = "likes" };
         }
         <div class="who-to-follow-wrapper">
-            @await Component.InvokeAsync("ListOfUsers", new { viewModel = viewModel })
+            <partial name="~/Views/Shared/Partials/_UsersListPartial.cshtml" model="@viewModel"/>
         </div>
     </div>
     <div class="actions">
@@ -45,7 +45,7 @@
         <div class="action-buttons"><i class="far fa-comments"></i><button id="comment-button">Comment</button></div>
     </div>
     <div class="write-comment">
-        <div class="profile-picture" style="background-image: url(@Model.ProfilePicture.FileName); background-size: cover"></div>
+        <div class="profile-picture" style="background-image: url(@Model.ProfilePictureURL); background-size: cover"></div>
         <form asp-controller="Comments" asp-action="PostComment">
             <input asp-for="CommentInputModel.CommentText" required placeholder="Write a comment..." />
             <input asp-for="CommentInputModel.AuthorId" required value="@Model.PostVisitorId" hidden="hidden" aria-hidden="True" />
@@ -59,7 +59,7 @@
         <div class="comments">
             <div class="single-comment">
                 <div class="user">
-                    <div class="profile-picture" style="background-image: url(@comment.Author.ProfilePicture.FileName); width: 32px; height: 32px;"></div>
+                    @*<div class="profile-picture" style="background-image: url(@comment.Author.ProfilePicture.FileName); width: 32px; height: 32px;"></div>*@
                     <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@comment.AuthorId"><strong>@comment.Author.UserName</strong></a></div>
                 </div>
                 <div class="comment-posted-on">
