@@ -7,33 +7,33 @@ using SimpleSocia.Services.Models.Followers;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Common.Constants;
 using SimpleSocial.Data.Models;
-using SimpleSocial.Services.DataServices.Account;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.DataServices.PostsServices;
+using SimpleSocial.Services.DataServices.ProfilePictureServices;
 using SimpleSocial.Services.DataServices.UsersDataServices;
 
 namespace SimpleSocial.Web.Controllers
 {
     public class AccountController : BaseController
     {
-        private readonly IMyProfileServices myProfileServices;
         private readonly IUserServices userServices;
         private readonly IPostServices postServices;
         private readonly IFollowersServices followersServices;
+        private readonly IProfilePictureService profilePictureService;
         private readonly UserManager<SimpleSocialUser> userManager;
 
         public AccountController(
-            IMyProfileServices myProfileServices,
             IUserServices userServices,
             IPostServices postServices,
             IFollowersServices followersServices,
+            IProfilePictureService profilePictureService,
             UserManager<SimpleSocialUser> userManager
             )
         {
-            this.myProfileServices = myProfileServices;
             this.userServices = userServices;
             this.postServices = postServices;
             this.followersServices = followersServices;
+            this.profilePictureService = profilePictureService;
             this.userManager = userManager;
 
         }
@@ -42,11 +42,13 @@ namespace SimpleSocial.Web.Controllers
         public IActionResult MyProfile(MyProfileViewModel inputModel)
         {
             var userId = this.userManager.GetUserId(User);
+            var a = this.profilePictureService.GetUserProfilePictureURL(userId);
             var whoToFollowList = new UsersListViewModel()
             {
                 Users = followersServices.GetUsersToFollow(User).ToList(),
                 UsersCount = ControllerConstants.WhoToFollowPartialFollowerCount,
             };
+            //TODO: Fix the whole logic behind this method because - dont user GetUserInfo
             var viewModel = new MyProfileViewModel
             {
                 CurrentUserInfo = userServices.GetUserInfo(userId, userId),
@@ -99,7 +101,7 @@ namespace SimpleSocial.Web.Controllers
                 {
                     return RedirectToAction("ChangeProfilePicture", new MyProfileViewModel { IsValidProfilePicture = false });
                 }
-                myProfileServices.UploadProfilePictureCloudinary(this.User, inputModel);
+                profilePictureService.UploadProfilePictureCloudinary(this.User, inputModel);
             }
 
             return RedirectToAction("MyProfile");

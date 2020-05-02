@@ -23,7 +23,7 @@ using SimpleSocial.Services.DataServices.UsersDataServices;
 using SimpleSocial.Services.Mapping;
 using SimpleSocial.Web.Areas.Administration.Services;
 using SimpleSocial.Web.Middlewares;
-
+using SimpleSocial.Services.DataServices.ProfilePictureServices;
 
 namespace SimpleSocial.Web
 {
@@ -104,6 +104,7 @@ namespace SimpleSocial.Web
             services.AddScoped<ISearchServices,SearchServices>();
             services.AddScoped<IReportsService, ReportsService>();
             services.AddScoped<IAdministrationServices, AdministrationServices>();
+            services.AddScoped<IProfilePictureService, ProfilePictureService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
