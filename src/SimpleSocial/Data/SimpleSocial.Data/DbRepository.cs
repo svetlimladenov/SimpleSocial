@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SimpleSocial.Data.Common;
 
 namespace SimpleSocial.Data
@@ -18,7 +19,7 @@ namespace SimpleSocial.Data
             this.dbSet = this.context.Set<TEntity>();
         }
 
-        public Task AddAsync(TEntity entity)
+        public ValueTask<EntityEntry<TEntity>> AddAsync(TEntity entity)
         {
             return this.dbSet.AddAsync(entity);
         }

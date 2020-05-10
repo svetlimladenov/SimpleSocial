@@ -34,7 +34,7 @@ namespace SimpleSocia.Services.Models.Posts
 
         public bool IsLiked { get; set; }
 
-        public void CreateMappings(IMapperConfigurationExpression configuration)
+        public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<Post, PostViewModel>().ForMember(x => x.CharactersCount,
                 x => x.MapFrom(p => p.Content.Length));

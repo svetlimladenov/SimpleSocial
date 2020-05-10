@@ -13,15 +13,18 @@ namespace SimpleSocial.Services.DataServices.SearchDataServices
 {
     public class SearchServices : ISearchServices
     {
+        private readonly IMapper mapper;
         private readonly IRepository<SimpleSocialUser> userRepository;
         private readonly IFollowersServices followersServices;
         private readonly UserManager<SimpleSocialUser> userManager;
 
         public SearchServices(
+            IMapper mapper,
             IRepository<SimpleSocialUser> userRepository,
             IFollowersServices followersServices,
             UserManager<SimpleSocialUser> userManager)
         {
+            this.mapper = mapper;
             this.userRepository = userRepository;
             this.followersServices = followersServices;
             this.userManager = userManager;
@@ -30,9 +33,11 @@ namespace SimpleSocial.Services.DataServices.SearchDataServices
         public SearchResultsViewModel GetResultOfSearch(string searchText, ClaimsPrincipal currentUser)
         {
             var currentUserId = userManager.GetUserId(currentUser);
-            var result = new SearchResultsViewModel();
-            result.SearchText = searchText;
-            var users = userRepository.All().Include(x => x.ProfilePicture).Where(x => x.UserName.Contains(searchText)).Select(x => Mapper.Map<SimpleUserViewModel>(x)).ToList();
+            var result = new SearchResultsViewModel
+            {
+                SearchText = searchText
+            };
+            var users = userRepository.All().Include(x => x.ProfilePicture).Where(x => x.UserName.Contains(searchText)).Select(x => mapper.Map<SimpleUserViewModel>(x)).ToList();
 
             foreach (var user in users)
             {

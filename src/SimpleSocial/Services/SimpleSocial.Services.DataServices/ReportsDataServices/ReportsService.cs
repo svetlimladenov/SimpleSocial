@@ -13,6 +13,7 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
 {
     public class ReportsService : IReportsService
     {
+        private readonly IMapper mapper;
         private readonly IRepository<Post> postRepository;
         private readonly IRepository<PostReport> reportsRepository;
         private readonly IPostServices postServices;
@@ -20,12 +21,14 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
         private readonly UserManager<SimpleSocialUser> userManager;
 
         public ReportsService(
+            IMapper mapper,
             IRepository<Post> postRepository,
             IRepository<PostReport> reportsRepository,
             IPostServices postServices,
             IFollowersServices followersServices,
             UserManager<SimpleSocialUser> userManager)
         {
+            this.mapper = mapper;
             this.postRepository = postRepository;
             this.reportsRepository = reportsRepository;
             this.postServices = postServices;
@@ -53,7 +56,7 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
             {
                 return null;
             }
-            var reportViewModel = Mapper.Map<PostReport, ReportViewModel>(currentReport);
+            var reportViewModel = mapper.Map<PostReport, ReportViewModel>(currentReport);
             return reportViewModel;
         }
 

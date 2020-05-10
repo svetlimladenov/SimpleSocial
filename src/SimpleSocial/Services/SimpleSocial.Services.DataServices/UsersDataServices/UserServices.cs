@@ -16,6 +16,7 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
     public class UserServices : IUserServices
     {
         private readonly SimpleSocialContext dbContext;
+        private readonly IMapper mapper;
         private readonly IRepository<SimpleSocialUser> userRepository;
         private readonly IRepository<Wall> wallRepository;
         private readonly IRepository<ProfilePicture> profilePicturesRepository;
@@ -26,6 +27,7 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
 
         public UserServices(
             SimpleSocialContext dbContext, 
+            IMapper mapper,
             IRepository<SimpleSocialUser> userRepository,
             IRepository<Wall> wallRepository,
             IRepository<ProfilePicture> profilePicturesRepository,
@@ -35,6 +37,7 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
             UserManager<SimpleSocialUser> userManager)
         {
             this.dbContext = dbContext;
+            this.mapper = mapper;
             this.userRepository = userRepository;
             this.wallRepository = wallRepository;
             this.profilePicturesRepository = profilePicturesRepository;
@@ -59,7 +62,7 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
                 return null;
             }
 
-            var userInfo = Mapper.Map<SimpleSocialUser, UserInfoViewModel>(user);
+            var userInfo = mapper.Map<SimpleSocialUser, UserInfoViewModel>(user);
             userInfo.ProfilePictureURL = this.profilePictureService.GetUserProfilePictureURL(userId);
             //is user A followed by user B
             var isBeingFollowedByCurrentUser = this.followersServices.IsBeingFollowedBy(userId, currentUserId) || userId == currentUserId;

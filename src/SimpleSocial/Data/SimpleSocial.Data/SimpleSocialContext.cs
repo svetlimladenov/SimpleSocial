@@ -13,11 +13,6 @@ namespace SimpleSocial.Data
         {
         }
 
-        public override int SaveChanges() => this.SaveChanges(true);
-
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) =>
-            this.SaveChangesAsync(true, cancellationToken);
-
         public DbSet<UserFollower> UserFollowers { get; set; }
 
         public DbSet<PostReport> PostReports { get; set; }

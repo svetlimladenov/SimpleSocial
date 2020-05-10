@@ -1,34 +1,28 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
 using SimpleSocia.Services.Models.Comments;
-using SimpleSocial.Data.Common;
+using SimpleSocial.Data;
 using SimpleSocial.Data.Models;
 
 namespace SimpleSocial.Services.DataServices.CommentsServices
 {
     public class CommentsServices : ICommentsServices
     {
-        private readonly IRepository<Comment> commentsRepository;
+        private readonly SimpleSocialContext dbContext;
+        private readonly IMapper mapper;
 
-        public CommentsServices(IRepository<Comment> commentsRepository)
+        public CommentsServices(SimpleSocialContext dbContext, IMapper mapper)
         {
-            this.commentsRepository = commentsRepository;
+            this.dbContext = dbContext;
+            this.mapper = mapper;
         }
-
-        //public void CreateComment(CommentInputModel inputModel)
-        //{
-        //    var comment = Mapper.Map<Comment>(inputModel);
-
-        //    this.commentsRepository.AddAsync(comment).GetAwaiter().GetResult();
-        //    this.commentsRepository.SaveChangesAsync().GetAwaiter().GetResult();
-        //}
 
         public async Task CreateCommentAsync(CommentInputModel inputModel)
         {
-            var comment = Mapper.Map<Comment>(inputModel);
+            var comment = mapper.Map<Comment>(inputModel);
 
-            await this.commentsRepository.AddAsync(comment);
-            await this.commentsRepository.SaveChangesAsync();
+            await this.dbContext.AddAsync(comment);
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }

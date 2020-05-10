@@ -28,7 +28,7 @@ namespace SimpleSocia.Services.Models.Reports
         public bool IsBeingFollowedByCurrentUser { get; set; }
 
         public DateTime ReportedOn { get; set; }
-        public void CreateMappings(IMapperConfigurationExpression configuration)
+        public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<PostReport, ReportViewModel>()
                 .ForMember(x => x.PostAuthorName, x => x.MapFrom(pr => pr.Post.User.UserName));

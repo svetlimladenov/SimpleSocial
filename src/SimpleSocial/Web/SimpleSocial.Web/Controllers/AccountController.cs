@@ -48,6 +48,7 @@ namespace SimpleSocial.Web.Controllers
                 Users = followersServices.GetUsersToFollow(User).ToList(),
                 UsersCount = ControllerConstants.WhoToFollowPartialFollowerCount,
             };
+
             //TODO: Fix the whole logic behind this method because - dont user GetUserInfo
             var viewModel = new MyProfileViewModel
             {

@@ -2,12 +2,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleSocia.Services.Models.Account;
-using SimpleSocia.Services.Models.Comments;
+using Microsoft.Extensions.Hosting;
+using SimpleSocia.Services.Models;
 using SimpleSocial.Data;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
@@ -16,6 +15,7 @@ using SimpleSocial.Services.DataServices.CommentsServices;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.DataServices.LikesDataServices;
 using SimpleSocial.Services.DataServices.PostsServices;
+using SimpleSocial.Services.DataServices.ProfilePictureServices;
 using SimpleSocial.Services.DataServices.ReportsDataServices;
 using SimpleSocial.Services.DataServices.SearchDataServices;
 using SimpleSocial.Services.DataServices.SignUpDetails;
@@ -23,7 +23,8 @@ using SimpleSocial.Services.DataServices.UsersDataServices;
 using SimpleSocial.Services.Mapping;
 using SimpleSocial.Web.Areas.Administration.Services;
 using SimpleSocial.Web.Middlewares;
-using SimpleSocial.Services.DataServices.ProfilePictureServices;
+using System.Reflection;
+using AutoMapper;
 
 namespace SimpleSocial.Web
 {
@@ -39,18 +40,8 @@ namespace SimpleSocial.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            AutoMapperConfig.RegisterMappings(
-                typeof(CreatePostInputModel).Assembly,
-                typeof(MyProfileViewModel).Assembly,
-                typeof(CommentInputModel).Assembly
-                );
-
-
-            services.AddRazorPages();
-
             services.Configure<CookiePolicyOptions>(options =>
             {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
@@ -86,7 +77,10 @@ namespace SimpleSocial.Web
                     });
             });
 
+            //TODO: Add auto validate anti foregety token attribute
             services.AddControllersWithViews();
+
+            services.AddRazorPages();
 
             services.AddSession();
 
@@ -105,6 +99,9 @@ namespace SimpleSocial.Web
             services.AddScoped<IReportsService, ReportsService>();
             services.AddScoped<IAdministrationServices, AdministrationServices>();
             services.AddScoped<IProfilePictureService, ProfilePictureService>();
+
+            var mapper = AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -113,7 +110,7 @@ namespace SimpleSocial.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseDatabaseErrorPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -127,6 +124,7 @@ namespace SimpleSocial.Web
 
 
             app.UseStaticFiles();
+
             app.UseAuthentication();
             app.UseAuthorization();
 

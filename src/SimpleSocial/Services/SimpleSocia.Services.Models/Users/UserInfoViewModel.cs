@@ -37,7 +37,7 @@ namespace SimpleSocia.Services.Models.Users
 
         public int Age { get; set; }
 
-        public void CreateMappings(IMapperConfigurationExpression configuration)
+        public void CreateMappings(IProfileExpression configuration)
         {
             configuration.CreateMap<SimpleSocialUser, UserInfoViewModel>().ForMember(x => x.Age, x => x.MapFrom(
                 u => u.BirthDay.GetAge()
