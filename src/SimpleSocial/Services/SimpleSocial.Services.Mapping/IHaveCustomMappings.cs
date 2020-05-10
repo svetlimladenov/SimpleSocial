@@ -4,7 +4,7 @@ namespace SimpleSocial.Services.Mapping
 {
     public interface IHaveCustomMappings
     {
-        void CreateMappings(IMapperConfigurationExpression configuration);
+        void CreateMappings(IProfileExpression configuration);
     }
 
     //Usage:

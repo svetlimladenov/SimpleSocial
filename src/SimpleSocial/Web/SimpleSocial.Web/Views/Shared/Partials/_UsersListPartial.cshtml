@@ -20,23 +20,23 @@ else
     }
 
     foreach (var user in users)
-    {     
+    {
         <div class="follower">
             <div class="left-user-section">
-                <div class="profile-picture" style="background: url(@user.ProfilePicture.FileName); background-size: cover"></div>
+                @*<div class="profile-picture" style="background: url(@user.ProfilePicture.FileName); background-size: cover"></div>*@
                 <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@user.Id"><strong>@user.UserName</strong></a></div>
             </div>
             <div class="right-user-section">
                 @if (user.UserName != this.User.Identity.Name)
                 {
-                     if (user.IsFollowingCurrentUser)
-                     {
-                         <button data-userid="@user.Id" class="unfollow">Unfollow</button>
-                     }
-                     else
-                     {
-                         <button data-userid="@user.Id">Follow</button>
-                     }
+                    if (user.IsFollowingCurrentUser)
+                    {
+                        <button data-userid="@user.Id" class="unfollow">Unfollow</button>
+                    }
+                    else
+                    {
+                        <button data-userid="@user.Id">Follow</button>
+                    }
                 }
             </div>
         </div>

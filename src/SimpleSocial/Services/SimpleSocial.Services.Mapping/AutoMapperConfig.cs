@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using AutoMapper;
+using AutoMapper.Configuration;
 
 namespace SimpleSocial.Services.Mapping
 {
@@ -10,17 +11,23 @@ namespace SimpleSocial.Services.Mapping
     {
         private static bool initialized;
 
-        public static void RegisterMappings(params Assembly[] assemblies)
+        public static IMapper MapperInstance { get; set; }
+
+        public static IMapper RegisterMappings(params Assembly[] assemblies)
         {
             if (initialized)
             {
-                return;
+                return MapperInstance;
             }
 
             initialized = true;
 
             var types = assemblies.SelectMany(a => a.GetExportedTypes()).ToList();
-            Mapper.Initialize(configuration =>
+
+            var config = new MapperConfigurationExpression();
+            config.CreateProfile(
+                "ReflectionProfile",
+                configuration =>
             {
                 // IMapFrom<>
                 foreach (var map in GetFromMaps(types))
@@ -40,7 +47,11 @@ namespace SimpleSocial.Services.Mapping
                     map.CreateMappings(configuration);
                 }
             });
+            MapperInstance = new Mapper(new MapperConfiguration(config));
+
+            return MapperInstance;
         }
+
         private static IEnumerable<TypesMap> GetFromMaps(
             IEnumerable<Type> types)
         {

@@ -1,7 +1,7 @@
 ﻿@model SimpleSocia.Services.Models.Users.UserInfoViewModel
 <div class="row user-info text-center">
     <div class="profile-picture-holder">
-        <img src="@Model.ProfilePicture.FileName" class="profilePicture" />
+        <img src="@Model.ProfilePictureURL" class="profilePicture" />
         @if (Model.UserName == User.Identity.Name)
         {
 

@@ -33,8 +33,8 @@ namespace SimpleSocial.Services.DataServices.Tests
         {
             lock (thisLock)
             {
-                Mapper.Reset();
-                Mapper.Initialize(x => { x.AddProfile<SimpleSocialProfile>(); });
+                //Mapper.Reset();
+                //Mapper.Initialize(x => { x.AddProfile<SimpleSocialProfile>(); });
             }
             
 

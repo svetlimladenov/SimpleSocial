@@ -8,8 +8,7 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3 who-to-follow-wrapper">
         <h2 class="text-center">Followers - @ViewData["FollowersCount"]</h2>
-
-        @await Component.InvokeAsync("ListOfUsers", new { viewModel = Model, })
+        <partial name="~/Views/Shared/Partials/_UsersListPartial.cshtml" model="@Model" />
     </div>
 </div>
 

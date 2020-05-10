@@ -8,23 +8,29 @@ using Microsoft.EntityFrameworkCore;
 using SimpleSocia.Services.Models.Followers;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
-
+using SimpleSocial.Data;
 namespace SimpleSocial.Web.Areas.Administration.Services
 {
     public class AdministrationServices : IAdministrationServices
     {
+        private readonly IMapper mapper;
         private readonly UserManager<SimpleSocialUser> userManager;
         private readonly IRepository<SimpleSocialUser> userRepository;
         private readonly IRepository<PostReport> reportsRepository;
+        private readonly SimpleSocialContext dbContext;
 
         public AdministrationServices(
+            IMapper mapper,
             UserManager<SimpleSocialUser> userManager,
             IRepository<SimpleSocialUser> userRepository,
-            IRepository<PostReport> reportsRepository)
+            IRepository<PostReport> reportsRepository,
+            SimpleSocialContext dbContext)
         {
+            this.mapper = mapper;
             this.userManager = userManager;
             this.userRepository = userRepository;
             this.reportsRepository = reportsRepository;
+            this.dbContext = dbContext;
         }
 
 
@@ -33,7 +39,8 @@ namespace SimpleSocial.Web.Areas.Administration.Services
             var usersFound = new List<SimpleSocialUser>();
             if (users == null)
             {
-                usersFound = this.userRepository.All().Include(x => x.ProfilePicture).Where(x => x.UserName != currentUser.Identity.Name).Take(10).ToList();
+                usersFound = this.dbContext.Users.Include(x => x.ProfilePicture)
+                    .Where(x => x.UserName != currentUser.Identity.Name).Take(10).ToList();
             }
             else
             {
@@ -57,8 +64,8 @@ namespace SimpleSocial.Web.Areas.Administration.Services
                     admins.Add(user);
                 }
             }
-            var result =  admins.Select(Mapper.Map<SimpleUserViewModel>).ToArray();
 
+            var result = mapper.Map<List<SimpleUserViewModel>>(admins);
             return result;
         }
 
@@ -91,7 +98,8 @@ namespace SimpleSocial.Web.Areas.Administration.Services
                     nonAdmins.Add(user);
                 }
             }
-            var result = nonAdmins.Select(Mapper.Map<SimpleUserViewModel>).ToArray();
+
+            var result = mapper.Map<List<SimpleUserViewModel>>(nonAdmins);
 
             return result;
         }
