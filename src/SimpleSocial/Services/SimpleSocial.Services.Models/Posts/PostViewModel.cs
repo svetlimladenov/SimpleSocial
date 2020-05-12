@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using SimpleSocia.Services.Models.Followers;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
+using SimpleSocial.Services.Models.Followers;
 
-namespace SimpleSocia.Services.Models.Posts
+namespace SimpleSocial.Services.Models.Posts
 {
     public class PostViewModel : IMapFrom<Post>, IHaveCustomMappings
     {

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Identity;
 using Shouldly;
-using SimpleSocia.Services.Models.Account;
+using SimpleSocial.Services.Models.Account;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.PostsServices;

@@ -1,5 +1,5 @@
 ﻿using System.Security.Claims;
-using SimpleSocia.Services.Models.Search;
+using SimpleSocial.Services.Models.Search;
 
 namespace SimpleSocial.Services.DataServices.SearchDataServices
 {

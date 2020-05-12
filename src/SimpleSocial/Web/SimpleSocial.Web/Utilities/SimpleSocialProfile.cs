@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using AutoMapper;
-using SimpleSocia.Services.Models.Comments;
-using SimpleSocia.Services.Models.Followers;
-using SimpleSocia.Services.Models.Posts;
+using SimpleSocial.Services.Models.Comments;
+using SimpleSocial.Services.Models.Followers;
+using SimpleSocial.Services.Models.Posts;
 using SimpleSocial.Data.Models;
 
 namespace SimpleSocial.Web.Utilities

@@ -1,4 +1,4 @@
-namespace SimpleSocia.Services.Models
+namespace SimpleSocial.Services.Models
 {
     public class ErrorViewModel
     {

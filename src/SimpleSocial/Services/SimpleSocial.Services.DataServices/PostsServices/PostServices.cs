@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SimpleSocia.Services.Models.Account;
-using SimpleSocia.Services.Models.Comments;
-using SimpleSocia.Services.Models.Followers;
-using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
+using SimpleSocial.Services.Models.Account;
+using SimpleSocial.Services.Models.Comments;
+using SimpleSocial.Services.Models.Followers;
+using SimpleSocial.Services.Models.Posts;
 
 namespace SimpleSocial.Services.DataServices.PostsServices
 {

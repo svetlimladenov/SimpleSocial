@@ -3,7 +3,7 @@ using AutoMapper;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
 
-namespace SimpleSocia.Services.Models.Users
+namespace SimpleSocial.Services.Models.Users
 {
     public class UserInfoViewModel : IMapFrom<SimpleSocialUser>, IHaveCustomMappings
     {

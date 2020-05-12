@@ -2,7 +2,7 @@
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
 
-namespace SimpleSocia.Services.Models.SignUp
+namespace SimpleSocial.Services.Models.SignUp
 {
     public class ProfileDetailsInputModel : IMapFrom<SimpleSocialUser>
     {

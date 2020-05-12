@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Shouldly;
-using SimpleSocia.Services.Models.Comments;
+using SimpleSocial.Services.Models.Comments;
 using SimpleSocial.Services.DataServices.CommentsServices;
 using Xunit;
 

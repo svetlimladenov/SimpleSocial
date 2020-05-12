@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SimpleSocia.Services.Models.Users;
+using SimpleSocial.Services.Models.Users;
 
 namespace SimpleSocial.Services.DataServices.UsersDataServices
 {

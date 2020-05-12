@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SimpleSocia.Services.Models.Followers;
+using SimpleSocial.Services.Models.Followers;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
 using X.PagedList;
 

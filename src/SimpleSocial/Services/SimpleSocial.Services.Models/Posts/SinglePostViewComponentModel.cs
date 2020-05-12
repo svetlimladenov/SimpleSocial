@@ -1,7 +1,6 @@
-﻿using SimpleSocia.Services.Models.Comments;
-using SimpleSocial.Data.Models;
+﻿using SimpleSocial.Services.Models.Comments;
 
-namespace SimpleSocia.Services.Models.Posts
+namespace SimpleSocial.Services.Models.Posts
 {
     public class SinglePostViewComponentModel
     {

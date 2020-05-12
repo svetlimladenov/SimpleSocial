@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using SimpleSocia.Services.Models.Account;
-using SimpleSocia.Services.Models.Posts;
 using SimpleSocial.Data.Models;
+using SimpleSocial.Services.Models.Account;
+using SimpleSocial.Services.Models.Posts;
 
 namespace SimpleSocial.Services.DataServices.PostsServices
 {

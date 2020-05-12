@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimpleSocial.Services.Mapping;
-using SimpleUserViewModel = SimpleSocia.Services.Models.Followers.SimpleUserViewModel;
+using SimpleUserViewModel = SimpleSocial.Services.Models.Followers.SimpleUserViewModel;
 using UserFollower = SimpleSocial.Data.Models.UserFollower;
 
 namespace SimpleSocial.Services.DataServices.FollowersDataServices

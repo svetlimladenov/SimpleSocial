@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SimpleSocia.Services.Models.Account;
+using SimpleSocial.Services.Models.Account;
 using SimpleSocial.Data.Common.Constants;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.PostsServices;

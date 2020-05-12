@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SimpleSocia.Services.Models.Account;
+using SimpleSocial.Services.Models.Account;
 
 namespace SimpleSocial.Web.Components
 {

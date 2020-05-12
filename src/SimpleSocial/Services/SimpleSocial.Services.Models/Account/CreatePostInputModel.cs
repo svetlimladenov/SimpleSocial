@@ -6,7 +6,7 @@ using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
 
-namespace SimpleSocia.Services.Models.Account
+namespace SimpleSocial.Services.Models.Account
 {
     public class CreatePostInputModel : IMapTo<Post>, IValidatableObject
     {
