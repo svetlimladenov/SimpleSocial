@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2050
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{B3524A55-80B7-4039-A8CA-4C525CB49D65}"
 EndProject
@@ -23,7 +23,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{D3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Services.DataServices", "Services\SimpleSocial.Services.DataServices\SimpleSocial.Services.DataServices.csproj", "{B9C96FB1-BE04-4A85-9F43-4C599709563F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocia.Services.Models", "Services\SimpleSocia.Services.Models\SimpleSocia.Services.Models.csproj", "{DC5F94B8-0C7E-421F-9063-F1F63BBBAFA9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Services.Models", "Services\SimpleSocia.Services.Models\SimpleSocial.Services.Models.csproj", "{DC5F94B8-0C7E-421F-9063-F1F63BBBAFA9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Services.Mapping", "Services\SimpleSocial.Services.Mapping\SimpleSocial.Services.Mapping.csproj", "{AB4B7780-3A36-4131-B829-EFF69BE725A5}"
 EndProject
