@@ -1,6 +1,4 @@
 ﻿using System.Linq;
-using System.Security.Claims;
-using CloudinaryDotNet;
 using Microsoft.AspNetCore.Identity;
 using SimpleSocial.Data;
 using SimpleSocial.Data.Models;

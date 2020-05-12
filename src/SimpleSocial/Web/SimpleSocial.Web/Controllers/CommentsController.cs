@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocial.Services.Models.Account;
-using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Common.Constants;
 using SimpleSocial.Services.DataServices.CommentsServices;
 

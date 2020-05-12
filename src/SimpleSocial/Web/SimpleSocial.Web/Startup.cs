@@ -24,7 +24,6 @@ using SimpleSocial.Services.Mapping;
 using SimpleSocial.Web.Areas.Administration.Services;
 using SimpleSocial.Web.Middlewares;
 using System.Reflection;
-using AutoMapper;
 
 namespace SimpleSocial.Web
 {

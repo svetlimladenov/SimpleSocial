@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocial.Services.Models.Account;
 using SimpleSocial.Services.Models.Followers;
-using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Common.Constants;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.FollowersDataServices;

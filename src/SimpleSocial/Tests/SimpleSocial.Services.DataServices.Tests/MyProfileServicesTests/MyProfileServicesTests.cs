@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Shouldly;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.Account;
-using Xunit;
 
 namespace SimpleSocial.Services.DataServices.Tests.MyProfileServicesTests
 {

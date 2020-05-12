@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocial.Services.Models.Comments;
 using SimpleSocial.Services.Models.Posts;
-using SimpleSocial.Data.Models;
 
 namespace SimpleSocial.Web.Components
 {
