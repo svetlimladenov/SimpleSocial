@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SimpleSocial.Data.Common.Constants
+﻿namespace SimpleSocial.Data.Common.Constants
 {
     public class ErrorConstants
     {

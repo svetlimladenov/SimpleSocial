@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
-using SimpleSocia.Services.Models.Followers;
+using SimpleSocial.Services.Models.Followers;
 using SimpleSocial.Data.Models;
 
 namespace SimpleSocial.Web.Areas.Administration.Services

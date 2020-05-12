@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SimpleSocia.Services.Models
+namespace SimpleSocial.Services.Models
 {
     public static class AgeCounterExtension
     {

@@ -1,7 +1,7 @@
 ﻿using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
 
-namespace SimpleSocia.Services.Models.Followers
+namespace SimpleSocial.Services.Models.Followers
 {
     public class SimpleUserViewModel : IMapFrom<SimpleSocialUser>
     {

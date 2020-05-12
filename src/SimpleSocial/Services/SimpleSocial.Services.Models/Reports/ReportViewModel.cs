@@ -3,7 +3,7 @@ using AutoMapper;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
 
-namespace SimpleSocia.Services.Models.Reports
+namespace SimpleSocial.Services.Models.Reports
 {
     public class ReportViewModel : IMapFrom<PostReport>, IHaveCustomMappings
     {

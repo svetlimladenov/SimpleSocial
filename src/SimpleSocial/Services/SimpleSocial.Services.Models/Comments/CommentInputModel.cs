@@ -5,7 +5,7 @@ using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
 
-namespace SimpleSocia.Services.Models.Comments
+namespace SimpleSocial.Services.Models.Comments
 {
     public class CommentInputModel : IMapTo<Comment>, IValidatableObject
     {

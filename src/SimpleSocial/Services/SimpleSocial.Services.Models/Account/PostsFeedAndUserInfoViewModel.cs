@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using SimpleSocia.Services.Models.Comments;
-using SimpleSocia.Services.Models.Posts;
-using SimpleSocia.Services.Models.Users;
+using SimpleSocial.Services.Models.Comments;
+using SimpleSocial.Services.Models.Posts;
+using SimpleSocial.Services.Models.Users;
 
-namespace SimpleSocia.Services.Models.Account
+namespace SimpleSocial.Services.Models.Account
 {
     public class PostsFeedAndUserInfoViewModel
     {

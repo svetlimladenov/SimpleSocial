@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>SimpleSocial.Services.Models</AssemblyName>
+    <RootNamespace>SimpleSocial.Services.Models</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

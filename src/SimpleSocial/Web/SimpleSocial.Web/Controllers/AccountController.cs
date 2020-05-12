@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using SimpleSocia.Services.Models.Account;
-using SimpleSocia.Services.Models.Followers;
-using SimpleSocial.Data.Common;
+using SimpleSocial.Services.Models.Account;
+using SimpleSocial.Services.Models.Followers;
 using SimpleSocial.Data.Common.Constants;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.FollowersDataServices;

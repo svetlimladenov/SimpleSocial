@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using SimpleSocia.Services.Models.Comments;
+using SimpleSocial.Services.Models.Comments;
 
 namespace SimpleSocial.Services.DataServices.CommentsServices
 {

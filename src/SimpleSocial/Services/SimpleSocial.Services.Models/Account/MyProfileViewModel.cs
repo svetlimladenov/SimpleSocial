@@ -1,6 +1,6 @@
-﻿using SimpleSocia.Services.Models.Followers;
+﻿using SimpleSocial.Services.Models.Followers;
 
-namespace SimpleSocia.Services.Models.Account
+namespace SimpleSocial.Services.Models.Account
 {
     public class MyProfileViewModel : PostsFeedAndUserInfoViewModel
     {

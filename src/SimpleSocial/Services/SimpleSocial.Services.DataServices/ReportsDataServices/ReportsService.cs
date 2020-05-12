@@ -3,11 +3,11 @@ using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SimpleSocia.Services.Models.Reports;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.DataServices.PostsServices;
+using SimpleSocial.Services.Models.Reports;
 
 namespace SimpleSocial.Services.DataServices.ReportsDataServices
 {

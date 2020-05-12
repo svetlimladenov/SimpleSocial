@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimpleSocia.Services.Models.Followers
+namespace SimpleSocial.Services.Models.Followers
 {
     public class UsersListViewModel
     {

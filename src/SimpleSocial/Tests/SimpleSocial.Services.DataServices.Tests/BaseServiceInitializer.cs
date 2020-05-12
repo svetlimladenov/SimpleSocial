@@ -1,5 +1,4 @@
 ﻿using System;
-using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +16,6 @@ using SimpleSocial.Services.DataServices.ReportsDataServices;
 using SimpleSocial.Services.DataServices.SearchDataServices;
 using SimpleSocial.Services.DataServices.SignUpDetails;
 using SimpleSocial.Services.DataServices.UsersDataServices;
-using SimpleSocial.Web.Utilities;
 
 namespace SimpleSocial.Services.DataServices.Tests
 {

@@ -2,14 +2,13 @@
 using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using SimpleSocia.Services.Models;
-using SimpleSocia.Services.Models.Users;
 using SimpleSocial.Data;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.DataServices.ProfilePictureServices;
+using SimpleSocial.Services.Models;
+using SimpleSocial.Services.Models.Users;
 
 namespace SimpleSocial.Services.DataServices.UsersDataServices
 {

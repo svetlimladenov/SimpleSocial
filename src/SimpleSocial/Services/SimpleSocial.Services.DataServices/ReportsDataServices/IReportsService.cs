@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
-using SimpleSocia.Services.Models.Reports;
 using SimpleSocial.Data.Models;
+using SimpleSocial.Services.Models.Reports;
 
 namespace SimpleSocial.Services.DataServices.ReportsDataServices
 {

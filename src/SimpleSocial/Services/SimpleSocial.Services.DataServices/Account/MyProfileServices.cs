@@ -1,12 +1,9 @@
 ﻿using System.Linq;
-using System.Security.Claims;
-using CloudinaryDotNet;
 using Microsoft.AspNetCore.Identity;
-using SimpleSocia.Services.Models.Account;
-using SimpleSocia.Services.Models.Users;
 using SimpleSocial.Data;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.ProfilePictureServices;
+using SimpleSocial.Services.Models.Users;
 
 namespace SimpleSocial.Services.DataServices.Account
 {

@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using AutoMapper;
-using SimpleSocia.Services.Models.Comments;
 using SimpleSocial.Data;
 using SimpleSocial.Data.Models;
+using SimpleSocial.Services.Models.Comments;
 
 namespace SimpleSocial.Services.DataServices.CommentsServices
 {

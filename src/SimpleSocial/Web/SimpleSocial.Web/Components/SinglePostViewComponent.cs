@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using SimpleSocia.Services.Models.Comments;
-using SimpleSocia.Services.Models.Posts;
-using SimpleSocial.Data.Models;
+using SimpleSocial.Services.Models.Comments;
+using SimpleSocial.Services.Models.Posts;
 
 namespace SimpleSocial.Web.Components
 {

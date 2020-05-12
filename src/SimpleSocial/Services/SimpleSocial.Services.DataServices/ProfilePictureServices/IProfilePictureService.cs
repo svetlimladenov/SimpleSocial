@@ -1,5 +1,5 @@
-﻿using SimpleSocia.Services.Models.Account;
-using System.Security.Claims;
+﻿using System.Security.Claims;
+using SimpleSocial.Services.Models.Account;
 
 namespace SimpleSocial.Services.DataServices.ProfilePictureServices
 {

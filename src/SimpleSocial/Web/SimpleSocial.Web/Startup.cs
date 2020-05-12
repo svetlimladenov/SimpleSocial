@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SimpleSocia.Services.Models;
+using SimpleSocial.Services.Models;
 using SimpleSocial.Data;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
@@ -24,7 +24,6 @@ using SimpleSocial.Services.Mapping;
 using SimpleSocial.Web.Areas.Administration.Services;
 using SimpleSocial.Web.Middlewares;
 using System.Reflection;
-using AutoMapper;
 
 namespace SimpleSocial.Web
 {

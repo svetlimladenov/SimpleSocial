@@ -1,6 +1,6 @@
-﻿using SimpleSocia.Services.Models.Followers;
+﻿using SimpleSocial.Services.Models.Followers;
 
-namespace SimpleSocia.Services.Models.Search
+namespace SimpleSocial.Services.Models.Search
 {
     public class SearchResultsViewModel
     {

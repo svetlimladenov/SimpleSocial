@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using SimpleSocia.Services.Models.Followers;
+using SimpleSocial.Services.Models.Followers;
 
 namespace SimpleSocial.Web.Areas.Administration.ViewModels
 {
