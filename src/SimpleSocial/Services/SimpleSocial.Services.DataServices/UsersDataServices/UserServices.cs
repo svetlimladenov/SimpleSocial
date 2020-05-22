@@ -3,7 +3,6 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using SimpleSocial.Data;
-using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.DataServices.ProfilePictureServices;
@@ -16,28 +15,19 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
     {
         private readonly SimpleSocialContext dbContext;
         private readonly IMapper mapper;
-        private readonly IRepository<SimpleSocialUser> userRepository;
-        private readonly IRepository<Wall> wallRepository;
-        private readonly IRepository<UserFollower> userFollowersRepository;
         private readonly IFollowersServices followersServices;
         private readonly IProfilePictureService profilePictureService;
         private readonly UserManager<SimpleSocialUser> userManager;
 
         public UserServices(
             SimpleSocialContext dbContext, 
-            IMapper mapper,
-            IRepository<SimpleSocialUser> userRepository,
-            IRepository<Wall> wallRepository,
-            IRepository<UserFollower> userFollowersRepository,
+            IMapper mapper,         
             IFollowersServices followersServices,
             IProfilePictureService profilePictureService,
             UserManager<SimpleSocialUser> userManager)
         {
             this.dbContext = dbContext;
             this.mapper = mapper;
-            this.userRepository = userRepository;
-            this.wallRepository = wallRepository;
-            this.userFollowersRepository = userFollowersRepository;
             this.followersServices = followersServices;
             this.profilePictureService = profilePictureService;
             this.userManager = userManager;
@@ -45,9 +35,7 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
 
         //TODO: Remove this method and dont use it
         public ICollection<string> GetAllUsernames()
-        {
-            return this.userRepository.All().Select(x => x.UserName).ToList();
-        }
+         => this.dbContext.Users.Select(x => x.UserName).ToList();
 
 
         public UserInfoViewModel GetUserInfo(string userId, string currentUserId)
@@ -62,8 +50,8 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
             userInfo.ProfilePictureURL = this.profilePictureService.GetUserProfilePictureURL(userId);
             //is user A followed by user B
             var isBeingFollowedByCurrentUser = this.followersServices.IsBeingFollowedBy(userId, currentUserId) || userId == currentUserId;
-            var userFollowers = this.userFollowersRepository.All().Count(x => x.UserId == user.Id);
-            var userFollowings = this.userFollowersRepository.All().Count(x => x.FollowerId == user.Id);
+            var userFollowers = this.dbContext.UserFollowers.Count(x => x.UserId == user.Id);
+            var userFollowings = this.dbContext.UserFollowers.Count(x => x.FollowerId == user.Id);
 
             userInfo.Age = user.BirthDay.GetAge();
             userInfo.IsBeingFollowedByCurrentUser = isBeingFollowedByCurrentUser;
