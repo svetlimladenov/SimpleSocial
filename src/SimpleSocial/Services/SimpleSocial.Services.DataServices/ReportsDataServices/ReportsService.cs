@@ -1,12 +1,15 @@
 ﻿using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SimpleSocial.Data;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.DataServices.PostsServices;
+using SimpleSocial.Services.Mapping;
 using SimpleSocial.Services.Models.Reports;
 
 namespace SimpleSocial.Services.DataServices.ReportsDataServices
@@ -18,6 +21,7 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
         private readonly IRepository<PostReport> reportsRepository;
         private readonly IPostServices postServices;
         private readonly IFollowersServices followersServices;
+        private readonly SimpleSocialContext dbContext;
         private readonly UserManager<SimpleSocialUser> userManager;
 
         public ReportsService(
@@ -26,6 +30,7 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
             IRepository<PostReport> reportsRepository,
             IPostServices postServices,
             IFollowersServices followersServices,
+            SimpleSocialContext dbContext,
             UserManager<SimpleSocialUser> userManager)
         {
             this.mapper = mapper;
@@ -33,31 +38,31 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
             this.reportsRepository = reportsRepository;
             this.postServices = postServices;
             this.followersServices = followersServices;
+            this.dbContext = dbContext;
             this.userManager = userManager;
         }
-        public void AddReport(string authorId, string postId, ReportReason reason)
+        public async Task AddReport(string authorId, string postId, ReportReason reason)
         {
             var report = new PostReport()
             {
                 AuthorId = authorId,
                 PostId = postId,
-                ReportReason = reason,               
+                ReportReason = reason,
             };
 
-            var post = this.postRepository.All().FirstOrDefault(x => x.Id == postId);
-            post?.PostReports.Add(report);
-            this.postRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await this.dbContext.PostReports.AddAsync(report);
+            await this.dbContext.SaveChangesAsync();
         }
 
         public ReportViewModel GetReportDetails(string id)
         {
-            var currentReport = this.reportsRepository.All().Include(x => x.Post).ThenInclude(x => x.User).ThenInclude(u => u.ProfilePicture).Include(x => x.Author).ThenInclude(a => a.ProfilePicture).FirstOrDefault(x => x.Id == id);
+            var currentReport = this.dbContext.PostReports.Where(x => x.Id == id).To<ReportViewModel>().FirstOrDefault();
             if (currentReport == null)
             {
+                //TODO: Validation Errors
                 return null;
             }
-            var reportViewModel = mapper.Map<PostReport, ReportViewModel>(currentReport);
-            return reportViewModel;
+            return currentReport;
         }
 
         public ReportViewModel GetSubmitReportViewModel(string postId, ClaimsPrincipal user)
@@ -67,6 +72,8 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
             {
                 return null;
             }
+
+            //TODO: Get Gender Text From somewhere else
             var genderText = "Him";
             var currentUserId = userManager.GetUserId(user);
             if (postAuthor.Gender == Gender.Male)

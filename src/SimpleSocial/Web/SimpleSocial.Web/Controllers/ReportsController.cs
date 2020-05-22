@@ -8,6 +8,7 @@ using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.DataServices.PostsServices;
 using SimpleSocial.Services.DataServices.ReportsDataServices;
+using System.Threading.Tasks;
 
 namespace SimpleSocial.Web.Controllers
 {
@@ -46,7 +47,7 @@ namespace SimpleSocial.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult Report(ReportViewModel inputModel)
+        public async Task<IActionResult> Report(ReportViewModel inputModel)
         {
             if (!ModelState.IsValid)
             {
@@ -56,7 +57,7 @@ namespace SimpleSocial.Web.Controllers
             }
 
             var currentUserId = this.userManager.GetUserId(User);
-            reportsService.AddReport(currentUserId,inputModel.PostId,inputModel.ReportReason);
+            await reportsService.AddReport(currentUserId,inputModel.PostId,inputModel.ReportReason);
             return RedirectToAction("Index","NewsFeed");
         }
 

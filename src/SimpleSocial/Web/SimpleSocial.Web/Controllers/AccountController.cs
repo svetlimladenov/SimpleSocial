@@ -10,6 +10,7 @@ using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.DataServices.PostsServices;
 using SimpleSocial.Services.DataServices.ProfilePictureServices;
 using SimpleSocial.Services.DataServices.UsersDataServices;
+using System.Threading.Tasks;
 
 namespace SimpleSocial.Web.Controllers
 {
@@ -82,7 +83,7 @@ namespace SimpleSocial.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult UploadProfilePicture(UploadProfilePictureInputModel inputModel)
+        public async Task<IActionResult> UploadProfilePicture(UploadProfilePictureInputModel inputModel)
         {
             if (!ModelState.IsValid)
             {
@@ -101,7 +102,7 @@ namespace SimpleSocial.Web.Controllers
                 {
                     return RedirectToAction("ChangeProfilePicture", new MyProfileViewModel { IsValidProfilePicture = false });
                 }
-                profilePictureService.UploadProfilePictureCloudinary(this.User, inputModel);
+                await profilePictureService.UploadProfilePictureCloudinary(this.User, inputModel);
             }
 
             return RedirectToAction("MyProfile");

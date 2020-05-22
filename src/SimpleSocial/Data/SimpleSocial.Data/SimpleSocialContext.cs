@@ -23,8 +23,6 @@ namespace SimpleSocial.Data
 
         public DbSet<Post> Posts { get; set; }
 
-        public DbSet<ProfilePicture> ProfilePictures { get; set; }
-
         public DbSet<UserLike> UserLikes { get; set; }
        
         protected override void OnModelCreating(ModelBuilder builder)
@@ -63,11 +61,6 @@ namespace SimpleSocial.Data
                 .HasForeignKey(pr => pr.PostId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            builder.Entity<SimpleSocialUser>()
-                .HasOne(u => u.ProfilePicture)
-                .WithOne(p => p.User)
-                .OnDelete(DeleteBehavior.SetNull);
-
             builder.Entity<UserLike>()
                 .HasKey(ul => new {ul.UserId, ul.PostId});
 
@@ -88,6 +81,22 @@ namespace SimpleSocial.Data
                 .WithOne(l => l.Post)
                 .HasForeignKey(l => l.PostId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Comment>()
+                .Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+
+            builder.Entity<PostReport>()
+                .Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+
+            builder.Entity<Post>()
+                .Property(x => x.Id)
+                .ValueGeneratedOnAdd();
+            
+            builder.Entity<SimpleSocialUser>()
+                .Property(x => x.Id)
+                .ValueGeneratedOnAdd();
         }
     }
 }

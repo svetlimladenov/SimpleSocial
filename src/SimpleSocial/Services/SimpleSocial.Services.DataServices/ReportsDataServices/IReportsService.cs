@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Models.Reports;
 
@@ -6,7 +7,7 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
 {
     public interface IReportsService
     {
-        void AddReport(string authorId,string postId, ReportReason reason);
+        Task AddReport(string authorId,string postId, ReportReason reason);
 
         ReportViewModel GetReportDetails(string id);
 

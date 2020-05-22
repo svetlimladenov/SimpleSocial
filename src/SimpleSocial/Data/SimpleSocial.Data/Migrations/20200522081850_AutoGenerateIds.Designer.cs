@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleSocial.Data;
 
 namespace SimpleSocial.Data.Migrations
 {
     [DbContext(typeof(SimpleSocialContext))]
-    partial class SimpleSocialContextModelSnapshot : ModelSnapshot
+    [Migration("20200522081850_AutoGenerateIds")]
+    partial class AutoGenerateIds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,6 +261,22 @@ namespace SimpleSocial.Data.Migrations
                     b.ToTable("PostReports");
                 });
 
+            modelBuilder.Entity("SimpleSocial.Data.Models.ProfilePicture", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProfilePictures");
+                });
+
             modelBuilder.Entity("SimpleSocial.Data.Models.SimpleSocialUser", b =>
                 {
                     b.Property<string>("Id")
@@ -326,8 +344,8 @@ namespace SimpleSocial.Data.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("ProfilePictureURL")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("ProfilePictureId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -351,6 +369,10 @@ namespace SimpleSocial.Data.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("ProfilePictureId")
+                        .IsUnique()
+                        .HasFilter("[ProfilePictureId] IS NOT NULL");
 
                     b.HasIndex("WallId")
                         .IsUnique()
@@ -511,6 +533,11 @@ namespace SimpleSocial.Data.Migrations
 
             modelBuilder.Entity("SimpleSocial.Data.Models.SimpleSocialUser", b =>
                 {
+                    b.HasOne("SimpleSocial.Data.Models.ProfilePicture", "ProfilePicture")
+                        .WithOne("User")
+                        .HasForeignKey("SimpleSocial.Data.Models.SimpleSocialUser", "ProfilePictureId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("SimpleSocial.Data.Models.Wall", "Wall")
                         .WithOne("User")
                         .HasForeignKey("SimpleSocial.Data.Models.SimpleSocialUser", "WallId")

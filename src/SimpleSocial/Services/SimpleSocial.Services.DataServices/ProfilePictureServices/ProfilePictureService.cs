@@ -5,6 +5,7 @@ using SimpleSocial.Data.Models;
 using System.Linq;
 using System.Security.Claims;
 using SimpleSocial.Services.Models.Account;
+using System.Threading.Tasks;
 
 namespace SimpleSocial.Services.DataServices.ProfilePictureServices
 {
@@ -22,7 +23,7 @@ namespace SimpleSocial.Services.DataServices.ProfilePictureServices
             this.userManager = userManager;
         }
 
-        public void UploadProfilePictureCloudinary(ClaimsPrincipal user, UploadProfilePictureInputModel inputModel)
+        public async Task UploadProfilePictureCloudinary(ClaimsPrincipal user, UploadProfilePictureInputModel inputModel)
         {
             var userId = this.userManager.GetUserId(user);
 
@@ -45,41 +46,19 @@ namespace SimpleSocial.Services.DataServices.ProfilePictureServices
 
             var updatedUrl = cloudinary.GetResource(uploadResult.PublicId).Url;
 
-            SaveImageNameToDb(user, updatedUrl);
+            await SaveImageNameToDb(user, updatedUrl);
         }
 
-        private void SaveImageNameToDb(ClaimsPrincipal user, string imagePath)
+        private async Task SaveImageNameToDb(ClaimsPrincipal user, string imagePath)
         {
             var userId = userManager.GetUserId(user);
-            var currentProfilePicture = this.dbContext.ProfilePictures.FirstOrDefault(x => x.UserId == userId);
-            while (currentProfilePicture != null)
-            {
-                this.dbContext.ProfilePictures.Remove(currentProfilePicture);
-                this.dbContext.SaveChangesAsync().GetAwaiter().GetResult();
-                currentProfilePicture = this.dbContext.ProfilePictures.FirstOrDefault(x => x.UserId == userId);
-            }
-
-            var newProfilePic = new ProfilePicture
-            {
-                FileName = imagePath,
-                UserId = userId,
-            };
-
-            //TODO: await it 
-            this.dbContext.AddAsync(newProfilePic).GetAwaiter().GetResult();
-
-            var userProfilePicToChange = userManager.GetUserAsync(user).GetAwaiter().GetResult();
-
-            this.dbContext.SaveChangesAsync().GetAwaiter().GetResult();
-
-            userProfilePicToChange.ProfilePictureId = newProfilePic.Id;
-
-            this.dbContext.SaveChangesAsync().GetAwaiter().GetResult();
+            var currentUser = this.dbContext.Users.FirstOrDefault(x => x.Id == userId);
+            currentUser.ProfilePictureURL = imagePath;
+            await this.dbContext.SaveChangesAsync();
         }
 
         public string GetUserProfilePictureURL(string userId)
             => this.dbContext
-                   .ProfilePictures.Where(x => x.UserId == userId).Select(x => x.FileName).FirstOrDefault();
-
+                   .Users.FirstOrDefault(x => x.Id == userId).ProfilePictureURL;
     }
 }

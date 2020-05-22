@@ -223,7 +223,7 @@ namespace SimpleSocial.Services.DataServices.Tests.PostsServicesTests
             {
                 Id = "test",
                 UserName = "TEST",
-                ProfilePictureId = "test"
+                ProfilePictureURL = "test"
             };
             var userManager = (UserManager<SimpleSocialUser>)this.Provider.GetService(typeof(UserManager<SimpleSocialUser>));
             userManager.CreateAsync(user).GetAwaiter();
@@ -248,7 +248,7 @@ namespace SimpleSocial.Services.DataServices.Tests.PostsServicesTests
             {
                 Id = "test",
                 UserName = "TEST",
-                ProfilePictureId = "test"
+                ProfilePictureURL = "test"
             };
             var userManager = (UserManager<SimpleSocialUser>)this.Provider.GetService(typeof(UserManager<SimpleSocialUser>));
             userManager.CreateAsync(user).GetAwaiter();
@@ -275,7 +275,7 @@ namespace SimpleSocial.Services.DataServices.Tests.PostsServicesTests
             {
                 Id = "test",
                 UserName = "TEST",
-                ProfilePictureId = "test"
+                ProfilePictureURL = "test"
             };
             var userManager = (UserManager<SimpleSocialUser>)this.Provider.GetService(typeof(UserManager<SimpleSocialUser>));
             userManager.CreateAsync(user).GetAwaiter();
@@ -283,7 +283,7 @@ namespace SimpleSocial.Services.DataServices.Tests.PostsServicesTests
             {
                 Id = "test2",
                 UserName = "TEST",
-                ProfilePictureId = "test"
+                ProfilePictureURL = "test"
             };
 
             userManager.CreateAsync(user2).GetAwaiter();

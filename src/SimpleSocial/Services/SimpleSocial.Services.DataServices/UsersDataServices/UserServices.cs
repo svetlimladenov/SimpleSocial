@@ -18,7 +18,6 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
         private readonly IMapper mapper;
         private readonly IRepository<SimpleSocialUser> userRepository;
         private readonly IRepository<Wall> wallRepository;
-        private readonly IRepository<ProfilePicture> profilePicturesRepository;
         private readonly IRepository<UserFollower> userFollowersRepository;
         private readonly IFollowersServices followersServices;
         private readonly IProfilePictureService profilePictureService;
@@ -29,7 +28,6 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
             IMapper mapper,
             IRepository<SimpleSocialUser> userRepository,
             IRepository<Wall> wallRepository,
-            IRepository<ProfilePicture> profilePicturesRepository,
             IRepository<UserFollower> userFollowersRepository,
             IFollowersServices followersServices,
             IProfilePictureService profilePictureService,
@@ -39,7 +37,6 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
             this.mapper = mapper;
             this.userRepository = userRepository;
             this.wallRepository = wallRepository;
-            this.profilePicturesRepository = profilePicturesRepository;
             this.userFollowersRepository = userFollowersRepository;
             this.followersServices = followersServices;
             this.profilePictureService = profilePictureService;

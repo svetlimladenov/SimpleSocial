@@ -37,7 +37,7 @@ namespace SimpleSocial.Services.DataServices.SearchDataServices
             {
                 SearchText = searchText
             };
-            var users = userRepository.All().Include(x => x.ProfilePicture).Where(x => x.UserName.Contains(searchText)).Select(x => mapper.Map<SimpleUserViewModel>(x)).ToList();
+            var users = userRepository.All().Where(x => x.UserName.Contains(searchText)).Select(x => mapper.Map<SimpleUserViewModel>(x)).ToList();
 
             foreach (var user in users)
             {

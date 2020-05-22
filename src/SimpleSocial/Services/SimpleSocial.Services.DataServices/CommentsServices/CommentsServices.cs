@@ -21,7 +21,7 @@ namespace SimpleSocial.Services.DataServices.CommentsServices
         {
             var comment = mapper.Map<Comment>(inputModel);
 
-            await this.dbContext.AddAsync(comment);
+            await this.dbContext.Comments.AddAsync(comment);
             await this.dbContext.SaveChangesAsync();
         }
     }

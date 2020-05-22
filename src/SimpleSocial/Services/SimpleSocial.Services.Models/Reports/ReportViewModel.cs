@@ -13,7 +13,7 @@ namespace SimpleSocial.Services.Models.Reports
 
         public string AuthorId { get; set; }
 
-        public SimpleSocialUser Author { get; set; }
+        public ReportAuthorViewModel Author { get; set; }
 
         public string PostAuthorName { get; set; }
 

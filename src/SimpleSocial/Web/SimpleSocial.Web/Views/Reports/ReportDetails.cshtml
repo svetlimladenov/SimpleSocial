@@ -11,9 +11,9 @@
         <div class="row post-info text-center">
             <h3>
                 Post Author -
-                <img src="@Model.Post.User.ProfilePicture.FileName" class="table-profile-pic">
+                <img src="@Model.Author.ProfilePictureURL" class="table-profile-pic">
                 <a asp-controller="Profiles" asp-action="Index" asp-route-userId="@Model.PostAuthorId" style="margin-left: 5px;">
-                    @Model.Post.User.UserName
+                    @Model.Author.Username
                 </a>
             </h3>
             <h3>Post Content</h3>
@@ -29,9 +29,9 @@
         <div class="row reporter-info text-center">
             <h3>
                 Report Author -
-                <img src="@Model.Author.ProfilePicture.FileName" class="table-profile-pic" />
+                <img src="@Model.Author.ProfilePictureURL" class="table-profile-pic" />
                 <a asp-controller="Profiles" asp-action="Index" asp-route-userId="@Model.AuthorId" style="margin-left: 5px;">
-                    @Model.Author.UserName
+                    @Model.Author.Username
                 </a>
                 <h4>Reported On - @Model.ReportedOn</h4>
             </h3>

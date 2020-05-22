@@ -39,8 +39,7 @@ namespace SimpleSocial.Web.Areas.Administration.Services
             var usersFound = new List<SimpleSocialUser>();
             if (users == null)
             {
-                usersFound = this.dbContext.Users.Include(x => x.ProfilePicture)
-                    .Where(x => x.UserName != currentUser.Identity.Name).Take(10).ToList();
+                usersFound = this.dbContext.Users.Where(x => x.UserName != currentUser.Identity.Name).Take(10).ToList();
             }
             else
             {
@@ -49,7 +48,7 @@ namespace SimpleSocial.Web.Areas.Administration.Services
                     var userToAdd = new SimpleSocialUser()
                     {
                         Id = user.Id,
-                        ProfilePicture = user.ProfilePicture,
+                        ProfilePictureURL = user.ProfilePictureURL,
                         UserName = user.UserName,
                     };
                     usersFound.Add(userToAdd);
@@ -74,7 +73,7 @@ namespace SimpleSocial.Web.Areas.Administration.Services
             var usersFound = new List<SimpleSocialUser>();
             if (users == null)
             {
-                usersFound = this.userRepository.All().Include(x => x.ProfilePicture).Where(x => x.UserName != currentUser.Identity.Name).Take(20).ToList();
+                usersFound = this.userRepository.All().Where(x => x.UserName != currentUser.Identity.Name).Take(20).ToList();
             }
             else
             {
@@ -83,7 +82,7 @@ namespace SimpleSocial.Web.Areas.Administration.Services
                     var userToAdd = new SimpleSocialUser()
                     {
                         Id = user.Id,
-                        ProfilePicture = user.ProfilePicture,
+                        ProfilePictureURL = user.ProfilePictureURL,
                         UserName = user.UserName,
                     };
                     usersFound.Add(userToAdd);

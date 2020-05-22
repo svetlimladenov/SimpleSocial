@@ -96,17 +96,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
                 user.WallId = wall.Id;
                 dbContext.SaveChanges();
 
-                var profilePicture = new ProfilePicture
-                {
-                    UserId = user.Id,
-                    FileName = "https://res.cloudinary.com/svetlinmld/image/upload/v1546050240/default.jpg",
-                };
-
-                dbContext.ProfilePictures.Add(profilePicture);
-
-                dbContext.SaveChanges();
-
-                user.ProfilePictureId = profilePicture.Id;
+                user.ProfilePictureURL = "https://res.cloudinary.com/svetlinmld/image/upload/v1546050240/default.jpg";
 
                 dbContext.SaveChanges();
 

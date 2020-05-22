@@ -5,7 +5,7 @@
     <div class="user">
         <div class="header-wrapper">
             <div class="left-head" data-attr="@Model.Post.CreatedOn.ToString("d")">
-                @*<div class="profile-picture" style="background-image: url(@Model.Post.User.ProfilePicture.FileName)"></div>*@
+                <div class="profile-picture" style="background-image: url(@Model.Post.User.ProfilePictureURL)"></div>
                 <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@Model.Post.User.Id"><strong>@Model.Post.User.UserName</strong></a></div>
             </div>
             <div class="right-head details">
@@ -59,8 +59,8 @@
         <div class="comments">
             <div class="single-comment">
                 <div class="user">
-                    @*<div class="profile-picture" style="background-image: url(@comment.Author.ProfilePicture.FileName); width: 32px; height: 32px;"></div>*@
-                    <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@comment.AuthorId"><strong>@comment.Author.UserName</strong></a></div>
+                    <div class="profile-picture" style="background-image: url(@comment.Author.ProfilePictureUrl); width: 32px; height: 32px;"></div>
+                    <div class="user-name"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@comment.AuthorId"><strong>@comment.Author.Username</strong></a></div>
                 </div>
                 <div class="comment-posted-on">
                     @comment.PostedOn.ToString("d")

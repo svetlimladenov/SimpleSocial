@@ -4,7 +4,9 @@ using System.Linq;
 using AutoMapper;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
+using SimpleSocial.Services.Models.Comments;
 using SimpleSocial.Services.Models.Followers;
+using SimpleSocial.Services.Models.Users;
 
 namespace SimpleSocial.Services.Models.Posts
 {
@@ -12,7 +14,7 @@ namespace SimpleSocial.Services.Models.Posts
     {
         public string Id { get; set; }
 
-        public SimpleSocialUser User { get; set; }
+        public UserInfoViewModel User { get; set; }
 
         public string UserId { get; set; }
 
@@ -26,7 +28,7 @@ namespace SimpleSocial.Services.Models.Posts
 
         public DateTime CreatedOn { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public ICollection<CommentViewModel> Comments { get; set; }
 
         public ICollection<SimpleUserViewModel> Likes { get; set; }
 

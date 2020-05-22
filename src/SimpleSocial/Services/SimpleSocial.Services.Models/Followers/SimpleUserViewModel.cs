@@ -9,7 +9,7 @@ namespace SimpleSocial.Services.Models.Followers
 
         public string UserName { get; set; }
 
-        public ProfilePicture ProfilePicture { get; set; }
+        public string ProfilePictureURL { get; set; }
 
         public bool IsFollowingCurrentUser { get; set; }
     }

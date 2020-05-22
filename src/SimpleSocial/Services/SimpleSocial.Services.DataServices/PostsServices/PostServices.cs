@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SimpleSocial.Data;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
@@ -23,6 +24,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         private readonly IRepository<UserFollower> userFollowersRepository;
         private readonly IRepository<PostReport> reportsRepository;
         private readonly UserManager<SimpleSocialUser> userManager;
+        private readonly SimpleSocialContext dbContext;
         private readonly IMapper mapper;
 
         public PostServices(
@@ -32,6 +34,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             IRepository<UserFollower> userFollowersRepository,
             IRepository<PostReport> reportsRepository,
             UserManager<SimpleSocialUser> userManager,
+            SimpleSocialContext dbContext,
             IMapper mapper
         )
         {
@@ -41,6 +44,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             this.userFollowersRepository = userFollowersRepository;
             this.reportsRepository = reportsRepository;
             this.userManager = userManager;
+            this.dbContext = dbContext;
             this.mapper = mapper;
         }
 
@@ -69,10 +73,8 @@ namespace SimpleSocial.Services.DataServices.PostsServices
                             .Include(p => p.Likes)
                             .ThenInclude(l => l.User)
                             .Include(p => p.User)
-                            .ThenInclude(u => u.ProfilePicture)
                             .Include(p => p.Comments)
                             .ThenInclude(p => p.Author)
-                            .ThenInclude(a => a.ProfilePicture)
                             .Where(x => x.UserId == userId)
                             .OrderByDescending(x => x.CreatedOn)
                             .Select(x => mapper.Map<PostViewModel>(x))
@@ -104,7 +106,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
         public PostViewModel GetPostById(string id)
         {
-            var post = this.postRepository.All().Include(x => x.Likes).ThenInclude(l => l.User).Include(p => p.User).ThenInclude(u => u.ProfilePicture).Include(x => x.Comments).ThenInclude(x => x.Author).ThenInclude(a => a.ProfilePicture).Select(x => mapper.Map<PostViewModel>(x)).FirstOrDefault(x => x.Id == id);
+            var post = this.dbContext.Posts.Where(x => x.Id == id).To<PostViewModel>().FirstOrDefault();
             if (post == null)
             {
                 return null;
@@ -114,12 +116,6 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
         public SinglePostViewComponentModel GetSinglePostViewComponentModel(string id, string visitorId)
         {
-            var userWithProfilePic = this.userRepository.All().Include(u => u.ProfilePicture).FirstOrDefault(x => x.Id == visitorId);
-            if (userWithProfilePic == null)
-            {
-                return null;
-            }
-            var profilePicture = userWithProfilePic.ProfilePicture.FileName;
             var viewModel = new SinglePostViewComponentModel();
             var post = this.GetPostById(id);
             if (post == null)
@@ -141,8 +137,8 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             {
                 post.IsLiked = true;
             }
+
             viewModel.Post = post;
-            viewModel.ProfilePictureURL = profilePicture;
             viewModel.CommentInputModel = new CommentInputModel();
             viewModel.PostVisitorId = visitorId;
             viewModel.PostAuthorId = postAuthorId;
@@ -155,7 +151,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             var followings = this.userFollowersRepository.All().Where(x => x.FollowerId == currrentUserId);
             foreach (var user in followings)
             {
-                var userPosts = this.postRepository.All().Include(x => x.Likes).ThenInclude(x => x.User).Include(x => x.Comments).ThenInclude(x => x.Author).ThenInclude(a => a.ProfilePicture).Include(x => x.User).ThenInclude(u => u.ProfilePicture).Where(x => x.UserId == user.UserId).Select(x => mapper.Map<Post, PostViewModel>(x));
+                var userPosts = this.postRepository.All().Include(x => x.Likes).ThenInclude(x => x.User).Include(x => x.Comments).ThenInclude(x => x.Author).Include(x => x.User).Where(x => x.UserId == user.UserId).Select(x => mapper.Map<Post, PostViewModel>(x));
                 foreach (var post in userPosts)
                 {                   
                     posts.Add(post);
@@ -188,12 +184,8 @@ namespace SimpleSocial.Services.DataServices.PostsServices
         }
 
         public SimpleSocialUser GetPostAuthor(string postId)
-        {
-            var post = this.GetPostById(postId);
-            var author = this.userRepository.All().FirstOrDefault(x => x.Id == post.UserId);
-            return author;
-        }
-
+         => this.dbContext.Posts.Include(x => x.User).FirstOrDefault(x => x.Id == postId).User;
+        
         public void DeletePost(string id, ClaimsPrincipal user)
         {
             var post = this.postRepository.All().FirstOrDefault(x => x.Id == id);

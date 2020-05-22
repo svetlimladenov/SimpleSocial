@@ -20,14 +20,14 @@ namespace SimpleSocial.Services.DataServices.Tests.FollowersServicesTests
             {
                 Id = "test",
                 UserName = "TEST",
-                ProfilePictureId = "test"
+                ProfilePictureURL = "test"
             };
 
             var userToFollow = new SimpleSocialUser
             {
                 Id = "toFollow",
                 UserName = "TEST",
-                ProfilePictureId = "test"
+                ProfilePictureURL = "test"
             };
             //test must follow userToFollow
             this.UserManager.CreateAsync(user).GetAwaiter();
@@ -48,13 +48,13 @@ namespace SimpleSocial.Services.DataServices.Tests.FollowersServicesTests
             {
                 Id = "test",
                 UserName = "TEST",
-                ProfilePictureId = "test"
+                ProfilePictureURL = "test"
             };
             var follower = new SimpleSocialUser
             {
                 Id = "follower",
                 UserName = "TEST",
-                ProfilePictureId = "test"
+                ProfilePictureURL = "test"
             };
             this.UserManager.CreateAsync(user).GetAwaiter();
             this.UserManager.CreateAsync(follower).GetAwaiter();
@@ -80,13 +80,13 @@ namespace SimpleSocial.Services.DataServices.Tests.FollowersServicesTests
             {
                 Id = "test",
                 UserName = "TEST",
-                ProfilePictureId = "test"
+                ProfilePictureURL = "test"
             };
             var following = new SimpleSocialUser
             {
                 Id = "follower",
                 UserName = "TEST",
-                ProfilePictureId = "test"
+                ProfilePictureURL = "test"
             };
             this.UserManager.CreateAsync(user).GetAwaiter();
             this.UserManager.CreateAsync(following).GetAwaiter();

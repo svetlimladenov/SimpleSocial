@@ -20,10 +20,7 @@ namespace SimpleSocial.Data.Models
 
         public string LastName { get; set; }
 
-        [ForeignKey("ProfilePicture")]
-        public string ProfilePictureId { get; set; }
-
-        public ProfilePicture ProfilePicture { get; set; }
+        public string ProfilePictureURL { get; set; }
 
         public DateTime? BirthDay { get; set; }
 

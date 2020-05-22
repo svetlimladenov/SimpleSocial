@@ -25,9 +25,9 @@
                 counter++;
                 <tr>
                     <th scope="row" style="padding-top: 22px;">@counter</th>
-                    <td style="padding-top: 15px;"><a asp-controller="Reports" asp-action="ReportDetails" asp-route-id="@report.Id" class="btn btn-success">Details</a></td>
-                    <td style="padding-top: 22px;"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@report.Post.User.Id">@report.Post.User.UserName</a></td>
-                    <td style="padding-top: 22px;"><a asp-controller="Profiles" asp-action="Index" asp-route-userId="@report.AuthorId">@report.Author.UserName</a></td>
+                    <td style="padding-top: 15px;"><a asp-area="" asp-controller="Reports" asp-action="ReportDetails" asp-route-id="@report.Id" class="btn btn-success">Details</a></td>
+                    <td style="padding-top: 22px;"><a asp-area="" asp-controller="Profiles" asp-action="Index" asp-route-userId="@report.Post.User.Id">@report.Post.User.UserName</a></td>
+                    <td style="padding-top: 22px;"><a asp-area="" asp-controller="Profiles" asp-action="Index" asp-route-userId="@report.AuthorId">@report.Author.UserName</a></td>
                     <td style="padding-top: 22px;">@report.ReportReason.ToString()</td>
                 </tr>
             }
