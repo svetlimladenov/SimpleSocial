@@ -34,9 +34,9 @@ namespace SimpleSocial.Data
             this.dbSet.Remove(entity);
         }
 
-        public Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
         {
-            return this.context.SaveChangesAsync();
+            return await this.context.SaveChangesAsync();
         }
 
         public void Dispose()

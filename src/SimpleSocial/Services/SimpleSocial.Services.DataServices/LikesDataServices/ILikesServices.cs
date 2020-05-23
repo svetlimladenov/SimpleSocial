@@ -1,9 +1,11 @@
-﻿namespace SimpleSocial.Services.DataServices.LikesDataServices
+﻿using System.Threading.Tasks;
+
+namespace SimpleSocial.Services.DataServices.LikesDataServices
 {
     public interface ILikesServices
     {
-        void Like(string postId, string userId);
+        Task Like(string postId, string userId);
 
-        void UnLike(string postId, string userId);
+        Task UnLike(string postId, string userId);
     }
 }

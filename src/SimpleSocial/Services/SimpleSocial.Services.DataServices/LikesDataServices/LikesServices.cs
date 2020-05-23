@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Threading.Tasks;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 
@@ -16,7 +17,7 @@ namespace SimpleSocial.Services.DataServices.LikesDataServices
             this.userLikesRepository = userLikesRepository;
             this.userRepository = userRepository;
         }
-        public void Like(string postId, string userId)
+        public async Task Like(string postId, string userId)
         {
             var userLike = new UserLike()
             {
@@ -33,11 +34,11 @@ namespace SimpleSocial.Services.DataServices.LikesDataServices
             this.userLikesRepository.AddAsync(userLike).GetAwaiter().GetResult();
 
             //save changes
-            this.userRepository.SaveChangesAsync().GetAwaiter().GetResult();
-            this.userLikesRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await this.userRepository.SaveChangesAsync();
+            await this.userLikesRepository.SaveChangesAsync();
         }
 
-        public void UnLike(string postId, string userId)
+        public async Task UnLike(string postId, string userId)
         {
             var user = this.userRepository.All().FirstOrDefault(x => x.Id == userId);
             if (user == null)
@@ -55,8 +56,8 @@ namespace SimpleSocial.Services.DataServices.LikesDataServices
             this.userLikesRepository.Delete(currentLike);
             user.Likes.ToList().RemoveAll(x => x.PostId == postId && x.UserId == userId);
 
-            this.userLikesRepository.SaveChangesAsync().GetAwaiter().GetResult();
-            this.userRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await this.userLikesRepository.SaveChangesAsync();
+            await this.userRepository.SaveChangesAsync();
         }
     }
 }
