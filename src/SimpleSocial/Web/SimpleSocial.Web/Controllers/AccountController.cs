@@ -39,13 +39,13 @@ namespace SimpleSocial.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult MyProfile(MyProfileViewModel inputModel)
+        public async Task<IActionResult> MyProfile(MyProfileViewModel inputModel)
         {
             var userId = this.userManager.GetUserId(User);
             var a = this.profilePictureService.GetUserProfilePictureURL(userId);
             var whoToFollowList = new UsersListViewModel()
             {
-                Users = followersServices.GetUsersToFollow(User).ToList(),
+                Users = await followersServices.GetUsersToFollow(User),
                 UsersCount = ControllerConstants.WhoToFollowPartialFollowerCount,
             };
 

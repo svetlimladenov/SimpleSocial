@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using SimpleSocial.Data;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 
@@ -7,16 +9,13 @@ namespace SimpleSocial.Services.DataServices.LikesDataServices
 {
     public class LikesServices : ILikesServices
     {
-        private readonly IRepository<UserLike> userLikesRepository;
-        private readonly IRepository<SimpleSocialUser> userRepository;
+        private readonly SimpleSocialContext dbContext;
 
-        public LikesServices(
-            IRepository<UserLike> userLikesRepository,
-            IRepository<SimpleSocialUser> userRepository)
+        public LikesServices(SimpleSocialContext dbContext)
         {
-            this.userLikesRepository = userLikesRepository;
-            this.userRepository = userRepository;
+            this.dbContext = dbContext;
         }
+
         public async Task Like(string postId, string userId)
         {
             var userLike = new UserLike()
@@ -24,40 +23,21 @@ namespace SimpleSocial.Services.DataServices.LikesDataServices
                 PostId = postId,
                 UserId = userId,
             };
-            var user = this.userRepository.All().FirstOrDefault(x => x.Id == userId);
-            if (user == null)
-            {
-                return;
-            }
 
-            user.Likes.Add(userLike);
-            this.userLikesRepository.AddAsync(userLike).GetAwaiter().GetResult();
-
-            //save changes
-            await this.userRepository.SaveChangesAsync();
-            await this.userLikesRepository.SaveChangesAsync();
+            await this.dbContext.UserLikes.AddAsync(userLike);
+            await this.dbContext.SaveChangesAsync();
         }
 
         public async Task UnLike(string postId, string userId)
         {
-            var user = this.userRepository.All().FirstOrDefault(x => x.Id == userId);
-            if (user == null)
-            {
-                return;
-            }
-
-            var currentLike = this.userLikesRepository.All()
-                .FirstOrDefault(x => x.UserId == userId && x.PostId == postId);
+            var currentLike = this.dbContext.UserLikes.FirstOrDefault(x => x.UserId == userId && x.PostId == postId);
             if (currentLike == null)
             {
                 return;
             }
 
-            this.userLikesRepository.Delete(currentLike);
-            user.Likes.ToList().RemoveAll(x => x.PostId == postId && x.UserId == userId);
-
-            await this.userLikesRepository.SaveChangesAsync();
-            await this.userRepository.SaveChangesAsync();
+            this.dbContext.UserLikes.Remove(currentLike);
+            await this.dbContext.SaveChangesAsync();
         }
     }
 }

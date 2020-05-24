@@ -1,45 +1,27 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Identity;
+﻿using System.Threading.Tasks;
+using AutoMapper;
 using SimpleSocial.Data;
-using SimpleSocial.Data.Models;
-using SimpleSocial.Services.DataServices.ProfilePictureServices;
 using SimpleSocial.Services.Models.Users;
 
 namespace SimpleSocial.Services.DataServices.Account
 {
     public class MyProfileServices : IMyProfileServices
     {
-        private readonly IProfilePictureService profilePictureService;
         private readonly SimpleSocialContext dbContext;
-        private readonly UserManager<SimpleSocialUser> userManager;
+        private readonly IMapper mapper;
 
         public MyProfileServices(
-            IProfilePictureService profilePictureService,
             SimpleSocialContext dbContext,
-            UserManager<SimpleSocialUser> userManager
-            )
+            IMapper mapper)
         {
-            this.profilePictureService = profilePictureService;
             this.dbContext = dbContext;
-            this.userManager = userManager;
+            this.mapper = mapper;
         }
 
-        public UserInfoViewModel GetUserInfo(string userId)
+        public async Task<UserInfoViewModel> GetUserInfo(string userId)
         {
-            var user = this.dbContext.Users.FirstOrDefault(x => x.Id == userId);
-            if (user == null)
-            {
-                return null;
-            }
-
-            var userInfo = new UserInfoViewModel
-            {
-                UserId = user.Id,
-                UserName = user.UserName,
-                ProfilePictureURL = this.profilePictureService.GetUserProfilePictureURL(userId),
-                WallId = user.WallId,
-            };
-
+            var user = await this.dbContext.Users.FindAsync(userId);
+            var userInfo = this.mapper.Map<UserInfoViewModel>(user);
             return userInfo;
         }
     }
