@@ -37,7 +37,6 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
                     .Select(x => x.UserId)
                     .Contains(u.Id) 
                     && u.Id != currentUser.Id)
-                .AsNoTracking()
                 .MapToList<SimpleUserViewModel>();
 
             return notFollowingUsers;
