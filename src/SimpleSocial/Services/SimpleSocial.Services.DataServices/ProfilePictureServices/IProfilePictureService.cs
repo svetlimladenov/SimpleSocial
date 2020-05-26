@@ -6,8 +6,9 @@ namespace SimpleSocial.Services.DataServices.ProfilePictureServices
 {
     public interface IProfilePictureService
     {
+        bool VerifyPicture(UploadProfilePictureInputModel pictureModel);
+
         Task UploadProfilePictureCloudinary(ClaimsPrincipal user, UploadProfilePictureInputModel inputModel);
 
-        public string GetUserProfilePictureURL(string userId);
     }
 }
