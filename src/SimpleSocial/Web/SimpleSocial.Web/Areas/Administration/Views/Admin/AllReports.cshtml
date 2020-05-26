@@ -2,8 +2,6 @@
 @{
     ViewData["Title"] = "All";
 }
-@using X.PagedList; 
-@using X.PagedList.Mvc.Core
 
 <h2 class="text-center">All Reports</h2>
 <div class="mx-auto w-75">
@@ -20,20 +18,36 @@
         </thead>
         <tbody>
             @{ var counter = (ViewBag.PageNum - 1) * 10;}
-            @foreach (var report in Model.PostReports)
+            @foreach (var report in Model.PostReports.Reports)
             {
                 counter++;
                 <tr>
-                    <th scope="row" style="padding-top: 22px;">@counter</th>
+                    <th scope="row" style="padding-top: 22px;">@counter</th>    
                     <td style="padding-top: 15px;"><a asp-area="" asp-controller="Reports" asp-action="ReportDetails" asp-route-id="@report.Id" class="btn btn-success">Details</a></td>
-                    <td style="padding-top: 22px;"><a asp-area="" asp-controller="Profiles" asp-action="Index" asp-route-userId="@report.Post.User.Id">@report.Post.User.UserName</a></td>
-                    <td style="padding-top: 22px;"><a asp-area="" asp-controller="Profiles" asp-action="Index" asp-route-userId="@report.AuthorId">@report.Author.UserName</a></td>
-                    <td style="padding-top: 22px;">@report.ReportReason.ToString()</td>
+                    <td style="padding-top: 22px;"><a asp-area="" asp-controller="Profiles" asp-action="Index" asp-route-userId="@report.PostAuthorId">@report.PostAuthorUsername</a></td>
+                    <td style="padding-top: 22px;"><a asp-area="" asp-controller="Profiles" asp-action="Index" asp-route-userId="@report.ReportAuthorId">@report.ReportAuthorUsername</a></td>
+                    <td style="padding-top: 22px;">@report.ReportReason</td>
                 </tr>
             }
-
         </tbody>
     </table>
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.PagesCount; i++)
+        {
+            if (Model.CurrentPageNumber == i)
+            {
+                <li class="page-item active"> <a asp-action="AllReports" asp-route-pageNumber="@i" class="btn btn-danger">@i</a></li>
+            }
+            else
+            {
+                <li class="page-item"> <a asp-action="AllReports" asp-route-pageNumber="@i" class="btn btn-danger">@i</a></li>
+            }
+        }
+    </ul>
 </div>
 
-@Html.PagedListPager((IPagedList)Model.PostReports, pageNumberr => Url.Action("AllReports", new { pageNumberr }))
+@section scripts{ 
+<script>
+    console.log("h1");
+</script>
+}

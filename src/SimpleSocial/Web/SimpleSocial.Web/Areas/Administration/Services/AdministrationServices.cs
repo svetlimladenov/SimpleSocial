@@ -9,26 +9,26 @@ using SimpleSocial.Services.Models.Followers;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Data;
+using System.Threading.Tasks;
+using SimpleSocial.Services.Models.Reports;
+
 namespace SimpleSocial.Web.Areas.Administration.Services
 {
     public class AdministrationServices : IAdministrationServices
     {
         private readonly IMapper mapper;
         private readonly UserManager<SimpleSocialUser> userManager;
-        private readonly IRepository<SimpleSocialUser> userRepository;
         private readonly IRepository<PostReport> reportsRepository;
         private readonly SimpleSocialContext dbContext;
 
         public AdministrationServices(
             IMapper mapper,
             UserManager<SimpleSocialUser> userManager,
-            IRepository<SimpleSocialUser> userRepository,
             IRepository<PostReport> reportsRepository,
             SimpleSocialContext dbContext)
         {
             this.mapper = mapper;
             this.userManager = userManager;
-            this.userRepository = userRepository;
             this.reportsRepository = reportsRepository;
             this.dbContext = dbContext;
         }
@@ -54,11 +54,11 @@ namespace SimpleSocial.Web.Areas.Administration.Services
                     usersFound.Add(userToAdd);
                 }
             }
-            
+
             var admins = new List<SimpleSocialUser>();
             foreach (var user in usersFound)
             {
-                if (userManager.IsInRoleAsync(user,"Admin").GetAwaiter().GetResult())
+                if (userManager.IsInRoleAsync(user, "Admin").GetAwaiter().GetResult())
                 {
                     admins.Add(user);
                 }
@@ -73,7 +73,7 @@ namespace SimpleSocial.Web.Areas.Administration.Services
             var usersFound = new List<SimpleSocialUser>();
             if (users == null)
             {
-                usersFound = this.userRepository.All().Where(x => x.UserName != currentUser.Identity.Name).Take(20).ToList();
+                usersFound = this.dbContext.Users.Where(x => x.UserName != currentUser.Identity.Name).Take(20).ToList();
             }
             else
             {
@@ -103,18 +103,18 @@ namespace SimpleSocial.Web.Areas.Administration.Services
             return result;
         }
 
-        public void PromoteUser(string id)
+        public async Task PromoteUser(string id)
         {
-            var user = this.userRepository.All().FirstOrDefault(x => x.Id == id);
-            userManager.RemoveFromRoleAsync(user, "User").GetAwaiter().GetResult();
-            this.userManager.AddToRoleAsync(user, "Admin").GetAwaiter().GetResult();
+            var user = await this.dbContext.Users.FindAsync(id);
+            await userManager.RemoveFromRoleAsync(user, "User");
+            await this.userManager.AddToRoleAsync(user, "Admin");
         }
 
-        public void DemoteUser(string id)
+        public async Task DemoteUser(string id)
         {
-            var user = this.userRepository.All().FirstOrDefault(x => x.Id == id);
-            userManager.RemoveFromRoleAsync(user, "Admin").GetAwaiter().GetResult();
-            userManager.AddToRoleAsync(user, "User").GetAwaiter().GetResult();
+            var user = await this.dbContext.Users.FindAsync(id);
+            await userManager.RemoveFromRoleAsync(user, "Admin");
+            await userManager.AddToRoleAsync(user, "User");
         }
 
         public string GetRandomQuote()
@@ -132,9 +132,27 @@ namespace SimpleSocial.Web.Areas.Administration.Services
             return motivationQuotes[randomNumber];
         }
 
-        public IEnumerable<PostReport> GetAllReports()
+        public async Task<MinifiedPostsListViewModel> GetAllReports(int pageNumber, int numberOfPosts = 10)
         {
-            return this.reportsRepository.All().Include(x => x.Author).Include(x => x.Post).ThenInclude(p => p.User).OrderByDescending(x => x.ReportedOn).ToList();
+            var reports = await this.dbContext.PostReports
+                .Skip(pageNumber * numberOfPosts)
+                .Take(numberOfPosts)
+                .Select(x => new MinifiedPostViewModel
+                {
+                    Id = x.Id,
+                    PostAuthorId = x.Post.User.Id,
+                    PostAuthorUsername = x.Post.User.UserName,
+                    ReportAuthorId = x.AuthorId,
+                    ReportAuthorUsername = x.Author.UserName,
+                    ReportReason = x.ReportReason.ToString()
+                }).ToListAsync();
+
+            var result = new MinifiedPostsListViewModel()
+            {
+                Reports = reports
+            };
+
+            return result;
         }
     }
 }

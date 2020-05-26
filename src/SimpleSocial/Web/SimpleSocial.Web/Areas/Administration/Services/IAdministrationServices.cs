@@ -2,6 +2,8 @@
 using System.Security.Claims;
 using SimpleSocial.Services.Models.Followers;
 using SimpleSocial.Data.Models;
+using System.Threading.Tasks;
+using SimpleSocial.Services.Models.Reports;
 
 namespace SimpleSocial.Web.Areas.Administration.Services
 {
@@ -11,12 +13,12 @@ namespace SimpleSocial.Web.Areas.Administration.Services
 
         ICollection<SimpleUserViewModel> GetNonAdminUsers(ClaimsPrincipal currentUser, List<SimpleUserViewModel> users = null);
 
-        void PromoteUser(string id);
+        Task PromoteUser(string id);
 
-        void DemoteUser(string id);
+        Task DemoteUser(string id);
 
         string GetRandomQuote();
 
-        IEnumerable<PostReport> GetAllReports();
+        Task<MinifiedPostsListViewModel> GetAllReports(int pageNumber, int numberOfPosts = 10);
     }
 }
