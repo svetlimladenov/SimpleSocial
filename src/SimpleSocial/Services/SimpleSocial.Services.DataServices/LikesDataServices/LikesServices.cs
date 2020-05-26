@@ -1,8 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using SimpleSocial.Data;
-using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 
 namespace SimpleSocial.Services.DataServices.LikesDataServices

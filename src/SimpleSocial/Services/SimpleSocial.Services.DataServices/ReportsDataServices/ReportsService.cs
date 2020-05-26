@@ -16,26 +16,17 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
 {
     public class ReportsService : IReportsService
     {
-        private readonly IMapper mapper;
-        private readonly IRepository<Post> postRepository;
-        private readonly IRepository<PostReport> reportsRepository;
         private readonly IPostServices postServices;
         private readonly IFollowersServices followersServices;
         private readonly SimpleSocialContext dbContext;
         private readonly UserManager<SimpleSocialUser> userManager;
 
         public ReportsService(
-            IMapper mapper,
-            IRepository<Post> postRepository,
-            IRepository<PostReport> reportsRepository,
             IPostServices postServices,
             IFollowersServices followersServices,
             SimpleSocialContext dbContext,
             UserManager<SimpleSocialUser> userManager)
         {
-            this.mapper = mapper;
-            this.postRepository = postRepository;
-            this.reportsRepository = reportsRepository;
             this.postServices = postServices;
             this.followersServices = followersServices;
             this.dbContext = dbContext;
@@ -98,23 +89,28 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
             return viewModel;
         }
 
-        public void DeleteReport(string id, ClaimsPrincipal user)
+        public async Task DeleteReport(string id, ClaimsPrincipal user)
         {
-            var currentUser = this.userManager.GetUserAsync(user).GetAwaiter().GetResult();
-            var currentUserIsAdmin = this.userManager.IsInRoleAsync(currentUser, "Admin").GetAwaiter().GetResult();
+            var currentUser = await this.userManager.GetUserAsync(user);
+            var currentUserIsAdmin = await this.userManager.IsInRoleAsync(currentUser, "Admin");
             if (!currentUserIsAdmin)
             {
                 return;
             }
 
-            var report = this.reportsRepository.All().FirstOrDefault(x => x.Id == id);
+            var report = await this.dbContext.PostReports.FirstOrDefaultAsync(x => x.Id == id);
             if (report == null)
             {
                 return;
             }
 
-            this.reportsRepository.Delete(report);
-            this.reportsRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            this.dbContext.PostReports.Remove(report);
+            await this.dbContext.SaveChangesAsync();
         }
+
+        public async Task<int> GetReportsCount()
+         =>
+            await this.dbContext.PostReports.CountAsync();
+
     }
 }

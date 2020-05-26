@@ -7,6 +7,8 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
 {
     public interface IFollowersServices
     {
+        Task<IEnumerable<T>> GetUsersToFollow<T>(ClaimsPrincipal user);
+
         Task<IEnumerable<SimpleUserViewModel>> GetUsersToFollow(ClaimsPrincipal user);
 
         Task Follow(string userToFollowId, string currentUserId);

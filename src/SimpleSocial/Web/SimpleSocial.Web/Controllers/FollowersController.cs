@@ -24,7 +24,7 @@ namespace SimpleSocial.Web.Controllers
             var viewModel = new UsersListViewModel() {NoUsersWord = "more users left to follow."};
             var number = pageNumbar ?? 1;
             ViewBag.PageNum = number;
-            var usersToFollow = await followersServices.GetUsersToFollow(User);
+            var usersToFollow = await followersServices.GetUsersToFollow<SimpleUserViewModel>(User);
             viewModel.Users = await usersToFollow.ToPagedListAsync(number, 12);
             return View(viewModel);
         }

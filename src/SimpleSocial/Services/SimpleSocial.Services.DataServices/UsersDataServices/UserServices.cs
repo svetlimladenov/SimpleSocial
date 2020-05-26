@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SimpleSocial.Data;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
@@ -38,20 +40,14 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
          => this.dbContext.Users.Select(x => x.UserName).ToList();
 
 
-        public UserInfoViewModel GetUserInfo(string userId, string currentUserId)
+        public async Task<UserInfoViewModel> GetUserInfo(string userId, string currentUserId)
         {
-            var user = this.dbContext.Users.FirstOrDefault(x => x.Id == userId);
-            if (user == null)
-            {
-                return null;
-            }
+            var user = this.dbContext.Users.Find(userId);
 
             var userInfo = mapper.Map<SimpleSocialUser, UserInfoViewModel>(user);
-            userInfo.ProfilePictureURL = this.profilePictureService.GetUserProfilePictureURL(userId);
-            //is user A followed by user B
             var isBeingFollowedByCurrentUser = this.followersServices.IsBeingFollowedBy(userId, currentUserId) || userId == currentUserId;
-            var userFollowers = this.dbContext.UserFollowers.Count(x => x.UserId == user.Id);
-            var userFollowings = this.dbContext.UserFollowers.Count(x => x.FollowerId == user.Id);
+            var userFollowers = await this.dbContext.UserFollowers.CountAsync(x => x.UserId == user.Id);
+            var userFollowings = await this.dbContext.UserFollowers.CountAsync(x => x.FollowerId == user.Id);
 
             userInfo.Age = user.BirthDay.GetAge();
             userInfo.IsBeingFollowedByCurrentUser = isBeingFollowedByCurrentUser;

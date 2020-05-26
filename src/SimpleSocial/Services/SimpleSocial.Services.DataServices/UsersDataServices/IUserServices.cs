@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using SimpleSocial.Services.Models.Users;
 
 namespace SimpleSocial.Services.DataServices.UsersDataServices
@@ -7,6 +8,6 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
     {
         ICollection<string> GetAllUsernames();
 
-        UserInfoViewModel GetUserInfo(string userId, string currentUserId);
+        Task<UserInfoViewModel> GetUserInfo(string userId, string currentUserId);
     }
 }

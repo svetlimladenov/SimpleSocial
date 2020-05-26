@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
-using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimpleSocial.Services.Mapping;
-using SimpleUserViewModel = SimpleSocial.Services.Models.Followers.SimpleUserViewModel;
-using UserFollower = SimpleSocial.Data.Models.UserFollower;
 using SimpleSocial.Data;
+using SimpleSocial.Services.Models.Followers;
 
 namespace SimpleSocial.Services.DataServices.FollowersDataServices
 {
@@ -24,6 +22,22 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
         {
             this.userManager = userManager;
             this.dbContext = dbContext;
+        }
+
+        public async Task<IEnumerable<T>> GetUsersToFollow<T>(ClaimsPrincipal user)
+        {
+            var currentUser = await userManager.GetUserAsync(user);
+            var notFollowingUsers =
+                this.dbContext.Users
+                .Where(
+                    u => !this.dbContext.UserFollowers
+                    .Where(x => x.FollowerId == currentUser.Id)
+                    .Select(x => x.UserId)
+                    .Contains(u.Id)
+                    && u.Id != currentUser.Id)
+                .MapToList<T>();
+
+            return notFollowingUsers;
         }
 
         public async Task<IEnumerable<SimpleUserViewModel>> GetUsersToFollow(ClaimsPrincipal user)

@@ -58,12 +58,9 @@ namespace SimpleSocial.Services.DataServices.PostsServices
                 Content = viewModel.CreatePost.Content,
             };
 
-            using (postRepository)
-            {
-                await postRepository.AddAsync(post);
-                await postRepository.SaveChangesAsync();
-                postRepository.Dispose();
-            }
+            await dbContext.AddAsync(post);
+            await dbContext.SaveChangesAsync();
+
         }
 
         public ICollection<PostViewModel> GetUserPosts(string userId, string currrentUserId, int pageNumber)
@@ -153,7 +150,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             {
                 var userPosts = this.postRepository.All().Include(x => x.Likes).ThenInclude(x => x.User).Include(x => x.Comments).ThenInclude(x => x.Author).Include(x => x.User).Where(x => x.UserId == user.UserId).Select(x => mapper.Map<Post, PostViewModel>(x));
                 foreach (var post in userPosts)
-                {                   
+                {
                     posts.Add(post);
                 }
             }
@@ -162,7 +159,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
             foreach (var post in posts)
             {
-                var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).Select(x => x.User).To<SimpleUserViewModel>().ToList();
+                var likes = userLikesRepository.All().Where(x => x.PostId == post.Id).Select(x => x.User).MapToList<SimpleUserViewModel>();
                 foreach (var liker in likes)
                 {
                     liker.IsFollowingCurrentUser = this.IsBeingFollowedBy(liker.Id, currrentUserId);
@@ -185,7 +182,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
         public SimpleSocialUser GetPostAuthor(string postId)
          => this.dbContext.Posts.Include(x => x.User).FirstOrDefault(x => x.Id == postId).User;
-        
+
         public void DeletePost(string id, ClaimsPrincipal user)
         {
             var post = this.postRepository.All().FirstOrDefault(x => x.Id == id);

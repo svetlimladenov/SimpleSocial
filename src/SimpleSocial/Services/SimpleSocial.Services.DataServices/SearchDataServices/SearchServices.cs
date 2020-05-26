@@ -3,9 +3,11 @@ using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SimpleSocial.Data;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
+using SimpleSocial.Services.Mapping;
 using SimpleSocial.Services.Models.Followers;
 using SimpleSocial.Services.Models.Search;
 
@@ -13,21 +15,18 @@ namespace SimpleSocial.Services.DataServices.SearchDataServices
 {
     public class SearchServices : ISearchServices
     {
-        private readonly IMapper mapper;
-        private readonly IRepository<SimpleSocialUser> userRepository;
         private readonly IFollowersServices followersServices;
         private readonly UserManager<SimpleSocialUser> userManager;
+        private readonly SimpleSocialContext dbContext;
 
         public SearchServices(
-            IMapper mapper,
-            IRepository<SimpleSocialUser> userRepository,
             IFollowersServices followersServices,
-            UserManager<SimpleSocialUser> userManager)
+            UserManager<SimpleSocialUser> userManager,
+            SimpleSocialContext dbContext)
         {
-            this.mapper = mapper;
-            this.userRepository = userRepository;
             this.followersServices = followersServices;
             this.userManager = userManager;
+            this.dbContext = dbContext;
         }
 
         public SearchResultsViewModel GetResultOfSearch(string searchText, ClaimsPrincipal currentUser)
@@ -37,7 +36,7 @@ namespace SimpleSocial.Services.DataServices.SearchDataServices
             {
                 SearchText = searchText
             };
-            var users = userRepository.All().Where(x => x.UserName.Contains(searchText)).Select(x => mapper.Map<SimpleUserViewModel>(x)).ToList();
+            var users = this.dbContext.Users.Where(x => x.UserName.Contains(searchText)).MapToList<SimpleUserViewModel>();
 
             foreach (var user in users)
             {
