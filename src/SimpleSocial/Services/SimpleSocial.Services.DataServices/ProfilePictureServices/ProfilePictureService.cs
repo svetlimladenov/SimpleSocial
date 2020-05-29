@@ -6,6 +6,8 @@ using System.Linq;
 using System.Security.Claims;
 using SimpleSocial.Services.Models.Account;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace SimpleSocial.Services.DataServices.ProfilePictureServices
 {
@@ -13,24 +15,45 @@ namespace SimpleSocial.Services.DataServices.ProfilePictureServices
     {
         private readonly SimpleSocialContext dbContext;
         private readonly UserManager<SimpleSocialUser> userManager;
+        private readonly IConfiguration configuration;
 
         public ProfilePictureService(
             SimpleSocialContext dbContext,
-            UserManager<SimpleSocialUser> userManager
+            UserManager<SimpleSocialUser> userManager,
+            IConfiguration configuration
             )
         {
             this.dbContext = dbContext;
             this.userManager = userManager;
+            this.configuration = configuration;
+        }
+
+        public bool VerifyPicture(UploadProfilePictureInputModel pictureModel)
+        {
+            if (pictureModel.UploadImage == null)
+            {
+                //TODO: Validation errors
+                return false;
+            }
+            var indexOfImgExtensionDot = pictureModel.UploadImage.FileName.LastIndexOf('.');
+
+            var imgExtension = pictureModel.UploadImage.FileName.Substring(indexOfImgExtensionDot).ToLower();
+
+            string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
+
+            return allowedExtensions.Contains(imgExtension);
         }
 
         public async Task UploadProfilePictureCloudinary(ClaimsPrincipal user, UploadProfilePictureInputModel inputModel)
         {
             var userId = this.userManager.GetUserId(user);
-
+            var coudinaryUsername = configuration.GetValue<string>("Cloudinary:Username");
+            var apiKey = configuration.GetValue<string>("Cloudinary:ApiKey");
+            var apiSecret = configuration.GetValue<string>("Cloudinary:ApiSecret");
             CloudinaryDotNet.Account account =
-                new CloudinaryDotNet.Account("svetlinmld", "412472163518427", "M90sSSvXSYNzKQ3-l7qb-KGLpSY");
+                new CloudinaryDotNet.Account(coudinaryUsername, apiKey, apiSecret);
 
-            CloudinaryDotNet.Cloudinary cloudinary = new CloudinaryDotNet.Cloudinary(account);
+            Cloudinary cloudinary = new Cloudinary(account);
 
             var fileName = $"{userId}_Profile_Picture";
 
@@ -42,9 +65,9 @@ namespace SimpleSocial.Services.DataServices.ProfilePictureServices
                 PublicId = fileName,
             };
 
-            CloudinaryDotNet.Actions.ImageUploadResult uploadResult = cloudinary.Upload(uploadParams);
+            CloudinaryDotNet.Actions.ImageUploadResult uploadResult = await cloudinary.UploadAsync(uploadParams);
 
-            var updatedUrl = cloudinary.GetResource(uploadResult.PublicId).Url;
+            var updatedUrl = (await cloudinary.GetResourceAsync(uploadResult.PublicId)).Url;
 
             await SaveImageNameToDb(user, updatedUrl);
         }
@@ -52,13 +75,9 @@ namespace SimpleSocial.Services.DataServices.ProfilePictureServices
         private async Task SaveImageNameToDb(ClaimsPrincipal user, string imagePath)
         {
             var userId = userManager.GetUserId(user);
-            var currentUser = this.dbContext.Users.FirstOrDefault(x => x.Id == userId);
+            var currentUser = await this.dbContext.Users.FindAsync(userId);
             currentUser.ProfilePictureURL = imagePath;
             await this.dbContext.SaveChangesAsync();
         }
-
-        public string GetUserProfilePictureURL(string userId)
-            => this.dbContext
-                   .Users.FirstOrDefault(x => x.Id == userId).ProfilePictureURL;
     }
 }

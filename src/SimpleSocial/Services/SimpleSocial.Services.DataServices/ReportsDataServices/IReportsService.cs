@@ -13,6 +13,8 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
 
         ReportViewModel GetSubmitReportViewModel(string postId, ClaimsPrincipal user);
 
-        void DeleteReport(string id, ClaimsPrincipal user);
+        Task DeleteReport(string id, ClaimsPrincipal user);
+
+        Task<int> GetReportsCount();
     }
 }

@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SimpleSocial.Services.DataServices.ReportsDataServices;
 using SimpleSocial.Services.DataServices.SearchDataServices;
 using SimpleSocial.Services.DataServices.UsersDataServices;
 using SimpleSocial.Web.Areas.Administration.Services;
@@ -16,15 +19,18 @@ namespace SimpleSocial.Web.Areas.Administration.Controllers
         private readonly IAdministrationServices administrationServices;
         private readonly ISearchServices searchServices;
         private readonly IUserServices userServices;
+        private readonly IReportsService reportsService;
 
         public AdminController(
             IAdministrationServices administrationServices,
             ISearchServices searchServices,
-            IUserServices userServices)
+            IUserServices userServices,
+            IReportsService reportsService)
         {
             this.administrationServices = administrationServices;
             this.searchServices = searchServices;
             this.userServices = userServices;
+            this.reportsService = reportsService;
         }
 
         [Authorize("Admin")]
@@ -34,13 +40,21 @@ namespace SimpleSocial.Web.Areas.Administration.Controllers
             return View();
         }
 
+        [HttpGet("Administration/Admin/AllReports/{pageNumber:int}")]
         [Authorize("Admin")]
-        public IActionResult AllReports(int? pageNumberr)
+        public async Task<IActionResult> AllReports(int? pageNumber = 1)
         {
-            var viewModel = new AllReportsViewModel {PostReports = this.administrationServices.GetAllReports()};
-            var number = pageNumberr ?? 1;
-            viewModel.PostReports = viewModel.PostReports.ToPagedList(number,10);
-            ViewBag.PageNum = number;
+            // TODO: Add paging in the view. move 10 to constant
+            var repostsCount = await this.reportsService.GetReportsCount();
+            var pagesCount = (int)Math.Ceiling(repostsCount / 10d);
+            var viewModel = new AllReportsViewModel
+            {
+                PostReports = await this.administrationServices.GetAllReports((int)pageNumber - 1, 10),
+                PagesCount = pagesCount,
+                CurrentPageNumber = (int)pageNumber
+            };
+
+            ViewBag.PageNum = pageNumber;
             return View(viewModel);
         }
 
@@ -53,8 +67,8 @@ namespace SimpleSocial.Web.Areas.Administration.Controllers
                 var users = result.UsersFound.Users.ToList();
                 var usersFoundToPromoteDemote = new PromoteDemoteViewModel()
                 {
-                    AdminUsers = administrationServices.GetAdminUsers(User,users),
-                    NonAdminUsers = administrationServices.GetNonAdminUsers(User,users),
+                    AdminUsers = administrationServices.GetAdminUsers(User, users),
+                    NonAdminUsers = administrationServices.GetNonAdminUsers(User, users),
                     AllUsers = this.userServices.GetAllUsernames()
                 };
 
@@ -72,16 +86,16 @@ namespace SimpleSocial.Web.Areas.Administration.Controllers
         }
 
         [Authorize("Admin")]
-        public IActionResult Promote(string id)
+        public async Task<IActionResult> Promote(string id)
         {
-            administrationServices.PromoteUser(id);
+            await administrationServices.PromoteUser(id);
             return RedirectToAction("ManageUsers");
         }
 
         [Authorize("Admin")]
-        public IActionResult Demote(string id)
+        public async Task<IActionResult> Demote(string id)
         {
-            administrationServices.DemoteUser(id);
+            await administrationServices.DemoteUser(id);
             return RedirectToAction("ManageUsers");
         }
     }

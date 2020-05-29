@@ -39,38 +39,37 @@ namespace SimpleSocial.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult MyProfile(MyProfileViewModel inputModel)
+        public async Task<IActionResult> MyProfile(MyProfileViewModel inputModel)
         {
             var userId = this.userManager.GetUserId(User);
-            var a = this.profilePictureService.GetUserProfilePictureURL(userId);
             var whoToFollowList = new UsersListViewModel()
             {
-                Users = followersServices.GetUsersToFollow(User).ToList(),
+                Users = await followersServices.GetUsersToFollow(User),
                 UsersCount = ControllerConstants.WhoToFollowPartialFollowerCount,
             };
 
             //TODO: Fix the whole logic behind this method because - dont user GetUserInfo
             var viewModel = new MyProfileViewModel
             {
-                CurrentUserInfo = userServices.GetUserInfo(userId, userId),
+                CurrentUserInfo = await userServices.GetUserInfo(userId, userId),
                 Posts = postServices.GetUserPosts(userId, userId,0),
                 IsValidProfilePicture = inputModel.IsValidProfilePicture,
-                UserProfileInfo = userServices.GetUserInfo(userId, userId),
+                UserProfileInfo = await userServices.GetUserInfo(userId, userId),
                 WhoToFollow = whoToFollowList
             };
 
             return View(viewModel);
         }
 
-        public IActionResult GetMyPosts(int pageNumber)
+        public async Task<IActionResult> GetMyPosts(int pageNumber)
         {
             var currentUserId = userManager.GetUserId(User);
             var posts = postServices.GetUserPosts(currentUserId,currentUserId, pageNumber);
             var viewModel = new PostsFeedAndUserInfoViewModel()
             {
                 Posts = posts,
-                CurrentUserInfo = userServices.GetUserInfo(currentUserId, currentUserId),
-                UserProfileInfo = userServices.GetUserInfo(currentUserId, currentUserId),
+                CurrentUserInfo = await userServices.GetUserInfo(currentUserId, currentUserId),
+                UserProfileInfo = await userServices.GetUserInfo(currentUserId, currentUserId),
             };
             var partial = this.PartialView("Components/ListOfPosts/Default", viewModel);
             return partial;
@@ -92,16 +91,13 @@ namespace SimpleSocial.Web.Controllers
 
             if (inputModel.UploadImage != null)
             {
-                var indexOfImgExtensionDot = inputModel.UploadImage.FileName.IndexOf('.');
+                var isValid = this.profilePictureService.VerifyPicture(inputModel);
 
-                var imgExtension = inputModel.UploadImage.FileName.Substring(indexOfImgExtensionDot).ToLower();
-
-                string[] allowedExtensions = { ".jpg", ".jpeg", ".png" };
-
-                if (!allowedExtensions.Contains(imgExtension))
+                if (!isValid)
                 {
                     return RedirectToAction("ChangeProfilePicture", new MyProfileViewModel { IsValidProfilePicture = false });
                 }
+
                 await profilePictureService.UploadProfilePictureCloudinary(this.User, inputModel);
             }
 

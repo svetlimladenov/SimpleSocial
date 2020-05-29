@@ -7,6 +7,7 @@ using SimpleSocial.Data.Common.Constants;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.PostsServices;
 using SimpleSocial.Services.DataServices.UsersDataServices;
+using System.Threading.Tasks;
 
 namespace SimpleSocial.Web.Controllers
 {
@@ -67,15 +68,15 @@ namespace SimpleSocial.Web.Controllers
             return RedirectToAction("SuccessfullAction", "Profiles", new { message = ControllerConstants.SuccessfullyDeletedPostMessage });
         }
 
-        public IActionResult GetPosts(int pageNumber)
+        public async Task<IActionResult> GetPosts(int pageNumber)
         {
             var currentUserId = userManager.GetUserId(User);
             var posts = postServices.GetNewsFeedPosts(currentUserId, pageNumber);
             var viewModel = new PostsFeedAndUserInfoViewModel()
             {
                 Posts = posts,
-                CurrentUserInfo = userServices.GetUserInfo(currentUserId, currentUserId),
-                UserProfileInfo = userServices.GetUserInfo(currentUserId, currentUserId),
+                CurrentUserInfo = await userServices.GetUserInfo(currentUserId, currentUserId),
+                UserProfileInfo = await userServices.GetUserInfo(currentUserId, currentUserId),
             };
             var partial = this.PartialView("Components/ListOfPosts/Default", viewModel);
             return partial;

@@ -1,60 +1,59 @@
 ﻿using System.Collections.Generic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
-using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SimpleSocial.Services.Mapping;
-using SimpleUserViewModel = SimpleSocial.Services.Models.Followers.SimpleUserViewModel;
-using UserFollower = SimpleSocial.Data.Models.UserFollower;
+using SimpleSocial.Data;
+using SimpleSocial.Services.Models.Followers;
 
 namespace SimpleSocial.Services.DataServices.FollowersDataServices
 {
     public class FollowersServices : IFollowersServices
     {
         private readonly UserManager<SimpleSocialUser> userManager;
-        private readonly IRepository<SimpleSocialUser> userRepository;
-        private readonly IRepository<UserFollower> userFollowerRepository;
+        private readonly SimpleSocialContext dbContext;
 
         public FollowersServices(
             UserManager<SimpleSocialUser> userManager,
-            IRepository<SimpleSocialUser> userRepository,
-            IRepository<UserFollower> userFollowerRepository)
+            SimpleSocialContext dbContext)
         {
             this.userManager = userManager;
-            this.userRepository = userRepository;
-            this.userFollowerRepository = userFollowerRepository;
+            this.dbContext = dbContext;
         }
 
-        public IEnumerable<SimpleUserViewModel> GetUsersToFollow(ClaimsPrincipal user)
+        public async Task<IEnumerable<T>> GetUsersToFollow<T>(ClaimsPrincipal user)
         {
-            var currentUser = userManager.GetUserAsync(user).GetAwaiter().GetResult();
-            var allUsers = this.userRepository.All().Where(x => x.Id != currentUser.Id).To<SimpleUserViewModel>().Take(20).ToList();
+            var currentUser = await userManager.GetUserAsync(user);
+            var notFollowingUsers =
+                this.dbContext.Users
+                .Where(
+                    u => !this.dbContext.UserFollowers
+                    .Where(x => x.FollowerId == currentUser.Id)
+                    .Select(x => x.UserId)
+                    .Contains(u.Id)
+                    && u.Id != currentUser.Id)
+                .MapToList<T>();
 
-            if (allUsers.Count == 0)
-            {
-                return null;
-            }
+            return notFollowingUsers;
+        }
 
-            var currentUserFollowings = this.userFollowerRepository.All().Where(x => x.FollowerId == currentUser.Id).ToList();
+        public async Task<IEnumerable<SimpleUserViewModel>> GetUsersToFollow(ClaimsPrincipal user)
+        {
+            var currentUser = await userManager.GetUserAsync(user);
+            var notFollowingUsers = 
+                this.dbContext.Users
+                .Where(
+                    u => !this.dbContext.UserFollowers
+                    .Where(x => x.FollowerId == currentUser.Id)
+                    .Select(x => x.UserId)
+                    .Contains(u.Id) 
+                    && u.Id != currentUser.Id)
+                .MapToList<SimpleUserViewModel>();
 
-            foreach (var followingUserId in currentUserFollowings)
-            {
-                var followingUser = userRepository.All().FirstOrDefault(x => x.Id == followingUserId.UserId);
-                if (followingUser == null)
-                {
-                    continue;   
-                }
-                if (allUsers.FirstOrDefault(x => x.Id == followingUser.Id) != null)
-                {
-                    allUsers.RemoveAll(x => x.Id == followingUser.Id);
-                    continue;
-                }
-            }
-
-            return allUsers;
+            return notFollowingUsers;
         }
 
         public async Task Follow(string userToFollowId, string currentUserId)
@@ -70,8 +69,8 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
                 return;
             }
 
-            await userFollowerRepository.AddAsync(userFollower);
-            userFollowerRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await this.dbContext.UserFollowers.AddAsync(userFollower);
+            await this.dbContext.SaveChangesAsync();
         }
 
         public async Task Unfollow(string userToUnfollowId, string currentUserId)
@@ -81,23 +80,25 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
                 return;
             }
             
-            var userFollower = userFollowerRepository.All().FirstOrDefault(x => x.UserId == userToUnfollowId && x.FollowerId == currentUserId);
+            var userFollower = this.dbContext.UserFollowers.FirstOrDefault(x => x.UserId == userToUnfollowId && x.FollowerId == currentUserId);
             if (userFollower == null)
             {
                 return;
             }
 
-            userFollowerRepository.Delete(userFollower);
-            userFollowerRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            this.dbContext.UserFollowers.Remove(userFollower);
+            await this.dbContext.SaveChangesAsync();
         }
 
         public ICollection<SimpleUserViewModel> GetFollowings(ClaimsPrincipal user)
         {
             var userId = this.userManager.GetUserId(user);
-            var followings = this.userFollowerRepository.All().Include(x => x.User).Where(x => x.FollowerId == userId && x.UserId != userId)
-                .Select(
-                    x => x.User).To<SimpleUserViewModel>().ToList();
+            var followings = this.dbContext.UserFollowers
+                .Where(x => x.FollowerId == userId && x.UserId != userId)
+                .Select(x => x.User)
+                .MapToList<SimpleUserViewModel>();
 
+            // TODO: DO this in the database
             foreach (var following in followings)
             {
                 following.IsFollowingCurrentUser = this.IsBeingFollowedBy(following.Id, userId);
@@ -110,7 +111,12 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
         public ICollection<SimpleUserViewModel> GetFollowers(ClaimsPrincipal user)
         {
             var userId = this.userManager.GetUserId(user);
-            var followers = this.userFollowerRepository.All().Include(x => x.Follower).Where(x => x.UserId == userId && x.FollowerId != userId).Select(x => x.Follower).To<SimpleUserViewModel>().ToList();
+            var followers = this.dbContext.UserFollowers
+                .Where(x => x.UserId == userId && x.FollowerId != userId)
+                .Select(x => x.Follower)
+                .MapToList<SimpleUserViewModel>();
+
+            // TODO: DO this in the database
             foreach (var follower in followers)
             {
                 follower.IsFollowingCurrentUser = this.IsBeingFollowedBy(follower.Id, userId);
@@ -119,12 +125,18 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
             return followers;
         }
 
-        //is user A followed by user B
+        /// <summary>
+        /// Checks if user A is being followed by user B
+        /// </summary>
+        /// <param name="userA"></param>
+        /// <param name="userB"></param>
+        /// <returns></returns>
         public bool IsBeingFollowedBy(string userA, string userB)
         {
+            //TODO: Fix this
             var userAid = userA;
             var userBid = userB;
-            return this.userFollowerRepository.All().FirstOrDefault(x => x.UserId == userAid && x.FollowerId == userBid) != null;
+            return this.dbContext.UserFollowers.FirstOrDefault(x => x.UserId == userAid && x.FollowerId == userBid) != null;
         }
     }
 }

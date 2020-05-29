@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using SimpleSocial.Services.Models.Followers;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
 using X.PagedList;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace SimpleSocial.Web.Controllers
 {
@@ -17,14 +19,13 @@ namespace SimpleSocial.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult WhoToFollow(int? pageNumbar)
+        public async Task<IActionResult> WhoToFollow(int? pageNumbar)
         {
             var viewModel = new UsersListViewModel() {NoUsersWord = "more users left to follow."};
             var number = pageNumbar ?? 1;
             ViewBag.PageNum = number;
-            var usersToFollow = followersServices.GetUsersToFollow(User);
-
-            viewModel.Users = usersToFollow.ToPagedList(number, 12);
+            var usersToFollow = await followersServices.GetUsersToFollow<SimpleUserViewModel>(User);
+            viewModel.Users = await usersToFollow.ToPagedListAsync(number, 12);
             return View(viewModel);
         }
 

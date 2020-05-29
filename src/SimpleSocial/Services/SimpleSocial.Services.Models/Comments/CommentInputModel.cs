@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using SimpleSocial.Data.Common;
+﻿using System.ComponentModel.DataAnnotations;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.Mapping;
 
 namespace SimpleSocial.Services.Models.Comments
 {
-    public class CommentInputModel : IMapTo<Comment>, IValidatableObject
+    public class CommentInputModel : IMapTo<Comment>
     {
         [Required]
         public string PostId { get; set; }
@@ -22,23 +19,6 @@ namespace SimpleSocial.Services.Models.Comments
         [Required]
         public string CommentText { get; set; }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            var postRepository = (IRepository<Post>)validationContext
-                .GetService(typeof(IRepository<Post>));
-
-            var userRepository = (IRepository<SimpleSocialUser>)validationContext
-                .GetService(typeof(IRepository<SimpleSocialUser>));
-
-            if (!postRepository.All().Any(x => x.Id == this.PostId))
-            {
-                yield return new ValidationResult("Invalid post id");
-            }
-
-            if (!userRepository.All().Any(x => x.Id == this.AuthorId))
-            {
-                yield return new ValidationResult("Invalid author id");
-            }
-        }
+        //TODO: Add Validations which were removed from the IValidatable Object
     }
 }

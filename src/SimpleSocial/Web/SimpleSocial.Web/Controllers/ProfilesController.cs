@@ -8,6 +8,7 @@ using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.DataServices.PostsServices;
 using SimpleSocial.Services.DataServices.UsersDataServices;
+using System.Threading.Tasks;
 
 namespace SimpleSocial.Web.Controllers
 {
@@ -31,7 +32,7 @@ namespace SimpleSocial.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult Index(string userId)
+        public async Task<IActionResult> Index(string userId)
         {
             if (this.userManager.GetUserId(User) == userId)
             {
@@ -42,9 +43,9 @@ namespace SimpleSocial.Web.Controllers
 
             var viewModel = new PostsFeedAndUserInfoViewModel()
             {
-                CurrentUserInfo = userServices.GetUserInfo(currentUserId, currentUserId),
+                CurrentUserInfo = await userServices.GetUserInfo(currentUserId, currentUserId),
                 Posts = postServices.GetUserPosts(userId, currentUserId,0),
-                UserProfileInfo = userServices.GetUserInfo(userId, currentUserId),
+                UserProfileInfo = await userServices.GetUserInfo(userId, currentUserId),
             };
 
             if (viewModel.UserProfileInfo == null || viewModel.CurrentUserInfo == null)
@@ -58,15 +59,15 @@ namespace SimpleSocial.Web.Controllers
             return this.View(viewModel);
         }
 
-        public IActionResult GetUserPosts(int pageNumber, string userId)
+        public async Task<IActionResult> GetUserPosts(int pageNumber, string userId)
         {
             var currentUserId = userManager.GetUserId(User);
             var posts = postServices.GetUserPosts(userId, currentUserId, pageNumber);
             var viewModel = new PostsFeedAndUserInfoViewModel()
             {
                 Posts = posts,
-                CurrentUserInfo = userServices.GetUserInfo(currentUserId, currentUserId),
-                UserProfileInfo = userServices.GetUserInfo(userId, currentUserId),
+                CurrentUserInfo = await userServices.GetUserInfo(currentUserId, currentUserId),
+                UserProfileInfo = await userServices.GetUserInfo(userId, currentUserId),
             };
             var partial = this.PartialView("Components/ListOfPosts/Default", viewModel);
             return partial;

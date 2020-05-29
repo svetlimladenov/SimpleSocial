@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SimpleSocial.Data;
 using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.SignUpDetails;
@@ -16,18 +17,18 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<SimpleSocialUser> _userManager;
         private readonly SignInManager<SimpleSocialUser> _signInManager;
         private readonly IProfileDetailsServices profileDetailsServices;
-        private readonly IRepository<SimpleSocialUser> userRepository;
+        private readonly SimpleSocialContext dbContext;
 
         public IndexModel(
             UserManager<SimpleSocialUser> userManager,
             SignInManager<SimpleSocialUser> signInManager,
             IProfileDetailsServices profileDetailsServices,
-            IRepository<SimpleSocialUser> userRepository)
+            SimpleSocialContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             this.profileDetailsServices = profileDetailsServices;
-            this.userRepository = userRepository;
+            this.dbContext = dbContext;
         }
 
         public string Username { get; set; }
@@ -177,8 +178,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account.Manage
                 user.BirthDay = Input.BirthDay;
             }
 
-
-            userRepository.SaveChangesAsync().GetAwaiter().GetResult();
+            await this.dbContext.SaveChangesAsync();
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
