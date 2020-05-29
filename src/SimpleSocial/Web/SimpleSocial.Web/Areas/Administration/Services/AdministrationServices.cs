@@ -6,7 +6,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SimpleSocial.Services.Models.Followers;
-using SimpleSocial.Data.Common;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Data;
 using System.Threading.Tasks;
@@ -18,18 +17,15 @@ namespace SimpleSocial.Web.Areas.Administration.Services
     {
         private readonly IMapper mapper;
         private readonly UserManager<SimpleSocialUser> userManager;
-        private readonly IRepository<PostReport> reportsRepository;
         private readonly SimpleSocialContext dbContext;
 
         public AdministrationServices(
             IMapper mapper,
             UserManager<SimpleSocialUser> userManager,
-            IRepository<PostReport> reportsRepository,
             SimpleSocialContext dbContext)
         {
             this.mapper = mapper;
             this.userManager = userManager;
-            this.reportsRepository = reportsRepository;
             this.dbContext = dbContext;
         }
 

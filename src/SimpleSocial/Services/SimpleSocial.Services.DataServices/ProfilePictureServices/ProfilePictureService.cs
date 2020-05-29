@@ -30,6 +30,11 @@ namespace SimpleSocial.Services.DataServices.ProfilePictureServices
 
         public bool VerifyPicture(UploadProfilePictureInputModel pictureModel)
         {
+            if (pictureModel.UploadImage == null)
+            {
+                //TODO: Validation errors
+                return false;
+            }
             var indexOfImgExtensionDot = pictureModel.UploadImage.FileName.LastIndexOf('.');
 
             var imgExtension = pictureModel.UploadImage.FileName.Substring(indexOfImgExtensionDot).ToLower();

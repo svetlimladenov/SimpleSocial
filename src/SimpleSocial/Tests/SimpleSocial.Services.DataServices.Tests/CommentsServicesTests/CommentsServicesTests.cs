@@ -21,8 +21,7 @@ namespace SimpleSocial.Services.DataServices.Tests.CommentsServicesTests
             };
             this.CommentsServices.CreateCommentAsync(comment);
             
-            this.Context.Comments.ToList()[0].CommentText.ShouldBe(comment.CommentText);
-            
+            this.Context.Comments.ToList()[0].CommentText.ShouldBe(comment.CommentText);          
         }
     }
 }

@@ -100,7 +100,6 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             return posts;
         }
 
-
         public PostViewModel GetPostById(string id)
         {
             var post = this.dbContext.Posts.Where(x => x.Id == id).To<PostViewModel>().FirstOrDefault();
