@@ -14,11 +14,11 @@ namespace SimpleSocial.Web.Middlewares
             this.next = next;
         }
 
-        public Task Invoke(HttpContext httpContext, RoleManager<IdentityRole> roleManager)
+        public async Task Invoke(HttpContext httpContext, RoleManager<IdentityRole> roleManager)
         {
-            Seeder.SeedRoles(roleManager).Wait();
+            await Seeder.SeedRoles(roleManager);
 
-            return this.next(httpContext);
+            await this.next(httpContext);
         }
     }
 }
