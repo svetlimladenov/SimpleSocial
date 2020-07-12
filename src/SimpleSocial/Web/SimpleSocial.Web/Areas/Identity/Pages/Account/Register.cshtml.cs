@@ -19,20 +19,17 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<SimpleSocialUser> _signInManager;
         private readonly UserManager<SimpleSocialUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
         private readonly SimpleSocialContext dbContext;
 
         public RegisterModel(
             UserManager<SimpleSocialUser> userManager,
             SignInManager<SimpleSocialUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender,
             SimpleSocialContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
             this.dbContext = dbContext;
         }
 
@@ -119,9 +116,6 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
                         pageHandler: null,
                         values: new { userId = user.Id, code = code },
                         protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return LocalRedirect("/Identity/Account/Manage");

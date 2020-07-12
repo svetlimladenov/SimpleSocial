@@ -22,7 +22,6 @@ using SimpleSocial.Services.DataServices.SignUpDetails;
 using SimpleSocial.Services.DataServices.UsersDataServices;
 using SimpleSocial.Services.Mapping;
 using SimpleSocial.Web.Areas.Administration.Services;
-using SimpleSocial.Web.Middlewares;
 using System.Reflection;
 
 namespace SimpleSocial.Web
@@ -83,6 +82,9 @@ namespace SimpleSocial.Web
 
             services.AddSession();
 
+
+
+
             //Application services
 
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
@@ -126,8 +128,6 @@ namespace SimpleSocial.Web
 
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseMiddleware<SeedRolesMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
