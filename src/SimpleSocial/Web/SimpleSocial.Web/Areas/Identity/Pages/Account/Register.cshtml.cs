@@ -64,7 +64,6 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnGet(string returnUrl = null)
         {
-
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "NewsFeed");
@@ -83,19 +82,10 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
                 var user = new SimpleSocialUser() { UserName = Input.Username, Email = Input.Email};
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                var wall = new Wall()
-                {
-                    UserId = dbContext.Users.FirstOrDefault(x => x.UserName == user.UserName)?.Id
-                };
-
-                dbContext.Walls.Add(wall);
-                dbContext.SaveChanges();
-                user.WallId = wall.Id;
-                dbContext.SaveChanges();
 
                 user.ProfilePictureURL = "https://res.cloudinary.com/svetlinmld/image/upload/v1546050240/default.jpg";
 
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
 
                 if (result.Succeeded)
                 {

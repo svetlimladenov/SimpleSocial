@@ -29,11 +29,6 @@ namespace SimpleSocial.Data.Models
 
         public SimpleSocialUser User { get; set; }
 
-        [ForeignKey("Wall")]
-        public string WallId { get; set; }
-
-        public Wall Wall { get; set; }
-
         public ICollection<Comment> Comments { get; set; }
 
         public ICollection<PostReport> PostReports { get; set; }

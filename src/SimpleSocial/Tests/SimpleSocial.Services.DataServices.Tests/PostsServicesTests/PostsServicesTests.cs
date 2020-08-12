@@ -23,16 +23,10 @@ namespace SimpleSocial.Services.DataServices.Tests.PostsServicesTests
                 UserName = "CommentsTest"
             };
 
-            var wall = new Wall()
-            {
-                Id = "Test"
-            };
-
             var createPostViewModel = new CreatePostInputModel
             {
                 Content = "test, test, test",
-                UserId = user.Id,
-                WallId = wall.Id,
+                UserId = user.Id
             };
 
             this.PostServices.CreatePost(new MyProfileViewModel
@@ -54,12 +48,7 @@ namespace SimpleSocial.Services.DataServices.Tests.PostsServicesTests
                 UserName = "CommentsTest",
             };
 
-            var wall = new Wall()
-            {
-                Id = "Test"
-            };
-
-            var post = new Post() { Id = "Test", UserId = user.Id, WallId = wall.Id };
+            var post = new Post() { Id = "Test", UserId = user.Id };
 
             //add the new post
             this.PostsRepository.AddAsync(post).GetAwaiter().GetResult();
@@ -89,12 +78,7 @@ namespace SimpleSocial.Services.DataServices.Tests.PostsServicesTests
                 UserName = "CommentsTest",
             };
 
-            var wall = new Wall()
-            {
-                Id = "Test"
-            };
-
-            var post = new Post() { Id = "Test", UserId = "otherTest", WallId = wall.Id };
+            var post = new Post() { Id = "Test", UserId = "otherTest" };
 
             //add the new post
             this.PostsRepository.AddAsync(post).GetAwaiter().GetResult();
@@ -206,8 +190,7 @@ namespace SimpleSocial.Services.DataServices.Tests.PostsServicesTests
             var post = new Post()
             {
                 Content = "test",
-                UserId = "test",
-                WallId = "zaebi",
+                UserId = "test"
             };
 
             this.Context.Posts.Add(post);
@@ -231,8 +214,7 @@ namespace SimpleSocial.Services.DataServices.Tests.PostsServicesTests
             var post = new Post()
             {
                 Content = "test",
-                UserId = user.Id,
-                WallId = "zaebi",
+                UserId = user.Id
             };
             
             this.Context.Posts.Add(post);
@@ -257,7 +239,6 @@ namespace SimpleSocial.Services.DataServices.Tests.PostsServicesTests
             {
                 Content = "test",
                 UserId = user.Id,
-                WallId = "zaebi",
             };
 
             this.Context.Posts.Add(post);
@@ -291,8 +272,7 @@ namespace SimpleSocial.Services.DataServices.Tests.PostsServicesTests
             var post = new Post()
             {
                 Content = "test",
-                UserId = user.Id,
-                WallId = "zaebi",
+                UserId = user.Id
             };
 
             this.Context.Posts.Add(post);

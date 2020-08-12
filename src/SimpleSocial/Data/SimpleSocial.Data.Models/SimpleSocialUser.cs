@@ -34,11 +34,6 @@ namespace SimpleSocial.Data.Models
 
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
-        [ForeignKey("Wall")]
-        public string WallId { get; set; }
-
-        public Wall Wall { get; set; }
-
         public ICollection<Post> Posts { get; set; }
        
         public ICollection<Comment> Comments { get; set; }

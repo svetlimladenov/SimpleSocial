@@ -15,8 +15,6 @@ namespace SimpleSocial.Data
 
         public DbSet<PostReport> PostReports { get; set; }
 
-        public DbSet<Wall> Walls { get; set; }
-
         public DbSet<Comment> Comments { get; set; }
 
         public DbSet<Page> Pages { get; set; }
@@ -31,11 +29,6 @@ namespace SimpleSocial.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
-
-            builder.Entity<SimpleSocialUser>()
-                .HasOne(u => u.Wall)
-                .WithOne(w => w.User)
-                .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<SimpleSocialUser>()
                 .HasMany(u => u.Comments)

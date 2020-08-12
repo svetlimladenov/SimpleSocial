@@ -56,7 +56,7 @@ namespace SandBox
                 "Vivamus non justo quis dolor iaculis vehicula nec sed diam. Nam placerat nibh eu luctus mattis. Vestibulum pulvinar purus sed scelerisque blandit. Nullam nec mauris ex. Vestibulum mauris lorem,"
             };
             var rnd = new Random();
-            foreach (var user in userRepo.All().Include(x => x.Wall))
+            foreach (var user in userRepo.All())
             {
                 for (int i = 0; i < rnd.Next(10, 20); i++)
                 {
@@ -64,8 +64,7 @@ namespace SandBox
                     {
                         Content = postContent[rnd.Next(0, postContent.Count - 1)],
                         UserId = user.Id,
-                        User = user,
-                        WallId = user.WallId,
+                        User = user
                     };
                     postRepo.AddAsync(post).GetAwaiter().GetResult();
                     

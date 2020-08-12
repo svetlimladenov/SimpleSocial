@@ -54,7 +54,6 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             {
                 UserId = viewModel.CreatePost.UserId,
                 Title = viewModel.CreatePost.Title,
-                WallId = viewModel.CreatePost.WallId,
                 Content = viewModel.CreatePost.Content,
             };
 
