@@ -65,7 +65,7 @@ namespace SimpleSocial.Web.Controllers
         public IActionResult DeletePost(string id)
         {
             postServices.DeletePost(id, User);
-            return RedirectToAction("SuccessfullAction", "Profiles", new { message = ControllerConstants.SuccessfullyDeletedPostMessage });
+            return RedirectToAction("SuccessfulAction", "Profiles", new { message = ControllerConstants.SuccessfullyDeletedPostMessage });
         }
 
         public async Task<IActionResult> GetPosts(int pageNumber)
