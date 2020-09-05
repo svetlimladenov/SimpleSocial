@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <AssemblyName>SimpleSocial.Services.Models</AssemblyName>
     <RootNamespace>SimpleSocial.Services.Models</RootNamespace>
   </PropertyGroup>

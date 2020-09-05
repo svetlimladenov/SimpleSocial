@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
     <UserSecretsId>aspnet-SimpleSocial.Web-1EAA991B-CA1E-4431-9E4C-D1DF46143328</UserSecretsId>
   </PropertyGroup>
 
@@ -13,10 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.4" />
-    <PackageReference Include="CloudinaryDotNet" Version="1.10.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.7" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.12.0" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.0.7" />
   </ItemGroup>
 
@@ -27,9 +28,4 @@
     <ProjectReference Include="..\..\Services\SimpleSocial.Services.DataServices\SimpleSocial.Services.DataServices.csproj" />
     <ProjectReference Include="..\..\Services\SimpleSocial.Services.Mapping\SimpleSocial.Services.Mapping.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Middlewares\" />
-  </ItemGroup>
-
 </Project>
