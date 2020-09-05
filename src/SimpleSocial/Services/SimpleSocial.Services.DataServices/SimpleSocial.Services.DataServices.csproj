@@ -2,10 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CloudinaryDotNet" Version="1.10.0" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.12.0" />
   </ItemGroup>
 
   <ItemGroup>
