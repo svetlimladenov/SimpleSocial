@@ -2188,7 +2188,7 @@
       "simplesocial.services.mapping": {
         "type": "Project",
         "dependencies": {
-          "AutoMapper": "9.0.0"
+          "AutoMapper": "10.0.0"
         }
       },
       "simplesocial.services.models": {
