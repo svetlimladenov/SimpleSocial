@@ -19,6 +19,11 @@
             "type": "shell",
             "group": "build",
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "SimpleSocial: Start Web Server",
+            "command": "dotnet run --project .\\Web\\SimpleSocial.Web\\SimpleSocial.Web.csproj",
+            "type": "shell"
         }
     ]
 }
