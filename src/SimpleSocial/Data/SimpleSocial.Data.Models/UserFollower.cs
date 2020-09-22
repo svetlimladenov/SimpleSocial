@@ -4,11 +4,11 @@ namespace SimpleSocial.Data.Models
 {
     public class UserFollower
     {
-        public string UserId { get; set; }
+        public int UserId { get; set; }
 
         public SimpleSocialUser User { get; set; }
 
-        public string FollowerId { get; set; }
+        public int FollowerId { get; set; }
 
         public SimpleSocialUser Follower { get; set; }
 

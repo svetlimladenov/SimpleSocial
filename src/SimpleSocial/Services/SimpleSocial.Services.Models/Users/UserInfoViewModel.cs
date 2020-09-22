@@ -7,7 +7,7 @@ namespace SimpleSocial.Services.Models.Users
 {
     public class UserInfoViewModel : IMapFrom<SimpleSocialUser>, IHaveCustomMappings
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string ProfilePictureURL { get; set; }
 
@@ -17,9 +17,9 @@ namespace SimpleSocial.Services.Models.Users
 
         public string LastName { get; set; }
 
-        public string UserId { get; set; }
+        public int UserId { get; set; }
 
-        public string WallId { get; set; }
+        public int WallId { get; set; }
 
         public string Description { get; set; }
 

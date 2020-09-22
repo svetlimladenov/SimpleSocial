@@ -9,6 +9,7 @@ using SimpleSocial.Services.DataServices.FollowersDataServices;
 using SimpleSocial.Services.DataServices.PostsServices;
 using SimpleSocial.Services.DataServices.ReportsDataServices;
 using System.Threading.Tasks;
+using SimpleSocial.Services.DataServices.UsersDataServices;
 
 namespace SimpleSocial.Web.Controllers
 {
@@ -18,21 +19,24 @@ namespace SimpleSocial.Web.Controllers
         private readonly IPostServices postServices;
         private readonly IReportsService reportsService;
         private readonly IFollowersServices followersServices;
+        private IUserServices userServices;
 
         public ReportsController(
             UserManager<SimpleSocialUser> userManager,
             IPostServices postServices,
             IReportsService reportsService,
-            IFollowersServices followersServices)
+            IFollowersServices followersServices,
+            IUserServices userServices)
         {
             this.userManager = userManager;
             this.postServices = postServices;
             this.reportsService = reportsService;
             this.followersServices = followersServices;
+            this.userServices = userServices;
         }
 
         [Authorize]
-        public IActionResult SubmitReport(string postId)
+        public IActionResult SubmitReport(int postId)
         {
             ReportViewModel viewModel = this.reportsService.GetSubmitReportViewModel(postId,User);
             if (viewModel == null)
@@ -56,13 +60,13 @@ namespace SimpleSocial.Web.Controllers
                 return result;
             }
 
-            var currentUserId = this.userManager.GetUserId(User);
-            await reportsService.AddReport(currentUserId,inputModel.PostId,inputModel.ReportReason);
+            var currentUserId = this.userServices.GetUserId(User);
+            await reportsService.AddReport(currentUserId, inputModel.PostId, inputModel.ReportReason);
             return RedirectToAction("Index","NewsFeed");
         }
 
         [Authorize]
-        public IActionResult ReportDetails(string id)
+        public IActionResult ReportDetails(int id)
         {
             var viewModel = this.reportsService.GetReportDetails(id);
             if (viewModel == null)
@@ -77,9 +81,9 @@ namespace SimpleSocial.Web.Controllers
 
         [Authorize("Admin")]
         [HttpPost]
-        public IActionResult DeleteReport(string id)
+        public IActionResult DeleteReport(int id)
         {
-            this.reportsService.DeleteReport(id,User);
+            this.reportsService.DeleteReport(id, User);
             return RedirectToAction("SuccessfulAction", "Profiles", new { message = ControllerConstants.SuccessfullyDeletedReportMesssage });
         }
     }

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.LikesDataServices;
+using SimpleSocial.Services.DataServices.UsersDataServices;
 using System.Threading.Tasks;
 
 namespace SimpleSocial.Web.Controllers
@@ -10,21 +11,21 @@ namespace SimpleSocial.Web.Controllers
     public class LikesController : BaseController
     {
         private readonly ILikesServices likesServices;
-        private readonly UserManager<SimpleSocialUser> userManager;
+        private readonly IUserServices userServices;
 
         public LikesController(
             ILikesServices likesServices,
-            UserManager<SimpleSocialUser> userManager)
+            IUserServices userServices)
         {
             this.likesServices = likesServices;
-            this.userManager = userManager;
+            this.userServices = userServices;
         }
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> GetAction(string isLiked, string postId)
+        public async Task<IActionResult> GetAction(string isLiked, int postId)
         {
-            var userId = this.userManager.GetUserId(User);
+            var userId = this.userServices.GetUserId(User);
             if (isLiked.ToLower() == "false")
             {
                 await likesServices.Like(postId, userId);

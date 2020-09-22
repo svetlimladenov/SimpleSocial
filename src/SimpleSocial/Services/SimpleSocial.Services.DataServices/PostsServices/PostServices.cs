@@ -58,11 +58,19 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             };
 
             await dbContext.AddAsync(post);
-            await dbContext.SaveChangesAsync();
+            
+            try
+            {
+                await dbContext.SaveChangesAsync();
+            }
+            catch (System.Exception e)
+            {
 
+                throw e;
+            }
         }
 
-        public ICollection<PostViewModel> GetUserPosts(string userId, string currrentUserId, int pageNumber)
+        public ICollection<PostViewModel> GetUserPosts(int userId, int currrentUserId, int pageNumber)
         {
             var posts = this.postRepository
                             .All()
@@ -99,7 +107,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             return posts;
         }
 
-        public PostViewModel GetPostById(string id)
+        public PostViewModel GetPostById(int id)
         {
             var post = this.dbContext.Posts.Where(x => x.Id == id).To<PostViewModel>().FirstOrDefault();
             if (post == null)
@@ -109,7 +117,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             return post;
         }
 
-        public SinglePostViewComponentModel GetSinglePostViewComponentModel(string id, string visitorId)
+        public SinglePostViewComponentModel GetSinglePostViewComponentModel(int id, int visitorId)
         {
             var viewModel = new SinglePostViewComponentModel();
             var post = this.GetPostById(id);
@@ -140,7 +148,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             return viewModel;
         }
 
-        public ICollection<PostViewModel> GetNewsFeedPosts(string currrentUserId, int pageNumber)
+        public ICollection<PostViewModel> GetNewsFeedPosts(int currrentUserId, int pageNumber)
         {
             var posts = new List<PostViewModel>();
             var followings = this.userFollowersRepository.All().Where(x => x.FollowerId == currrentUserId);
@@ -178,10 +186,10 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             return posts;
         }
 
-        public SimpleSocialUser GetPostAuthor(string postId)
+        public SimpleSocialUser GetPostAuthor(int postId)
          => this.dbContext.Posts.Include(x => x.User).FirstOrDefault(x => x.Id == postId).User;
 
-        public void DeletePost(string id, ClaimsPrincipal user)
+        public void DeletePost(int id, ClaimsPrincipal user)
         {
             var post = this.postRepository.All().FirstOrDefault(x => x.Id == id);
             var currentUser = userManager.GetUserAsync(user).GetAwaiter().GetResult();
@@ -207,7 +215,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
             this.postRepository.SaveChangesAsync().GetAwaiter().GetResult();
         }
 
-        public bool PostExists(string id)
+        public bool PostExists(int id)
         {
             if (this.postRepository.All().Any(p => p.Id == id))
             {
@@ -218,7 +226,7 @@ namespace SimpleSocial.Services.DataServices.PostsServices
 
         }
 
-        public bool IsBeingFollowedBy(string userA, string userB)
+        public bool IsBeingFollowedBy(int userA, int userB)
         {
             var userAid = userA;
             var userBid = userB;

@@ -32,14 +32,14 @@ namespace SimpleSocial.Web.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Index(string userId)
+        public async Task<IActionResult> Index(int userId)
         {
-            if (this.userManager.GetUserId(User) == userId)
+            if (this.userServices.GetUserId(User) == userId)
             {
                 return RedirectToAction("MyProfile", "Account");
             }
 
-            var currentUserId = this.userManager.GetUserId(User);
+            var currentUserId = userServices.GetUserId(User);
 
             var viewModel = new PostsFeedAndUserInfoViewModel()
             {
@@ -59,9 +59,9 @@ namespace SimpleSocial.Web.Controllers
             return this.View(viewModel);
         }
 
-        public async Task<IActionResult> GetUserPosts(int pageNumber, string userId)
+        public async Task<IActionResult> GetUserPosts(int pageNumber, int userId)
         {
-            var currentUserId = userManager.GetUserId(User);
+            var currentUserId = userServices.GetUserId(User);
             var posts = postServices.GetUserPosts(userId, currentUserId, pageNumber);
             var viewModel = new PostsFeedAndUserInfoViewModel()
             {

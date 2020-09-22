@@ -1,10 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SimpleSocial.Data.Models;
 
 namespace SimpleSocial.Data
 {
-    public class SimpleSocialContext : IdentityDbContext<SimpleSocialUser>
+    public class SimpleSocialContext : 
+        IdentityDbContext<
+                        SimpleSocialUser,
+                        ApplicationRole, 
+                        int, 
+                        IdentityUserClaim<int>,
+                        UserApplicationRole,
+                        IdentityUserLogin<int>,
+                        IdentityRoleClaim<int>,
+                        IdentityUserToken<int>>
     {
         public SimpleSocialContext(DbContextOptions<SimpleSocialContext> options)
             : base(options)
@@ -31,12 +41,12 @@ namespace SimpleSocial.Data
             // Add your customizations after calling base.OnModelCreating(builder);
 
             builder.Entity<SimpleSocialUser>()
-                .HasMany(u => u.Comments)
-                .WithOne(c => c.Author)
-                .OnDelete(DeleteBehavior.Restrict);
+               .HasMany(u => u.Comments)
+               .WithOne(c => c.Author)
+               .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<UserFollower>()
-                .HasKey(uf => new {uf.UserId, uf.FollowerId});
+                .HasKey(uf => new { uf.UserId, uf.FollowerId });
 
             builder.Entity<UserFollower>()
                 .HasOne(uf => uf.User)
@@ -48,14 +58,8 @@ namespace SimpleSocial.Data
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<PostReport>()
-                .HasOne(pr => pr.Post)
-                .WithMany(p => p.PostReports)
-                .HasForeignKey(pr => pr.PostId)
-                .OnDelete(DeleteBehavior.SetNull);
-
             builder.Entity<UserLike>()
-                .HasKey(ul => new {ul.UserId, ul.PostId});
+                .HasKey(ul => new { ul.UserId, ul.PostId });
 
             builder.Entity<Post>()
                 .HasMany(p => p.PostReports)
@@ -67,29 +71,21 @@ namespace SimpleSocial.Data
                 .HasMany(p => p.Comments)
                 .WithOne(c => c.Post)
                 .HasForeignKey(c => c.PostId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.ClientCascade);
 
             builder.Entity<Post>()
                 .HasMany(p => p.Likes)
                 .WithOne(l => l.Post)
                 .HasForeignKey(l => l.PostId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            builder.Entity<Comment>()
-                .Property(x => x.Id)
-                .ValueGeneratedOnAdd();
+                .OnDelete(DeleteBehavior.ClientCascade);
 
             builder.Entity<PostReport>()
-                .Property(x => x.Id)
-                .ValueGeneratedOnAdd();
+                .HasOne(pr => pr.Post)
+                .WithMany(p => p.PostReports)
+                .HasForeignKey(pr => pr.PostId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
 
-            builder.Entity<Post>()
-                .Property(x => x.Id)
-                .ValueGeneratedOnAdd();
-            
-            builder.Entity<SimpleSocialUser>()
-                .Property(x => x.Id)
-                .ValueGeneratedOnAdd();
+            builder.ConfigureIdentityTables();
         }
     }
 }

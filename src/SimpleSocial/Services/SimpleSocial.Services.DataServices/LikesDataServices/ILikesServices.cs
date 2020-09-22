@@ -4,8 +4,8 @@ namespace SimpleSocial.Services.DataServices.LikesDataServices
 {
     public interface ILikesServices
     {
-        Task Like(string postId, string userId);
+        Task Like(int postId, int userId);
 
-        Task UnLike(string postId, string userId);
+        Task UnLike(int postId, int userId);
     }
 }

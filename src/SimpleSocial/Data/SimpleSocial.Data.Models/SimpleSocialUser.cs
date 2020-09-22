@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 namespace SimpleSocial.Data.Models
 {
     // Add profile data for application users by adding properties to the SimpleSocialUser class
-    public class SimpleSocialUser : IdentityUser
+    public class SimpleSocialUser : IdentityUser<int>
     {
         public SimpleSocialUser()
         {

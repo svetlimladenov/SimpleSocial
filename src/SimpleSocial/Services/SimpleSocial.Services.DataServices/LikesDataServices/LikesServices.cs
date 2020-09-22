@@ -14,7 +14,7 @@ namespace SimpleSocial.Services.DataServices.LikesDataServices
             this.dbContext = dbContext;
         }
 
-        public async Task Like(string postId, string userId)
+        public async Task Like(int postId, int userId)
         {
             var userLike = new UserLike()
             {
@@ -26,7 +26,7 @@ namespace SimpleSocial.Services.DataServices.LikesDataServices
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task UnLike(string postId, string userId)
+        public async Task UnLike(int postId, int userId)
         {
             var currentLike = this.dbContext.UserLikes.FirstOrDefault(x => x.UserId == userId && x.PostId == postId);
             if (currentLike == null)
