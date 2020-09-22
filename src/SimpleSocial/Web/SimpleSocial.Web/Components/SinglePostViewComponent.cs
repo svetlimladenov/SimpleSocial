@@ -9,7 +9,7 @@ namespace SimpleSocial.Web.Components
     public class SinglePostViewComponent : ViewComponent
     {
         public async Task<IViewComponentResult> InvokeAsync(
-            string currentUserId,
+            int currentUserId,
             PostViewModel post,
             string profilePictureURL)
         {

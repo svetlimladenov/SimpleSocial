@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -39,8 +40,13 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
         public ICollection<string> GetAllUsernames()
          => this.dbContext.Users.Select(x => x.UserName).ToList();
 
+        public int GetUserId(ClaimsPrincipal claimsPrincipal)
+        {
+            var userId = this.userManager.GetUserId(claimsPrincipal);
+            return int.TryParse(userId, out int id) ? id : 0;
+        }
 
-        public async Task<UserInfoViewModel> GetUserInfo(string userId, string currentUserId)
+        public async Task<UserInfoViewModel> GetUserInfo(int userId, int currentUserId)
         {
             var user = this.dbContext.Users.Find(userId);
 

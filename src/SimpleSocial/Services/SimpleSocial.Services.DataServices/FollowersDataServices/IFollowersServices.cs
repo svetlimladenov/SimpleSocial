@@ -11,14 +11,14 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
 
         Task<IEnumerable<SimpleUserViewModel>> GetUsersToFollow(ClaimsPrincipal user);
 
-        Task Follow(string userToFollowId, string currentUserId);
+        Task Follow(int userToFollowId, int currentUserId);
 
         ICollection<SimpleUserViewModel> GetFollowers(ClaimsPrincipal user);
 
-        Task Unfollow(string userId, string currentUserId);
+        Task Unfollow(int userId, int currentUserId);
 
         ICollection<SimpleUserViewModel> GetFollowings(ClaimsPrincipal user);
 
-        bool IsBeingFollowedBy(string userA, string userB);
+        bool IsBeingFollowedBy(int userA, int userB);
     }
 }

@@ -31,7 +31,7 @@ namespace SimpleSocial.Services.DataServices.SearchDataServices
 
         public SearchResultsViewModel GetResultOfSearch(string searchText, ClaimsPrincipal currentUser)
         {
-            var currentUserId = userManager.GetUserId(currentUser);
+            var currentUserId = int.Parse(userManager.GetUserId(currentUser));
             var result = new SearchResultsViewModel
             {
                 SearchText = searchText

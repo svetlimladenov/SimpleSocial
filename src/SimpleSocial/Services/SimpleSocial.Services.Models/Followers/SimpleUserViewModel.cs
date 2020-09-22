@@ -5,7 +5,7 @@ namespace SimpleSocial.Services.Models.Followers
 {
     public class SimpleUserViewModel : IMapFrom<SimpleSocialUser>
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string UserName { get; set; }
 

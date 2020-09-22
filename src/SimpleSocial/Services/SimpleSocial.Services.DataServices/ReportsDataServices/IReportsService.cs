@@ -7,13 +7,13 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
 {
     public interface IReportsService
     {
-        Task AddReport(string authorId,string postId, ReportReason reason);
+        Task AddReport(int authorId, int postId, ReportReason reason);
 
-        ReportViewModel GetReportDetails(string id);
+        ReportViewModel GetReportDetails(int id);
 
-        ReportViewModel GetSubmitReportViewModel(string postId, ClaimsPrincipal user);
+        ReportViewModel GetSubmitReportViewModel(int postId, ClaimsPrincipal user);
 
-        Task DeleteReport(string id, ClaimsPrincipal user);
+        Task DeleteReport(int id, ClaimsPrincipal user);
 
         Task<int> GetReportsCount();
     }

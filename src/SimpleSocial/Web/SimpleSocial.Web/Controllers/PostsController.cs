@@ -29,11 +29,11 @@ namespace SimpleSocial.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult Create(MyProfileViewModel viewModel)
+        public async Task<IActionResult> Create(MyProfileViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
-                postServices.CreatePost(viewModel);
+                await postServices.CreatePost(viewModel);
                 return RedirectToAction("MyProfile", "Account");
             }
             else
@@ -46,9 +46,9 @@ namespace SimpleSocial.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult PostDetails(string id)
+        public IActionResult PostDetails(int id)
         {
-            var currentUserId = this.userManager.GetUserId(User);
+            var currentUserId = this.userServices.GetUserId(User);
             var viewModel = postServices.GetSinglePostViewComponentModel(id, currentUserId);
             if (viewModel == null)
             {
@@ -62,7 +62,7 @@ namespace SimpleSocial.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeletePost(string id)
+        public IActionResult DeletePost(int id)
         {
             postServices.DeletePost(id, User);
             return RedirectToAction("SuccessfulAction", "Profiles", new { message = ControllerConstants.SuccessfullyDeletedPostMessage });
@@ -70,7 +70,7 @@ namespace SimpleSocial.Web.Controllers
 
         public async Task<IActionResult> GetPosts(int pageNumber)
         {
-            var currentUserId = userManager.GetUserId(User);
+            var currentUserId = this.userServices.GetUserId(User);
             var posts = postServices.GetNewsFeedPosts(currentUserId, pageNumber);
             var viewModel = new PostsFeedAndUserInfoViewModel()
             {

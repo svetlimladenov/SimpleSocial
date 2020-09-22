@@ -41,7 +41,7 @@ namespace SimpleSocial.Web.Controllers
         [Authorize]
         public async Task<IActionResult> MyProfile(MyProfileViewModel inputModel)
         {
-            var userId = this.userManager.GetUserId(User);
+            var userId = this.userServices.GetUserId(User);
             var whoToFollowList = new UsersListViewModel()
             {
                 Users = await followersServices.GetUsersToFollow(User),
@@ -52,7 +52,7 @@ namespace SimpleSocial.Web.Controllers
             var viewModel = new MyProfileViewModel
             {
                 CurrentUserInfo = await userServices.GetUserInfo(userId, userId),
-                Posts = postServices.GetUserPosts(userId, userId,0),
+                Posts = postServices.GetUserPosts(userId, userId, 0),
                 IsValidProfilePicture = inputModel.IsValidProfilePicture,
                 UserProfileInfo = await userServices.GetUserInfo(userId, userId),
                 WhoToFollow = whoToFollowList
@@ -63,16 +63,17 @@ namespace SimpleSocial.Web.Controllers
 
         public async Task<IActionResult> GetMyPosts(int pageNumber)
         {
-            var currentUserId = userManager.GetUserId(User);
+            var currentUserId = this.userServices.GetUserId(User);
             var posts = postServices.GetUserPosts(currentUserId,currentUserId, pageNumber);
+
             var viewModel = new PostsFeedAndUserInfoViewModel()
             {
                 Posts = posts,
                 CurrentUserInfo = await userServices.GetUserInfo(currentUserId, currentUserId),
                 UserProfileInfo = await userServices.GetUserInfo(currentUserId, currentUserId),
             };
-            var partial = this.PartialView("Components/ListOfPosts/Default", viewModel);
-            return partial;
+
+            return this.PartialView("Components/ListOfPosts/Default", viewModel);
         }
 
         [Authorize]

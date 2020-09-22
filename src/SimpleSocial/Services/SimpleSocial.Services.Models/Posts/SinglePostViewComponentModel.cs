@@ -4,9 +4,9 @@ namespace SimpleSocial.Services.Models.Posts
 {
     public class SinglePostViewComponentModel
     {
-        public string PostAuthorId { get; set; }
+        public int PostAuthorId { get; set; }
 
-        public string PostVisitorId { get; set; }
+        public int PostVisitorId { get; set; }
 
         public PostViewModel Post { get; set; }
 
