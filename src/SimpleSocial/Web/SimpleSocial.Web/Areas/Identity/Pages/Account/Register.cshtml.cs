@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using System.Linq;
 using SimpleSocial.Data;
 using SimpleSocial.Data.Models;
+using SimpleSocial.Data.Common.Constants;
 
 namespace SimpleSocial.Web.Areas.Identity.Pages.Account
 {
@@ -78,7 +79,6 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             if (ModelState.IsValid)
             {
-               
                 var user = new SimpleSocialUser() { UserName = Input.Username, Email = Input.Email};
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -89,15 +89,7 @@ namespace SimpleSocial.Web.Areas.Identity.Pages.Account
 
                 if (result.Succeeded)
                 {
-
-                    if (this.dbContext.Users.Count() == 1)
-                    {
-                        await this._userManager.AddToRoleAsync(user, "Admin");
-                    }
-                    else
-                    {
-                        await this._userManager.AddToRoleAsync(user, "User");
-                    }
+                    await this._userManager.AddToRoleAsync(user, GlobalConstants.NormalUserRoleName);
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

@@ -23,6 +23,7 @@ using SimpleSocial.Services.DataServices.UsersDataServices;
 using SimpleSocial.Services.Mapping;
 using SimpleSocial.Web.Areas.Administration.Services;
 using System.Reflection;
+using SimpleSocial.Data.Seeding;
 
 namespace SimpleSocial.Web
 {
@@ -40,7 +41,7 @@ namespace SimpleSocial.Web
         {
             services.Configure<CookiePolicyOptions>(options =>
             {
-                options.CheckConsentNeeded = context => true;
+                options.CheckConsentNeeded = context => false;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
@@ -49,7 +50,7 @@ namespace SimpleSocial.Web
                 options.UseSqlServer(
                     this.Configuration.GetConnectionString("DefaultConnection")));
      
-            services.AddIdentity<SimpleSocialUser,IdentityRole>(
+            services.AddIdentity<SimpleSocialUser, ApplicationRole>(
                     options =>
                     {
                         options.Password.RequiredLength = 6;
@@ -82,11 +83,7 @@ namespace SimpleSocial.Web
 
             services.AddSession();
 
-
-
-
             //Application services
-
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
             //services.AddSingleton<IEmailSender, EmailSender>();
             services.AddScoped<IMyProfileServices, MyProfileServices>();
@@ -108,6 +105,15 @@ namespace SimpleSocial.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Seed data on application startup
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<SimpleSocialContext>();
+                // Check how this will work with the container, may not work if there is not SQL image 
+                dbContext.Database.Migrate();
+                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

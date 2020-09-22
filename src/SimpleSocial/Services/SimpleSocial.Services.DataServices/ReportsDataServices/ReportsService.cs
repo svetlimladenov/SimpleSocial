@@ -32,7 +32,7 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
             this.dbContext = dbContext;
             this.userManager = userManager;
         }
-        public async Task AddReport(string authorId, string postId, ReportReason reason)
+        public async Task AddReport(int authorId, int postId, ReportReason reason)
         {
             var report = new PostReport()
             {
@@ -45,7 +45,7 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
             await this.dbContext.SaveChangesAsync();
         }
 
-        public ReportViewModel GetReportDetails(string id)
+        public ReportViewModel GetReportDetails(int id)
         {
             var currentReport = this.dbContext.PostReports.Where(x => x.Id == id).To<ReportViewModel>().FirstOrDefault();
             if (currentReport == null)
@@ -56,7 +56,7 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
             return currentReport;
         }
 
-        public ReportViewModel GetSubmitReportViewModel(string postId, ClaimsPrincipal user)
+        public ReportViewModel GetSubmitReportViewModel(int postId, ClaimsPrincipal user)
         {
             var postAuthor = postServices.GetPostAuthor(postId);
             if (postAuthor == null)
@@ -66,7 +66,7 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
 
             //TODO: Get Gender Text From somewhere else
             var genderText = "Him";
-            var currentUserId = userManager.GetUserId(user);
+            var currentUserId = int.Parse(userManager.GetUserId(user));
             if (postAuthor.Gender == Gender.Male)
             {
                 genderText = "Him";
@@ -89,7 +89,7 @@ namespace SimpleSocial.Services.DataServices.ReportsDataServices
             return viewModel;
         }
 
-        public async Task DeleteReport(string id, ClaimsPrincipal user)
+        public async Task DeleteReport(int id, ClaimsPrincipal user)
         {
             var currentUser = await this.userManager.GetUserAsync(user);
             var currentUserIsAdmin = await this.userManager.IsInRoleAsync(currentUser, "Admin");

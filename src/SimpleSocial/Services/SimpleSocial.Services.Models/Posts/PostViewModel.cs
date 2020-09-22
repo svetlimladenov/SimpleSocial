@@ -12,13 +12,13 @@ namespace SimpleSocial.Services.Models.Posts
 {
     public class PostViewModel : IMapFrom<Post>, IHaveCustomMappings
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public UserInfoViewModel User { get; set; }
 
-        public string UserId { get; set; }
+        public int UserId { get; set; }
 
-        public string WallId { get; set; }
+        public int WallId { get; set; }
 
         public string Title { get; set; }
 

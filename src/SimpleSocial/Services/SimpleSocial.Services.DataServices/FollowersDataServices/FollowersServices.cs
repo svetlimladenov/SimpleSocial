@@ -56,7 +56,7 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
             return notFollowingUsers;
         }
 
-        public async Task Follow(string userToFollowId, string currentUserId)
+        public async Task Follow(int userToFollowId, int currentUserId)
         {
             var userFollower = new UserFollower()
             {
@@ -73,7 +73,7 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
             await this.dbContext.SaveChangesAsync();
         }
 
-        public async Task Unfollow(string userToUnfollowId, string currentUserId)
+        public async Task Unfollow(int userToUnfollowId, int currentUserId)
         {
             if (!this.IsBeingFollowedBy(userToUnfollowId, currentUserId))
             {
@@ -92,7 +92,7 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
 
         public ICollection<SimpleUserViewModel> GetFollowings(ClaimsPrincipal user)
         {
-            var userId = this.userManager.GetUserId(user);
+            var userId = int.Parse(this.userManager.GetUserId(user));
             var followings = this.dbContext.UserFollowers
                 .Where(x => x.FollowerId == userId && x.UserId != userId)
                 .Select(x => x.User)
@@ -110,7 +110,7 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
 
         public ICollection<SimpleUserViewModel> GetFollowers(ClaimsPrincipal user)
         {
-            var userId = this.userManager.GetUserId(user);
+            var userId = int.Parse(this.userManager.GetUserId(user));
             var followers = this.dbContext.UserFollowers
                 .Where(x => x.UserId == userId && x.FollowerId != userId)
                 .Select(x => x.Follower)
@@ -131,7 +131,7 @@ namespace SimpleSocial.Services.DataServices.FollowersDataServices
         /// <param name="userA"></param>
         /// <param name="userB"></param>
         /// <returns></returns>
-        public bool IsBeingFollowedBy(string userA, string userB)
+        public bool IsBeingFollowedBy(int userA, int userB)
         {
             //TODO: Fix this
             var userAid = userA;

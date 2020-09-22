@@ -9,16 +9,16 @@ namespace SimpleSocial.Services.Models.Account
     {
         public string Title => string.IsNullOrEmpty(Content) ? string.Empty : Content.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)[0];
 
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string Content { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
 
         [Required]
-        public string WallId { get; set; }
+        public int WallId { get; set; }
 
         public int Likes { get; set; }
     }   

@@ -28,13 +28,13 @@ namespace SimpleSocial.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            var currentUserId = userManager.GetUserId(User);
+            var currentUserId = this.userServices.GetUserId(User);
             var posts = postServices.GetNewsFeedPosts(currentUserId,0);
             var viewModel = new PostsFeedAndUserInfoViewModel()
             {
                 Posts = posts,
-                CurrentUserInfo = await userServices.GetUserInfo(currentUserId,currentUserId),       
-                UserProfileInfo = await userServices.GetUserInfo(currentUserId,currentUserId),
+                CurrentUserInfo = await userServices.GetUserInfo(currentUserId, currentUserId),       
+                UserProfileInfo = await userServices.GetUserInfo(currentUserId, currentUserId),
             };
             return View(viewModel);
         }

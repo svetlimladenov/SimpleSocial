@@ -6,16 +6,19 @@ using SimpleSocial.Services.DataServices.FollowersDataServices;
 using X.PagedList;
 using System.Threading.Tasks;
 using System.Linq;
+using SimpleSocial.Services.DataServices.UsersDataServices;
 
 namespace SimpleSocial.Web.Controllers
 {
     public class FollowersController : BaseController
     {
         private readonly IFollowersServices followersServices;
+        private readonly IUserServices userServices;
 
-        public FollowersController(IFollowersServices followersServices)
+        public FollowersController(IFollowersServices followersServices, IUserServices userServices)
         {
             this.followersServices = followersServices;
+            this.userServices = userServices;
         }
 
         [Authorize]
@@ -31,9 +34,9 @@ namespace SimpleSocial.Web.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult ChooseAction(string userId, string action)
+        public IActionResult ChooseAction(int userId, string action)
         {
-            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var currentUserId = this.userServices.GetUserId(User);
             if (action == "follow")
             {
                 followersServices.Follow(userId, currentUserId);

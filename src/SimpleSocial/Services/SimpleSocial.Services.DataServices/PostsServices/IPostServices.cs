@@ -11,18 +11,18 @@ namespace SimpleSocial.Services.DataServices.PostsServices
     {
         Task CreatePost(MyProfileViewModel viewModel);
 
-        ICollection<PostViewModel> GetUserPosts(string userId, string currrentUserId, int pageNumber);
+        ICollection<PostViewModel> GetUserPosts(int userId, int currrentUserId, int pageNumber);
 
-        PostViewModel GetPostById(string id);
+        PostViewModel GetPostById(int id);
 
-        SinglePostViewComponentModel GetSinglePostViewComponentModel(string id, string visitorId);
+        SinglePostViewComponentModel GetSinglePostViewComponentModel(int id, int visitorId);
 
-        ICollection<PostViewModel> GetNewsFeedPosts(string currrentUserId, int pageNumber);
+        ICollection<PostViewModel> GetNewsFeedPosts(int currrentUserId, int pageNumber);
 
-        SimpleSocialUser GetPostAuthor(string postId);
+        SimpleSocialUser GetPostAuthor(int postId);
 
-        void DeletePost(string id, ClaimsPrincipal user);
+        void DeletePost(int id, ClaimsPrincipal user);
 
-        bool PostExists(string id);
+        bool PostExists(int id);
     }
 }

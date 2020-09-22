@@ -7,7 +7,7 @@ namespace SimpleSocial.Services.Models.Reports
 {
     public class ReportViewModel : IMapFrom<PostReport>, IHaveCustomMappings
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public ReportReason ReportReason { get; set; }
 
@@ -17,11 +17,11 @@ namespace SimpleSocial.Services.Models.Reports
 
         public string PostAuthorName { get; set; }
 
-        public string PostAuthorId { get; set; }
+        public int PostAuthorId { get; set; }
 
         public string GenderText { get; set; }
 
-        public string PostId { get; set; }
+        public int PostId { get; set; }
 
         public Post Post { get; set; }
 

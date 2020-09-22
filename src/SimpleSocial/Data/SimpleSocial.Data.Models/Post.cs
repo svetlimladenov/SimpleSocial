@@ -13,7 +13,7 @@ namespace SimpleSocial.Data.Models
             Likes = new HashSet<UserLike>();
         }
 
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Title { get; set; }
 
@@ -25,7 +25,7 @@ namespace SimpleSocial.Data.Models
 
         public ICollection<UserLike> Likes { get; set; }
 
-        public string UserId { get; set; }
+        public int UserId { get; set; }
 
         public SimpleSocialUser User { get; set; }
 

@@ -15,7 +15,7 @@ namespace SimpleSocial.Data.Models
         public ICollection<Post> Posts { get; set; }
 
         [ForeignKey("PageAdmin")]
-        public string PageAdminId { get; set; }
+        public int PageAdminId { get; set; }
 
         public SimpleSocialUser PageAdmin { get; set; }
     }
