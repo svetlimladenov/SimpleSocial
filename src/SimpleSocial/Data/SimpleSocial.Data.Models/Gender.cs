@@ -1,6 +1,6 @@
 ﻿namespace SimpleSocial.Data.Models
 {
-    public  enum Gender
+    public enum Gender
     {
         Male = 1,
         Famale = 2
