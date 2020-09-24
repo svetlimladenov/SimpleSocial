@@ -8,24 +8,25 @@ using SimpleSocial.Services.Models.Account;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using SimpleSocial.Services.DataServices.UsersDataServices;
 
 namespace SimpleSocial.Services.DataServices.ProfilePictureServices
 {
     public class ProfilePictureService : IProfilePictureService
     {
         private readonly SimpleSocialContext dbContext;
-        private readonly UserManager<SimpleSocialUser> userManager;
         private readonly IConfiguration configuration;
+        private readonly IUserServices userServices;
 
         public ProfilePictureService(
             SimpleSocialContext dbContext,
-            UserManager<SimpleSocialUser> userManager,
-            IConfiguration configuration
+            IConfiguration configuration,
+            IUserServices userServices
             )
         {
             this.dbContext = dbContext;
-            this.userManager = userManager;
             this.configuration = configuration;
+            this.userServices = userServices;
         }
 
         public bool VerifyPicture(UploadProfilePictureInputModel pictureModel)
@@ -46,7 +47,7 @@ namespace SimpleSocial.Services.DataServices.ProfilePictureServices
 
         public async Task UploadProfilePictureCloudinary(ClaimsPrincipal user, UploadProfilePictureInputModel inputModel)
         {
-            var userId = this.userManager.GetUserId(user);
+            var userId = this.userServices.GetUserId(user);
             var coudinaryUsername = configuration.GetValue<string>("Cloudinary:Username");
             var apiKey = configuration.GetValue<string>("Cloudinary:ApiKey");
             var apiSecret = configuration.GetValue<string>("Cloudinary:ApiSecret");
@@ -69,12 +70,11 @@ namespace SimpleSocial.Services.DataServices.ProfilePictureServices
 
             var updatedUrl = (await cloudinary.GetResourceAsync(uploadResult.PublicId)).Url;
 
-            await SaveImageNameToDb(user, updatedUrl);
+            await SaveImageNameToDb(userId, updatedUrl);
         }
 
-        private async Task SaveImageNameToDb(ClaimsPrincipal user, string imagePath)
+        private async Task SaveImageNameToDb(int userId, string imagePath)
         {
-            var userId = userManager.GetUserId(user);
             var currentUser = await this.dbContext.Users.FindAsync(userId);
             currentUser.ProfilePictureURL = imagePath;
             await this.dbContext.SaveChangesAsync();
