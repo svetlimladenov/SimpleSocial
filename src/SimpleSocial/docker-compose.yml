@@ -5,8 +5,6 @@ services:
       build: .
       ports:
           - "8080:80"
-      environment:
-        ASPNETCORE_ENVIRONMENT: Production
       depends_on:
         - db
     db:
