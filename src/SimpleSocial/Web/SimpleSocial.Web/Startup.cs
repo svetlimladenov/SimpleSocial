@@ -119,10 +119,6 @@ namespace SimpleSocial.Web
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
             }
-            if (env.IsProduction())
-            {
-
-            }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
