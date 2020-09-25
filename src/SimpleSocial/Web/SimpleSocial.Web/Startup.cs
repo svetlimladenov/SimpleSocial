@@ -129,7 +129,6 @@ namespace SimpleSocial.Web
 
             app.UseRouting();
 
-
             app.UseStaticFiles();
 
             app.UseAuthentication();

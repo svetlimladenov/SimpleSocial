@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using SimpleSocial.Data;
 using SimpleSocial.Data.Models;
 using SimpleSocial.Services.DataServices.FollowersDataServices;
-using SimpleSocial.Services.DataServices.ProfilePictureServices;
 using SimpleSocial.Services.Models;
 using SimpleSocial.Services.Models.Users;
 
@@ -19,20 +18,17 @@ namespace SimpleSocial.Services.DataServices.UsersDataServices
         private readonly SimpleSocialContext dbContext;
         private readonly IMapper mapper;
         private readonly IFollowersServices followersServices;
-        private readonly IProfilePictureService profilePictureService;
         private readonly UserManager<SimpleSocialUser> userManager;
 
         public UserServices(
             SimpleSocialContext dbContext, 
             IMapper mapper,         
             IFollowersServices followersServices,
-            IProfilePictureService profilePictureService,
             UserManager<SimpleSocialUser> userManager)
         {
             this.dbContext = dbContext;
             this.mapper = mapper;
             this.followersServices = followersServices;
-            this.profilePictureService = profilePictureService;
             this.userManager = userManager;
         }
 

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -11,9 +12,14 @@ namespace SimpleSocial.Data
     {
         public SimpleSocialContext CreateDbContext(string[] args)
         {
+            var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
+#if DEBUG
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+#else
+                .AddJsonFile("appsettings.Production.json", optional: false, reloadOnChange: true)
+#endif
                 .Build();
 
             var builder = new DbContextOptionsBuilder<SimpleSocialContext>();

@@ -3,12 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using SimpleSocial.Services.DataServices.ReportsDataServices;
 using SimpleSocial.Services.DataServices.SearchDataServices;
 using SimpleSocial.Services.DataServices.UsersDataServices;
 using SimpleSocial.Web.Areas.Administration.Services;
 using SimpleSocial.Web.Areas.Administration.ViewModels;
-using X.PagedList;
 
 namespace SimpleSocial.Web.Areas.Administration.Controllers
 {
@@ -20,17 +20,20 @@ namespace SimpleSocial.Web.Areas.Administration.Controllers
         private readonly ISearchServices searchServices;
         private readonly IUserServices userServices;
         private readonly IReportsService reportsService;
+        private readonly IConfiguration configuration;
 
         public AdminController(
             IAdministrationServices administrationServices,
             ISearchServices searchServices,
             IUserServices userServices,
-            IReportsService reportsService)
+            IReportsService reportsService,
+            IConfiguration configuration)
         {
             this.administrationServices = administrationServices;
             this.searchServices = searchServices;
             this.userServices = userServices;
             this.reportsService = reportsService;
+            this.configuration = configuration;
         }
 
         [Authorize("Admin")]
@@ -97,6 +100,15 @@ namespace SimpleSocial.Web.Areas.Administration.Controllers
         {
             await administrationServices.DemoteUser(id);
             return RedirectToAction("ManageUsers");
+        }
+
+        [Authorize("Admin")]
+        public IActionResult ConnectionString()
+        {
+            var envName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            var conString = this.configuration.GetConnectionString("DefaultConnection");
+            var result = envName + Environment.NewLine + conString;
+            return this.Json(result);
         }
     }
 }

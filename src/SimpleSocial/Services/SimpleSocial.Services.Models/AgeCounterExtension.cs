@@ -12,8 +12,10 @@ namespace SimpleSocial.Services.Models
             }
             // Save today's date.
             var today = DateTime.Today;
+
             // Calculate the age.
             var age = today.Year - dt.Value.Year;
+            
             // Go back to the year the person was born in case of a leap year
             if (dt.Value > today.AddYears(-age)) age--;
 
