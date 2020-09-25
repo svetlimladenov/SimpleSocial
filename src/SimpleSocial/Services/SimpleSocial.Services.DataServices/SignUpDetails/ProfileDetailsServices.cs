@@ -11,7 +11,7 @@ namespace SimpleSocial.Services.DataServices.SignUpDetails
             var CInfoList = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
             foreach (CultureInfo CInfo in CInfoList)
             {
-                var R = new RegionInfo(CInfo.LCID);
+                var R = new RegionInfo(CInfo.Name);
                 if (!(CountryList.Contains(R.EnglishName)))
                 {
                     CountryList.Add(R.EnglishName);

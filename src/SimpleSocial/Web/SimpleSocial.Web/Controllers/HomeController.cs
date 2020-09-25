@@ -5,6 +5,7 @@ namespace SimpleSocial.Web.Controllers
 {
     public class HomeController : BaseController
     {
+
         public IActionResult Index()
         {
             if (User.Identity.IsAuthenticated)
@@ -13,7 +14,7 @@ namespace SimpleSocial.Web.Controllers
             }
 
             return LocalRedirect("/Identity/Account/Login");
-        }
+        }   
 
         [Authorize]
         public IActionResult Privacy()
