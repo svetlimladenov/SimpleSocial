@@ -5,4 +5,8 @@
     <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Application\SimpleSocial.Application\SimpleSocial.Application.csproj" />
+  </ItemGroup>
+
 </Project>

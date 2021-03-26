@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Application\SimpleSocial.Application\SimpleSocial.Application.csproj" />
     <ProjectReference Include="..\..\Data\SimpleSocial.Data.Models\SimpleSocial.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\SimpleSocial.Data\SimpleSocial.Data.csproj" />
     <ProjectReference Include="..\..\Services\SimpleSocial.Services.Models\SimpleSocial.Services.Models.csproj" />

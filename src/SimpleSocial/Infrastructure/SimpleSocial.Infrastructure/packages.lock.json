@@ -1,6 +1,16 @@
 {
   "version": 1,
   "dependencies": {
-    ".NETStandard,Version=v2.1": {}
+    ".NETStandard,Version=v2.1": {
+      "simplesocial.application": {
+        "type": "Project",
+        "dependencies": {
+          "SimpleSocial.Domain": "1.0.0"
+        }
+      },
+      "simplesocial.domain": {
+        "type": "Project"
+      }
+    }
   }
 }

@@ -2151,6 +2151,12 @@
           "xunit.extensibility.core": "[2.4.1]"
         }
       },
+      "simplesocial.application": {
+        "type": "Project",
+        "dependencies": {
+          "SimpleSocial.Domain": "1.0.0"
+        }
+      },
       "simplesocial.data": {
         "type": "Project",
         "dependencies": {
@@ -2174,6 +2180,9 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.7",
           "SimpleSocial.Services.Mapping": "1.0.0"
         }
+      },
+      "simplesocial.domain": {
+        "type": "Project"
       },
       "simplesocial.services.dataservices": {
         "type": "Project",
@@ -2206,6 +2215,7 @@
           "CloudinaryDotNet": "1.12.0",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "3.1.7",
           "Microsoft.AspNetCore.Identity.UI": "3.1.7",
+          "SimpleSocial.Application": "1.0.0",
           "SimpleSocial.Data": "1.0.0",
           "SimpleSocial.Data.Models": "1.0.0",
           "SimpleSocial.Services.DataServices": "1.0.0",

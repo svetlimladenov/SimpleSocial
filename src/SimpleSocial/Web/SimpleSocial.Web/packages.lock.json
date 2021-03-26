@@ -1995,6 +1995,12 @@
           "System.Text.Encodings.Web": "4.7.0"
         }
       },
+      "simplesocial.application": {
+        "type": "Project",
+        "dependencies": {
+          "SimpleSocial.Domain": "1.0.0"
+        }
+      },
       "simplesocial.data": {
         "type": "Project",
         "dependencies": {
@@ -2018,6 +2024,9 @@
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.7",
           "SimpleSocial.Services.Mapping": "1.0.0"
         }
+      },
+      "simplesocial.domain": {
+        "type": "Project"
       },
       "simplesocial.services.dataservices": {
         "type": "Project",
