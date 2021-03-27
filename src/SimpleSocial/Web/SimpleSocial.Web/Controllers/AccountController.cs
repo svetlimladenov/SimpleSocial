@@ -11,11 +11,15 @@ using SimpleSocial.Services.DataServices.PostsServices;
 using SimpleSocial.Services.DataServices.ProfilePictureServices;
 using SimpleSocial.Services.DataServices.UsersDataServices;
 using System.Threading.Tasks;
+using SimpleSocial.Services.Models.Users;
+using SimpleSocial.Application.Users.Queries;
+using MediatR;
 
 namespace SimpleSocial.Web.Controllers
 {
     public class AccountController : BaseController
     {
+        private readonly IMediator mediator; 
         private readonly IUserServices userServices;
         private readonly IPostServices postServices;
         private readonly IFollowersServices followersServices;
@@ -27,21 +31,21 @@ namespace SimpleSocial.Web.Controllers
             IPostServices postServices,
             IFollowersServices followersServices,
             IProfilePictureService profilePictureService,
-            UserManager<SimpleSocialUser> userManager
-            )
+            UserManager<SimpleSocialUser> userManager,
+            IMediator mediator)
         {
             this.userServices = userServices;
             this.postServices = postServices;
             this.followersServices = followersServices;
             this.profilePictureService = profilePictureService;
             this.userManager = userManager;
-
+            this.mediator = mediator;
         }
 
         [Authorize]
         public async Task<IActionResult> MyProfile(MyProfileViewModel inputModel)
         {
-            var userId = this.userServices.GetUserId(User);
+            var userId = this.userServices.GetUserId(User); // find out a better way to get this id store is somewhere in the browser 
             var whoToFollowList = new UsersListViewModel()
             {
                 Users = await followersServices.GetUsersToFollow(User),
@@ -58,6 +62,7 @@ namespace SimpleSocial.Web.Controllers
                 WhoToFollow = whoToFollowList
             };
 
+            this.ViewData["UserId"] = userId;
             return View(viewModel);
         }
 
@@ -103,6 +108,15 @@ namespace SimpleSocial.Web.Controllers
             }
 
             return RedirectToAction("MyProfile");
+        }
+
+        [HttpGet]
+        [Route("Account/GetUserBoxInfo/{id?}")]
+        public async Task<IActionResult> GetUserBoxInfo(int id)
+        {
+            var query = new GetUserInfoQuery() { UserId = id };
+            var response = await this.mediator.Send(query);
+            return Json(response);
         }
     }
 }

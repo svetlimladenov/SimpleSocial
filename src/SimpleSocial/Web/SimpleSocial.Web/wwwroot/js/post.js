@@ -67,7 +67,8 @@ posts.forEach(post => {
     });
 });
 
-modal.querySelector('button.close-likes').onclick = toggleModal;
+if(modal)
+    modal.querySelector('button.close-likes').onclick = toggleModal;
 
 posts.forEach(post => {
     var postLikes = post.querySelector('.post-likes-number');

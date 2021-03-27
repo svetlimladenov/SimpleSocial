@@ -5,21 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<script src="~/lib/jquery/dist/jquery.js"></script>
-
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <partial name="~/Views/Shared/Partials/_UserInfoPartial.cshtml" for="UserProfileInfo" />
+            <partial name="~/Views/Shared/Partials/_UserBoxPartial.cshtml" for="UserProfileInfo" />
             <partial name="~/Views/Shared/Partials/_SideMenuPartial.cshtml" model="@Model.CurrentUserInfo" />
         </div>
         <div class="col-md-6">
             <partial name="~/Views/Shared/Partials/_CreatePostPartial.cshtml" model="@Model" />
             @await Component.InvokeAsync("ListOfPosts", new { posts = Model })
-            <div id="postsHolder">
-
-            </div>
         </div>
         <div class="col-md-3 text-center" id="test">
             <div class="row" style="background: white">
@@ -36,39 +30,10 @@
     </div>
 </div>
 
-@section Scripts
-    {
-
-    @if (!Model.IsValidProfilePicture)
-    {
-        <script>
-            $(document).ready(function () {
-                alert("Please provide us a image");
-            });
-
-        </script>
-    }
-
+@section Scripts {
     <script>
-        var pageNumber = 0;
-        $(window).scroll(function () {
-
-            if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-                pageNumber++;
-                var url = "/Account/GetMyPosts?pageNumber=" + pageNumber;
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    success: function (posts) {
-                        $('#postsHolder').append(posts);
-                        $.getScript('../js/post.js');
-
-                    }
-                });
-
-                posts = document.querySelectorAll('.single-post');
-            }
-        });
-
+        const userId = @ViewData["UserId"];
     </script>
+    <script type="text/javascript" src="~/js/postLoader.js"></script>
+    <script type="text/javascript" src="~/js/userInfo.js"></script>
 }
