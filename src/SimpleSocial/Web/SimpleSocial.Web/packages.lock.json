@@ -60,6 +60,20 @@
           "System.Reflection.Emit": "4.7.0"
         }
       },
+      "MediatR": {
+        "type": "Transitive",
+        "resolved": "9.0.0",
+        "contentHash": "8b3UYNxegHVYcJMG2zH8wn+YqxLvXG+eMfj0cMCq/jTW72p6O3PCKMkrIv0mqyxdW7bA4gblsocw7n+/9Akg5g=="
+      },
+      "MediatR.Extensions.Microsoft.DependencyInjection": {
+        "type": "Transitive",
+        "resolved": "9.0.0",
+        "contentHash": "msreY4ogiPdIRWiCQVHQDytIQpsZCLWsixWPZ+Xs86KZrvtuiV8BDHbIT0kBmogynVYWNpspb3caw+86YU8L6w==",
+        "dependencies": {
+          "MediatR": "9.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "2.0.0"
+        }
+      },
       "Microsoft.AspNetCore.Antiforgery": {
         "type": "Transitive",
         "resolved": "2.2.0",
@@ -1998,6 +2012,8 @@
       "simplesocial.application": {
         "type": "Project",
         "dependencies": {
+          "MediatR.Extensions.Microsoft.DependencyInjection": "9.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.7",
           "SimpleSocial.Domain": "1.0.0"
         }
       },
@@ -2027,6 +2043,15 @@
       },
       "simplesocial.domain": {
         "type": "Project"
+      },
+      "simplesocial.infrastructure": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "3.1.7",
+          "Microsoft.EntityFrameworkCore.Relational": "3.1.7",
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.7",
+          "SimpleSocial.Application": "1.0.0"
+        }
       },
       "simplesocial.services.dataservices": {
         "type": "Project",

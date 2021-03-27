@@ -1,0 +1,18 @@
+<div class="row user-info text-center">
+    <div class="profile-picture-holder">
+        <div id="profilePicture">
+             @* Content loaded via JavaScript *@
+        </div>
+        <div class="show-link">
+            <a asp-action="ChangeProfilePicture" asp-controller="Account" style="color:white" class="upload-picture btn">Upload Profile Picture</a>
+        </div>
+    </div>
+    <h2 id="username">@* Content loaded via JavaScript *@</h2>
+    <div id="user-info-details" class="user-info-details">
+        @* Content loaded via JavaScript *@
+    </div>
+    <div class="follower" style="display: block;">
+            <button data-userid="@Model.UserId" class="unfollow" onClick="window.location.reload()">Unfollow</button>
+            <button data-userid="@Model.UserId" onClick="window.location.reload()">Follow</button>
+    </div>
+</div>
