@@ -24,6 +24,8 @@ using SimpleSocial.Services.Mapping;
 using SimpleSocial.Web.Areas.Administration.Services;
 using System.Reflection;
 using SimpleSocial.Data.Seeding;
+using SimpleSocial.Application;
+using SimpleSocial.Infrastructure;
 
 namespace SimpleSocial.Web
 {
@@ -100,6 +102,9 @@ namespace SimpleSocial.Web
 
             var mapper = AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
             services.AddSingleton(mapper);
+
+            services.RegisterApplication();
+            services.RegisterInfrastructure(this.Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -109,7 +114,6 @@ namespace SimpleSocial.Web
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<SimpleSocialContext>();
-                // Check how this will work with the container, may not work if there is not SQL image 
                 dbContext.Database.Migrate();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
