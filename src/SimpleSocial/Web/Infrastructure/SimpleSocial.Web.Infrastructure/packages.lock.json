@@ -1418,15 +1418,15 @@
           "System.Xml.XmlDocument": "4.3.0"
         }
       },
-      "simplesocial.application": {
+      "simplesocial.web.application": {
         "type": "Project",
         "dependencies": {
           "MediatR.Extensions.Microsoft.DependencyInjection": "9.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.7",
-          "SimpleSocial.Domain": "1.0.0"
+          "SimpleSocial.Web.Domain": "1.0.0"
         }
       },
-      "simplesocial.domain": {
+      "simplesocial.web.domain": {
         "type": "Project"
       }
     }

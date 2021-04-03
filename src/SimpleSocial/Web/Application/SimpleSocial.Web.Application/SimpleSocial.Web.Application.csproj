@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Domain\SimpleSocial.Domain\SimpleSocial.Domain.csproj" />
+    <ProjectReference Include="..\..\Domain\SimpleSocial.Web.Domain\SimpleSocial.Web.Domain.csproj" />
   </ItemGroup>
 
 </Project>
