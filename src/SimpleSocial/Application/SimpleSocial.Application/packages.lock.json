@@ -23,7 +23,7 @@
         "resolved": "9.0.0",
         "contentHash": "8b3UYNxegHVYcJMG2zH8wn+YqxLvXG+eMfj0cMCq/jTW72p6O3PCKMkrIv0mqyxdW7bA4gblsocw7n+/9Akg5g=="
       },
-      "simplesocial.domain": {
+      "simplesocial.web.domain": {
         "type": "Project"
       }
     }

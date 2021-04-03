@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Application\SimpleSocial.Application\SimpleSocial.Application.csproj" />
+    <ProjectReference Include="..\..\Application\SimpleSocial.Application\SimpleSocial.Web.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2165,14 +2165,6 @@
           "xunit.extensibility.core": "[2.4.1]"
         }
       },
-      "simplesocial.application": {
-        "type": "Project",
-        "dependencies": {
-          "MediatR.Extensions.Microsoft.DependencyInjection": "9.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.7",
-          "SimpleSocial.Domain": "1.0.0"
-        }
-      },
       "simplesocial.data": {
         "type": "Project",
         "dependencies": {
@@ -2195,18 +2187,6 @@
           "Microsoft.AspNetCore.Identity": "2.2.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.7",
           "SimpleSocial.Services.Mapping": "1.0.0"
-        }
-      },
-      "simplesocial.domain": {
-        "type": "Project"
-      },
-      "simplesocial.infrastructure": {
-        "type": "Project",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "3.1.7",
-          "Microsoft.EntityFrameworkCore.Relational": "3.1.7",
-          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.7",
-          "SimpleSocial.Application": "1.0.0"
         }
       },
       "simplesocial.services.dataservices": {
@@ -2240,14 +2220,34 @@
           "CloudinaryDotNet": "1.12.0",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "3.1.7",
           "Microsoft.AspNetCore.Identity.UI": "3.1.7",
-          "SimpleSocial.Application": "1.0.0",
           "SimpleSocial.Data": "1.0.0",
           "SimpleSocial.Data.Models": "1.0.0",
-          "SimpleSocial.Infrastructure": "1.0.0",
           "SimpleSocial.Services.DataServices": "1.0.0",
           "SimpleSocial.Services.Mapping": "1.0.0",
           "SimpleSocial.Services.Models": "1.0.0",
+          "SimpleSocial.Web.Application": "1.0.0",
+          "SimpleSocial.Web.Infrastructure": "1.0.0",
           "X.PagedList.Mvc.Core": "8.0.7"
+        }
+      },
+      "simplesocial.web.application": {
+        "type": "Project",
+        "dependencies": {
+          "MediatR.Extensions.Microsoft.DependencyInjection": "9.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.7",
+          "SimpleSocial.Web.Domain": "1.0.0"
+        }
+      },
+      "simplesocial.web.domain": {
+        "type": "Project"
+      },
+      "simplesocial.web.infrastructure": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "3.1.7",
+          "Microsoft.EntityFrameworkCore.Relational": "3.1.7",
+          "Microsoft.EntityFrameworkCore.SqlServer": "3.1.7",
+          "SimpleSocial.Web.Application": "1.0.0"
         }
       }
     }
