@@ -15,10 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Application\SimpleSocial.Web.Application\SimpleSocial.Web.Application.csproj" />
+    <ProjectReference Include="..\Application\SimpleSocial.Web.Application\SimpleSocial.Web.Application.csproj" />
+    <ProjectReference Include="..\Infrastructure\SimpleSocial.Web.Infrastructure\SimpleSocial.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Data\SimpleSocial.Data.Models\SimpleSocial.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\SimpleSocial.Data\SimpleSocial.Data.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\SimpleSocial.Web.Infrastructure\SimpleSocial.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Services\SimpleSocial.Services.Models\SimpleSocial.Services.Models.csproj" />
     <ProjectReference Include="..\..\Services\SimpleSocial.Services.DataServices\SimpleSocial.Services.DataServices.csproj" />
     <ProjectReference Include="..\..\Services\SimpleSocial.Services.Mapping\SimpleSocial.Services.Mapping.csproj" />

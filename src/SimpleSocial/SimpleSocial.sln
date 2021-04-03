@@ -31,15 +31,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Services.Model
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{D0147F21-1C66-4D6C-AFB4-075A723F9C19}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Web.Application", "Application\SimpleSocial.Web.Application\SimpleSocial.Web.Application.csproj", "{4BB7CBC7-1935-471E-A13D-A48FDD9BFCB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Web.Application", "Web\Application\SimpleSocial.Web.Application\SimpleSocial.Web.Application.csproj", "{4BB7CBC7-1935-471E-A13D-A48FDD9BFCB3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{4D5FD4A7-C6BB-4990-BCAC-5D95EA1EA0E9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{32374B88-76F8-44F1-8DB8-E5E67F53F982}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Web.Infrastructure", "Infrastructure\SimpleSocial.Web.Infrastructure\SimpleSocial.Web.Infrastructure.csproj", "{F06ABF22-C67B-496B-B36D-9FE9790141D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Web.Infrastructure", "Web\Infrastructure\SimpleSocial.Web.Infrastructure\SimpleSocial.Web.Infrastructure.csproj", "{F06ABF22-C67B-496B-B36D-9FE9790141D5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Web.Domain", "Domain\SimpleSocial.Web.Domain\SimpleSocial.Web.Domain.csproj", "{D740E00C-E0F0-446F-B24F-9DFD1CAE0BC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Web.Domain", "Web\Domain\SimpleSocial.Web.Domain\SimpleSocial.Web.Domain.csproj", "{D740E00C-E0F0-446F-B24F-9DFD1CAE0BC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
