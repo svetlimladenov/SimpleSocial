@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Services.Model
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{D0147F21-1C66-4D6C-AFB4-075A723F9C19}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Web.Application", "Application\SimpleSocial.Application\SimpleSocial.Web.Application.csproj", "{4BB7CBC7-1935-471E-A13D-A48FDD9BFCB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Web.Application", "Application\SimpleSocial.Web.Application\SimpleSocial.Web.Application.csproj", "{4BB7CBC7-1935-471E-A13D-A48FDD9BFCB3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{4D5FD4A7-C6BB-4990-BCAC-5D95EA1EA0E9}"
 EndProject
