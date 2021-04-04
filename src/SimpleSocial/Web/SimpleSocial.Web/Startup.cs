@@ -26,6 +26,8 @@ using System.Reflection;
 using SimpleSocial.Data.Seeding;
 using SimpleSocial.Application;
 using SimpleSocial.Infrastructure;
+using Elastic.Apm.AspNetCore;
+using SimpleSocial.Web.Application;
 
 namespace SimpleSocial.Web
 {
@@ -117,6 +119,9 @@ namespace SimpleSocial.Web
                 dbContext.Database.Migrate();
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
+
+
+            app.UseElasticApm(Configuration);
 
             if (env.IsDevelopment())
             {
