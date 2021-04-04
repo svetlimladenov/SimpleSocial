@@ -41,6 +41,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Web.Infrastruc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleSocial.Web.Domain", "Web\Domain\SimpleSocial.Web.Domain\SimpleSocial.Web.Domain.csproj", "{D740E00C-E0F0-446F-B24F-9DFD1CAE0BC3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{C61AF67C-9A7E-4D19-827F-225079C8BAE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSocial.Infrastructure", "Common\SimpleSocial.Infrastructure\SimpleSocial.Infrastructure.csproj", "{86F0E209-32E5-422D-8E9D-0D4C4BCFD88F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +99,10 @@ Global
 		{D740E00C-E0F0-446F-B24F-9DFD1CAE0BC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D740E00C-E0F0-446F-B24F-9DFD1CAE0BC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D740E00C-E0F0-446F-B24F-9DFD1CAE0BC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86F0E209-32E5-422D-8E9D-0D4C4BCFD88F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86F0E209-32E5-422D-8E9D-0D4C4BCFD88F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86F0E209-32E5-422D-8E9D-0D4C4BCFD88F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86F0E209-32E5-422D-8E9D-0D4C4BCFD88F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,6 +123,7 @@ Global
 		{32374B88-76F8-44F1-8DB8-E5E67F53F982} = {B3524A55-80B7-4039-A8CA-4C525CB49D65}
 		{F06ABF22-C67B-496B-B36D-9FE9790141D5} = {32374B88-76F8-44F1-8DB8-E5E67F53F982}
 		{D740E00C-E0F0-446F-B24F-9DFD1CAE0BC3} = {4D5FD4A7-C6BB-4990-BCAC-5D95EA1EA0E9}
+		{86F0E209-32E5-422D-8E9D-0D4C4BCFD88F} = {C61AF67C-9A7E-4D19-827F-225079C8BAE5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2584DF72-F5A3-4A64-9BCA-9E713E4699FB}
