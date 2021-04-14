@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\SimpleSocial.Common\SimpleSocial.Common.csproj" />
-    <ProjectReference Include="..\..\Domain\SimpleSocial.Web.Domain\SimpleSocial.Web.Domain.csproj" />
+    <ProjectReference Include="..\SimpleSocial.Web.Domain\SimpleSocial.Web.Domain.csproj" />
   </ItemGroup>
 
 </Project>
