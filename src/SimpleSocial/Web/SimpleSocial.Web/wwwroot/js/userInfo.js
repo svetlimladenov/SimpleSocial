@@ -30,7 +30,7 @@
     };
 
     const getUserInfo = async function getUserInfo(id) {
-        const url = `https://localhost:44304/Account/GetUserBoxInfo/${id}`;
+        const url = `https://localhost:5001/Account/GetUserBoxInfo/${id}`;
         const response = await fetch(url);
         const data = await response.json();
         return data;

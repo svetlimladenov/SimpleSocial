@@ -8,9 +8,11 @@
   <ItemGroup>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\SimpleSocial.Common\SimpleSocial.Common.csproj" />
     <ProjectReference Include="..\..\Domain\SimpleSocial.Web.Domain\SimpleSocial.Web.Domain.csproj" />
   </ItemGroup>
 

@@ -2090,6 +2090,9 @@
           "System.Text.Encodings.Web": "4.7.0"
         }
       },
+      "simplesocial.common": {
+        "type": "Project"
+      },
       "simplesocial.data": {
         "type": "Project",
         "dependencies": {
@@ -2112,6 +2115,13 @@
           "Microsoft.AspNetCore.Identity": "2.2.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.7",
           "SimpleSocial.Services.Mapping": "1.0.0"
+        }
+      },
+      "simplesocial.infrastructure": {
+        "type": "Project",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "3.1.14",
+          "SimpleSocial.Common": "1.0.0"
         }
       },
       "simplesocial.services.dataservices": {
@@ -2144,6 +2154,7 @@
           "MediatR.Extensions.Microsoft.DependencyInjection": "9.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.7",
           "Microsoft.Extensions.Logging.Abstractions": "5.0.0",
+          "SimpleSocial.Common": "1.0.0",
           "SimpleSocial.Web.Domain": "1.0.0"
         }
       },

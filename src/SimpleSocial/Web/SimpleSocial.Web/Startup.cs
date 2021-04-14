@@ -28,6 +28,8 @@ using SimpleSocial.Application;
 using SimpleSocial.Infrastructure;
 using Elastic.Apm.AspNetCore;
 using SimpleSocial.Web.Application;
+using SimpleSocial.Common.Logging;
+using SimpleSocial.Infrastructure.Logging;
 
 namespace SimpleSocial.Web
 {
@@ -107,6 +109,7 @@ namespace SimpleSocial.Web
 
             services.RegisterApplication();
             services.RegisterInfrastructure(this.Configuration);
+            services.AddSingleton(typeof(ISimpleSocialLogger<>), typeof(SimpleSocialLogger<>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

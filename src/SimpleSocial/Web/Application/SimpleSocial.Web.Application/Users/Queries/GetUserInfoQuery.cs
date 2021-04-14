@@ -1,8 +1,6 @@
 ﻿using MediatR;
 using SimpleSocial.Application.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,6 +33,8 @@ namespace SimpleSocial.Application.Users.Queries
                     ProfilePictureUrl = user.ProfilePictureURL
                 };
 
+                throw new Exception("booomara");
+                
                 return model;
             }
 
