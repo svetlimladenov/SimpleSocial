@@ -30,6 +30,13 @@ using Elastic.Apm.AspNetCore;
 using SimpleSocial.Web.Application;
 using SimpleSocial.Common.Logging;
 using SimpleSocial.Infrastructure.Logging;
+using Microsoft.Extensions.Logging;
+using Serilog.Extensions.Logging;
+using LoggerFactory = SimpleSocial.Infrastructure.Logging.LoggerFactory;
+using SimpleSocial.Infrastructure.DependencyInjectionExtensions;
+using SimpleSocial.Common.Tracing;
+using SimpleSocial.Infrastructure.Tracing;
+using Elastic.Apm.Api;
 
 namespace SimpleSocial.Web
 {
@@ -55,7 +62,7 @@ namespace SimpleSocial.Web
             services.AddDbContext<SimpleSocialContext>(options =>
                 options.UseSqlServer(
                     this.Configuration.GetConnectionString("DefaultConnection")));
-     
+
             services.AddIdentity<SimpleSocialUser, ApplicationRole>(
                     options =>
                     {
@@ -89,9 +96,7 @@ namespace SimpleSocial.Web
 
             services.AddSession();
 
-            //Application services
             services.AddScoped(typeof(IRepository<>), typeof(DbRepository<>));
-            //services.AddSingleton<IEmailSender, EmailSender>();
             services.AddScoped<IMyProfileServices, MyProfileServices>();
             services.AddScoped<IPostServices, PostServices>();
             services.AddScoped<ICommentsServices, CommentsServices>();
@@ -99,7 +104,7 @@ namespace SimpleSocial.Web
             services.AddScoped<IUserServices, UserServices>();
             services.AddTransient<ILikesServices, LikesServices>();
             services.AddScoped<IFollowersServices, FollowersServices>();
-            services.AddScoped<ISearchServices,SearchServices>();
+            services.AddScoped<ISearchServices, SearchServices>();
             services.AddScoped<IReportsService, ReportsService>();
             services.AddScoped<IAdministrationServices, AdministrationServices>();
             services.AddScoped<IProfilePictureService, ProfilePictureService>();
@@ -108,8 +113,11 @@ namespace SimpleSocial.Web
             services.AddSingleton(mapper);
 
             services.RegisterApplication();
-            services.RegisterInfrastructure(this.Configuration);
-            services.AddSingleton(typeof(ISimpleSocialLogger<>), typeof(SimpleSocialLogger<>));
+            services.RegisterInfrastructure(Configuration);
+            services.RegisterLogger(Configuration);
+
+            services.AddSingleton(x => Elastic.Apm.Agent.Tracer);
+            services.AddSingleton<ISimpleSocialTracer, SimpleSocialTracer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -123,9 +131,8 @@ namespace SimpleSocial.Web
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
-
-            app.UseElasticApm(Configuration);
-
+            app.UseElasticApm(Configuration); // add filter for not logging static files
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
