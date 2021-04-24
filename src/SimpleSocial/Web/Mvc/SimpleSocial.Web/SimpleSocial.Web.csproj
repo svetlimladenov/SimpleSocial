@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <UserSecretsId>aspnet-SimpleSocial.Web-1EAA991B-CA1E-4431-9E4C-D1DF46143328</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Elastic.Apm.AspNetCore" Version="1.9.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.7" />
+    <PackageReference Include="CloudinaryDotNet" Version="1.12.0" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.0.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\SimpleSocial.Common\SimpleSocial.Common.csproj" />
+    <ProjectReference Include="..\..\..\Infrastructure\SimpleSocial.Infrastructure\SimpleSocial.Infrastructure.csproj" />
+    <ProjectReference Include="..\SimpleSocial.Web.Application\SimpleSocial.Web.Application.csproj" />
+    <ProjectReference Include="..\SimpleSocial.Web.Infrastructure\SimpleSocial.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\Data\SimpleSocial.Data.Models\SimpleSocial.Data.Models.csproj" />
+    <ProjectReference Include="..\..\..\Data\SimpleSocial.Data\SimpleSocial.Data.csproj" />
+    <ProjectReference Include="..\..\..\Services\SimpleSocial.Services.Models\SimpleSocial.Services.Models.csproj" />
+    <ProjectReference Include="..\..\..\Services\SimpleSocial.Services.DataServices\SimpleSocial.Services.DataServices.csproj" />
+    <ProjectReference Include="..\..\..\Services\SimpleSocial.Services.Mapping\SimpleSocial.Services.Mapping.csproj" />
+  </ItemGroup>
+</Project>
