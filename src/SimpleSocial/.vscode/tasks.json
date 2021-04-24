@@ -24,6 +24,43 @@
             "label": "SimpleSocial: Start Web Server",
             "command": "dotnet run --project .\\Web\\SimpleSocial.Web\\SimpleSocial.Web.csproj",
             "type": "shell"
+        },
+        {
+            "label": "build mvc",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/Web/Mvc/SimpleSocial.Web/SimpleSocial.Web.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/Web/Mvc/SimpleSocial.Web/SimpleSocial.Web.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "watch",
+                "run",
+                "${workspaceFolder}/Web/Mvc/SimpleSocial.Web/SimpleSocial.Web.csproj",
+                "/property:GenerateFullPaths=true",
+                "/consoleloggerparameters:NoSummary"
+            ],
+            "problemMatcher": "$msCompile"
         }
     ]
 }
