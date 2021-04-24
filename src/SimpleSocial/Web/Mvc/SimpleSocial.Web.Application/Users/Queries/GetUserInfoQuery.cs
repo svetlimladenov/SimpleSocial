@@ -24,7 +24,7 @@ namespace SimpleSocial.Application.Users.Queries
                 var user = await userRepository.GetUserAsync(request.UserId);
                 var model = new UserBoxInfoModel()
                 {
-                    Username = user.Username,
+                    Username = user.Username,   
                     FullName = $"{user.FirstName} {user.LastName}", // move this to the domain model
                     Age = CalculateAge(user.BirthDay),
                     Birthday = user.BirthDay,
@@ -33,8 +33,6 @@ namespace SimpleSocial.Application.Users.Queries
                     ProfilePictureUrl = user.ProfilePictureURL
                 };
 
-                throw new Exception("booomara");
-                
                 return model;
             }
 
