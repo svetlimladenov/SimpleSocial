@@ -1,6 +1,6 @@
 # SimpleSocial
 
-A simple social network web application using ASP.NET Core 3.1
+A simple social network web application build with ASP.NET Core 3.1
 
 | CI service | Status |
 |---|---|
