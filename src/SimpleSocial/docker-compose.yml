@@ -2,7 +2,9 @@ version: "3.8"
 services:
     web:
       container_name: web
-      build: .
+      build: 
+        context: .
+        dockerfile: Web/Mvc/SimpleSocial.Web/Dockerfile
       ports:
           - "8080:80"
       depends_on:

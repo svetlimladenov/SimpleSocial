@@ -4,7 +4,7 @@ WORKDIR /src
 COPY . ./
 RUN dotnet restore "SimpleSocial.sln"
 
-WORKDIR /src/Web/SimpleSocial.Web
+WORKDIR /src/Web/Mvc/SimpleSocial.Web
 #Publish in /app/build
 RUN dotnet publish -c Release -o /app/build
 
