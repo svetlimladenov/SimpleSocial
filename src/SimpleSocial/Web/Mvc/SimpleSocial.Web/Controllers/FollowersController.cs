@@ -6,7 +6,7 @@ using SimpleSocial.Services.DataServices.FollowersDataServices;
 using X.PagedList;
 using System.Threading.Tasks;
 using System.Linq;
-using SimpleSocial.Services.DataServices.UsersDataServices;
+using SimpleSocial.Services.DataServices.UsersDataServices; 
 
 namespace SimpleSocial.Web.Controllers
 {
