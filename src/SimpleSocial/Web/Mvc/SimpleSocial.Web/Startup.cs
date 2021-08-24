@@ -143,9 +143,16 @@ namespace SimpleSocial.Web
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
+
+            app.UseCors(config => 
+            {
+                config.AllowAnyHeader();
+                config.AllowAnyMethod();
+                config.AllowAnyOrigin();
+            });
+            
             app.UseHttpsRedirection();
             app.UseCookiePolicy();
-
             app.UseRouting();
 
             app.UseStaticFiles();
