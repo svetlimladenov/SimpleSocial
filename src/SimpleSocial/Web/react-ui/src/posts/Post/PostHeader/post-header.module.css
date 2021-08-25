@@ -1,0 +1,19 @@
+.header-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-header,
+.right-header {
+  display: flex;
+  align-items: center;
+}
+
+.left-head:after {
+  content: attr(data-attr);
+  margin: 10px;
+  font-size: 1.2rem;
+  color: grey;
+}
