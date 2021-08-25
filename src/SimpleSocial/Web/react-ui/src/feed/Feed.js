@@ -1,10 +1,7 @@
 import React from "react";
 import CreatePost from "../posts/CreatePost/CreatePost";
 import Post from "../posts/Post/Post";
-import {
-  fetchFeedPosts,
-  fetchUserPosts
-} from "../posts/services/post-services";
+import { fetchUserPosts } from "../posts/services/post-services";
 
 class Feed extends React.Component {
   constructor(props) {
@@ -28,17 +25,14 @@ class Feed extends React.Component {
 
   fetchPosts() {
     const { userInfo } = this.props;
-
-    if (userInfo.id) {
-      fetchUserPosts(userInfo.id).then((data) => {
+    if (userInfo.userId) {
+      fetchUserPosts(userInfo.userId).then((data) => {
         this.setState((state) => {
           return {
             posts: [...state.posts, ...data]
           };
         });
       });
-    } else {
-      // fetchFeedPosts().then();
     }
   }
 

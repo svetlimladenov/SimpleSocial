@@ -1,6 +1,21 @@
+.profilePictureWrapper {
+  border-radius: 50%;
+}
+
 .profilePicture {
   border-radius: 50%;
-  left: 0;
-  top: 0;
-  border: 0;
+}
+
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
 }

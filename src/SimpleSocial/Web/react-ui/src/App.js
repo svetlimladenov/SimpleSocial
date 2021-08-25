@@ -1,12 +1,12 @@
 import "./App.css";
-import UserProfile from "./user-profile";
+import MyProfile from "./my-profile/MyProfile";
 import Container from "./shared/Container/Container";
 
 function App() {
   return (
     <div className="body-wrapper">
       <Container>
-        <UserProfile userId={3} />
+        <MyProfile userId={3} />
       </Container>
     </div>
   );

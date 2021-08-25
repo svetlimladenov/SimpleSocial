@@ -8,3 +8,7 @@
   border-top: 1px solid #e9ebee;
   padding: 10px 20px;
 }
+
+.user-details > div {
+  margin: 5px 0;
+}

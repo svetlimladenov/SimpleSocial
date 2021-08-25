@@ -5,8 +5,16 @@ class ProfilePicture extends React.Component {
   render() {
     const { src, alt, width, height } = this.props;
 
+    const style = {
+      width: width,
+      height: height
+    };
+
     return (
-      <div className={styles["profile-picture"]}>
+      <div
+        className={`${styles.skeleton} ${styles.profilePictureWrapper}`}
+        style={style}
+      >
         <img
           src={src}
           alt={alt}

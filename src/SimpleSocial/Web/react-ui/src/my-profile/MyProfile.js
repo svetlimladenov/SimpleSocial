@@ -1,15 +1,15 @@
 import React from "react";
 import Row from "../shared/Row/Row";
-import AsideUserInfo from "./aside-info/AsideInfo";
+import AsideUserBox from "../user/aside-user-box/AsideUserBox";
 import Feed from "../feed/Feed";
-import { loadUserData } from "./services/user-services";
+import { loadUserData } from "../user/services/user-services";
 
-class UserProfile extends React.Component {
+class MyProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       userInfo: {
-        id: this.props.userId,
+        userId: props.userId,
         username: "",
         profilePictureSrc: "",
         details: {
@@ -27,7 +27,7 @@ class UserProfile extends React.Component {
       this.setState((state) => {
         return {
           userInfo: {
-            userId: state.userInfo.id,
+            userId: state.userInfo.userId,
             username: data.username,
             profilePictureSrc: data.profilePictureUrl,
             details: {
@@ -47,17 +47,17 @@ class UserProfile extends React.Component {
     return (
       <Row>
         <div className="col-md-3">
-          <AsideUserInfo userInfo={userInfo} />
+          <AsideUserBox {...userInfo} />
         </div>
         <div className="col-md-6">
           <Feed userInfo={userInfo} />
         </div>
         <div className="col-md-3">
-          <AsideUserInfo userInfo={userInfo} />
+          <AsideUserBox {...userInfo} />
         </div>
       </Row>
     );
   }
 }
 
-export default UserProfile;
+export default MyProfile;
