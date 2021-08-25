@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SimpleSocial.Api.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/posts")]
     public class PostController : ControllerBase
     {
         private readonly SimpleSocialContext context;
@@ -18,18 +18,35 @@ namespace SimpleSocial.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Posts()
+        public IActionResult GetPosts()
         {
             var allPosts = this.context.Posts.ToList();
 
             return new JsonResult(allPosts);
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> Get(int id)
-        //{
-        //    var post = await this.context.Posts.FirstOrDefaultAsync(p => p.Id == id);
-        //    return Ok(post);
-        //}
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetPost(int id)
+        {
+            var post = await this.context.Posts.FirstOrDefaultAsync(p => p.Id == id);
+            return Ok(post);
+        }
+
+        [HttpGet("/api/users/{userId:int}/posts")]
+        public async Task<IActionResult> GetUserPosts(int userId)
+        {
+            var posts = await this.context.Posts
+                .Where(x => x.UserId == userId && x.IsDeleted == false)
+                .Select(x => new 
+                {
+                    x.Id,
+                    x.Title,
+                    x.Content,
+                    x.CreatedOn
+                })
+                .ToListAsync();
+
+            return Ok(posts);
+        }
     }
 }
