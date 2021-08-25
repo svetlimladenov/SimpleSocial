@@ -31,7 +31,7 @@ namespace SimpleSocial.Api
 
             services.AddControllers(setupAction => 
             {
-                setupAction.ReturnHttpNotAcceptable = true;
+                setupAction.ReturnHttpNotAcceptable = true; 
             }).AddXmlDataContractSerializerFormatters();
 
             services.AddSwaggerGen(c =>
@@ -51,6 +51,10 @@ namespace SimpleSocial.Api
             }
 
             app.UseHttpsRedirection();
+            app.UseCors(options =>
+            {
+                options.WithOrigins("http://localhost:3000");
+            });
 
             app.UseRouting();
 
