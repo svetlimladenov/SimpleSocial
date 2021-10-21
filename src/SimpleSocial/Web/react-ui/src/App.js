@@ -1,7 +1,15 @@
 import "./App.css";
+import Footer from "./common/Footer";
+import Wrapper from "./common/Wrapper";
+import Navigation from "./navigation/Navigation";
 
 const App = () => {
-  return <h1>Simple Social Network Build With React.js and .NET</h1>;
+  return (
+    <Wrapper>
+      <Navigation />
+      <Footer />
+    </Wrapper>
+  );
 };
 
 export default App;
