@@ -1,14 +1,13 @@
 import "./App.css";
 import Footer from "./common/Footer";
-import Wrapper from "./common/Wrapper";
-import Navigation from "./navigation/Navigation";
+import Header from "./navigation/Header";
 
 const App = () => {
   return (
-    <Wrapper>
-      <Navigation />
+    <>
+      <Header />
       <Footer />
-    </Wrapper>
+    </>
   );
 };
 

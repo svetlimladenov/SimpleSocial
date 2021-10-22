@@ -1,3 +1,5 @@
-.body-wrapper {
-  background-color: #e9ebee;
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
