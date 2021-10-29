@@ -1,6 +1,6 @@
 import { Switch, Route } from "react-router";
-import Feed from "../feed/Feed";
-import Profile from "../profile/Profile";
+import Feed from "./components/Feed";
+import Profile from "./profile/Profile";
 
 const NavigationSwitch = () => {
   return (
