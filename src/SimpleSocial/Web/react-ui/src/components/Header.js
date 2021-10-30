@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo_mini.png";
 import styled from "styled-components";
-import ProfilePictureLink from "./ProfilePicture";
+
+import ProfilePictureLink from "./ProfilePictureLink";
 
 const Header = () => {
   return (
@@ -37,7 +38,8 @@ const StyledHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   background: #24252a;
-  padding: 1em 0;
+  padding: 1em 1em;
+  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.8);
 
   & nav ul {
     display: flex;

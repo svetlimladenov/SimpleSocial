@@ -2,7 +2,7 @@ import { Switch, Route } from "react-router";
 import Feed from "./components/Feed";
 import Profile from "./profile/Profile";
 
-const NavigationSwitch = () => {
+const Pages = () => {
   return (
     <Switch>
       <Route exact path="/">
@@ -18,4 +18,4 @@ const NavigationSwitch = () => {
   );
 };
 
-export default NavigationSwitch;
+export default Pages;
