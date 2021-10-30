@@ -3,10 +3,14 @@ import logo from "../assets/logo_mini.png";
 import styled from "styled-components";
 
 import ProfilePictureLink from "./ProfilePictureLink";
+import ThemeContext from "../context/ThemeContext";
+import { useContext } from "react";
 
 const Header = () => {
+  const theme = useContext(ThemeContext);
+
   return (
-    <StyledHeader>
+    <StyledHeader theme={theme}>
       <Logo />
       <nav>
         <ul>
@@ -37,9 +41,8 @@ const StyledHeader = styled.header`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #24252a;
-  padding: 1em 1em;
-  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.8);
+  background: ${(props) => props.theme.secondary};
+  padding: 0.5em 1em;
 
   & nav ul {
     display: flex;
@@ -47,18 +50,18 @@ const StyledHeader = styled.header`
 
   & nav ul li {
     display: block;
-    font-size: 2em;
+    font-size: 1.7em;
     padding: 0 1em;
   }
 
   & nav ul li a {
-    color: white;
+    color: ${(props) => props.theme.text};
   }
 `;
 
 const Logo = styled.img`
   display: block;
-  width: 200px;
+  width: 150px;
 `;
 
 Logo.defaultProps = {

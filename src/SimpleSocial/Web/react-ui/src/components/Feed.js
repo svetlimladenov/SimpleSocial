@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import ThemeContext, { themes } from "../context/ThemeContext";
 
 import fakePosts from "../fakeData/posts";
 import Post from "./Post";
 
 const Feed = () => {
+  const theme = useContext(ThemeContext);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -12,7 +14,7 @@ const Feed = () => {
   }, []);
 
   return (
-    <StyledFeed>
+    <StyledFeed theme={theme}>
       <Main>
         {posts.map((post) => {
           return <Post key={post.id} {...post} />;
@@ -25,7 +27,12 @@ const Feed = () => {
 
 const StyledFeed = styled.div`
   display: flex;
+  background: ${(props) => props.theme.primary};
 `;
+
+StyledFeed.defaultProps = {
+  theme: themes.dark,
+};
 
 const Main = styled.main`
   display: flex;
@@ -33,7 +40,5 @@ const Main = styled.main`
   max-width: 800px;
   margin: 0 auto;
 `;
-
-const Aside = styled.aside``;
 
 export default Feed;
